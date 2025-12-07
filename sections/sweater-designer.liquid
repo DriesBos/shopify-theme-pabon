@@ -717,235 +717,400 @@
       "default": "Cream"
     }
   ],
-  "presets": [
-    { "name": "Sweater Designer" }
-  ]
+  "presets": [{ "name": "Sweater Designer" }]
 }
 {% endschema %}
 
-<div class="sweater-designer" style="margin:120px auto; display:flex; flex-direction:column; align-items:center; font-family:Jost, sans-serif; width:100%; max-width:100%; justify-content:center; position:relative;">
-
+<div
+  class='sweater-designer'
+  style='margin:120px auto; padding:0 1rem; display:flex; font-family:Jost, sans-serif; width:100%; position:relative;'
+>
   <!-- SWEATER AREA (now on left) -->
-  <div id="sweater-area" style="flex:1; position:relative; order:1; width:100%;">
-
+  <div id='sweater-area' style='flex:1 1 0; position:relative; order:1; width:100%;'>
     <!-- Combined sweater + swatches container with border -->
-    <div id="sweater-and-swatches-container" style="border: 12px solid #000; padding: 20px; box-sizing: border-box; max-width: 860px; margin: 0 auto; position: relative;">
-      
+    <div
+      id='sweater-and-swatches-container'
+      style='border: 12px solid #000; padding: 20px; box-sizing: border-box; max-width: 860px; margin: 0 auto; position: relative;'
+    >
       <!-- reset and random buttons -->
-      <div id="controls-column-left" style="position:absolute; bottom:12px; left:12px; display:flex; flex-direction:column; align-items:flex-start;">
-        <button id="random-btn" class="btn-secondary btn-secondary-desktop" type="button" style="display:flex; gap:2px; align-items:center; justify-content:flex-start; padding:10px 12px; border-radius:0; width:120px; cursor:pointer; color:black; border:none; font-weight:600; font-size:10px; letter-spacing:0.3px; text-transform:uppercase; text-decoration:underline; background:none;">
+      <div
+        id='controls-column-left'
+        style='position:absolute; bottom:12px; left:12px; display:flex; flex-direction:column; align-items:flex-start;'
+      >
+        <button
+          id='random-btn'
+          class='btn-secondary btn-secondary-desktop'
+          type='button'
+          style='display:flex; gap:2px; align-items:center; justify-content:flex-start; padding:10px 12px; border-radius:0; width:120px; cursor:pointer; color:black; border:none; font-weight:600; font-size:10px; letter-spacing:0.3px; text-transform:uppercase; text-decoration:underline; background:none;'
+        >
           <span>Randomize</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 -960 960 960"><path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/></svg>
+          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
+            <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/>
+          </svg>
         </button>
-        <button id="default-btn" type="button" style="padding:10px 12px; display:flex; gap:2px; align-items:center; justify-content:flex-start; border-radius:0; width:120px; cursor:pointer; background:none; color:black; text-decoration:underline; border:none; font-weight:600; font-size:10px; letter-spacing:0.3px; text-transform:uppercase;">
+        <button
+          id='default-btn'
+          type='button'
+          style='padding:10px 12px; display:flex; gap:2px; align-items:center; justify-content:flex-start; border-radius:0; width:120px; cursor:pointer; background:none; color:black; text-decoration:underline; border:none; font-weight:600; font-size:10px; letter-spacing:0.3px; text-transform:uppercase;'
+        >
           <span>Reset</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 -960 960 960"><path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/></svg>
+          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
+            <path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/>
+          </svg>
         </button>
-        <button id="info-btn" aria-label="details" style="display:flex; gap:2px; align-items:center; justify-content:flex-start; padding:10px 12px; border-radius:0; background:none; color:black; text-decoration:underline; border:none; cursor:pointer; font-size:10px; width:120px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;">
+        <button
+          id='info-btn'
+          aria-label='details'
+          style='display:flex; gap:2px; align-items:center; justify-content:flex-start; padding:10px 12px; border-radius:0; background:none; color:black; text-decoration:underline; border:none; cursor:pointer; font-size:10px; width:120px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;'
+        >
           <span>Info</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 -960 960 960"><path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/></svg>
+          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
+            <path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/>
+          </svg>
         </button>
       </div>
 
-      <button id="tutorial-btn" title="Show tutorial">?</button>
-      
-      <div id="sweater-svg-wrapper" style="width:100%; margin:0 auto; overflow:visible; transition: transform 0.3s ease;">
-        <svg id="sweater-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" style="width:100%; height:auto; display:block; max-height:900px;">
+      <button id='tutorial-btn' title='Show tutorial'>?</button>
+
+      <div
+        id='sweater-svg-wrapper'
+        style='width:100%; margin:0 auto; overflow:visible; transition: transform 0.3s ease;'
+      >
+        <svg
+          id='sweater-svg'
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 1920 1080'
+          style='width:100%; height:auto; display:block; max-height:900px;'
+        >
           {% include 'sweater-svg-content' %}
         </svg>
       </div>
 
       <!-- Desktop: Swatches underneath sweater (inside same box) -->
-      <div style="position:relative; display:flex; justify-content:center; margin-top:20px;">
-        <div id="swatch-container" style="display:flex; flex-direction:row; justify-content:center; gap:12px; padding:0; background:none; border:none;"></div>
-        
+      <div style='position:relative; display:flex; justify-content:center; margin-top:20px;'>
+        <div
+          id='swatch-container'
+          style='display:flex; flex-direction:row; justify-content:center; gap:12px; padding:0; background:none; border:none;'
+        ></div>
+
         <!-- Color Picker Tooltip -->
-        <div id="color-picker-tooltip" style="display:none; position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%); background:#000; color:#fff; padding:8px 12px; border-radius:0; font-size:10px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase; white-space:nowrap; z-index:1000; pointer-events:auto; font-family:Arial, sans-serif;">
+        <div
+          id='color-picker-tooltip'
+          style='display:none; position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%); background:#000; color:#fff; padding:8px 12px; border-radius:0; font-size:10px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase; white-space:nowrap; z-index:1000; pointer-events:auto; font-family:Arial, sans-serif;'
+        >
           Select color, click a stripe
-          <div style="position:absolute; top:100%; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:6px solid #000;"></div>
+          <div
+            style='position:absolute; top:100%; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:6px solid #000;'
+          ></div>
         </div>
       </div>
     </div>
 
     <!-- Sweater title and navigation -->
-    <div id="sweater-navigation" style="display:flex; align-items:center; justify-content:center; gap:12px; margin-top:16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif; position:relative;">
+    <div
+      id='sweater-navigation'
+      style="display:flex; align-items:center; justify-content:center; gap:1rem; margin-top:1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif; position:relative;"
+    >
       <!-- Mobile zoom buttons positioned next to navigation -->
-      <button id="mobile-zoom-out" style="display: none; position:absolute; left:-60px; width: 32px; height: 32px; border: 2px solid #ccc; background: white; cursor: pointer; border-radius: 50%; align-items: center; justify-content: center; font-size: 16px; color: #666; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">−</button>
-      
-      <button id="prev-designer" style="background:transparent !important; border:none !important; cursor:pointer; padding:4px; display:flex; align-items:center; justify-content:center; opacity: 0.3; outline:none !important; box-shadow:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+      <button
+        id='mobile-zoom-out'
+        style='display: none; position:absolute; left:-60px; width: 32px; height: 32px; border: 2px solid #ccc; background: white; cursor: pointer; border-radius: 50%; align-items: center; justify-content: center; font-size: 16px; color: #666; box-shadow: 0 2px 6px rgba(0,0,0,0.15);'
+      >
+        −
+      </button>
+      <button
+        id='prev-designer'
+        style='background:transparent !important; border:none !important; cursor:pointer; padding:4px; display:flex; align-items:center; justify-content:center; opacity: 0.3; outline:none !important; box-shadow:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;'
+      >
+        <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#666' stroke-width='2'>
           <polyline points="15,18 9,12 15,6"></polyline>
         </svg>
       </button>
-      <h3 id="designer-name" style="margin:0; font-size:18px; font-weight:400; color:#333;">David Hockney (60s)</h3>
-      <button id="next-designer" style="background:transparent !important; border:none !important; cursor:pointer; padding:4px; display:flex; align-items:center; justify-content:center; outline:none !important; box-shadow:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+      <h3 id='designer-name' style='margin:0; font-size:20px; color:currentColor;'>David Hockney (60s)</h3>
+      <button
+        id='next-designer'
+        style='background:transparent !important; border:none !important; cursor:pointer; padding:4px; display:flex; align-items:center; justify-content:center; outline:none !important; box-shadow:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;'
+      >
+        <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#666' stroke-width='2'>
           <polyline points="9,18 15,12 9,6"></polyline>
         </svg>
       </button>
-      
-      <button id="mobile-zoom-in" style="display: none; position:absolute; right:-60px; width: 32px; height: 32px; border: 2px solid #ccc; background: white; cursor: pointer; border-radius: 50%; align-items: center; justify-content: center; font-size: 16px; color: #666; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">+</button>
+      <button
+        id='mobile-zoom-in'
+        style='display: none; position:absolute; right:-60px; width: 32px; height: 32px; border: 2px solid #ccc; background: white; cursor: pointer; border-radius: 50%; align-items: center; justify-content: center; font-size: 16px; color: #666; box-shadow: 0 2px 6px rgba(0,0,0,0.15);'
+      >
+        +
+      </button>
     </div>
 
     <!-- Mobile Controls Panel (hidden on desktop) -->
-    <div class="mobile-controls-panel" style="display: none;">
-      <div class="mobile-controls-grid">
-        <div style="text-align: center; font-size: 16px; font-weight: 700; color: #333; display: flex; align-items: center; justify-content: center; grid-column: 1 / -1;">
-  €320
-</div>
-        <select id="sweater-size-mobile" style="padding:8px 10px; border-radius:0; border:2px solid #000; width:100%; text-align:center; font-size:11px; background:#fff; -webkit-appearance:none; -moz-appearance:none; appearance:none;">
-          <option value="XXS">XXS</option>
-          <option value="XS">XS</option>
-          <option value="S">S</option>
-          <option value="M" selected>M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
+    <div class='mobile-controls-panel' style='display: none;'>
+      <div class='mobile-controls-grid'>
+        <div style='text-align: center; font-size: 16px; font-weight: 700; color: #333; display: flex; align-items: center; justify-content: center; grid-column: 1 / -1;'>
+          €320
+        </div>
+        <select
+          id='sweater-size-mobile'
+          style='padding:8px 10px; border-radius:0; border:2px solid #000; width:100%; text-align:center; font-size:11px; background:#fff; -webkit-appearance:none; -moz-appearance:none; appearance:none;'
+        >
+          <option value='XXS'>XXS</option>
+          <option value='XS'>XS</option>
+          <option value='S'>S</option>
+          <option value='M' selected>M</option>
+          <option value='L'>L</option>
+          <option value='XL'>XL</option>
         </select>
 
-        <button id="add-to-cart-mobile" style="padding:14px 12px; border-radius:0; background:#0090C1; color:#fff; border:none; cursor:pointer; width:100%; font-size:9px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;">
+        <button
+          id='add-to-cart-mobile'
+          style='padding:14px 12px; border-radius:0; background:#0090C1; color:#fff; border:none; cursor:pointer; width:100%; font-size:9px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;'
+        >
           ADD TO BAG
         </button>
 
-        <button id="random-btn-mobile" class="btn-secondary btn-secondary-mobile" type="button" style="display:flex; gap:2px; align-items:center; justify-content:center; padding:8px; border-radius:0; width:100%; cursor:pointer; color:black; border:none; font-size:9px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase; text-decoration:underline; background:none;">
+        <button
+          id='random-btn-mobile'
+          class='btn-secondary btn-secondary-mobile'
+          type='button'
+          style='display:flex; gap:2px; align-items:center; justify-content:center; padding:8px; border-radius:0; width:100%; cursor:pointer; color:black; border:none; font-size:9px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase; text-decoration:underline; background:none;'
+        >
           <span>Randomize</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 -960 960 960"><path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/></svg>
+          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
+            <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/>
+          </svg>
         </button>
-        <button id="default-btn-mobile" type="button" style="display:flex; gap:2px; align-items:center; justify-content:center; padding:8px; border-radius:0; width:100%; cursor:pointer; background:none; color:black; text-decoration:underline; border:none; font-size:9px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;">
-            <span>reset</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 -960 960 960"><path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/></svg>
-      </button>
+        <button
+          id='default-btn-mobile'
+          type='button'
+          style='display:flex; gap:2px; align-items:center; justify-content:center; padding:8px; border-radius:0; width:100%; cursor:pointer; background:none; color:black; text-decoration:underline; border:none; font-size:9px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;'
+        >
+          <span>reset</span>
+          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
+            <path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/>
+          </svg>
+        </button>
 
-        <button id="info-btn-mobile" aria-label="details" style="display:flex; gap:2px; align-items:center; justify-content:center; padding:8px 12px; border-radius:0; background:none; color:black; text-decoration:underline; border:none; cursor:pointer; font-size:9px; width:100%; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;">
-                  <span>Info</span>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 -960 960 960"><path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/></svg>
-</button>
-        
+        <button
+          id='info-btn-mobile'
+          aria-label='details'
+          style='display:flex; gap:2px; align-items:center; justify-content:center; padding:8px 12px; border-radius:0; background:none; color:black; text-decoration:underline; border:none; cursor:pointer; font-size:9px; width:100%; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;'
+        >
+          <span>Info</span>
+          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
+            <path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/>
+          </svg>
+        </button>
       </div>
-      
-      <p class="mobile-instruction-text">Customize yours.</p>
+
+      <p class='mobile-instruction-text'>Customize yours.</p>
 
       <!-- Mini Designer Image (mobile) - Square with border -->
-      <div id="mini-designer-image-mobile" style="width:180px; height:180px; border-radius:0; overflow:hidden; border:3px solid #000; cursor:pointer; transition:all 0.3s ease; margin-top:8px; box-shadow:0 4px 8px rgba(0,0,0,0.15); position:relative;">
-        <img id="mini-designer-img-mobile" src="https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#" style="width:100%; height:100%; object-fit:cover;">
-        <video id="mini-designer-video-mobile" muted playsinline style="display:none; width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;"></video>
+      <div
+        id='mini-designer-image-mobile'
+        style='width:180px; height:180px; border-radius:0; overflow:hidden; border:3px solid #000; cursor:pointer; transition:all 0.3s ease; margin-top:8px; box-shadow:0 4px 8px rgba(0,0,0,0.15); position:relative;'
+      >
+        <img
+          id='mini-designer-img-mobile'
+          src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#'
+          style='width:100%; height:100%; object-fit:cover;'
+        >
+        <video
+          id='mini-designer-video-mobile'
+          muted
+          playsinline
+          style='display:none; width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;'
+        ></video>
       </div>
     </div>
 
-    <div id="name-label-preview" style="display:none; text-align:center; font-size:26px; font-weight:700; margin-top:10px;"></div>
-
+    <div
+      id='name-label-preview'
+      style='display:none; text-align:center; font-size:26px; font-weight:700; margin-top:10px;'
+    ></div>
   </div>
 
-  <!-- RIGHT CONTROLS PANEL (moved from left) -->
-  <div id="controls-panel" style="display:flex; flex-direction:row; align-items:flex-end; justify-content:space-between; width:100%; box-sizing:border-box; position:relative; order:2; max-width: 860px; margin: 0 auto; position:relative;">
-    <div style="width:120px;"></div>
+  <div
+    id='controls-panel'
+    style='flex:1;display:flex; flex-direction:column; justify-content:space-around; width:100%; max-width:160px; box-sizing:border-box; position:relative; order:2;'
+  >
     <!-- Pricing (moved above size selector) -->
     {% comment %} <p style="margin:0 0 12px 0; font-size:16px; color:#000; text-align:center; max-width:120px; line-height:1.4;">Customize yours.</p> {% endcomment %}
     <!-- Deadline Timer -->
-    {% comment %} <div id="deadline-timer-container" style="position: relative; display:none; width: 120px;">
-      <div id="deadline-timer" style="background: #fff; border: 2px solid #000; padding: 8px 10px; text-align: center; cursor: default; transition: all 0.2s ease;">
-        <span id="countdown-display" style="font-size: 11px; font-weight: 600; color: #000; font-family: 'Courier New', monospace; letter-spacing: 0.5px;"></span>
+    {% comment %}
+      <div id="deadline-timer-container" style="position: relative; display:none; width: 120px;">
+        <div id="deadline-timer" style="background: #fff; border: 2px solid #000; padding: 8px 10px; text-align: center; cursor: default; transition: all 0.2s ease;">
+          <span id="countdown-display" style="font-size: 11px; font-weight: 600; color: #000; font-family: 'Courier New', monospace; letter-spacing: 0.5px;"></span>
+        </div>
+        <div id="deadline-tooltip" style="display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 6px 10px; font-size: 10px; white-space: nowrap; margin-bottom: 6px; z-index: 100;">
+          Deadline closes at: Dec 19th, 00:00h
+          <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #000;"></div>
+        </div>
       </div>
-      <div id="deadline-tooltip" style="display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 6px 10px; font-size: 10px; white-space: nowrap; margin-bottom: 6px; z-index: 100;">
-        Deadline closes at: Dec 19th, 00:00h
-        <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #000;"></div>
-      </div>
-    </div> {% endcomment %}
-    <div id="controls-column-center" style="display:flex; flex-direction:column; align-items:center; gap:8px; width:100%; max-width:300px;"> 
-      <p style="margin:12px 0 16px 0; font-size:16px; color:#000; text-align:center; width:100%; max-width:100%; line-height:1.4;"><strong>€320</strong></p>
-      <div class="mobile-controls-grid">
-        <select id="sweater-size" style="padding:8px 10px; border-radius:8px; border:1px solid #ccc; width:100%; text-align:center; cursor:pointer;">
-          <option value="XXS">XXS</option>
-          <option value="XS">XS</option>
-          <option value="S">S</option>
-          <option value="M" selected>M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
+    {% endcomment %}
+    <div
+      id='controls-column-center'
+      style='display:flex; flex-direction:column; align-items:center; gap:0.5rem; width:100%; max-width:300px;'
+    >
+      <p style='font-size:22px; padding:0; margin:0; margin-bottom:0.5rem; color:#000; text-align:center; width:100%; max-width:100%; line-height:1.4;'>
+        <strong>€320</strong>
+      </p>
+      <div class='mobile-controls-grid'>
+        <select
+          id='sweater-size'
+          style="padding:8px 10px; border-radius:8px; border:2px solid #ccc; font-size:18px; width:100%; text-align:center; cursor:pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;"
+        >
+          <option value='XXS'>XXS</option>
+          <option value='XS'>XS</option>
+          <option value='S'>S</option>
+          <option value='M' selected>M</option>
+          <option value='L'>L</option>
+          <option value='XL'>XL</option>
         </select>
-        <button id="add-to-cart" style="padding:14px 16px; border-radius:0; background:#0090C1; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:11px; letter-spacing:0.5px; text-transform:uppercase;">
+        <button
+          id='add-to-cart'
+          style='padding:16px 16px; border-radius:0; background:black; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:12px; letter-spacing:0.5px; text-transform:uppercase;'
+        >
           ADD TO BAG
         </button>
-        <input id="custom-name" type="text" placeholder="name?" style="display: none;" />
+        <input id='custom-name' type='text' placeholder='name?' style='display: none;'>
       </div>
     </div>
 
     <!-- Mini Designer Image (desktop only) - Square with border -->
-    <div id="mini-designer-image" style="width:120px; height:120px; border-radius:0; overflow:hidden; border:3px solid #000; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 8px rgba(0,0,0,0.15); margin-top:16px; position:relative;">
-      <img id="mini-designer-img" src="https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#" style="width:100%; height:100%; object-fit:cover;">
-      <video id="mini-designer-video" muted playsinline style="display:none; width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;"></video>
+    <div
+      id='mini-designer-image'
+      style='width:100%; aspect-ratio:1 / 1; border-radius:0; overflow:hidden; border:3px solid #000; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 8px rgba(0,0,0,0.15); margin-top:16px; position:relative;'
+    >
+      <img
+        id='mini-designer-img'
+        src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#'
+        style='width:100%; height:100%; object-fit:cover;'
+      >
+      <video
+        id='mini-designer-video'
+        muted
+        playsinline
+        style='display:none; width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;'
+      ></video>
     </div>
-
   </div>
-
 </div>
 
 <!-- Animated cursor for tutorial -->
-<div class="tutorial-cursor" id="tutorial-cursor">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<div class='tutorial-cursor' id='tutorial-cursor'>
+  <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
     <path d="M3 3L10.07 19.97L12.58 12.58L19.97 10.07L3 3Z" fill="white" stroke="black" stroke-width="1.5"/>
   </svg>
 </div>
 
 <!-- Hidden input to store product variant ID from Shopify -->
-<input type="hidden" id="product-variant-id" value="53362523865419">
+<input type='hidden' id='product-variant-id' value='53362523865419'>
 
 <!-- Expanded Designer Image Overlay with Carousel -->
-<div id="expanded-designer-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9998; cursor:pointer; overflow-y:auto;">
-  <button id="close-overlay-btn" style="position:fixed; top:20px; right:20px; background:transparent; border:none; color:white; font-size:32px; cursor:pointer; z-index:10000; width:44px; height:44px; display:flex; align-items:center; justify-content:center;">×</button>
-  
-  <div id="expanded-content" style="position:relative; max-width:700px; width:90%; margin:40px auto; padding-bottom:40px;">
-    
+<div
+  id='expanded-designer-overlay'
+  style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9998; cursor:pointer; overflow-y:auto;'
+>
+  <button
+    id='close-overlay-btn'
+    style='position:fixed; top:20px; right:20px; background:transparent; border:none; color:white; font-size:32px; cursor:pointer; z-index:10000; width:44px; height:44px; display:flex; align-items:center; justify-content:center;'
+  >
+    ×
+  </button>
+
+  <div
+    id='expanded-content'
+    style='position:relative; max-width:700px; width:90%; margin:40px auto; padding-bottom:40px;'
+  >
     <!-- Carousel Container -->
-    <div id="carousel-container" style="position:relative; width:100%; background:#000;">
-      
+    <div id='carousel-container' style='position:relative; width:100%; background:#000;'>
       <!-- Carousel Images/Video -->
-      <div id="carousel-track" style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden;">
-        <div class="carousel-slide active" data-index="0">
-          <img id="carousel-img-0" src="" style="width:100%; height:100%; object-fit:contain;">
+      <div id='carousel-track' style='position:relative; width:100%; aspect-ratio:4/3; overflow:hidden;'>
+        <div class='carousel-slide active' data-index='0'>
+          <img id='carousel-img-0' src='' style='width:100%; height:100%; object-fit:contain;'>
         </div>
-        <div class="carousel-slide" data-index="1" style="display:none;">
-          <img id="carousel-img-1" src="" style="width:100%; height:100%; object-fit:contain;">
+        <div class='carousel-slide' data-index='1' style='display:none;'>
+          <img id='carousel-img-1' src='' style='width:100%; height:100%; object-fit:contain;'>
         </div>
-        <div class="carousel-slide" data-index="2" style="display:none;">
-          <img id="carousel-img-2" src="" style="width:100%; height:100%; object-fit:contain;">
+        <div class='carousel-slide' data-index='2' style='display:none;'>
+          <img id='carousel-img-2' src='' style='width:100%; height:100%; object-fit:contain;'>
         </div>
-        <div class="carousel-slide carousel-video-slide" data-index="3" style="display:none;">
-          <video id="carousel-video" controls playsinline webkit-playsinline style="width:100%; height:100%; object-fit:contain; background:#000;"></video>
+        <div class='carousel-slide carousel-video-slide' data-index='3' style='display:none;'>
+          <video
+            id='carousel-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000;'
+          ></video>
         </div>
       </div>
-      
+
       <!-- Carousel Navigation Arrows -->
-      <button id="carousel-prev" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border:none; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 2px 8px rgba(0,0,0,0.3); z-index:10;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><polyline points="15,18 9,12 15,6"></polyline></svg>
+      <button
+        id='carousel-prev'
+        style='position:absolute; left:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border:none; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 2px 8px rgba(0,0,0,0.3); z-index:10;'
+      >
+        <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#000' stroke-width='2.5'>
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
       </button>
-      <button id="carousel-next" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border:none; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 2px 8px rgba(0,0,0,0.3); z-index:10;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><polyline points="9,18 15,12 9,6"></polyline></svg>
+      <button
+        id='carousel-next'
+        style='position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border:none; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 2px 8px rgba(0,0,0,0.3); z-index:10;'
+      >
+        <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#000' stroke-width='2.5'>
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
       </button>
-      
+
       <!-- Sound Toggle Button (only visible on video slide) -->
-      <button id="carousel-sound-toggle" style="display:none; position:absolute; right:10px; top:10px; background:rgba(0,0,0,0.7); border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; align-items:center; justify-content:center; z-index:10; transition: all 0.2s ease;">
-        <svg id="sound-on-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+      <button
+        id='carousel-sound-toggle'
+        style='display:none; position:absolute; right:10px; top:10px; background:rgba(0,0,0,0.7); border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; align-items:center; justify-content:center; z-index:10; transition: all 0.2s ease;'
+      >
+        <svg id='sound-on-icon' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#fff' stroke-width='2'>
           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
           <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
         </svg>
-        <svg id="sound-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="display:none;">
+        <svg
+          id='sound-off-icon'
+          width='20'
+          height='20'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='#fff'
+          stroke-width='2'
+          style='display:none;'
+        >
           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
           <line x1="23" y1="9" x2="17" y2="15"></line>
           <line x1="17" y1="9" x2="23" y2="15"></line>
         </svg>
       </button>
-      
+
       <!-- Carousel Dots - will be populated dynamically -->
-      <div id="carousel-dots" style="position:absolute; bottom:15px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:10;">
-      </div>
+      <div
+        id='carousel-dots'
+        style='position:absolute; bottom:15px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:10;'
+      ></div>
     </div>
-    
+
     <!-- Artist Info Section -->
-    <div id="artist-info" style="background:#fff; padding:24px; margin-top:0;">
-      <h2 id="expanded-designer-name" style="margin:0 0 8px 0; font-size:24px; font-weight:700; color:#000;"></h2>
-      <p id="expanded-painting-name" style="margin:0 0 16px 0; font-size:16px; color:#666; font-style:italic;"></p>
-      <p id="expanded-bio" style="margin:0 0 20px 0; font-size:14px; line-height:1.6; color:#333;"></p>
-      <a id="expanded-wikipedia" href="#" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:8px; color:#0066cc; text-decoration:none; font-size:14px; font-weight:500;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.09 13.119c-.936 1.932-2.217 4.548-2.853 5.728-.616 1.074-1.127.931-1.532.029-1.406-3.321-4.293-9.144-5.651-12.409-.251-.601-.441-.987-.619-1.139-.181-.15-.554-.24-1.122-.271C.103 5.033 0 4.982 0 4.898v-.455l.052-.045c.924-.005 5.401 0 5.401 0l.051.045v.434c0 .119-.075.176-.225.176l-.564.031c-.485.029-.727.164-.727.436 0 .135.053.33.166.601 1.082 2.646 4.818 10.521 4.818 10.521l.136.046 2.411-4.81-.482-1.067-1.658-3.264s-.318-.654-.428-.872c-.728-1.443-.712-1.518-1.447-1.617-.207-.023-.313-.05-.313-.149v-.468l.06-.045h4.292l.113.037v.451c0 .105-.076.15-.227.15l-.308.047c-.792.061-.661.381-.136 1.422l1.582 3.252 1.758-3.504c.293-.64.233-.801.111-.947-.07-.084-.305-.22-.812-.24l-.201-.021c-.052 0-.098-.015-.145-.051-.045-.031-.067-.076-.067-.129v-.427l.061-.045c1.247-.008 4.043 0 4.043 0l.059.045v.436c0 .121-.059.178-.193.178-.646.03-.782.095-1.023.439-.12.186-.375.589-.646 1.039l-2.301 4.273-.065.135 2.792 5.712.17.048 4.396-10.438c.154-.422.129-.722-.064-.895-.197-.172-.346-.273-.857-.295l-.42-.016c-.061 0-.105-.014-.152-.045-.043-.029-.072-.075-.072-.119v-.436l.059-.045h4.961l.041.045v.437c0 .119-.074.18-.209.18-.648.03-1.127.18-1.443.421-.314.255-.557.616-.736 1.067 0 0-4.043 9.258-5.426 12.339-.525 1.007-1.053.917-1.503-.031-.571-1.171-1.773-3.786-2.646-5.71l.053-.036z"/></svg>
+    <div id='artist-info' style='background:#fff; padding:24px; margin-top:0;'>
+      <h2 id='expanded-designer-name' style='margin:0 0 8px 0; font-size:24px; font-weight:700; color:#000;'></h2>
+      <p id='expanded-painting-name' style='margin:0 0 16px 0; font-size:16px; color:#666; font-style:italic;'></p>
+      <p id='expanded-bio' style='margin:0 0 20px 0; font-size:14px; line-height:1.6; color:#333;'></p>
+      <a
+        id='expanded-wikipedia'
+        href='#'
+        target='_blank'
+        rel='noopener noreferrer'
+        style='display:inline-flex; align-items:center; gap:8px; color:#0066cc; text-decoration:none; font-size:14px; font-weight:500;'
+      >
+        <svg width='16' height='16' viewBox='0 0 24 24' fill='currentColor'>
+          <path d="M12.09 13.119c-.936 1.932-2.217 4.548-2.853 5.728-.616 1.074-1.127.931-1.532.029-1.406-3.321-4.293-9.144-5.651-12.409-.251-.601-.441-.987-.619-1.139-.181-.15-.554-.24-1.122-.271C.103 5.033 0 4.982 0 4.898v-.455l.052-.045c.924-.005 5.401 0 5.401 0l.051.045v.434c0 .119-.075.176-.225.176l-.564.031c-.485.029-.727.164-.727.436 0 .135.053.33.166.601 1.082 2.646 4.818 10.521 4.818 10.521l.136.046 2.411-4.81-.482-1.067-1.658-3.264s-.318-.654-.428-.872c-.728-1.443-.712-1.518-1.447-1.617-.207-.023-.313-.05-.313-.149v-.468l.06-.045h4.292l.113.037v.451c0 .105-.076.15-.227.15l-.308.047c-.792.061-.661.381-.136 1.422l1.582 3.252 1.758-3.504c.293-.64.233-.801.111-.947-.07-.084-.305-.22-.812-.24l-.201-.021c-.052 0-.098-.015-.145-.051-.045-.031-.067-.076-.067-.129v-.427l.061-.045c1.247-.008 4.043 0 4.043 0l.059.045v.436c0 .121-.059.178-.193.178-.646.03-.782.095-1.023.439-.12.186-.375.589-.646 1.039l-2.301 4.273-.065.135 2.792 5.712.17.048 4.396-10.438c.154-.422.129-.722-.064-.895-.197-.172-.346-.273-.857-.295l-.42-.016c-.061 0-.105-.014-.152-.045-.043-.029-.072-.075-.072-.119v-.436l.059-.045h4.961l.041.045v.437c0 .119-.074.18-.209.18-.648.03-1.127.18-1.443.421-.314.255-.557.616-.736 1.067 0 0-4.043 9.258-5.426 12.339-.525 1.007-1.053.917-1.503-.031-.571-1.171-1.773-3.786-2.646-5.71l.053-.036z"/>
+        </svg>
         Learn more on Wikipedia
       </a>
     </div>
@@ -953,157 +1118,185 @@
 </div>
 
 <!-- Info tooltip -->
-<div id="info-tooltip" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); max-width:520px; padding:16px; background:#000; color:#fff; border:2px solid #fff; z-index:9999; pointer-events:none; text-align:left;">
-  <p style="margin:0; font-weight:700;">David Hockney (60s)</p>
-  <img src="https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908" style="width:75%; display:block; margin:10px auto;" />
-  <p style="margin:0;">
+<div
+  id='info-tooltip'
+  style='display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); max-width:520px; padding:16px; background:#000; color:#fff; border:2px solid #fff; z-index:9999; pointer-events:none; text-align:left;'
+>
+  <p style='margin:0; font-weight:700;'>David Hockney (60s)</p>
+  <img
+    src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908'
+    style='width:75%; display:block; margin:10px auto;'
+  >
+  <p style='margin:0;'>
     - Oversized, medium weight sweater, with round neck. Ribbed hem and cuffs. Size down if you want it fitted.<br>
     - Unisex, but for sizes, follow men's sizing. More info here. <br>
-    - Due to technical limitations there is a maximum of 4 colors in the body, 5 per sleeve, 6 for the hems and cuffs. <br>
+    - Due to technical limitations there is a maximum of 4 colors in the body, 5 per sleeve, 6 for the hems and cuffs.
+    <br>
     - Third stripe on the right arm is reversed.<br>
     - 100% superfine merino wool. <br>
-    - Colors are carefully selected to work in any combination. Don't be boring.<br> Made in the Netherlands.
+    - Colors are carefully selected to work in any combination. Don't be boring.<br>
+    Made in the Netherlands.
   </p>
 </div>
 
 <!-- Confirmation panel (in-page) -->
-<div id="sweater-confirm" style="display:none; position:fixed; right:18px; bottom:18px; z-index:3000; background:#111; color:#fff; padding:14px; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,.4);">
-  <div id="sweater-confirm-text" style="margin-bottom:8px; font-weight:600;">Added to cart</div>
-  <div style="display:flex; gap:8px; justify-content:flex-end;">
-    <button id="sweater-confirm-go" style="padding:8px 10px; border-radius:6px; border:none; background:#fff; color:#111; cursor:pointer;">Go to cart</button>
-    <button id="sweater-confirm-keep" style="padding:8px 10px; border-radius:6px; border:1px solid #ccc; background:transparent; color:#fff; cursor:pointer;">Keep customizing</button>
+<div
+  id='sweater-confirm'
+  style='display:none; position:fixed; right:18px; bottom:18px; z-index:3000; background:#111; color:#fff; padding:14px; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,.4);'
+>
+  <div id='sweater-confirm-text' style='margin-bottom:8px; font-weight:600;'>Added to cart</div>
+  <div style='display:flex; gap:8px; justify-content:flex-end;'>
+    <button
+      id='sweater-confirm-go'
+      style='padding:8px 10px; border-radius:6px; border:none; background:#fff; color:#111; cursor:pointer;'
+    >
+      Go to cart
+    </button>
+    <button
+      id='sweater-confirm-keep'
+      style='padding:8px 10px; border-radius:6px; border:1px solid #ccc; background:transparent; color:#fff; cursor:pointer;'
+    >
+      Keep customizing
+    </button>
   </div>
 </div>
 
 <!-- Color constraints warning -->
-<div id="color-warning" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#ff4444; color:white; padding:12px 16px; border-radius:8px; z-index:1000; font-size:14px; font-weight:600;">
-  <span id="color-warning-text"></span>
-  <button onclick="document.getElementById('color-warning').style.display='none'" style="background:none; border:none; color:white; margin-left:8px; cursor:pointer; font-weight:bold;">×</button>
+<div
+  id='color-warning'
+  style='display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#ff4444; color:white; padding:12px 16px; border-radius:8px; z-index:1000; font-size:14px; font-weight:600;'
+>
+  <span id='color-warning-text'></span>
+  <button
+    onclick="document.getElementById('color-warning').style.display='none'"
+    style='background:none; border:none; color:white; margin-left:8px; cursor:pointer; font-weight:bold;'
+  >
+    ×
+  </button>
 </div>
 
 <!-- Hidden data from Shopify settings -->
-<script type="application/json" id="designer-gallery-data">
-{
-  "0": {
-    "thumbnail": {% if section.settings.hockney60_thumbnail %}"{{ section.settings.hockney60_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-    "images": [
-      {% if section.settings.hockney60_image_1 %}"{{ section.settings.hockney60_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney60_image_2 %}"{{ section.settings.hockney60_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney60_image_3 %}"{{ section.settings.hockney60_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-    ],
-    "video": {% if section.settings.hockney60_video %}"{{ section.settings.hockney60_video.sources[0].url }}"{% else %}""{% endif %},
-    "videoAsThumbnail": {{ section.settings.hockney60_video_as_thumbnail | json }},
-    "videoPreview": {{ section.settings.hockney60_video_preview | json }},
-    "startWithVideo": {{ section.settings.hockney60_start_with_video | json }},
-    "paintingName": {{ section.settings.hockney60_painting_name | json }},
-    "bio": {{ section.settings.hockney60_bio | json }},
-    "wikipedia": {{ section.settings.hockney60_wikipedia | json }},
-    "colors": [
-      { "name": {{ section.settings.hockney60_color_1_name | json }}, "hex": "{{ section.settings.hockney60_color_1 }}" },
-      { "name": {{ section.settings.hockney60_color_2_name | json }}, "hex": "{{ section.settings.hockney60_color_2 }}" },
-      { "name": {{ section.settings.hockney60_color_3_name | json }}, "hex": "{{ section.settings.hockney60_color_3 }}" },
-      { "name": {{ section.settings.hockney60_color_4_name | json }}, "hex": "{{ section.settings.hockney60_color_4 }}" },
-      { "name": {{ section.settings.hockney60_color_5_name | json }}, "hex": "{{ section.settings.hockney60_color_5 }}" },
-      { "name": {{ section.settings.hockney60_color_6_name | json }}, "hex": "{{ section.settings.hockney60_color_6 }}" }
-    ]
-  },
-  "1": {
-    "thumbnail": {% if section.settings.bacon_thumbnail %}"{{ section.settings.bacon_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-    "images": [
-      {% if section.settings.bacon_image_1 %}"{{ section.settings.bacon_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.bacon_image_2 %}"{{ section.settings.bacon_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.bacon_image_3 %}"{{ section.settings.bacon_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-    ],
-    "video": {% if section.settings.bacon_video %}"{{ section.settings.bacon_video.sources[0].url }}"{% else %}""{% endif %},
-    "videoAsThumbnail": {{ section.settings.bacon_video_as_thumbnail | json }},
-    "videoPreview": {{ section.settings.bacon_video_preview | json }},
-    "startWithVideo": {{ section.settings.bacon_start_with_video | json }},
-    "paintingName": {{ section.settings.bacon_painting_name | json }},
-    "bio": {{ section.settings.bacon_bio | json }},
-    "wikipedia": {{ section.settings.bacon_wikipedia | json }},
-    "colors": [
-      { "name": {{ section.settings.bacon_color_1_name | json }}, "hex": "{{ section.settings.bacon_color_1 }}" },
-      { "name": {{ section.settings.bacon_color_2_name | json }}, "hex": "{{ section.settings.bacon_color_2 }}" },
-      { "name": {{ section.settings.bacon_color_3_name | json }}, "hex": "{{ section.settings.bacon_color_3 }}" },
-      { "name": {{ section.settings.bacon_color_4_name | json }}, "hex": "{{ section.settings.bacon_color_4 }}" },
-      { "name": {{ section.settings.bacon_color_5_name | json }}, "hex": "{{ section.settings.bacon_color_5 }}" },
-      { "name": {{ section.settings.bacon_color_6_name | json }}, "hex": "{{ section.settings.bacon_color_6 }}" }
-    ]
-  },
-  "2": {
-    "thumbnail": {% if section.settings.price_thumbnail %}"{{ section.settings.price_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-    "images": [
-      {% if section.settings.price_image_1 %}"{{ section.settings.price_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.price_image_2 %}"{{ section.settings.price_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.price_image_3 %}"{{ section.settings.price_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-    ],
-    "video": {% if section.settings.price_video %}"{{ section.settings.price_video.sources[0].url }}"{% else %}""{% endif %},
-    "videoAsThumbnail": {{ section.settings.price_video_as_thumbnail | json }},
-    "videoPreview": {{ section.settings.price_video_preview | json }},
-    "startWithVideo": {{ section.settings.price_start_with_video | json }},
-    "paintingName": {{ section.settings.price_painting_name | json }},
-    "bio": {{ section.settings.price_bio | json }},
-    "wikipedia": {{ section.settings.price_wikipedia | json }},
-    "colors": [
-      { "name": {{ section.settings.price_color_1_name | json }}, "hex": "{{ section.settings.price_color_1 }}" },
-      { "name": {{ section.settings.price_color_2_name | json }}, "hex": "{{ section.settings.price_color_2 }}" },
-      { "name": {{ section.settings.price_color_3_name | json }}, "hex": "{{ section.settings.price_color_3 }}" },
-      { "name": {{ section.settings.price_color_4_name | json }}, "hex": "{{ section.settings.price_color_4 }}" },
-      { "name": {{ section.settings.price_color_5_name | json }}, "hex": "{{ section.settings.price_color_5 }}" },
-      { "name": {{ section.settings.price_color_6_name | json }}, "hex": "{{ section.settings.price_color_6 }}" }
-    ]
-  },
-  "3": {
-    "thumbnail": {% if section.settings.hockney13_thumbnail %}"{{ section.settings.hockney13_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-    "images": [
-      {% if section.settings.hockney13_image_1 %}"{{ section.settings.hockney13_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney13_image_2 %}"{{ section.settings.hockney13_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney13_image_3 %}"{{ section.settings.hockney13_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-    ],
-    "video": {% if section.settings.hockney13_video %}"{{ section.settings.hockney13_video.sources[0].url }}"{% else %}""{% endif %},
-    "videoAsThumbnail": {{ section.settings.hockney13_video_as_thumbnail | json }},
-    "videoPreview": {{ section.settings.hockney13_video_preview | json }},
-    "startWithVideo": {{ section.settings.hockney13_start_with_video | json }},
-    "paintingName": {{ section.settings.hockney13_painting_name | json }},
-    "bio": {{ section.settings.hockney13_bio | json }},
-    "wikipedia": {{ section.settings.hockney13_wikipedia | json }},
-    "colors": [
-      { "name": {{ section.settings.hockney13_color_1_name | json }}, "hex": "{{ section.settings.hockney13_color_1 }}" },
-      { "name": {{ section.settings.hockney13_color_2_name | json }}, "hex": "{{ section.settings.hockney13_color_2 }}" },
-      { "name": {{ section.settings.hockney13_color_3_name | json }}, "hex": "{{ section.settings.hockney13_color_3 }}" },
-      { "name": {{ section.settings.hockney13_color_4_name | json }}, "hex": "{{ section.settings.hockney13_color_4 }}" },
-      { "name": {{ section.settings.hockney13_color_5_name | json }}, "hex": "{{ section.settings.hockney13_color_5 }}" },
-      { "name": {{ section.settings.hockney13_color_6_name | json }}, "hex": "{{ section.settings.hockney13_color_6 }}" }
-    ]
-  },
-  "4": {
-    "thumbnail": {% if section.settings.jones_thumbnail %}"{{ section.settings.jones_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-    "images": [
-      {% if section.settings.jones_image_1 %}"{{ section.settings.jones_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_image_2 %}"{{ section.settings.jones_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_image_3 %}"{{ section.settings.jones_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-    ],
-    "video": {% if section.settings.jones_video %}"{{ section.settings.jones_video.sources[0].url }}"{% else %}""{% endif %},
-    "videoAsThumbnail": {{ section.settings.jones_video_as_thumbnail | json }},
-    "videoPreview": {{ section.settings.jones_video_preview | json }},
-    "startWithVideo": {{ section.settings.jones_start_with_video | json }},
-    "paintingName": {{ section.settings.jones_painting_name | json }},
-    "bio": {{ section.settings.jones_bio | json }},
-    "wikipedia": {{ section.settings.jones_wikipedia | json }},
-    "colors": [
-      { "name": {{ section.settings.jones_color_1_name | json }}, "hex": "{{ section.settings.jones_color_1 }}" },
-      { "name": {{ section.settings.jones_color_2_name | json }}, "hex": "{{ section.settings.jones_color_2 }}" },
-      { "name": {{ section.settings.jones_color_3_name | json }}, "hex": "{{ section.settings.jones_color_3 }}" },
-      { "name": {{ section.settings.jones_color_4_name | json }}, "hex": "{{ section.settings.jones_color_4 }}" },
-      { "name": {{ section.settings.jones_color_5_name | json }}, "hex": "{{ section.settings.jones_color_5 }}" },
-      { "name": {{ section.settings.jones_color_6_name | json }}, "hex": "{{ section.settings.jones_color_6 }}" }
-    ]
+<script type='application/json' id='designer-gallery-data'>
+  {
+    "0": {
+      "thumbnail": {% if section.settings.hockney60_thumbnail %}"{{ section.settings.hockney60_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+      "images": [
+        {% if section.settings.hockney60_image_1 %}"{{ section.settings.hockney60_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.hockney60_image_2 %}"{{ section.settings.hockney60_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.hockney60_image_3 %}"{{ section.settings.hockney60_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+      ],
+      "video": {% if section.settings.hockney60_video %}"{{ section.settings.hockney60_video.sources[0].url }}"{% else %}""{% endif %},
+      "videoAsThumbnail": {{ section.settings.hockney60_video_as_thumbnail | json }},
+      "videoPreview": {{ section.settings.hockney60_video_preview | json }},
+      "startWithVideo": {{ section.settings.hockney60_start_with_video | json }},
+      "paintingName": {{ section.settings.hockney60_painting_name | json }},
+      "bio": {{ section.settings.hockney60_bio | json }},
+      "wikipedia": {{ section.settings.hockney60_wikipedia | json }},
+      "colors": [
+        { "name": {{ section.settings.hockney60_color_1_name | json }}, "hex": "{{ section.settings.hockney60_color_1 }}" },
+        { "name": {{ section.settings.hockney60_color_2_name | json }}, "hex": "{{ section.settings.hockney60_color_2 }}" },
+        { "name": {{ section.settings.hockney60_color_3_name | json }}, "hex": "{{ section.settings.hockney60_color_3 }}" },
+        { "name": {{ section.settings.hockney60_color_4_name | json }}, "hex": "{{ section.settings.hockney60_color_4 }}" },
+        { "name": {{ section.settings.hockney60_color_5_name | json }}, "hex": "{{ section.settings.hockney60_color_5 }}" },
+        { "name": {{ section.settings.hockney60_color_6_name | json }}, "hex": "{{ section.settings.hockney60_color_6 }}" }
+      ]
+    },
+    "1": {
+      "thumbnail": {% if section.settings.bacon_thumbnail %}"{{ section.settings.bacon_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+      "images": [
+        {% if section.settings.bacon_image_1 %}"{{ section.settings.bacon_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.bacon_image_2 %}"{{ section.settings.bacon_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.bacon_image_3 %}"{{ section.settings.bacon_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+      ],
+      "video": {% if section.settings.bacon_video %}"{{ section.settings.bacon_video.sources[0].url }}"{% else %}""{% endif %},
+      "videoAsThumbnail": {{ section.settings.bacon_video_as_thumbnail | json }},
+      "videoPreview": {{ section.settings.bacon_video_preview | json }},
+      "startWithVideo": {{ section.settings.bacon_start_with_video | json }},
+      "paintingName": {{ section.settings.bacon_painting_name | json }},
+      "bio": {{ section.settings.bacon_bio | json }},
+      "wikipedia": {{ section.settings.bacon_wikipedia | json }},
+      "colors": [
+        { "name": {{ section.settings.bacon_color_1_name | json }}, "hex": "{{ section.settings.bacon_color_1 }}" },
+        { "name": {{ section.settings.bacon_color_2_name | json }}, "hex": "{{ section.settings.bacon_color_2 }}" },
+        { "name": {{ section.settings.bacon_color_3_name | json }}, "hex": "{{ section.settings.bacon_color_3 }}" },
+        { "name": {{ section.settings.bacon_color_4_name | json }}, "hex": "{{ section.settings.bacon_color_4 }}" },
+        { "name": {{ section.settings.bacon_color_5_name | json }}, "hex": "{{ section.settings.bacon_color_5 }}" },
+        { "name": {{ section.settings.bacon_color_6_name | json }}, "hex": "{{ section.settings.bacon_color_6 }}" }
+      ]
+    },
+    "2": {
+      "thumbnail": {% if section.settings.price_thumbnail %}"{{ section.settings.price_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+      "images": [
+        {% if section.settings.price_image_1 %}"{{ section.settings.price_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.price_image_2 %}"{{ section.settings.price_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.price_image_3 %}"{{ section.settings.price_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+      ],
+      "video": {% if section.settings.price_video %}"{{ section.settings.price_video.sources[0].url }}"{% else %}""{% endif %},
+      "videoAsThumbnail": {{ section.settings.price_video_as_thumbnail | json }},
+      "videoPreview": {{ section.settings.price_video_preview | json }},
+      "startWithVideo": {{ section.settings.price_start_with_video | json }},
+      "paintingName": {{ section.settings.price_painting_name | json }},
+      "bio": {{ section.settings.price_bio | json }},
+      "wikipedia": {{ section.settings.price_wikipedia | json }},
+      "colors": [
+        { "name": {{ section.settings.price_color_1_name | json }}, "hex": "{{ section.settings.price_color_1 }}" },
+        { "name": {{ section.settings.price_color_2_name | json }}, "hex": "{{ section.settings.price_color_2 }}" },
+        { "name": {{ section.settings.price_color_3_name | json }}, "hex": "{{ section.settings.price_color_3 }}" },
+        { "name": {{ section.settings.price_color_4_name | json }}, "hex": "{{ section.settings.price_color_4 }}" },
+        { "name": {{ section.settings.price_color_5_name | json }}, "hex": "{{ section.settings.price_color_5 }}" },
+        { "name": {{ section.settings.price_color_6_name | json }}, "hex": "{{ section.settings.price_color_6 }}" }
+      ]
+    },
+    "3": {
+      "thumbnail": {% if section.settings.hockney13_thumbnail %}"{{ section.settings.hockney13_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+      "images": [
+        {% if section.settings.hockney13_image_1 %}"{{ section.settings.hockney13_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.hockney13_image_2 %}"{{ section.settings.hockney13_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.hockney13_image_3 %}"{{ section.settings.hockney13_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+      ],
+      "video": {% if section.settings.hockney13_video %}"{{ section.settings.hockney13_video.sources[0].url }}"{% else %}""{% endif %},
+      "videoAsThumbnail": {{ section.settings.hockney13_video_as_thumbnail | json }},
+      "videoPreview": {{ section.settings.hockney13_video_preview | json }},
+      "startWithVideo": {{ section.settings.hockney13_start_with_video | json }},
+      "paintingName": {{ section.settings.hockney13_painting_name | json }},
+      "bio": {{ section.settings.hockney13_bio | json }},
+      "wikipedia": {{ section.settings.hockney13_wikipedia | json }},
+      "colors": [
+        { "name": {{ section.settings.hockney13_color_1_name | json }}, "hex": "{{ section.settings.hockney13_color_1 }}" },
+        { "name": {{ section.settings.hockney13_color_2_name | json }}, "hex": "{{ section.settings.hockney13_color_2 }}" },
+        { "name": {{ section.settings.hockney13_color_3_name | json }}, "hex": "{{ section.settings.hockney13_color_3 }}" },
+        { "name": {{ section.settings.hockney13_color_4_name | json }}, "hex": "{{ section.settings.hockney13_color_4 }}" },
+        { "name": {{ section.settings.hockney13_color_5_name | json }}, "hex": "{{ section.settings.hockney13_color_5 }}" },
+        { "name": {{ section.settings.hockney13_color_6_name | json }}, "hex": "{{ section.settings.hockney13_color_6 }}" }
+      ]
+    },
+    "4": {
+      "thumbnail": {% if section.settings.jones_thumbnail %}"{{ section.settings.jones_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+      "images": [
+        {% if section.settings.jones_image_1 %}"{{ section.settings.jones_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.jones_image_2 %}"{{ section.settings.jones_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.jones_image_3 %}"{{ section.settings.jones_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+      ],
+      "video": {% if section.settings.jones_video %}"{{ section.settings.jones_video.sources[0].url }}"{% else %}""{% endif %},
+      "videoAsThumbnail": {{ section.settings.jones_video_as_thumbnail | json }},
+      "videoPreview": {{ section.settings.jones_video_preview | json }},
+      "startWithVideo": {{ section.settings.jones_start_with_video | json }},
+      "paintingName": {{ section.settings.jones_painting_name | json }},
+      "bio": {{ section.settings.jones_bio | json }},
+      "wikipedia": {{ section.settings.jones_wikipedia | json }},
+      "colors": [
+        { "name": {{ section.settings.jones_color_1_name | json }}, "hex": "{{ section.settings.jones_color_1 }}" },
+        { "name": {{ section.settings.jones_color_2_name | json }}, "hex": "{{ section.settings.jones_color_2 }}" },
+        { "name": {{ section.settings.jones_color_3_name | json }}, "hex": "{{ section.settings.jones_color_3 }}" },
+        { "name": {{ section.settings.jones_color_4_name | json }}, "hex": "{{ section.settings.jones_color_4 }}" },
+        { "name": {{ section.settings.jones_color_5_name | json }}, "hex": "{{ section.settings.jones_color_5 }}" },
+        { "name": {{ section.settings.jones_color_6_name | json }}, "hex": "{{ section.settings.jones_color_6 }}" }
+      ]
+    }
   }
-}
 </script>
 
 <style>
-  
   /* Tutorial button */
   #tutorial-btn {
     position: absolute;
@@ -1125,7 +1318,7 @@
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
-  
+
   @media (max-width: 768px) {
     #tutorial-btn {
       width: 24px;
@@ -1202,7 +1395,7 @@
   }
 
   /* Navigation button fix - remove any default styling */
-  #prev-designer, 
+  #prev-designer,
   #next-designer {
     background: transparent !important;
     background-color: transparent !important;
@@ -1213,7 +1406,7 @@
     -moz-appearance: none !important;
     appearance: none !important;
   }
-  
+
   #prev-designer:hover,
   #next-designer:hover,
   #prev-designer:focus,
@@ -1226,7 +1419,7 @@
     outline: none !important;
     box-shadow: none !important;
   }
-  
+
   /* Desktop: hide left panel swatch container completely */
   #controls-panel #swatch-container {
     display: none !important;
@@ -1288,7 +1481,7 @@
     transition: opacity 0.3s ease;
     display: none;
   }
-  
+
   .carousel-slide.active {
     opacity: 1;
     position: relative;
@@ -1296,14 +1489,14 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   .carousel-video-slide video {
     max-width: 100%;
     max-height: 100%;
     width: 100%;
     height: 100%;
   }
-  
+
   .carousel-dot {
     width: 10px;
     height: 10px;
@@ -1312,44 +1505,44 @@
     cursor: pointer;
     transition: all 0.3s ease;
   }
-  
+
   .carousel-dot:hover {
     background: rgba(255,255,255,0.7);
   }
-  
+
   .carousel-dot.active {
     background: #fff;
     transform: scale(1.2);
   }
-  
+
   .carousel-dot-video {
     border-radius: 3px;
     width: 20px;
   }
-  
+
   #carousel-prev:hover,
   #carousel-next:hover {
     background: #fff;
     transform: translateY(-50%) scale(1.1);
   }
-  
+
   #carousel-sound-toggle:hover {
     background: rgba(0,0,0,0.9);
     transform: scale(1.1);
   }
-  
+
   #carousel-sound-toggle.muted {
     background: rgba(255,0,0,0.7);
   }
-  
+
   #carousel-sound-toggle.muted:hover {
     background: rgba(255,0,0,0.9);
   }
-  
+
   #close-overlay-btn:hover {
     transform: scale(1.2);
   }
-  
+
   /* Hide arrows when only one slide */
   #carousel-container.single-slide #carousel-prev,
   #carousel-container.single-slide #carousel-next,
@@ -1372,7 +1565,7 @@
     #mini-designer-image {
       display: none !important;
     }
-    
+
     /* Make info tooltip much larger on mobile */
     #info-tooltip {
       max-width: 90vw !important;
@@ -1381,55 +1574,55 @@
       overflow-y: auto !important;
       padding: 20px !important;
     }
-    
+
     /* Enlarge wool thumbnail image on mobile */
     #info-tooltip img {
       width: 100% !important;
       max-width: 100% !important;
       margin: 15px 0 !important;
     }
-    
+
     #info-tooltip p {
       font-size: 12px !important;
       line-height: 1.5 !important;
       margin: 8px 0 !important;
     }
-    
+
     #info-tooltip p:first-of-type {
       font-size: 16px !important;
       margin-bottom: 12px !important;
     }
-    
+
     /* Expanded overlay mobile adjustments */
     #expanded-content {
       width: 95% !important;
       margin: 20px auto !important;
     }
-    
+
     #carousel-prev,
     #carousel-next {
       width: 36px !important;
       height: 36px !important;
     }
-    
+
     #artist-info {
       padding: 16px !important;
     }
-    
+
     #expanded-designer-name {
       font-size: 20px !important;
     }
-    
+
     #expanded-bio {
       font-size: 13px !important;
     }
   }
 
   /* Swatches & UI */
-  #swatch-container { 
-    display: flex; 
-    flex-direction: row; 
-    gap: 12px; 
+  #swatch-container {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
     align-items: center;
     justify-content: center;
     background: none !important;
@@ -1437,7 +1630,7 @@
     padding: 0 !important;
     margin: 0 !important;
   }
-  
+
   /* Combined sweater and swatches container */
   #sweater-and-swatches-container {
     border: 12px solid #000;
@@ -1452,8 +1645,8 @@
   .over-limit { stroke:red !important; stroke-width:4px !important; vector-effect: non-scaling-stroke; }
 
   /* SVG sizing */
-  #sweater-svg-wrapper { 
-    max-width: 100%; 
+  #sweater-svg-wrapper {
+    max-width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
   }
@@ -1461,17 +1654,17 @@
 
   /* Mobile controls grid - hidden on desktop */
   .mobile-controls-grid { display: contents; }
-  
+
   /* Intermediate breakpoint (1200px to 1920px) for gradual scaling */
   @media (min-width: 1200px) and (max-width: 1919px) {
     .sweater-designer {
       max-width: calc(100vw - 100px) !important;
     }
-    
+
     #sweater-and-swatches-container {
       max-width: calc((100vw - 100px) * 0.7) !important;
     }
-    
+
     #sweater-svg-wrapper {
       max-width: 100% !important;
     }
@@ -1482,41 +1675,41 @@
     .sweater-designer {
       max-width: 1600px !important;
     }
-    
+
     #sweater-svg-wrapper {
       max-width: 1200px !important;
     }
-    
+
     #sweater-and-swatches-container {
       max-width: 1200px !important;
     }
-    
+
     #controls-panel {
       width: 200px !important;
     }
-    
+
     #controls-panel button,
     #controls-panel select {
       width: 160px !important;
       font-size: 12px !important;
       padding: 12px 14px !important;
     }
-    
+
     #mini-designer-image {
       width: 160px !important;
       height: 160px !important;
     }
-    
+
     #wool-image {
       width: 160px !important;
       margin-top: 20px !important;
     }
-    
+
     .color-swatch {
       width: 44px !important;
       height: 44px !important;
     }
-    
+
     #designer-name {
       font-size: 22px !important;
     }
@@ -1527,60 +1720,60 @@
     .sweater-designer {
       max-width: 2800px !important;
     }
-    
+
     #sweater-svg-wrapper {
       max-width: 2400px !important;
     }
-    
+
     #sweater-and-swatches-container {
       max-width: 2400px !important;
       padding: 40px !important;
       border-width: 16px !important;
     }
-    
+
     #controls-panel {
       width: 280px !important;
       padding-top: 30px !important;
       gap: 16px !important;
     }
-    
+
     #controls-panel button,
     #controls-panel select {
       width: 240px !important;
       font-size: 16px !important;
       padding: 16px 20px !important;
     }
-    
+
     #mini-designer-image {
       width: 240px !important;
       height: 240px !important;
       border-width: 4px !important;
     }
-    
+
     #wool-image {
       width: 240px !important;
       margin-top: 24px !important;
     }
-    
+
     .color-swatch {
       width: 60px !important;
       height: 60px !important;
     }
-    
+
     #designer-name {
       font-size: 30px !important;
     }
-    
+
     #sweater-navigation button svg {
       width: 30px !important;
       height: 30px !important;
     }
-    
+
     #controls-panel p {
       font-size: 20px !important;
       max-width: 200px !important;
     }
-    
+
     #tutorial-btn {
       width: 44px !important;
       height: 44px !important;
@@ -1595,36 +1788,36 @@
     .sweater-designer {
       max-width: 3400px !important;
     }
-    
+
     #sweater-svg-wrapper {
       max-width: 3000px !important;
     }
-    
+
     #sweater-and-swatches-container {
       max-width: 3000px !important;
       padding: 50px !important;
     }
-    
+
     #controls-panel {
       width: 320px !important;
     }
-    
+
     #controls-panel button,
     #controls-panel select {
       width: 280px !important;
       font-size: 18px !important;
       padding: 18px 22px !important;
     }
-    
+
     #mini-designer-image {
       width: 280px !important;
       height: 280px !important;
     }
-    
+
     #wool-image {
       width: 280px !important;
     }
-    
+
     .color-swatch {
       width: 70px !important;
       height: 70px !important;
@@ -1638,11 +1831,11 @@
       overflow-x: hidden !important;
       width: 100% !important;
     }
-    
-    .sweater-designer { 
-      flex-direction: column; 
+
+    .sweater-designer {
+      flex-direction: column;
       margin: 60px auto 18px auto !important;
-      padding: 8px; 
+      padding: 8px;
       gap: 0;
       max-width: 100%;
       width: 100%;
@@ -1651,17 +1844,17 @@
       box-sizing: border-box;
       overflow-x: hidden;
     }
-    
+
     /* Hide right sidebar completely on mobile */
-    #controls-panel { 
+    #controls-panel {
       display: none !important;
     }
-    
+
     /* Show mobile controls panel */
     .mobile-controls-panel {
       display: flex !important;
     }
-    
+
     /* Combined sweater and swatches container on mobile */
     #sweater-and-swatches-container {
       width: calc(100% - 18px) !important;
@@ -1671,7 +1864,7 @@
       border: 9px solid #000 !important;
       box-sizing: border-box !important;
     }
-    
+
     #sweater-area {
       order: 1;
       width: 100%;
@@ -1684,15 +1877,15 @@
       position: relative;
       box-sizing: border-box;
     }
-    
+
     /* Mobile Coming Soon Banner */
     #coming-soon-banner-mobile {
       order: 1;
       margin: 8px 0;
     }
-    
+
     /* Sweater wrapper inside combined container */
-    #sweater-svg-wrapper { 
+    #sweater-svg-wrapper {
       width: 100%;
       max-width: 100%;
       margin: 0 auto;
@@ -1701,7 +1894,7 @@
       overflow: visible;
       box-sizing: border-box;
     }
-    
+
     /* Navigation positioned after sweater */
     #sweater-navigation {
       order: 3;
@@ -1710,24 +1903,24 @@
       max-width: 100%;
       box-sizing: border-box;
     }
-    
+
     /* Fixed zoom buttons in corners */
     #mobile-zoom-out {
       display: none !important;
     }
-    
+
     #mobile-zoom-in {
       display: none !important;
     }
-    
+
     /* Show mobile zoom buttons next to navigation */
     #sweater-navigation #mobile-zoom-out,
     #sweater-navigation #mobile-zoom-in {
       display: flex !important;
     }
-    
+
     /* Swatches stay inside combined container on mobile */
-    #swatch-container { 
+    #swatch-container {
       display: flex !important;
       flex-direction: row !important;
       justify-content: center !important;
@@ -1741,7 +1934,7 @@
       overflow-y: hidden;
       box-sizing: border-box;
     }
-    
+
     .color-swatch {
       width: 32px !important;
       height: 32px !important;
@@ -1749,7 +1942,7 @@
       border-width: 2px !important;
       flex-shrink: 0;
     }
-    
+
     /* Mobile controls at bottom center */
     .mobile-controls-panel {
       order: 5;
@@ -1768,7 +1961,7 @@
       margin-top: 20px;
       box-sizing: border-box;
     }
-    
+
     .mobile-controls-grid {
       display: grid;
       grid-template-columns: repeat(1, 1fr);
@@ -1776,7 +1969,7 @@
       width: 100%;
       max-width: 240px;
     }
-    
+
     .mobile-controls-panel #info-btn-mobile {
       grid-column: 1 / -1;
       width: 100%;
@@ -1785,7 +1978,7 @@
       padding: 6px 8px;
       border-radius: 0;
     }
-    
+
     .mobile-controls-panel #sweater-size-mobile,
     .mobile-controls-panel #add-to-cart-mobile,
     .mobile-controls-panel #default-btn-mobile,
@@ -1796,7 +1989,7 @@
       padding: 6px 8px;
       border-radius: 0;
     }
-    
+
     .mobile-instruction-text {
       font-size: 10px;
       color: #666;
@@ -1806,26 +1999,26 @@
       padding: 0 12px;
       box-sizing: border-box;
     }
-    
+
     /* Mini designer image mobile */
     #mini-designer-image-mobile {
       width: 180px !important;
       height: 180px !important;
       max-width: calc(100% - 48px) !important;
     }
-    
+
     /* Remove bottom padding since controls are now inline */
     body {
       padding-bottom: 0;
     }
-    
+
     /* Ensure modals and overlays are within viewport */
     #sweater-confirm,
     #color-warning,
     #expanded-designer-overlay {
       max-width: calc(100vw - 32px) !important;
     }
-    
+
     /* Color warning positioning */
     #color-warning {
       left: 16px !important;
@@ -1840,19 +2033,19 @@
     .mobile-controls-panel {
       display: none !important;
     }
-    
+
     #coming-soon-banner-mobile {
       display: none !important;
     }
   }
-  
+
   /* Mobile: hide desktop coming soon banner */
   @media (max-width: 768px) {
     #coming-soon-banner {
       display: none !important;
     }
   }
-  
+
   /* Prevent swatch container from appearing in right panel on any screen size */
   @media (max-width: 1200px) {
     #controls-panel #swatch-container {
@@ -1862,16 +2055,16 @@
 
   /* Touch device optimizations */
   @media (hover: none) {
-    .sweater-layer:hover { 
-      cursor: default; 
+    .sweater-layer:hover {
+      cursor: default;
       stroke: none;
     }
-    
+
     .sweater-layer:active {
       stroke: #007BFF;
       stroke-width: 3px;
     }
-    
+
     .color-swatch {
       touch-action: manipulation;
     }
@@ -1881,11 +2074,11 @@
     .sweater-designer {
       gap: 0 !important;
     }
-    
+
     #sweater-area {
       flex: 0 0 auto;
     }
-    
+
     #controls-panel {
       position: absolute;
       right: calc((100vw - 860px) / 4 - 75px);
@@ -1899,7 +2092,7 @@
       gap: 24px !important;
       justify-content: center !important;
     }
-    
+
     {% comment %} #controls-panel {
       position: relative !important;
       right: auto !important;
