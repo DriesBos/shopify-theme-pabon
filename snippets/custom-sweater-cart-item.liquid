@@ -1,0 +1,146 @@
+<!-- 
+  Create this file as: snippets/custom-sweater-cart-item.liquid
+  Then include it in your cart template where line item properties are displayed
+-->
+
+{% comment %}
+  Usage in cart template:
+  {% render 'custom-sweater-cart-item', item: item %}
+{% endcomment %}
+
+{% if item.properties['_Custom_Sweater'] == 'TRUE' %}
+  <div class="custom-sweater-display" style="margin: 12px 0; padding: 16px; border: 1px solid #e0e0e0; border-radius: 8px; background: #f9f9f9;">
+    
+    <!-- Header -->
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+      <span style="background: #007BFF; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">
+        CUSTOM DESIGN
+      </span>
+      <strong style="color: #333;">{{ item.properties['Custom Design'] | default: 'Custom Sweater Design' }}</strong>
+    </div>
+
+    <!-- Design Preview and Details -->
+    <div style="display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: start;">
+      
+      <!-- Design Preview Image -->
+      {% if item.properties['Design Preview'] %}
+        <div class="design-preview" style="position: relative;">
+          <img 
+            src="{{ item.properties['Design Preview'] }}" 
+            alt="Custom sweater design preview"
+            style="width: 120px; height: 68px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; cursor: pointer;"
+            onclick="openDesignPreview(this.src, '{{ item.properties['Custom Design'] | escape }}')"
+          />
+          <div style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.7); color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px;">
+            Preview
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Design Details -->
+      <div class="design-details" style="font-size: 14px;">
+        
+        {% if item.properties['Body Colors'] %}
+          <div style="margin-bottom: 8px;">
+            <strong style="color: #555;">Body Colors:</strong>
+            <div style="margin-top: 4px;">
+              {% assign body_colors = item.properties['Body Colors'] | split: ', ' %}
+              {% for color in body_colors %}
+                <span style="display: inline-block; margin: 2px 6px 2px 0; padding: 2px 8px; background: {{ color }}; color: {% if color == '#000000' or color contains 'dark' %}white{% else %}black{% endif %}; border-radius: 12px; font-size: 11px; border: 1px solid #ccc;">
+                  {{ color }}
+                </span>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if item.properties['Sleeve Colors'] %}
+          <div style="margin-bottom: 8px;">
+            <strong style="color: #555;">Sleeve Colors:</strong>
+            <div style="margin-top: 4px;">
+              {% assign sleeve_colors = item.properties['Sleeve Colors'] | split: ', ' %}
+              {% for color in sleeve_colors %}
+                <span style="display: inline-block; margin: 2px 6px 2px 0; padding: 2px 8px; background: {{ color }}; color: {% if color == '#000000' or color contains 'dark' %}white{% else %}black{% endif %}; border-radius: 12px; font-size: 11px; border: 1px solid #ccc;">
+                  {{ color }}
+                </span>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if item.properties['_Design_Date'] %}
+          <div style="color: #666; font-size: 12px; margin-top: 8px;">
+            <em>Created: {{ item.properties['_Design_Date'] }}</em>
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px;">
+      {% if item.properties['Design Preview'] %}
+        <button 
+          onclick="downloadDesign('{{ item.properties['Design Preview'] }}', '{{ item.properties['Custom Design'] | escape }}')"
+          style="padding: 6px 12px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;"
+        >
+          💾 Download Design
+        </button>
+      {% endif %}
+      
+      <button 
+        onclick="shareDesign('{{ item.id }}', '{{ item.properties['Custom Design'] | escape }}')"
+        style="padding: 6px 12px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;"
+      >
+        📤 Share Design
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Enlarged Preview Modal -->
+  <div id="design-preview-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; cursor: pointer;" onclick="closeDesignPreview()">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 90vw; max-height: 90vh;">
+      <img id="modal-design-image" src="" style="max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      <div id="modal-design-title" style="text-align: center; color: white; margin-top: 16px; font-size: 18px; font-weight: 600;"></div>
+      <div style="text-align: center; margin-top: 8px;">
+        <button onclick="closeDesignPreview()" style="background: white; color: black; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openDesignPreview(imageSrc, designName) {
+      document.getElementById('modal-design-image').src = imageSrc;
+      document.getElementById('modal-design-title').textContent = designName;
+      document.getElementById('design-preview-modal').style.display = 'block';
+    }
+
+    function closeDesignPreview() {
+      document.getElementById('design-preview-modal').style.display = 'none';
+    }
+
+    function downloadDesign(imageSrc, designName) {
+      const a = document.createElement('a');
+      a.href = imageSrc;
+      a.download = (designName || 'custom_sweater_design').replace(/\s+/g, '_').toLowerCase() + '.png';
+      a.click();
+    }
+
+    function shareDesign(itemId, designName) {
+      if (navigator.share) {
+        navigator.share({
+          title: 'My Custom Sweater Design',
+          text: `Check out my custom ${designName}!`,
+          url: window.location.href
+        });
+      } else {
+        // Fallback: copy to clipboard
+        navigator.clipboard.writeText(`Check out my custom ${designName}! ${window.location.href}`).then(() => {
+          alert('Design link copied to clipboard!');
+        });
+      }
+    }
+  </script>
+
+{% endif %}

@@ -1,0 +1,827 @@
+{% schema %}
+{
+  "name": "Palette Selector",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Pick your palette, make it your own."
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Size",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Thumbnail Settings"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Thumbnail Width",
+      "default": 180,
+      "info": "Base size - will scale on larger screens"
+    },
+    {
+      "type": "range",
+      "id": "image_gap",
+      "min": 8,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap Between Thumbnails",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "thumbnail_border_width",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "label": "Thumbnail Border Width",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_designer_name",
+      "label": "Show Designer Name Below Thumbnail",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_carousel",
+      "label": "Enable Carousel Mode",
+      "default": false,
+      "info": "When enabled, shows navigation arrows if content overflows"
+    },
+    {
+      "type": "range",
+      "id": "visible_items",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Visible Items at Once",
+      "default": 4,
+      "info": "Number of thumbnails to show before scrolling (desktop only)"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_scroll",
+      "label": "Auto-scroll Carousel",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "auto_scroll_delay",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Auto-scroll Delay",
+      "default": 5,
+      "info": "Only applies if auto-scroll is enabled"
+    },
+    {
+      "type": "header",
+      "content": "Advanced Scaling"
+    },
+    {
+      "type": "range",
+      "id": "scale_4k",
+      "min": 100,
+      "max": 200,
+      "step": 10,
+      "unit": "%",
+      "label": "4K Screen Scale",
+      "default": 130,
+      "info": "Scale multiplier for 2560px+ screens"
+    },
+    {
+      "type": "range",
+      "id": "scale_5k",
+      "min": 100,
+      "max": 250,
+      "step": 10,
+      "unit": "%",
+      "label": "5K/6K Screen Scale",
+      "default": 160,
+      "info": "Scale multiplier for 3440px+ screens"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "palette",
+      "name": "Palette",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "painting_image",
+          "label": "Painting/Artwork Image"
+        },
+        {
+          "type": "text",
+          "id": "designer_name",
+          "label": "Designer Name",
+          "info": "Must match exactly: 'David Hockney (60s)', 'Francis Bacon', 'Ken Price', 'David Hockney (2013)', or 'Natisa Jones'"
+        },
+        {
+          "type": "range",
+          "id": "designer_index",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "label": "Designer Index",
+          "info": "0=Hockney 60s, 1=Bacon, 2=Price, 3=Hockney 2013, 4=Jones",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "is_available",
+          "label": "Available for Purchase",
+          "default": true,
+          "info": "If unchecked, shows 'Coming Soon' badge"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Palette Selector (Carousel)",
+      "blocks": [
+        {
+          "type": "palette",
+          "settings": {
+            "designer_name": "David Hockney (60s)",
+            "designer_index": 0,
+            "is_available": true
+          }
+        },
+        {
+          "type": "palette",
+          "settings": {
+            "designer_name": "Francis Bacon",
+            "designer_index": 1,
+            "is_available": false
+          }
+        },
+        {
+          "type": "palette",
+          "settings": {
+            "designer_name": "Ken Price",
+            "designer_index": 2,
+            "is_available": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="palette-selector-section" data-section-id="{{ section.id }}" style="max-width: 1200px; margin: 40px auto; padding: 0 20px; font-family: Jost, sans-serif;">
+  
+  {% if section.settings.section_title != blank %}
+    <h2 class="palette-title" style="
+      font-size: {{ section.settings.title_size }}px;
+      text-align: {{ section.settings.title_alignment }};
+      margin-bottom: 32px;
+      font-weight: 400;
+      color: #333;
+      letter-spacing: -0.5px;
+    ">
+      {{ section.settings.section_title }}
+    </h2>
+  {% endif %}
+
+  <div class="palette-carousel-wrapper" style="position: relative;">
+    
+    <!-- Left Arrow -->
+    {% if section.settings.enable_carousel %}
+      <button class="carousel-arrow carousel-arrow-left" 
+              aria-label="Previous palettes"
+              style="
+                position: absolute;
+                left: -20px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: white;
+                border: 2px solid #333;
+                cursor: pointer;
+                z-index: 10;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transition: all 0.3s ease;
+              ">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5">
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
+      </button>
+    {% endif %}
+
+    <!-- Palette Grid/Carousel -->
+    <div class="palette-grid-container" style="overflow: hidden; position: relative;">
+      <div class="palette-grid" 
+           data-carousel="{{ section.settings.enable_carousel }}"
+           data-visible-items="{{ section.settings.visible_items }}"
+           data-auto-scroll="{{ section.settings.auto_scroll }}"
+           data-auto-scroll-delay="{{ section.settings.auto_scroll_delay }}"
+           style="
+             display: flex;
+             gap: {{ section.settings.image_gap }}px;
+             align-items: flex-start;
+             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+             {% unless section.settings.enable_carousel %}
+               flex-wrap: wrap;
+               justify-content: center;
+             {% endunless %}
+           ">
+        
+        {% for block in section.blocks %}
+          <div class="palette-item" 
+               data-designer-index="{{ block.settings.designer_index }}"
+               data-designer-name="{{ block.settings.designer_name }}"
+               data-available="{{ block.settings.is_available }}"
+               style="
+                 width: {{ section.settings.image_width }}px;
+                 flex-shrink: 0;
+                 cursor: pointer;
+                 transition: all 0.3s ease;
+                 position: relative;
+               "
+               {{ block.shopify_attributes }}>
+            
+            <div class="palette-image-wrapper" style="
+              width: 100%;
+              height: {{ section.settings.image_width }}px;
+              border: {{ section.settings.thumbnail_border_width }}px solid #000;
+              overflow: hidden;
+              position: relative;
+              transition: all 0.3s ease;
+              box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            ">
+              {% if block.settings.painting_image %}
+                {{ block.settings.painting_image | image_url: width: 800 | image_tag: 
+                   loading: 'lazy',
+                   alt: block.settings.designer_name,
+                   style: "width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
+                }}
+              {% else %}
+                <div style="
+                  width: 100%;
+                  height: 100%;
+                  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: #999;
+                  font-size: 14px;
+                  text-align: center;
+                  padding: 20px;
+                ">
+                  Add image in<br>theme settings
+                </div>
+              {% endif %}
+              
+              {% if block.settings.is_available == false %}
+                <div class="coming-soon-badge" style="
+                  position: absolute;
+                  top: 10px;
+                  right: 10px;
+                  background: #FF6B35;
+                  color: white;
+                  padding: 4px 10px;
+                  font-size: 11px;
+                  font-weight: 700;
+                  letter-spacing: 0.5px;
+                  text-transform: uppercase;
+                  border-radius: 3px;
+                  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                ">
+                  Coming Soon
+                </div>
+              {% endif %}
+            </div>
+            
+            {% if section.settings.show_designer_name and block.settings.designer_name != blank %}
+              <p class="palette-name" style="
+                margin-top: 10px;
+                text-align: center;
+                font-size: 14px;
+                font-weight: 500;
+                color: #333;
+                line-height: 1.3;
+              ">
+                {{ block.settings.designer_name }}
+              </p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Right Arrow -->
+    {% if section.settings.enable_carousel %}
+      <button class="carousel-arrow carousel-arrow-right"
+              aria-label="Next palettes"
+              style="
+                position: absolute;
+                right: -20px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: white;
+                border: 2px solid #333;
+                cursor: pointer;
+                z-index: 10;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transition: all 0.3s ease;
+              ">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5">
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
+    {% endif %}
+  </div>
+
+  <!-- Carousel Dots Indicator -->
+  {% if section.settings.enable_carousel %}
+    <div class="carousel-dots" style="
+      display: none;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    ">
+      <!-- Dots will be added dynamically by JavaScript -->
+    </div>
+  {% endif %}
+</div>
+
+<style>
+  .palette-item:hover .palette-image-wrapper {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    border-color: #333;
+  }
+  
+  .palette-item:hover .palette-image-wrapper img {
+    transform: scale(1.05);
+  }
+  
+  .palette-item.active .palette-image-wrapper {
+    border-color: #0090C1;
+    border-width: {{ section.settings.thumbnail_border_width | plus: 1 }}px;
+    box-shadow: 0 8px 20px rgba(0,144,193,0.4);
+  }
+  
+  .palette-item:active .palette-image-wrapper {
+    transform: translateY(-2px);
+  }
+
+  .carousel-arrow:hover {
+    background: #f8f8f8;
+    border-color: #0090C1;
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .carousel-arrow:hover svg {
+    stroke: #0090C1;
+  }
+
+  .carousel-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ddd;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+
+  .carousel-dot:hover {
+    background: #999;
+  }
+
+  .carousel-dot.active {
+    background: #0090C1;
+    width: 24px;
+    border-radius: 5px;
+  }
+
+  /* Large desktop screens (1920px+) */
+  @media (min-width: 1920px) {
+    .palette-selector-section {
+      max-width: 1600px;
+    }
+  }
+
+  /* 4K screens (2560px+) */
+  @media (min-width: 2560px) {
+    .palette-selector-section {
+      max-width: 2400px;
+    }
+    
+    .palette-title {
+      font-size: calc({{ section.settings.title_size }}px * {{ section.settings.scale_4k | divided_by: 100.0 }}) !important;
+    }
+    
+    .palette-grid {
+      gap: calc({{ section.settings.image_gap }}px * {{ section.settings.scale_4k | divided_by: 100.0 }}) !important;
+    }
+    
+    .palette-item {
+      width: calc({{ section.settings.image_width }}px * {{ section.settings.scale_4k | divided_by: 100.0 }}) !important;
+    }
+    
+    .palette-image-wrapper {
+      height: calc({{ section.settings.image_width }}px * {{ section.settings.scale_4k | divided_by: 100.0 }}) !important;
+      border-width: calc({{ section.settings.thumbnail_border_width }}px * {{ section.settings.scale_4k | divided_by: 100.0 }}) !important;
+    }
+    
+    .palette-name {
+      font-size: calc(14px * {{ section.settings.scale_4k | divided_by: 100.0 }}) !important;
+    }
+
+    .carousel-arrow {
+      width: calc(44px * {{ section.settings.scale_4k | divided_by: 100.0 }}) !important;
+      height: calc(44px * {{ section.settings.scale_4k | divided_by: 100.0 }}) !important;
+    }
+
+    .carousel-arrow svg {
+      width: calc(20px * {{ section.settings.scale_4k | divided_by: 100.0 }}) !important;
+      height: calc(20px * {{ section.settings.scale_4k | divided_by: 100.0 }}) !important;
+    }
+  }
+
+  /* Ultra-wide 5K/6K screens (3440px+) */
+  @media (min-width: 3440px) {
+    .palette-selector-section {
+      max-width: 3400px;
+    }
+    
+    .palette-title {
+      font-size: calc({{ section.settings.title_size }}px * {{ section.settings.scale_5k | divided_by: 100.0 }}) !important;
+    }
+    
+    .palette-grid {
+      gap: calc({{ section.settings.image_gap }}px * {{ section.settings.scale_5k | divided_by: 100.0 }}) !important;
+    }
+    
+    .palette-item {
+      width: calc({{ section.settings.image_width }}px * {{ section.settings.scale_5k | divided_by: 100.0 }}) !important;
+    }
+    
+    .palette-image-wrapper {
+      height: calc({{ section.settings.image_width }}px * {{ section.settings.scale_5k | divided_by: 100.0 }}) !important;
+      border-width: calc({{ section.settings.thumbnail_border_width }}px * {{ section.settings.scale_5k | divided_by: 100.0 }}) !important;
+    }
+    
+    .palette-name {
+      font-size: calc(14px * {{ section.settings.scale_5k | divided_by: 100.0 }}) !important;
+    }
+
+    .carousel-arrow {
+      width: calc(44px * {{ section.settings.scale_5k | divided_by: 100.0 }}) !important;
+      height: calc(44px * {{ section.settings.scale_5k | divided_by: 100.0 }}) !important;
+    }
+
+    .carousel-arrow svg {
+      width: calc(20px * {{ section.settings.scale_5k | divided_by: 100.0 }}) !important;
+      height: calc(20px * {{ section.settings.scale_5k | divided_by: 100.0 }}) !important;
+    }
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .palette-selector-section {
+      margin: 20px auto;
+      padding: 0 12px;
+    }
+    
+    .palette-title {
+      font-size: calc({{ section.settings.title_size }}px * 0.65) !important;
+      margin-bottom: 20px !important;
+    }
+    
+    .palette-grid {
+      gap: 12px !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+    }
+    
+    .palette-item {
+      width: calc((100% - 12px) / 2) !important;
+      max-width: 160px;
+    }
+    
+    .palette-image-wrapper {
+      height: auto !important;
+      aspect-ratio: 1;
+    }
+    
+    .palette-name {
+      font-size: 11px !important;
+      margin-top: 6px !important;
+    }
+    
+    .coming-soon-badge {
+      font-size: 9px !important;
+      padding: 3px 6px !important;
+    }
+
+    /* Hide carousel controls on mobile */
+    .carousel-arrow {
+      display: none !important;
+    }
+
+    .carousel-dots {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', initPaletteSelector);
+document.addEventListener('shopify:section:load', initPaletteSelector);
+
+function initPaletteSelector() {
+  const sections = document.querySelectorAll('.palette-selector-section');
+  
+  sections.forEach(section => {
+    const paletteGrid = section.querySelector('.palette-grid');
+    const paletteItems = section.querySelectorAll('.palette-item');
+    const leftArrow = section.querySelector('.carousel-arrow-left');
+    const rightArrow = section.querySelector('.carousel-arrow-right');
+    const dotsContainer = section.querySelector('.carousel-dots');
+    
+    if (!paletteGrid || paletteItems.length === 0) return;
+    
+    const isCarousel = paletteGrid.dataset.carousel === 'true';
+    const visibleItems = parseInt(paletteGrid.dataset.visibleItems) || 4;
+    const autoScroll = paletteGrid.dataset.autoScroll === 'true';
+    const autoScrollDelay = parseInt(paletteGrid.dataset.autoScrollDelay) || 5;
+    
+    let currentIndex = 0;
+    let autoScrollInterval = null;
+    
+    // Function to switch designer in the sweater designer section
+    function switchToDesigner(designerIndex) {
+      const event = new CustomEvent('paletteSelected', { 
+        detail: { designerIndex: parseInt(designerIndex) } 
+      });
+      document.dispatchEvent(event);
+    }
+    
+    // Function to update active state
+    function updateActiveState(activeIndex) {
+      paletteItems.forEach(item => {
+        const itemIndex = parseInt(item.dataset.designerIndex);
+        if (itemIndex === activeIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+    
+    // Add click handlers to each palette item
+    paletteItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const designerIndex = this.dataset.designerIndex;
+        switchToDesigner(designerIndex);
+        updateActiveState(parseInt(designerIndex));
+      });
+    });
+    
+    // Carousel functionality
+    if (isCarousel && window.innerWidth > 768) {
+      const itemWidth = paletteItems[0].offsetWidth;
+      const gap = parseInt(window.getComputedStyle(paletteGrid).gap) || 20;
+      const slideWidth = itemWidth + gap;
+      const maxIndex = Math.max(0, paletteItems.length - visibleItems);
+      
+      // Show arrows if content overflows
+      if (paletteItems.length > visibleItems) {
+        if (leftArrow) leftArrow.style.display = 'flex';
+        if (rightArrow) rightArrow.style.display = 'flex';
+        
+        // Create dots
+        if (dotsContainer) {
+          dotsContainer.style.display = 'flex';
+          dotsContainer.innerHTML = '';
+          for (let i = 0; i <= maxIndex; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+          }
+        }
+      }
+      
+      function updateCarousel() {
+        const offset = -currentIndex * slideWidth;
+        paletteGrid.style.transform = `translateX(${offset}px)`;
+        
+        // Update arrow states
+        if (leftArrow) leftArrow.disabled = currentIndex === 0;
+        if (rightArrow) rightArrow.disabled = currentIndex >= maxIndex;
+        
+        // Update dots
+        if (dotsContainer) {
+          const dots = dotsContainer.querySelectorAll('.carousel-dot');
+          dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+          });
+        }
+      }
+      
+      function goToSlide(index) {
+        currentIndex = Math.max(0, Math.min(maxIndex, index));
+        updateCarousel();
+        resetAutoScroll();
+      }
+      
+      function nextSlide() {
+        if (currentIndex < maxIndex) {
+          currentIndex++;
+        } else if (autoScroll) {
+          currentIndex = 0; // Loop back to start
+        }
+        updateCarousel();
+      }
+      
+      function prevSlide() {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateCarousel();
+        }
+      }
+      
+      // Arrow click handlers
+      if (leftArrow) {
+        leftArrow.addEventListener('click', () => {
+          prevSlide();
+          resetAutoScroll();
+        });
+      }
+      
+      if (rightArrow) {
+        rightArrow.addEventListener('click', () => {
+          if (currentIndex < maxIndex) {
+            nextSlide();
+          }
+          resetAutoScroll();
+        });
+      }
+      
+      // Keyboard navigation
+      section.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+          prevSlide();
+          resetAutoScroll();
+        } else if (e.key === 'ArrowRight') {
+          nextSlide();
+          resetAutoScroll();
+        }
+      });
+      
+      // Auto-scroll functionality
+      function startAutoScroll() {
+        if (autoScroll) {
+          autoScrollInterval = setInterval(nextSlide, autoScrollDelay * 1000);
+        }
+      }
+      
+      function resetAutoScroll() {
+        if (autoScrollInterval) {
+          clearInterval(autoScrollInterval);
+          startAutoScroll();
+        }
+      }
+      
+      // Touch/swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      paletteGrid.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      });
+      
+      paletteGrid.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        resetAutoScroll();
+      });
+      
+      function handleSwipe() {
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) {
+          nextSlide();
+        }
+        if (touchEndX > touchStartX + swipeThreshold) {
+          prevSlide();
+        }
+      }
+      
+      // Pause auto-scroll on hover
+      section.addEventListener('mouseenter', () => {
+        if (autoScrollInterval) {
+          clearInterval(autoScrollInterval);
+        }
+      });
+      
+      section.addEventListener('mouseleave', () => {
+        startAutoScroll();
+      });
+      
+      // Initialize
+      updateCarousel();
+      startAutoScroll();
+    }
+    
+    // Listen for designer changes from the sweater designer
+    document.addEventListener('designerChanged', function(e) {
+      updateActiveState(e.detail.designerIndex);
+      
+      // Scroll carousel to show active item if needed
+      if (isCarousel && window.innerWidth > 768) {
+        const activeIndex = e.detail.designerIndex;
+        const activeItem = Array.from(paletteItems).find(
+          item => parseInt(item.dataset.designerIndex) === activeIndex
+        );
+        
+        if (activeItem) {
+          const itemIndex = Array.from(paletteItems).indexOf(activeItem);
+          const targetSlide = Math.floor(itemIndex / visibleItems);
+          if (targetSlide !== currentIndex) {
+            currentIndex = targetSlide;
+            if (isCarousel) {
+              const itemWidth = paletteItems[0].offsetWidth;
+              const gap = parseInt(window.getComputedStyle(paletteGrid).gap) || 20;
+              const slideWidth = itemWidth + gap;
+              const offset = -currentIndex * slideWidth;
+              paletteGrid.style.transform = `translateX(${offset}px)`;
+            }
+          }
+        }
+      }
+    });
+    
+    // Set initial active state (designer 0 by default)
+    updateActiveState(0);
+  });
+}
+</script>

@@ -1,0 +1,404 @@
+<cart-items-component
+  class="cart-items-component"
+  data-section-id="{{ section.id }}"
+>
+  <div class="section-background color-{{ section.settings.color_scheme }}"></div>
+  <div
+    class="section color-{{ section.settings.color_scheme }} section--{{ section.settings.section_width }}"
+  >
+    <div
+      class="cart-page spacing-style{% if cart.empty? %} cart-page--empty{% endif %}"
+      style="{% render 'spacing-style', settings: section.settings %}"
+    >
+      <!-- Shipping Info Notice -->
+      {%- unless cart.empty? -%}
+        <div class="shipping-info-notice">
+          <p>Your sweater is made to order. With this beta test, there is a chance the  wool  partners run out of certain colors. I thought it would be worth the risk so at least  you have the most colors
+to choose from, with the risk you might have to wait a little longer.<br><br>If all goes well, production starts in january.<br><br> Thank you for your support and patience!</p><br<br></br>
+        </div>
+      {%- endunless -%}
+
+      <div class="cart-page__title">
+        {%- content_for 'block', id: 'cart-page-title', type: '_cart-title' %}
+      </div>
+
+      <div class="cart-page__items">
+        {%- content_for 'block', id: 'cart-page-items', type: '_cart-products' %}
+        
+        <!-- MINIMAL CUSTOM SWEATER DISPLAYS -->
+        {%- unless cart.empty? -%}
+          {%- for item in cart.items -%}
+            {%- assign has_custom_design = false -%}
+            {%- assign design_png = '' -%}
+            {%- assign designer_name = '' -%}
+            
+          {%- for property in item.properties -%}
+  {%- if property.first == '_Design_PNG' and property.last != blank -%}
+    {%- assign has_custom_design = true -%}
+    {%- assign design_png = property.last -%}
+  {%- elsif property.first == '_Designer' -%}
+    {%- assign designer_name = property.last -%}
+  {%- elsif property.first == 'Size' -%}
+    {%- assign sweater_size = property.last -%}
+  {%- endif -%}
+{%- endfor -%}
+
+            {%- if has_custom_design -%}
+              <div class="custom-sweater-display-minimal">
+                <!-- PABON Logo -->
+                <div class="pabon-logo-container">
+                  <img src="https://cdn.shopify.com/s/files/1/0965/8233/6843/files/pabonlogo_e02d0b61-1102-427d-8e4c-7e1a190aa810_430x.png?v=1758809453" 
+                       alt="PABON" 
+                       class="pabon-logo" />
+                </div>
+                
+                <!-- Sweater Design Image -->
+                <div class="sweater-image-container">
+                  <img src="{{ design_png }}" 
+                       alt="Your Customized Sweater" 
+                       class="sweater-design-image" />
+                </div>
+                
+                <!-- Title -->
+                <h3 class="custom-sweater-title">YOUR CUSTOMIZED SWEATER</h3>
+{%- if sweater_size != blank -%}
+  <p style="font-size: 16px; color: #666; margin: -20px 0 20px 0;">Size: <strong style="color: #000;">{{ sweater_size }}</strong></p>
+{%- endif -%}
+                
+                <!-- Download Button -->
+                <button 
+                  onclick="downloadDesign('{{ design_png }}', 'Order_{{ designer_name | replace: ' ', '_' }}_{{ item.variant.title | replace: ' ', '_' }}')"
+                  class="download-sweater-button">
+                  DOWNLOAD SWEATER
+                </button>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endunless -%}
+      </div>
+
+      {%- unless cart.empty? -%}
+        <div class="cart-page__summary">
+          {%- content_for 'block', id: 'cart-page-summary', type: '_cart-summary' -%}
+        </div>
+      {%- endunless -%}
+
+      <div class="cart-page__more-blocks">
+        {%- content_for 'blocks' -%}
+      </div>
+    </div>
+  </div>
+</cart-items-component>
+
+<script>
+  function downloadDesign(imageSrc, designName) {
+    fetch(imageSrc)
+      .then(res => res.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = (designName || 'custom_sweater_design').replace(/\s+/g, '_').toLowerCase() + '.png';
+        
+        document.body.appendChild(a);
+        a.click();
+        
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      })
+      .catch(error => {
+        console.error('Download failed:', error);
+        window.open(imageSrc, '_blank');
+      });
+  }
+</script>
+
+{% stylesheet %}
+  .cart-page {
+    --cart-font-size--2xs: var(--font-size--2xs);
+    --cart-font-size--xs: var(--font-size--xs);
+    --cart-font-size--sm: var(--font-size--sm);
+    --cart-font-size--md: var(--font-size--md);
+    --cart-font-size--2xl: var(--font-size--2xl);
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0 var(--padding-5xl);
+  }
+
+  .cart-page--empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cart-page--empty .cart-page__title,
+  .cart-page--empty .cart-page__more-blocks {
+    margin-top: var(--margin-6xl);
+  }
+
+  .cart-page__more-blocks {
+    width: 100%;
+  }
+
+  .cart-page--empty .cart-title {
+    text-align: center;
+  }
+
+  .cart-page__main {
+    grid-column: 1;
+  }
+
+  .cart-page__summary {
+    padding-top: var(--padding-xl);
+  }
+
+  * Shipping Info Notice */
+  .shipping-info-notice {
+    grid-column: 1 / -1;
+    margin-bottom: 50px;
+    padding: 16px 20px;
+    background: #fff;
+    border: 2px solid #000;
+    text-align: left;
+  }
+
+  .shipping-info-notice p {
+    margin: 0;
+    font-family: inherit;
+    font-size: var(--cart-font-size--sm);
+    line-height: 1.6;
+    color: currentColor;
+  }
+
+  @media screen and (max-width: 749px) {
+    .shipping-info-notice {
+      margin-bottom: px;
+      padding: 14px 16px;
+    }
+    
+    .shipping-info-notice p {
+      font-size: var(--cart-font-size--xs);
+    }
+  }
+
+  /* MINIMAL CUSTOM SWEATER DISPLAY STYLES */
+  .custom-sweater-display-minimal {
+    margin: 30px auto;
+    padding: 40px;
+    background: #ffffff;
+    border: 12px solid #000000;
+    max-width: 600px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pabon-logo-container {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pabon-logo {
+    max-width: 200px;
+    height: auto;
+  }
+
+  .sweater-image-container {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sweater-design-image {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+  }
+
+  .custom-sweater-title {
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin: 30px 0;
+    color: #000000;
+    text-transform: uppercase;
+  }
+
+  .download-sweater-button {
+    display: inline-block;
+    padding: 18px 50px;
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .download-sweater-button:hover {
+    opacity: 0.8;
+  }
+
+  /* Mobile Responsive */
+  @media screen and (max-width: 749px) {
+    .custom-sweater-display-minimal {
+      margin: 20px auto;
+      padding: 20px;
+    }
+    
+    .pabon-logo {
+      max-width: 150px;
+    }
+    
+    .sweater-design-image {
+      max-width: 300px;
+    }
+    
+    .custom-sweater-title {
+      font-size: 20px;
+      margin: 20px 0;
+    }
+    
+    .download-sweater-button {
+      padding: 14px 30px;
+      font-size: 14px;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .cart-page {
+      grid-template-columns: 1fr min(50vw, var(--sidebar-width));
+      grid-template-rows: min-content min-content 1fr;
+    }
+
+    .cart-page__summary {
+      display: grid;
+      height: 100%;
+      grid-column: 2;
+      grid-row: 1 / -1;
+      align-self: stretch;
+      grid-template-rows: subgrid;
+      padding-top: 0;
+
+      /* needed to support blurred effect from hero section */
+      position: relative;
+    }
+
+    .section--page-width .cart-page:has(.cart__container--extend) {
+      grid-column: 2 / 4;
+      grid-template-columns: 1fr minmax(
+          var(--sidebar-width),
+          calc((100vw - var(--page-width)) / 2 + var(--sidebar-width))
+        );
+    }
+
+    .cart__container--extend {
+      height: 100%;
+    }
+  }
+
+  @media screen and (min-width: 1400px) {
+    .cart-page {
+      grid-template-columns: 1fr var(--sidebar-width);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.cart",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "icon"
+    },
+    {
+      "type": "image"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "video"
+    },
+    {
+      "type": "group"
+    },
+    {
+      "type": "spacer"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ]
+}
+{% endschema %}

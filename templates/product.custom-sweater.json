@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "sweater-designer",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

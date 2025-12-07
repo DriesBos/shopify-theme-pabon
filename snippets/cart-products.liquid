@@ -1,0 +1,279 @@
+{% assign block_settings = block.settings %}
+
+<script src="{{ 'component-cart-items.js' | asset_url }}" type="module" fetchpriority="low"></script>
+
+<div class="cart-items__wrapper">
+  {% if cart.empty? %}
+    <a class="button cart-items__empty-button" href="{{ routes.all_products_collection_url }}">
+      {{ 'actions.continue_shopping' | t }}
+    </a>
+  {% else %}
+    <form action="{{ routes.cart_url }}" class="cart-form" id="cart-form" method="post">
+      <div class="cart-items">
+        <table class="cart-items__table">
+          <tbody>
+            {% for item in cart.items %}
+              {% assign custom_png = '' %}
+              {% assign designer_name = '' %}
+              {% assign custom_name = '' %}
+              
+              {% for property in item.properties %}
+  {% if property.first == '_Design_PNG' %}
+    {% assign custom_png = property.last %}
+  {% elsif property.first == '_Designer' %}
+    {% assign designer_name = property.last %}
+  {% elsif property.first == '_Custom_Name' %}
+    {% assign custom_name = property.last %}
+  {% elsif property.first == 'Size' %}
+    {% assign sweater_size = property.last %}
+  {% endif %}
+{% endfor %}
+              
+              <tr class="cart-items__table-row" data-key="{{ item.key }}">
+                <td class="cart-items__media">
+            {% if custom_png != blank %}
+  <div class="custom-design-container">
+    <img src="{{ custom_png }}" alt="Custom {{ item.product.title }}" class="custom-design-image downloadable-png" 
+         data-filename="{{ item.product.title | replace: ' ', '_' }}_{{ designer_name | replace: ' ', '_' }}_design.png"
+         title="Click to download your custom design">
+    <span class="custom-badge">Custom</span>
+    <div class="download-hint">Click to download</div>
+  </div>
+                  {% elsif item.image %}
+                    <img src="{{ item.image | image_url: width: 250 }}" alt="{{ item.title }}" class="cart-item-image">
+                  {% endif %}
+                </td>
+                
+                <td class="cart-items__details">
+  <div class="cart-item-title">{{ item.product.title }}</div>
+  {% if designer_name != blank %}
+    <div class="designer-name">{{ designer_name }} Design</div>
+  {% endif %}
+  {% if sweater_size != blank %}
+    <div class="cart-item-size">Size: {{ sweater_size }}</div>
+  {% endif %}
+  {% if item.variant.title != 'Default Title' %}
+    <div class="cart-item-variant">{{ item.variant.title }}</div>
+  {% endif %}
+  <div class="cart-item-price">{{ item.final_price | money }}</div>
+</td>
+                
+                <td class="cart-items__quantity">
+                  <div class="quantity-wrapper">
+                    <button type="button" class="quantity-btn quantity-minus" data-line="{{ forloop.index }}">-</button>
+                    <input type="number" class="quantity-input" value="{{ item.quantity }}" min="0" data-line="{{ forloop.index }}">
+                    <button type="button" class="quantity-btn quantity-plus" data-line="{{ forloop.index }}">+</button>
+                  </div>
+                  <button type="button" class="remove-btn" data-line="{{ forloop.index }}" aria-label="Remove {{ item.title }}">
+                    Remove
+                  </button>
+                </td>
+                
+                <td class="cart-items__total">
+                  {{ item.final_line_price | money }}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </form>
+  {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  let isUpdating = false; // Prevent multiple simultaneous requests
+  
+  // Quantity controls
+  document.querySelectorAll('.quantity-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (isUpdating) return;
+      
+      const line = parseInt(this.dataset.line);
+      const input = document.querySelector(`.quantity-input[data-line="${this.dataset.line}"]`);
+      let newQuantity = parseInt(input.value);
+      
+      if (this.classList.contains('quantity-plus')) {
+        newQuantity++;
+      } else if (this.classList.contains('quantity-minus') && newQuantity > 0) {
+        newQuantity--;
+      }
+      
+      input.value = newQuantity;
+      updateCart(line, newQuantity);
+    });
+  });
+  
+  // Remove buttons
+  document.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (isUpdating) return;
+      if (!confirm('Remove this item from cart?')) return;
+      
+      const line = parseInt(this.dataset.line);
+      updateCart(line, 0);
+    });
+  });
+  
+  // Direct quantity input
+  document.querySelectorAll('.quantity-input').forEach(input => {
+    input.addEventListener('change', function() {
+      if (isUpdating) return;
+      
+      const line = parseInt(this.dataset.line);
+      const newQuantity = Math.max(0, parseInt(this.value) || 0);
+      this.value = newQuantity;
+      updateCart(line, newQuantity);
+    });
+  });
+  
+  function updateCart(line, quantity) {
+    isUpdating = true;
+    
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ line: line, quantity: quantity })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'too_many_requests' || data.status === 429) {
+        alert('Too many requests. Please wait 1 minute and try again.');
+        isUpdating = false;
+        return;
+      }
+      
+      // Success - reload the page
+      location.reload();
+    })
+    .catch(error => {
+      console.error('Cart update failed:', error);
+      alert('Failed to update cart. Please try again.');
+      isUpdating = false;
+    });
+  }
+  
+  // PNG download functionality
+  document.querySelectorAll('.downloadable-png').forEach(img => {
+    img.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const dataUrl = this.src;
+      const filename = this.dataset.filename || 'custom_design.png';
+      
+      fetch(dataUrl)
+        .then(res => res.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.style.display = 'none';
+          link.href = url;
+          link.download = filename;
+          
+          document.body.appendChild(link);
+          link.click();
+          
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(link);
+        })
+        .catch(error => {
+          console.error('Download failed:', error);
+          window.open(dataUrl, '_blank');
+        });
+    });
+  });
+});
+</script>
+
+{% stylesheet %}
+.cart-items__wrapper { width: 100%; }
+.cart-items__table { width: 100%; border-collapse: collapse; }
+.cart-items__table-row { border-bottom: 1px solid #eee; }
+.cart-items__table-row td { padding: 12px 8px; vertical-align: top; }
+
+.cart-items__media { width: 80px; }
+.custom-design-container, .cart-item-image { position: relative; width: 70px; height: 70px; }
+.custom-design-image, .cart-item-image { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
+.custom-design-image { border: 2px solid #007BFF; }
+.custom-badge { 
+  position: absolute; 
+  top: -5px; 
+  right: -5px; 
+  background: #007BFF; 
+  color: white; 
+  font-size: 8px; 
+  font-weight: 600;
+  padding: 2px 4px; 
+  border-radius: 8px; 
+  text-transform: uppercase;
+}
+
+.cart-items__details { width: 40%; }
+.cart-item-title { font-weight: 600; margin-bottom: 4px; }
+.designer-name { color: #007BFF; font-weight: 500; font-size: 12px; margin-bottom: 2px; }
+.cart-item-variant { color: #666; font-size: 12px; margin-bottom: 4px; }
+.cart-item-size { color: #333; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.cart-item-price { font-weight: 500; }
+
+.cart-items__quantity { width: 25%; }
+.quantity-wrapper { display: flex; align-items: center; margin-bottom: 8px; }
+.quantity-btn { 
+  background: #f8f9fa; 
+  border: 1px solid #ddd; 
+  width: 28px; 
+  height: 28px; 
+  cursor: pointer;
+  font-weight: bold;
+}
+.quantity-input { 
+  width: 40px; 
+  height: 28px; 
+  text-align: center; 
+  border: 1px solid #ddd; 
+  border-left: none; 
+  border-right: none;
+}
+.remove-btn { 
+  background: none; 
+  border: none; 
+  color: #dc3545; 
+  cursor: pointer; 
+  font-size: 12px;
+  text-decoration: underline;
+}
+.remove-btn:hover { color: #c82333; }
+
+.cart-items__total { text-align: right; font-weight: 600; }
+
+.cart-items__empty-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #007BFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 20px;
+}
+.custom-design-image.downloadable-png { 
+  cursor: pointer; 
+  transition: opacity 0.2s;
+}
+.custom-design-image.downloadable-png:hover { 
+  opacity: 0.8; 
+}
+.download-hint {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  right: 0;
+  font-size: 8px;
+  color: #007BFF;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.custom-design-container:hover .download-hint {
+  opacity: 1;
+}
+{% endstylesheet %}

@@ -1,0 +1,874 @@
+{% liquid
+  assign has_media = false
+  for i in (1..6)
+    assign image_key_1 = 'image_' | append: i | append: '_1'
+    assign image_key_2 = 'image_' | append: i | append: '_2'
+    assign image_key_3 = 'image_' | append: i | append: '_3'
+    assign video_key = 'video_' | append: i
+    if section.settings[image_key_1] != blank or section.settings[image_key_2] != blank or section.settings[image_key_3] != blank or section.settings[video_key] != blank
+      assign has_media = true
+      break
+    endif
+  endfor
+%}
+
+<style>
+  .carousel-section-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    background-color: {{ section.settings.background_color }};
+    overflow: hidden;
+  }
+
+  .carousel-wrapper-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    cursor: grab;
+  }
+
+  .carousel-wrapper-{{ section.id }}:active {
+    cursor: grabbing;
+  }
+
+  .carousel-wrapper-{{ section.id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-track-{{ section.id }} {
+    display: flex;
+    gap: 0;
+  }
+
+  .carousel-slide-{{ section.id }} {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
+  }
+
+  .carousel-image-wrapper-{{ section.id }} {
+    width: 100%;
+    height: {{ section.settings.slide_height }}px;
+    position: relative;
+    overflow: hidden;
+    background-color: {{ section.settings.background_color }};
+  }
+
+  .slide-images-container-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .slide-image-track-{{ section.id }} {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .slide-single-image-{{ section.id }} {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-slide-{{ section.id }} img,
+  .carousel-slide-{{ section.id }} video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .slide-dots-{{ section.id }} {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+  }
+
+  .slide-dot-{{ section.id }} {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .slide-dot-{{ section.id }}.active {
+    background: rgba(255, 255, 255, 0.95);
+    transform: scale(1.3);
+  }
+
+  .slide-dot-{{ section.id }}:hover {
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  .carousel-text-wrapper-{{ section.id }} {
+    width: 100%;
+    padding: {{ section.settings.text_padding }}px {{ section.settings.text_padding | times: 1.5 }}px;
+    background-color: {{ section.settings.text_background_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-text-content-{{ section.id }} {
+    text-align: center;
+    width: 100%;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.text_size }}px;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .carousel-text-content-{{ section.id }} p {
+    margin: 0;
+  }
+
+  .carousel-placeholder-{{ section.id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .carousel-placeholder-{{ section.id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+    opacity: 0.3;
+  }
+
+  .carousel-empty-state-{{ section.id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .carousel-video-control-{{ section.id }} {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    z-index: 5;
+  }
+
+  .carousel-video-control-{{ section.id }}:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .carousel-video-control-{{ section.id }} svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  {% unless section.settings.show_text %}
+    .carousel-text-wrapper-{{ section.id }} {
+      display: none;
+    }
+  {% endunless %}
+
+  @media screen and (max-width: 749px) {
+    .carousel-slide-{{ section.id }} {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+    }
+
+    .carousel-image-wrapper-{{ section.id }} {
+      height: {{ section.settings.slide_height | times: 0.7 }}px;
+    }
+
+    .carousel-text-wrapper-{{ section.id }} {
+      padding: {{ section.settings.text_padding | times: 0.8 }}px {{ section.settings.text_padding | times: 1.2 }}px;
+    }
+
+    .carousel-text-content-{{ section.id }} {
+      font-size: {{ section.settings.text_size | times: 0.9 }}px;
+    }
+
+    .slide-dot-{{ section.id }} {
+      width: 10px;
+      height: 10px;
+    }
+  }
+</style>
+
+<section
+  id="carousel-{{ section.id }}"
+  class="carousel-section-{{ section.id }}"
+>
+  <div class="carousel-wrapper-{{ section.id }}">
+    <div class="carousel-track-{{ section.id }}">
+      {% if has_media %}
+        {% for i in (1..6) %}
+          {% liquid
+            assign image_key_1 = 'image_' | append: i | append: '_1'
+            assign image_key_2 = 'image_' | append: i | append: '_2'
+            assign image_key_3 = 'image_' | append: i | append: '_3'
+            assign video_key = 'video_' | append: i
+            assign text_key = 'text_' | append: i
+            
+            assign image_1 = section.settings[image_key_1]
+            assign image_2 = section.settings[image_key_2]
+            assign image_3 = section.settings[image_key_3]
+            assign video = section.settings[video_key]
+            assign text = section.settings[text_key]
+            
+            assign has_any_media = false
+            if image_1 != blank or image_2 != blank or image_3 != blank or video != blank
+              assign has_any_media = true
+            endif
+          %}
+          
+          {% if has_any_media %}
+            <div class="carousel-slide-{{ section.id }} {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.index0 }}">
+              <div class="carousel-image-wrapper-{{ section.id }}">
+                {% if video != blank %}
+                  <video
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="auto"
+                  >
+                    {% for source in video.sources %}
+                      <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                    {% endfor %}
+                  </video>
+                  <button class="carousel-video-control-{{ section.id }}" data-video-control>
+                    <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                      <polygon points="5,3 19,12 5,21"></polygon>
+                    </svg>
+                    <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                      <rect x="6" y="4" width="4" height="16"></rect>
+                      <rect x="14" y="4" width="4" height="16"></rect>
+                    </svg>
+                  </button>
+                {% else %}
+                  {% liquid
+                    assign slide_images = ''
+                    assign image_count = 0
+                    
+                    if image_1 != blank
+                      assign image_count = image_count | plus: 1
+                    endif
+                    if image_2 != blank
+                      assign image_count = image_count | plus: 1
+                    endif
+                    if image_3 != blank
+                      assign image_count = image_count | plus: 1
+                    endif
+                  %}
+                  
+                  <div class="slide-images-container-{{ section.id }}" data-slide-container="{{ forloop.index0 }}">
+                    <div class="slide-image-track-{{ section.id }}" data-image-track>
+                      {% if image_1 != blank %}
+                        <div class="slide-single-image-{{ section.id }}">
+                          <img
+                            src="{{ image_1 | image_url: width: 1200 }}"
+                            srcset="{{ image_1 | image_url: width: 600 }} 600w, {{ image_1 | image_url: width: 1200 }} 1200w, {{ image_1 | image_url: width: 1800 }} 1800w"
+                            alt="{{ image_1.alt | escape }}"
+                            loading="eager"
+                          >
+                        </div>
+                      {% endif %}
+                      
+                      {% if image_2 != blank %}
+                        <div class="slide-single-image-{{ section.id }}">
+                          <img
+                            src="{{ image_2 | image_url: width: 1200 }}"
+                            srcset="{{ image_2 | image_url: width: 600 }} 600w, {{ image_2 | image_url: width: 1200 }} 1200w, {{ image_2 | image_url: width: 1800 }} 1800w"
+                            alt="{{ image_2.alt | escape }}"
+                            loading="eager"
+                          >
+                        </div>
+                      {% endif %}
+                      
+                      {% if image_3 != blank %}
+                        <div class="slide-single-image-{{ section.id }}">
+                          <img
+                            src="{{ image_3 | image_url: width: 1200 }}"
+                            srcset="{{ image_3 | image_url: width: 600 }} 600w, {{ image_3 | image_url: width: 1200 }} 1200w, {{ image_3 | image_url: width: 1800 }} 1800w"
+                            alt="{{ image_3.alt | escape }}"
+                            loading="eager"
+                          >
+                        </div>
+                      {% endif %}
+                    </div>
+                    
+                    {% if image_count > 1 %}
+                      <div class="slide-dots-{{ section.id }}" data-slide-dots="{{ forloop.index0 }}">
+                        {% for img_index in (1..image_count) %}
+                          <button 
+                            class="slide-dot-{{ section.id }} {% if img_index == 1 %}active{% endif %}" 
+                            data-image-index="{{ img_index | minus: 1 }}"
+                            aria-label="Go to image {{ img_index }}"
+                          ></button>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+              
+              <div class="carousel-text-wrapper-{{ section.id }}">
+                <div class="carousel-text-content-{{ section.id }}">
+                  {{ text }}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <div class="carousel-slide-{{ section.id }} active" data-slide="0">
+          <div class="carousel-image-wrapper-{{ section.id }}">
+            <div class="carousel-placeholder-{{ section.id }}">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="carousel-empty-state-{{ section.id }}">
+                Scroll horizontally to navigate between slides
+              </div>
+            </div>
+          </div>
+          <div class="carousel-text-wrapper-{{ section.id }}">
+            <div class="carousel-text-content-{{ section.id }}">
+              Add text for each slide (up to 3 images per slide)
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if has_media %}
+      <button
+        class="carousel-nav-{{ section.id }} carousel-nav-prev-{{ section.id }}"
+        aria-label="Previous slide"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
+      </button>
+
+      <button
+        class="carousel-nav-{{ section.id }} carousel-nav-next-{{ section.id }}"
+        aria-label="Next slide"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  (function() {
+    const carousel = document.getElementById('carousel-{{ section.id }}');
+    if (!carousel) return;
+
+    const track = carousel.querySelector('.carousel-track-{{ section.id }}');
+    const slides = carousel.querySelectorAll('.carousel-slide-{{ section.id }}');
+    const prevButton = carousel.querySelector('.carousel-nav-prev-{{ section.id }}');
+    const nextButton = carousel.querySelector('.carousel-nav-next-{{ section.id }}');
+
+    let currentSlide = 0;
+    let isPlaying = false;
+    let autoplayInterval = null;
+
+    const autoplay = carousel.dataset.autoplay === 'true';
+    const autoplaySpeed = parseInt(carousel.dataset.autoplaySpeed) || 3000;
+
+    // Initialize image slideshows within each slide
+    const imageSlideStates = {};
+    
+    carousel.querySelectorAll('[data-slide-container]').forEach((container) => {
+      const slideIndex = container.dataset.slideContainer;
+      const track = container.querySelector('[data-image-track]');
+      const dots = container.querySelectorAll('[data-slide-dots="' + slideIndex + '"] button');
+      const images = track.querySelectorAll('.slide-single-image-{{ section.id }}');
+      
+      if (images.length <= 1) return;
+      
+      imageSlideStates[slideIndex] = {
+        currentIndex: 0,
+        track: track,
+        dots: dots,
+        images: images
+      };
+      
+      // Add click handlers to dots
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          goToImage(slideIndex, index);
+        });
+      });
+      
+      // Add swipe support for touch devices
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      container.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      
+      container.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe(slideIndex);
+      }, { passive: true });
+      
+      function handleSwipe(slideIndex) {
+        const state = imageSlideStates[slideIndex];
+        if (!state) return;
+        
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+          if (diff > 0) {
+            // Swipe left - next image
+            const nextIndex = (state.currentIndex + 1) % state.images.length;
+            goToImage(slideIndex, nextIndex);
+          } else {
+            // Swipe right - previous image
+            const prevIndex = (state.currentIndex - 1 + state.images.length) % state.images.length;
+            goToImage(slideIndex, prevIndex);
+          }
+        }
+      }
+    });
+    
+    function goToImage(slideIndex, imageIndex) {
+      const state = imageSlideStates[slideIndex];
+      if (!state) return;
+      
+      state.currentIndex = imageIndex;
+      
+      // Update track position
+      const offset = imageIndex * 100;
+      state.track.style.transform = `translateX(-${offset}%)`;
+      
+      // Update dots
+      state.dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === imageIndex);
+      });
+    }
+
+    function goToSlide(index) {
+      currentSlide = Math.max(0, Math.min(index, slides.length - 1));
+      updateSlideshow();
+    }
+
+    function goToPrevSlide() {
+      currentSlide = currentSlide === 0 ? slides.length - 1 : currentSlide - 1;
+      updateSlideshow();
+    }
+
+    function goToNextSlide() {
+      currentSlide = currentSlide === slides.length - 1 ? 0 : currentSlide + 1;
+      updateSlideshow();
+    }
+
+    function updateSlideshow() {
+      if (track && slides.length > 0) {
+        const slideWidth = slides[0].offsetWidth;
+        const offset = currentSlide * slideWidth;
+        track.style.transform = `translateX(-${offset}px)`;
+      }
+
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+
+      if (prevButton) {
+        prevButton.disabled = slides.length <= 1;
+      }
+
+      if (nextButton) {
+        nextButton.disabled = slides.length <= 1;
+      }
+
+      // Play videos that are visible in the carousel
+      slides.forEach((slide) => {
+        const video = slide.querySelector('video');
+        if (video) {
+          const slideRect = slide.getBoundingClientRect();
+          const carouselRect = carousel.getBoundingClientRect();
+          
+          const isVisible = slideRect.right > carouselRect.left && 
+                           slideRect.left < carouselRect.right;
+          
+          if (isVisible) {
+            video.play().catch(e => console.log('Video autoplay prevented:', e));
+          } else {
+            video.pause();
+          }
+        }
+      });
+    }
+
+    function startAutoplay() {
+      if (slides.length <= 1) return;
+      
+      isPlaying = true;
+      autoplayInterval = setInterval(() => {
+        goToNextSlide();
+      }, autoplaySpeed);
+    }
+
+    function pauseAutoplay() {
+      isPlaying = false;
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+      }
+    }
+
+    // Setup event listeners
+    if (prevButton) {
+      prevButton.addEventListener('click', goToPrevSlide);
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', goToNextSlide);
+    }
+
+    // Video play/pause button handlers
+    carousel.querySelectorAll('[data-video-control]').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const videoWrapper = button.closest('.carousel-image-wrapper-{{ section.id }}');
+        const video = videoWrapper.querySelector('video');
+        const playIcon = button.querySelector('.play-icon');
+        const pauseIcon = button.querySelector('.pause-icon');
+        
+        if (video.paused) {
+          video.play();
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = 'block';
+        } else {
+          video.pause();
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
+        }
+      });
+    });
+
+    carousel.addEventListener('mouseenter', () => {
+      if (autoplayInterval) pauseAutoplay();
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+      if (autoplay && !isPlaying) startAutoplay();
+    });
+
+    // Initialize
+    updateSlideshow();
+
+    if (autoplay && slides.length > 1) {
+      startAutoplay();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Scrollable Image Carousel",
+  "tag": "section",
+  "class": "carousel-section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "slide_height",
+      "min": 200,
+      "max": 600,
+      "step": 25,
+      "unit": "px",
+      "label": "Slide height",
+      "info": "Scroll horizontally to navigate - up to 6 slides with 2.5 visible at once",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Text Section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_text",
+      "label": "Show text below images",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "text_padding",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Text padding",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Slide 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1_2",
+      "label": "Image 2 (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1_3",
+      "label": "Image 3 (optional)"
+    },
+    {
+      "type": "video",
+      "id": "video_1",
+      "label": "Video (optional)",
+      "info": "If set, video will be used instead of images. Use dots on images to navigate between multiple images per slide."
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text",
+      "default": "Description for slide 1"
+    },
+    {
+      "type": "header",
+      "content": "Slide 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2_2",
+      "label": "Image 2 (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2_3",
+      "label": "Image 3 (optional)"
+    },
+    {
+      "type": "video",
+      "id": "video_2",
+      "label": "Video (optional)",
+      "info": "If set, video will be used instead of images"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text",
+      "default": "Description for slide 2"
+    },
+    {
+      "type": "header",
+      "content": "Slide 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3_2",
+      "label": "Image 2 (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3_3",
+      "label": "Image 3 (optional)"
+    },
+    {
+      "type": "video",
+      "id": "video_3",
+      "label": "Video (optional)",
+      "info": "If set, video will be used instead of images"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text",
+      "default": "Description for slide 3"
+    },
+    {
+      "type": "header",
+      "content": "Slide 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4_2",
+      "label": "Image 2 (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4_3",
+      "label": "Image 3 (optional)"
+    },
+    {
+      "type": "video",
+      "id": "video_4",
+      "label": "Video (optional)",
+      "info": "If set, video will be used instead of images"
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Slide 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5_2",
+      "label": "Image 2 (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5_3",
+      "label": "Image 3 (optional)"
+    },
+    {
+      "type": "video",
+      "id": "video_5",
+      "label": "Video (optional)",
+      "info": "If set, video will be used instead of images"
+    },
+    {
+      "type": "text",
+      "id": "text_5",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Slide 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6_2",
+      "label": "Image 2 (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6_3",
+      "label": "Image 3 (optional)"
+    },
+    {
+      "type": "video",
+      "id": "video_6",
+      "label": "Video (optional)",
+      "info": "If set, video will be used instead of images"
+    },
+    {
+      "type": "text",
+      "id": "text_6",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_background_color",
+      "label": "Text background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrollable Image Carousel"
+    }
+  ]
+}
+{% endschema %}

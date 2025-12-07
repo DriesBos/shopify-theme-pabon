@@ -1,0 +1,479 @@
+{% doc %}
+  @prompt
+    splitscreen with the option to have a title cover both the left and right part of the splitscreen or to have a title either on the left or the right part of the splitscreen in the sidebar. I also want the option to click on either the left or right part of the splitscreen and to have the image or video (i need both options) change into another image or video., the video selection doesn't work, i can only use images now but i want video too, video needs to be 'full screen inside the splitscreen'
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-splitscreen-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: {{ block.settings.min_height }}px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .ai-splitscreen-title-full-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    color: {{ block.settings.title_color }};
+    text-align: center;
+    padding: 0 20px;
+    max-width: 90%;
+    pointer-events: none;
+  }
+
+  .ai-splitscreen-panel-{{ ai_gen_id }} {
+    position: relative;
+    width: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-splitscreen-panel-{{ ai_gen_id }}:hover {
+    opacity: 0.9;
+  }
+
+  .ai-splitscreen-media-wrapper-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease;
+  }
+
+  .ai-splitscreen-media-wrapper-{{ ai_gen_id }}.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ai-splitscreen-media-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-splitscreen-media-wrapper-{{ ai_gen_id }} video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-splitscreen-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-splitscreen-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .ai-splitscreen-panel-title-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    color: {{ block.settings.title_color }};
+    text-align: center;
+    padding: 0 20px;
+    max-width: 90%;
+    pointer-events: none;
+  }
+
+  .ai-splitscreen-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.overlay_color }};
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-splitscreen-{{ ai_gen_id }} {
+      flex-direction: column;
+      min-height: {{ block.settings.min_height_mobile }}px;
+    }
+
+    .ai-splitscreen-panel-{{ ai_gen_id }} {
+      width: 100%;
+      min-height: {{ block.settings.min_height_mobile | divided_by: 2 }}px;
+    }
+  }
+{% endstyle %}
+
+<splitscreen-interactive-{{ ai_gen_id }}
+  class="ai-splitscreen-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.title_position == 'full' and block.settings.title != blank %}
+    <div class="ai-splitscreen-title-full-{{ ai_gen_id }}">
+      <h2>{{ block.settings.title }}</h2>
+    </div>
+  {% endif %}
+
+  <div
+    class="ai-splitscreen-panel-{{ ai_gen_id }} ai-splitscreen-panel-left-{{ ai_gen_id }}"
+    data-panel="left"
+  >
+    <div class="ai-splitscreen-overlay-{{ ai_gen_id }}"></div>
+
+    {% if block.settings.left_media_type == 'image' %}
+      <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }}" data-state="primary">
+        {% if block.settings.left_image %}
+          <img
+            src="{{ block.settings.left_image | image_url: width: 2000 }}"
+            alt="{{ block.settings.left_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.left_image.width }}"
+            height="{{ block.settings.left_image.height }}"
+            class="ai-splitscreen-media-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-splitscreen-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if block.settings.left_image_alt %}
+        <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }} hidden" data-state="alternate">
+          <img
+            src="{{ block.settings.left_image_alt | image_url: width: 2000 }}"
+            alt="{{ block.settings.left_image_alt.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.left_image_alt.width }}"
+            height="{{ block.settings.left_image_alt.height }}"
+            class="ai-splitscreen-media-{{ ai_gen_id }}"
+          >
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }}" data-state="primary">
+        {% if block.settings.left_video %}
+          {{ block.settings.left_video | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
+        {% else %}
+          <div class="ai-splitscreen-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if block.settings.left_video_alt %}
+        <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }} hidden" data-state="alternate">
+          {{ block.settings.left_video_alt | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if block.settings.title_position == 'left' and block.settings.title != blank %}
+      <div class="ai-splitscreen-panel-title-{{ ai_gen_id }}">
+        <h2>{{ block.settings.title }}</h2>
+      </div>
+    {% endif %}
+  </div>
+
+  <div
+    class="ai-splitscreen-panel-{{ ai_gen_id }} ai-splitscreen-panel-right-{{ ai_gen_id }}"
+    data-panel="right"
+  >
+    <div class="ai-splitscreen-overlay-{{ ai_gen_id }}"></div>
+
+    {% if block.settings.right_media_type == 'image' %}
+      <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }}" data-state="primary">
+        {% if block.settings.right_image %}
+          <img
+            src="{{ block.settings.right_image | image_url: width: 2000 }}"
+            alt="{{ block.settings.right_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.right_image.width }}"
+            height="{{ block.settings.right_image.height }}"
+            class="ai-splitscreen-media-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-splitscreen-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if block.settings.right_image_alt %}
+        <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }} hidden" data-state="alternate">
+          <img
+            src="{{ block.settings.right_image_alt | image_url: width: 2000 }}"
+            alt="{{ block.settings.right_image_alt.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.right_image_alt.width }}"
+            height="{{ block.settings.right_image_alt.height }}"
+            class="ai-splitscreen-media-{{ ai_gen_id }}"
+          >
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }}" data-state="primary">
+        {% if block.settings.right_video %}
+          {{ block.settings.right_video | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
+        {% else %}
+          <div class="ai-splitscreen-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if block.settings.right_video_alt %}
+        <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }} hidden" data-state="alternate">
+          {{ block.settings.right_video_alt | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if block.settings.title_position == 'right' and block.settings.title != blank %}
+      <div class="ai-splitscreen-panel-title-{{ ai_gen_id }}">
+        <h2>{{ block.settings.title }}</h2>
+      </div>
+    {% endif %}
+  </div>
+</splitscreen-interactive-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class SplitscreenInteractive{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.panels = this.querySelectorAll('.ai-splitscreen-panel-{{ ai_gen_id }}');
+        this.currentStates = {
+          left: 'primary',
+          right: 'primary'
+        };
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.panels.forEach((panel) => {
+          panel.addEventListener('click', () => {
+            const panelType = panel.getAttribute('data-panel');
+            this.toggleMedia(panel, panelType);
+          });
+        });
+      }
+
+      toggleMedia(panel, panelType) {
+        const wrappers = panel.querySelectorAll('.ai-splitscreen-media-wrapper-{{ ai_gen_id }}');
+        
+        if (wrappers.length < 2) {
+          return;
+        }
+
+        const currentState = this.currentStates[panelType];
+        const newState = currentState === 'primary' ? 'alternate' : 'primary';
+
+        wrappers.forEach((wrapper) => {
+          const wrapperState = wrapper.getAttribute('data-state');
+          if (wrapperState === newState) {
+            wrapper.classList.remove('hidden');
+          } else {
+            wrapper.classList.add('hidden');
+          }
+        });
+
+        this.currentStates[panelType] = newState;
+      }
+    }
+
+    customElements.define('splitscreen-interactive-{{ ai_gen_id }}', SplitscreenInteractive{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Split screen",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "select",
+      "id": "title_position",
+      "label": "Title position",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full width (centered)"
+        },
+        {
+          "value": "left",
+          "label": "Left panel"
+        },
+        {
+          "value": "right",
+          "label": "Right panel"
+        }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Left panel"
+    },
+    {
+      "type": "select",
+      "id": "left_media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Primary image"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image_alt",
+      "label": "Alternate image (click to toggle)"
+    },
+    {
+      "type": "video",
+      "id": "left_video",
+      "label": "Primary video"
+    },
+    {
+      "type": "video",
+      "id": "left_video_alt",
+      "label": "Alternate video (click to toggle)"
+    },
+    {
+      "type": "header",
+      "content": "Right panel"
+    },
+    {
+      "type": "select",
+      "id": "right_media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Primary image"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image_alt",
+      "label": "Alternate image (click to toggle)"
+    },
+    {
+      "type": "video",
+      "id": "right_video",
+      "label": "Primary video"
+    },
+    {
+      "type": "video",
+      "id": "right_video_alt",
+      "label": "Alternate video (click to toggle)"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 300,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "label": "Minimum height (desktop)",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "min_height_mobile",
+      "min": 200,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Minimum height (mobile)",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split screen"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,471 @@
+{% doc %}
+  @prompt
+    I want a customizable text section. With the option to have a title on the left and the text on the right.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-text-section-{{ ai_gen_id }} {
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-text-section-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-text-section-content-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.gap }}px;
+    align-items: {% if block.settings.vertical_alignment == 'top' %}flex-start{% elsif block.settings.vertical_alignment == 'center' %}center{% else %}flex-end{% endif %};
+    justify-content: {{ block.settings.horizontal_alignment }};
+  }
+
+  .ai-text-section-content-{{ ai_gen_id }}--stacked {
+    flex-direction: column;
+    align-items: {{ block.settings.horizontal_alignment }};
+  }
+
+  .ai-text-section-content-{{ ai_gen_id }}--split {
+    flex-direction: row;
+  }
+
+  .ai-text-section-title-wrapper-{{ ai_gen_id }} {
+    {% if block.settings.layout == 'split' %}
+      flex: 0 0 {{ block.settings.title_width }}%;
+      padding-left: {{ block.settings.title_offset_left }}px;
+      padding-right: {{ block.settings.title_offset_right }}px;
+    {% else %}
+      width: 100%;
+    {% endif %}
+  }
+
+  .ai-text-section-title-{{ ai_gen_id }} {
+    margin: 0;
+    color: {{ block.settings.title_color }};
+    font-size: {{ block.settings.title_size }}px;
+    text-align: {{ block.settings.title_alignment }};
+  }
+
+  .ai-text-section-title-{{ ai_gen_id }} p {
+    margin: 0;
+    text-align: {{ block.settings.title_alignment }};
+  }
+
+  .ai-text-section-text-wrapper-{{ ai_gen_id }} {
+    {% if block.settings.layout == 'split' %}
+      flex: 0 0 {{ block.settings.text_width }}%;
+      padding-left: {{ block.settings.text_offset_left }}px;
+      padding-right: {{ block.settings.text_offset_right }}px;
+    {% else %}
+      width: 100%;
+    {% endif %}
+  }
+
+  .ai-text-section-text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.6;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-text-section-text-{{ ai_gen_id }} p {
+    margin: 0 0 1em;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-text-section-text-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-text-section-content-{{ ai_gen_id }}--split {
+      flex-direction: column;
+    }
+
+    .ai-text-section-title-wrapper-{{ ai_gen_id }} {
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .ai-text-section-text-wrapper-{{ ai_gen_id }} {
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .ai-text-section-title-{{ ai_gen_id }},
+    .ai-text-section-title-{{ ai_gen_id }} p {
+      text-align: {{ block.settings.mobile_title_alignment }};
+      font-size: calc({{ block.settings.title_size }}px * 0.7);
+    }
+
+    .ai-text-section-text-{{ ai_gen_id }},
+    .ai-text-section-text-{{ ai_gen_id }} p {
+      text-align: {{ block.settings.mobile_text_alignment }};
+      font-size: calc({{ block.settings.text_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-text-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-text-section-container-{{ ai_gen_id }}">
+    <div class="ai-text-section-content-{{ ai_gen_id }} ai-text-section-content-{{ ai_gen_id }}--{{ block.settings.layout }}">
+      {% if block.settings.title != blank %}
+        <div class="ai-text-section-title-wrapper-{{ ai_gen_id }}">
+          <h2 class="ai-text-section-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        </div>
+      {% endif %}
+
+      {% if block.settings.text != blank %}
+        <div class="ai-text-section-text-wrapper-{{ ai_gen_id }}">
+          <div class="ai-text-section-text-{{ ai_gen_id }}">
+            {{ block.settings.text }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Customizable text",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "stacked",
+          "label": "Stacked"
+        },
+        {
+          "value": "split",
+          "label": "Split (title left, text right)"
+        }
+      ],
+      "default": "split"
+    },
+    {
+      "type": "select",
+      "id": "horizontal_alignment",
+      "label": "Horizontal alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        },
+        {
+          "value": "space-between",
+          "label": "Space between"
+        },
+        {
+          "value": "space-around",
+          "label": "Space around"
+        }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "top",
+      "info": "Only applies to split layout"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between title and text",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>Our Story</p>"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Title position (split layout)"
+    },
+    {
+      "type": "range",
+      "id": "title_width",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Title width",
+      "default": 35,
+      "info": "Only applies to split layout"
+    },
+    {
+      "type": "range",
+      "id": "title_offset_left",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Title padding left",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_offset_right",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Title padding right",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>We believe in creating products that make a difference. Our journey started with a simple idea: to bring quality and style together in perfect harmony. Every piece we create is thoughtfully designed with you in mind.</p>"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Text position (split layout)"
+    },
+    {
+      "type": "range",
+      "id": "text_width",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Text width",
+      "default": 65,
+      "info": "Only applies to split layout"
+    },
+    {
+      "type": "range",
+      "id": "text_offset_left",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Text padding left",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "text_offset_right",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Text padding right",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "select",
+      "id": "mobile_title_alignment",
+      "label": "Title alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "mobile_text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customizable text"
+    }
+  ]
+}
+{% endschema %}

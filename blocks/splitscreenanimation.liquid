@@ -1,0 +1,917 @@
+{% doc %}
+  @prompt
+    splitscreen with customizable width/height, spacing options, and automatic animation with speed control
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-splitscreen-container-{{ ai_gen_id }} {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding_top }}px {{ block.settings.section_padding_horizontal }}px {{ block.settings.section_padding_bottom }}px {{ block.settings.section_padding_horizontal }}px;
+  }
+
+  .ai-splitscreen-{{ ai_gen_id }} {
+    position: relative;
+    {% if block.settings.width_option == 'full' %}
+      width: 100%;
+    {% elsif block.settings.width_option == 'centered' %}
+      width: 100%;
+      max-width: {{ block.settings.max_width }}px;
+    {% elsif block.settings.width_option == 'custom' %}
+      width: {{ block.settings.custom_width }}%;
+    {% endif %}
+    {% if block.settings.height_option == 'viewport' %}
+      height: 100vh;
+    {% elsif block.settings.height_option == 'custom' %}
+      height: {{ block.settings.custom_height }}px;
+    {% endif %}
+    display: flex;
+    flex-direction: row;
+    gap: {{ block.settings.panel_gap }}px;
+  }
+
+  .ai-splitscreen-title-full-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    color: {{ block.settings.title_color }};
+    text-align: center;
+    padding: 0 20px;
+    max-width: 90%;
+    pointer-events: none;
+  }
+
+  .ai-splitscreen-panel-{{ ai_gen_id }} {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-splitscreen-panel-{{ ai_gen_id }}:hover {
+    opacity: 0.9;
+  }
+
+  .ai-splitscreen-media-wrapper-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+  }
+
+  .ai-splitscreen-media-wrapper-{{ ai_gen_id }}.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ai-splitscreen-media-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: {{ block.settings.image_fit }};
+    display: block;
+    transform-origin: center center;
+  }
+
+  .ai-splitscreen-media-wrapper-{{ ai_gen_id }} video {
+    width: 100%;
+    height: 100%;
+    object-fit: {{ block.settings.image_fit }};
+    display: block;
+  }
+
+  .ai-splitscreen-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-splitscreen-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .ai-splitscreen-panel-title-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    color: {{ block.settings.title_color }};
+    text-align: center;
+    padding: 0 20px;
+    max-width: 90%;
+    pointer-events: none;
+  }
+
+  .ai-splitscreen-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.overlay_color }};
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-splitscreen-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: {{ block.settings.panel_gap_mobile }}px;
+    }
+
+    .ai-splitscreen-panel-{{ ai_gen_id }} {
+      width: 100%;
+      height: 50vh;
+    }
+
+    .ai-splitscreen-container-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top_mobile }}px {{ block.settings.section_padding_horizontal_mobile }}px {{ block.settings.section_padding_bottom_mobile }}px {{ block.settings.section_padding_horizontal_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-splitscreen-container-{{ ai_gen_id }}">
+  <splitscreen-interactive-{{ ai_gen_id }}
+    class="ai-splitscreen-{{ ai_gen_id }}"
+    data-auto-play-left="{{ block.settings.auto_play_left }}"
+    data-animation-speed-left="{{ block.settings.animation_speed_left }}"
+    {{ block.shopify_attributes }}
+  >
+    {% if block.settings.title_position == 'full' and block.settings.title != blank %}
+      <div class="ai-splitscreen-title-full-{{ ai_gen_id }}">
+        <h2>{{ block.settings.title }}</h2>
+      </div>
+    {% endif %}
+
+    <div
+      class="ai-splitscreen-panel-{{ ai_gen_id }} ai-splitscreen-panel-left-{{ ai_gen_id }}"
+      data-panel="left"
+    >
+      <div class="ai-splitscreen-overlay-{{ ai_gen_id }}"></div>
+
+      {% if block.settings.left_media_type == 'image' %}
+        {% for i in (1..5) %}
+          {% assign image_key = 'left_image_' | append: i %}
+          {% assign rotation_key = 'left_image_' | append: i | append: '_rotation' %}
+          {% assign image = block.settings[image_key] %}
+          {% assign rotation = block.settings[rotation_key] %}
+          {% if image %}
+            {% assign object_fit_value = block.settings.image_fit %}
+            {% if rotation != 0 %}
+              {% assign object_fit_value = 'contain' %}
+            {% endif %}
+            <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }} {% if i != 1 %}hidden{% endif %}" data-index="{{ i }}">
+              <img
+                src="{{ image | image_url: width: 2000 }}"
+                alt="{{ image.alt | escape }}"
+                loading="lazy"
+                width="{{ image.width }}"
+                height="{{ image.height }}"
+                class="ai-splitscreen-media-{{ ai_gen_id }}"
+                style="transform: rotate({{ rotation }}deg); object-fit: {{ object_fit_value }};"
+              >
+            </div>
+          {% endif %}
+        {% endfor %}
+        
+        {% unless block.settings.left_image_1 or block.settings.left_image_2 or block.settings.left_image_3 or block.settings.left_image_4 or block.settings.left_image_5 %}
+          <div class="ai-splitscreen-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endunless %}
+      {% else %}
+        {% for i in (1..5) %}
+          {% assign video_key = 'left_video_' | append: i %}
+          {% assign video = block.settings[video_key] %}
+          {% if video %}
+            <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }} {% if i != 1 %}hidden{% endif %}" data-index="{{ i }}">
+              {{ video | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
+            </div>
+          {% endif %}
+        {% endfor %}
+        
+        {% unless block.settings.left_video_1 or block.settings.left_video_2 or block.settings.left_video_3 or block.settings.left_video_4 or block.settings.left_video_5 %}
+          <div class="ai-splitscreen-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endunless %}
+      {% endif %}
+
+      {% if block.settings.title_position == 'left' and block.settings.title != blank %}
+        <div class="ai-splitscreen-panel-title-{{ ai_gen_id }}">
+          <h2>{{ block.settings.title }}</h2>
+        </div>
+      {% endif %}
+    </div>
+
+    <div
+      class="ai-splitscreen-panel-{{ ai_gen_id }} ai-splitscreen-panel-right-{{ ai_gen_id }}"
+      data-panel="right"
+    >
+      <div class="ai-splitscreen-overlay-{{ ai_gen_id }}"></div>
+
+      {% if block.settings.right_media_type == 'image' %}
+        {% for i in (1..5) %}
+          {% assign image_key = 'right_image_' | append: i %}
+          {% assign rotation_key = 'right_image_' | append: i | append: '_rotation' %}
+          {% assign image = block.settings[image_key] %}
+          {% assign rotation = block.settings[rotation_key] %}
+          {% if image %}
+            {% assign object_fit_value = block.settings.image_fit %}
+            {% if rotation != 0 %}
+              {% assign object_fit_value = 'contain' %}
+            {% endif %}
+            <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }} {% if i != 1 %}hidden{% endif %}" data-index="{{ i }}">
+              <img
+                src="{{ image | image_url: width: 2000 }}"
+                alt="{{ image.alt | escape }}"
+                loading="lazy"
+                width="{{ image.width }}"
+                height="{{ image.height }}"
+                class="ai-splitscreen-media-{{ ai_gen_id }}"
+                style="transform: rotate({{ rotation }}deg); object-fit: {{ object_fit_value }};"
+              >
+            </div>
+          {% endif %}
+        {% endfor %}
+        
+        {% unless block.settings.right_image_1 or block.settings.right_image_2 or block.settings.right_image_3 or block.settings.right_image_4 or block.settings.right_image_5 %}
+          <div class="ai-splitscreen-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endunless %}
+      {% else %}
+        {% for i in (1..5) %}
+          {% assign video_key = 'right_video_' | append: i %}
+          {% assign video = block.settings[video_key] %}
+          {% if video %}
+            <div class="ai-splitscreen-media-wrapper-{{ ai_gen_id }} {% if i != 1 %}hidden{% endif %}" data-index="{{ i }}">
+              {{ video | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
+            </div>
+          {% endif %}
+        {% endfor %}
+        
+        {% unless block.settings.right_video_1 or block.settings.right_video_2 or block.settings.right_video_3 or block.settings.right_video_4 or block.settings.right_video_5 %}
+          <div class="ai-splitscreen-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endunless %}
+      {% endif %}
+
+      {% if block.settings.title_position == 'right' and block.settings.title != blank %}
+        <div class="ai-splitscreen-panel-title-{{ ai_gen_id }}">
+          <h2>{{ block.settings.title }}</h2>
+        </div>
+      {% endif %}
+    </div>
+  </splitscreen-interactive-{{ ai_gen_id }}>
+</div>
+
+<script>
+  (function() {
+    class SplitscreenInteractive{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.leftPanel = this.querySelector('[data-panel="left"]');
+        this.rightPanel = this.querySelector('[data-panel="right"]');
+        
+        // Single shared index for both panels to keep them in sync
+        this.currentIndex = 1;
+        
+        this.autoPlayInterval = null;
+        
+        // Use single animation control for both panels
+        this.autoPlay = this.dataset.autoPlayLeft === 'true';
+        this.animationSpeed = parseInt(this.dataset.animationSpeedLeft) * 1000 || 3000;
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+        
+        if (this.autoPlay) {
+          this.startAutoPlay();
+        }
+      }
+
+      disconnectedCallback() {
+        this.stopAutoPlay();
+      }
+
+      setupEventListeners() {
+        // Clicking either panel cycles both panels together
+        if (this.leftPanel) {
+          this.leftPanel.addEventListener('click', () => {
+            this.stopAutoPlay();
+            this.cycleBothPanels();
+          });
+        }
+        
+        if (this.rightPanel) {
+          this.rightPanel.addEventListener('click', () => {
+            this.stopAutoPlay();
+            this.cycleBothPanels();
+          });
+        }
+      }
+
+      startAutoPlay() {
+        this.autoPlayInterval = setInterval(() => {
+          this.cycleBothPanels();
+        }, this.animationSpeed);
+      }
+
+      stopAutoPlay() {
+        if (this.autoPlayInterval) {
+          clearInterval(this.autoPlayInterval);
+          this.autoPlayInterval = null;
+        }
+      }
+
+      cycleBothPanels() {
+        // Calculate next index first
+        const nextIndex = this.getNextIndex();
+        
+        // Hide current index in both panels
+        this.hideIndex(this.leftPanel, this.currentIndex);
+        this.hideIndex(this.rightPanel, this.currentIndex);
+        
+        // Show next index in both panels
+        this.showIndex(this.leftPanel, nextIndex);
+        this.showIndex(this.rightPanel, nextIndex);
+        
+        // Update shared index
+        this.currentIndex = nextIndex;
+      }
+
+      hideIndex(panel, index) {
+        if (!panel) return;
+        
+        const wrapper = panel.querySelector(`[data-index="${index}"]`);
+        if (wrapper) {
+          wrapper.classList.add('hidden');
+        }
+      }
+
+      showIndex(panel, index) {
+        if (!panel) return;
+        
+        const wrapper = panel.querySelector(`[data-index="${index}"]`);
+        if (wrapper) {
+          wrapper.classList.remove('hidden');
+        }
+      }
+
+      getNextIndex() {
+        let nextIndex = this.currentIndex + 1;
+        
+        // Find the next available image index (checking both panels)
+        for (let i = 0; i < 5; i++) {
+          if (nextIndex > 5) {
+            nextIndex = 1;
+          }
+          
+          const leftWrapper = this.leftPanel ? this.leftPanel.querySelector(`[data-index="${nextIndex}"]`) : null;
+          const rightWrapper = this.rightPanel ? this.rightPanel.querySelector(`[data-index="${nextIndex}"]`) : null;
+          
+          if (leftWrapper || rightWrapper) {
+            return nextIndex;
+          }
+          nextIndex++;
+        }
+        
+        return 1; // Default to first image
+      }
+    }
+
+    customElements.define('splitscreen-interactive-{{ ai_gen_id }}', SplitscreenInteractive{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Split screen",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout & Sizing"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover (full screen, may crop)"
+        },
+        {
+          "value": "contain",
+          "label": "Contain (show full image, may have borders)"
+        }
+      ],
+      "default": "cover",
+      "info": "Cover fills the entire area but may crop images. Contain shows the full image but may show borders. NOTE: Rotated images automatically use Contain to prevent clipping."
+    },
+    {
+      "type": "select",
+      "id": "width_option",
+      "label": "Width",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full width"
+        },
+        {
+          "value": "centered",
+          "label": "Centered with max width"
+        },
+        {
+          "value": "custom",
+          "label": "Custom width (%)"
+        }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 2000,
+      "step": 50,
+      "unit": "px",
+      "label": "Max width (for centered option)",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Custom width percentage",
+      "default": 90
+    },
+    {
+      "type": "select",
+      "id": "height_option",
+      "label": "Height",
+      "options": [
+        {
+          "value": "viewport",
+          "label": "Full viewport height"
+        },
+        {
+          "value": "custom",
+          "label": "Custom height (px)"
+        }
+      ],
+      "default": "viewport"
+    },
+    {
+      "type": "range",
+      "id": "custom_height",
+      "min": 300,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Custom height",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding left/right",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "panel_gap",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between panels",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile padding bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile padding left/right",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "panel_gap_mobile",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile gap between panels",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_play_left",
+      "label": "Enable automatic animation",
+      "default": false,
+      "info": "Both panels will cycle together in sync"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed_left",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "unit": "s",
+      "label": "Animation speed",
+      "default": 3,
+      "info": "How long each image pair is displayed before transitioning"
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "select",
+      "id": "title_position",
+      "label": "Title position",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full width (centered)"
+        },
+        {
+          "value": "left",
+          "label": "Left panel"
+        },
+        {
+          "value": "right",
+          "label": "Right panel"
+        }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Left panel"
+    },
+    {
+      "type": "select",
+      "id": "left_media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "range",
+      "id": "left_image_1_rotation",
+      "min": 0,
+      "max": 360,
+      "step": 90,
+      "unit": "deg",
+      "label": "Image 1 rotation",
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "range",
+      "id": "left_image_2_rotation",
+      "min": 0,
+      "max": 360,
+      "step": 90,
+      "unit": "deg",
+      "label": "Image 2 rotation",
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "range",
+      "id": "left_image_3_rotation",
+      "min": 0,
+      "max": 360,
+      "step": 90,
+      "unit": "deg",
+      "label": "Image 3 rotation",
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image_4",
+      "label": "Image 4"
+    },
+    {
+      "type": "range",
+      "id": "left_image_4_rotation",
+      "min": 0,
+      "max": 360,
+      "step": 90,
+      "unit": "deg",
+      "label": "Image 4 rotation",
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image_5",
+      "label": "Image 5"
+    },
+    {
+      "type": "range",
+      "id": "left_image_5_rotation",
+      "min": 0,
+      "max": 360,
+      "step": 90,
+      "unit": "deg",
+      "label": "Image 5 rotation",
+      "default": 0
+    },
+    {
+      "type": "video",
+      "id": "left_video_1",
+      "label": "Video 1"
+    },
+    {
+      "type": "video",
+      "id": "left_video_2",
+      "label": "Video 2"
+    },
+    {
+      "type": "video",
+      "id": "left_video_3",
+      "label": "Video 3"
+    },
+    {
+      "type": "video",
+      "id": "left_video_4",
+      "label": "Video 4"
+    },
+    {
+      "type": "video",
+      "id": "left_video_5",
+      "label": "Video 5"
+    },
+    {
+      "type": "header",
+      "content": "Right panel"
+    },
+    {
+      "type": "select",
+      "id": "right_media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "range",
+      "id": "right_image_1_rotation",
+      "min": 0,
+      "max": 360,
+      "step": 90,
+      "unit": "deg",
+      "label": "Image 1 rotation",
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "range",
+      "id": "right_image_2_rotation",
+      "min": 0,
+      "max": 360,
+      "step": 90,
+      "unit": "deg",
+      "label": "Image 2 rotation",
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "range",
+      "id": "right_image_3_rotation",
+      "min": 0,
+      "max": 360,
+      "step": 90,
+      "unit": "deg",
+      "label": "Image 3 rotation",
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image_4",
+      "label": "Image 4"
+    },
+    {
+      "type": "range",
+      "id": "right_image_4_rotation",
+      "min": 0,
+      "max": 360,
+      "step": 90,
+      "unit": "deg",
+      "label": "Image 4 rotation",
+      "default": 0
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image_5",
+      "label": "Image 5"
+    },
+    {
+      "type": "range",
+      "id": "right_image_5_rotation",
+      "min": 0,
+      "max": 360,
+      "step": 90,
+      "unit": "deg",
+      "label": "Image 5 rotation",
+      "default": 0
+    },
+    {
+      "type": "video",
+      "id": "right_video_1",
+      "label": "Video 1"
+    },
+    {
+      "type": "video",
+      "id": "right_video_2",
+      "label": "Video 2"
+    },
+    {
+      "type": "video",
+      "id": "right_video_3",
+      "label": "Video 3"
+    },
+    {
+      "type": "video",
+      "id": "right_video_4",
+      "label": "Video 4"
+    },
+    {
+      "type": "video",
+      "id": "right_video_5",
+      "label": "Video 5"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split screen"
+    }
+  ]
+}
+{% endschema %}
