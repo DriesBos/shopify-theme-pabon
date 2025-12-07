@@ -845,13 +845,13 @@
 
     <!-- Mobile Controls Panel (hidden on desktop) -->
     <div class='mobile-controls-panel' style='display: none;'>
-      <div class='mobile-controls-grid'>
-        <div style='text-align: center; font-size: 16px; font-weight: 700; color: #333; display: flex; align-items: center; justify-content: center; grid-column: 1 / -1;'>
-          €320
-        </div>
+      <div class='mobile-controls-panel_pricing'>
+        <p style='font-size:22px; color:#000; text-align:center; width:100%; max-width:100%; line-height:1.4;'>
+          <strong>€320</strong>
+        </p>
         <select
           id='sweater-size-mobile'
-          style='padding:8px 10px; border-radius:0; border:2px solid #000; width:100%; text-align:center; font-size:11px; background:#fff; -webkit-appearance:none; -moz-appearance:none; appearance:none;'
+          style="padding:8px 10px; border-radius:8px; border:2px solid #ccc; font-size:18px; width:100%; text-align:center; cursor:pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;"
         >
           <option value='XXS'>XXS</option>
           <option value='XS'>XS</option>
@@ -863,29 +863,28 @@
 
         <button
           id='add-to-cart-mobile'
-          style='padding:14px 12px; border-radius:0; background:#0090C1; color:#fff; border:none; cursor:pointer; width:100%; font-size:9px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;'
+          style='padding:16px 16px; border-radius:0; background:black; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:12px; letter-spacing:0.5px; text-transform:uppercase;'
         >
           ADD TO BAG
         </button>
-
+      </div>
+      <div class='sweater-controls-mobile'>
         <button
           id='random-btn-mobile'
           class='btn-secondary btn-secondary-mobile'
           type='button'
-          style='display:flex; gap:2px; align-items:center; justify-content:center; padding:8px; border-radius:0; width:100%; cursor:pointer; color:black; border:none; font-size:9px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase; text-decoration:underline; background:none;'
+          style='width:auto !important; cursor:pointer; color:black; border:none; text-decoration:underline; background:none;'
         >
-          <span>Randomize</span>
-          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
+          <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
             <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/>
           </svg>
         </button>
         <button
           id='default-btn-mobile'
           type='button'
-          style='display:flex; gap:2px; align-items:center; justify-content:center; padding:8px; border-radius:0; width:100%; cursor:pointer; background:none; color:black; text-decoration:underline; border:none; font-size:9px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;'
+          style='width:auto !important; border-radius:0; ursor:pointer; background:none; color:black; text-decoration:underline; border:none; font-size:9px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;'
         >
-          <span>reset</span>
-          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
+          <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
             <path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/>
           </svg>
         </button>
@@ -893,21 +892,18 @@
         <button
           id='info-btn-mobile'
           aria-label='details'
-          style='display:flex; gap:2px; align-items:center; justify-content:center; padding:8px 12px; border-radius:0; background:none; color:black; text-decoration:underline; border:none; cursor:pointer; font-size:9px; width:100%; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;'
+          style='width:auto !important; border-radius:0; background:none; color:black; text-decoration:underline; border:none; cursor:pointer;'
         >
-          <span>Info</span>
-          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
+          <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
             <path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/>
           </svg>
         </button>
       </div>
 
-      <p class='mobile-instruction-text'>Customize yours.</p>
-
       <!-- Mini Designer Image (mobile) - Square with border -->
       <div
         id='mini-designer-image-mobile'
-        style='width:180px; height:180px; border-radius:0; overflow:hidden; border:3px solid #000; cursor:pointer; transition:all 0.3s ease; margin-top:8px; box-shadow:0 4px 8px rgba(0,0,0,0.15); position:relative;'
+        style='width:100% !important; height:auto !important; aspect-ratio:1 / 1; border-radius:0; overflow:hidden; border:3px solid #000; cursor:pointer; transition:all 0.3s ease; position:relative;'
       >
         <img
           id='mini-designer-img-mobile'
@@ -2107,6 +2103,31 @@
 
   #deadline-timer:hover #countdown-display {
     color: #fff !important;
+  }
+  {% comment %} NEW STYLES {% endcomment %}
+
+  .mobile-controls-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  .mobile-controls-panel_pricing {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+  .mobile-controls-panel_pricing p {
+    padding:0;
+    margin:0;
+    padding-bottom: 0.5rem !important;
+  }
+  .sweater-controls-mobile {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
   }
 </style>
 
