@@ -1,11 +1,5 @@
-
-
 {% liquid
-  assign order = 'logo,menu,localization,search,mobile_search,actions'
-
-  if shop.customer_accounts_enabled
-    assign order = 'mobile_search,logo,menu,localization,search,actions'
-  endif
+  assign order = 'logo,menu,localization,search,actions'
 
   assign rows = 'top,bottom' | split: ','
   assign search_style = 'none'
@@ -51,64 +45,28 @@
     content_for 'block', type: '_header-menu', id: 'header-menu'
   endcapture
 
-  capture mobile_menu
-    content_for 'block', type: '_header-menu', id: 'header-menu', variant: 'mobile'
-  endcapture
-
-  capture navigation_bar
-    content_for 'block', type: '_header-menu', id: 'header-menu', variant: 'navigation_bar', transparent: transparent
-  endcapture
-
   capture actions
     render 'header-actions'
   endcapture
 
-  if shop.customer_accounts_enabled
-    assign search_class = 'mobile:hidden'
-  endif
-
   # Handle localization positioning
   if section.settings.localization_position == 'left'
     if section.settings.search_position == 'left'
-      if shop.customer_accounts_enabled
-        assign order = 'mobile_search,logo,search,localization,menu,actions'
-      else
-        assign order = 'logo,search,localization,menu,mobile_search,actions'
-      endif
+      assign order = 'logo,search,localization,menu,actions'
     else
-      if shop.customer_accounts_enabled
-        assign order = 'mobile_search,logo,localization,menu,search,actions'
-      else
-        assign order = 'logo,localization,menu,search,mobile_search,actions'
-      endif
+      assign order = 'logo,localization,menu,search,actions'
     endif
   else
     if section.settings.search_position == 'left'
-      if shop.customer_accounts_enabled
-        assign order = 'mobile_search,logo,search,menu,localization,actions'
-      else
-        assign order = 'logo,search,menu,localization,mobile_search,actions'
-      endif
+      assign order = 'logo,search,menu,localization,actions'
+    else
+      assign order = 'logo,menu,localization,search,actions'
     endif
   endif
+
   capture search
-    render 'search', style: search_style, class: search_class
+    render 'search', style: search_style
   endcapture
-
-  # Skip mobile search under specific conditions:
-  # Always render if search_row is bottom
-  # Don't render when shop.customer_accounts_enabled is false and search_position is left and search_style is not none
-  assign skip_mobile_search = false
-  if shop.customer_accounts_enabled == false and section.settings.search_position == 'left' and search_style != 'none'
-    assign skip_mobile_search = true
-  endif
-
-  if section.settings.search_row == 'bottom' or search_style != 'none' and skip_mobile_search == false
-    # Mobile search duplicate for when search is not in the right order for mobile layout
-    capture mobile_search
-      render 'search', class: 'desktop:hidden', style: search_style
-    endcapture
-  endif
 
   assign show_language = section.settings.show_language
   if localization.available_languages.size <= 1
@@ -173,7 +131,7 @@
   endif
 %}
 
-<script type="application/ld+json">
+<script type='application/ld+json'>
   {
     "@context": "http://schema.org",
     "@type": "Organization",
@@ -186,16 +144,16 @@
 </script>
 
 <header-component
-  id="header-component"
-  class="{{ class }}"
+  id='header-component'
+  class='{{ class }}'
   {% if transparent %}
-    transparent="{{ transparent }}"
+    transparent='{{ transparent }}'
   {% endif %}
   {% if sticky %}
-    sticky="{{ sticky }}"
+    sticky='{{ sticky }}'
   {% endif %}
   data-skip-node-update
-  data-scroll-direction="none"
+  data-scroll-direction='none'
 >
   {% for row in rows %}
     {% liquid
@@ -204,7 +162,7 @@
 
       case row
         when 'top'
-          assign first = mobile_menu
+          assign first = ''
 
           if bottom_row_blocks.size > 0 and section.settings.divider_size == 'page-width'
             assign class = class | append: ' divider--page-width'
@@ -217,16 +175,11 @@
           endif
         when 'bottom'
           assign first = ''
-          assign class = class | append: ' mobile:hidden'
 
           assign border_bottom_setting_id = 'border_width'
       endcase
 
       assign style = '--border-bottom-width: [width]px; ' | replace: '[width]', section.settings[border_bottom_setting_id]
-
-      if row == 'top'
-        assign style = style | append: '--border-bottom-width-mobile: [width]px; ' | replace: '[width]', section.settings.border_width
-      endif
     %}
 
     {% capture content %}
@@ -239,37 +192,30 @@
         menu: menu,
         actions: actions,
         localization: localization_markup,
-        search: search,
-        mobile_search: mobile_search
+        search: search
       %}
     {% endcapture %}
 
     {% assign content = content | strip %}
     {% if content != blank %}
       <div
-        class="{{ class | strip }}"
-        ref="headerRowTop"
+        class='{{ class | strip }}'
+        ref='headerRowTop'
         {%- if style != blank -%}
-          style="{{ style | strip }}"
+          style='{{ style | strip }}'
         {%- endif -%}
       >
-        <div class="header__columns spacing-style">
+        <div class='header__columns spacing-style'>
           {{ content }}
         </div>
       </div>
     {% endif %}
   {% endfor %}
-
-  {% if navigation_bar != blank %}
-    <div class="header__row header__row--mobile desktop:hidden color-{{ section.settings.color_scheme_bottom }}">
-      {{ navigation_bar }}
-    </div>
-  {% endif %}
 </header-component>
 
 <script
-  src="{{ 'header.js' | asset_url }}"
-  type="module"
+  src='{{ 'header.js' | asset_url }}'
+  type='module'
 ></script>
 
 {% stylesheet %}
@@ -371,22 +317,7 @@
     --color-border-rgb: inherit;
   }
 
-  .header-section {
-    position: relative;
-  }
-
-  #header-group:has(#header-component[sticky]) {
-    display: contents;
-  }
-
-  .header-section:has(> #header-component[sticky='always']),
-  .header-section:has(> #header-component[sticky='scroll-up'][data-sticky-state='active']) {
-    position: sticky;
-
-    /* Use -1 instead of 0 so intersection observer can track sticky state */
-    top: -1px;
-    z-index: var(--layer-sticky);
-  }
+  /* Sticky header positioning is handled in base.css on #header-group */
 
   .header[data-sticky-state] {
     transition: opacity var(--animation-speed) var(--animation-easing);
@@ -415,30 +346,16 @@
     border-bottom: var(--border-bottom-width) solid var(--color-border);
   }
 
-  @media screen and (max-width: 749px) {
-    .header__row--top:not(.divider--page-width),
-    .header__row--top.divider--page-width .header__columns {
-      border-bottom-width: var(--border-bottom-width-mobile);
-    }
-  }
-
   .header__row.divider--page-width:not(.section--page-width) .header__columns {
-    @media screen and (min-width: 750px) {
-      padding-inline-start: 0;
-      padding-inline-end: 0;
-      margin-inline-start: var(--page-margin);
-      margin-inline-end: var(--page-margin);
-    }
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    margin-inline-start: var(--page-margin);
+    margin-inline-end: var(--page-margin);
   }
 
   .header__column {
     display: flex;
     align-items: center;
-
-    /* on mobile, header__column nodes are ignored to create a new grid-template-area based on all visible content */
-    @media screen and (max-width: 749px) {
-      display: contents;
-    }
   }
 
   .header__column--left,
@@ -490,11 +407,8 @@
 
     /* If there is no center column, make the column the menu is in grow eagerly */
     &:where(:not(:has(.header__column--center))) {
-      @media screen and (min-width: 750px) {
-        --header-template-columns: var(--header-left) var(--header-right);
-
-        grid-template-areas: 'left right';
-      }
+      --header-template-columns: var(--header-left) var(--header-right);
+      grid-template-areas: 'left right';
 
       /* If the header-menu is in the right column */
       &:has(.header__column--right header-menu) {
@@ -506,38 +420,6 @@
       &:has(.header__column--left header-menu) {
         --header-left: auto;
         --header-right: minmax(max-content, 1fr);
-      }
-    }
-
-    @media screen and (max-width: 749px) {
-      --header-template-columns: var(--header-mobile-bookend) var(--header-mobile-bookend) 1fr
-        var(--header-mobile-bookend) var(--header-mobile-bookend);
-
-      grid-template-areas: 'leftA leftB center rightA rightB';
-      grid-column: span 3;
-      column-gap: 0;
-      align-items: center;
-      padding-block: 0;
-      padding-inline: 0 var(--padding-3xs);
-
-      .header-logo {
-        grid-area: center;
-      }
-
-      &:not(:has(header-actions)) .search-action {
-        grid-area: leftB;
-      }
-
-      &:not(:has(.account-actions)) .search-action {
-        grid-area: rightA;
-      }
-
-      .search-action {
-        grid-area: leftB;
-      }
-
-      header-actions {
-        grid-area: rightB;
       }
     }
   }
@@ -640,7 +522,7 @@
 {% endstylesheet %}
 
 {% unless request.design_mode %}
-  <script type="module">
+  <script type='module'>
     import { hydrate } from '@theme/section-hydration';
     const url = new URL(window.location.href);
     url.searchParams.delete('page');

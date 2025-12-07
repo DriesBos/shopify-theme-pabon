@@ -387,6 +387,13 @@ p:empty {
   grid-column: 2;
 }
 
+/* Header sticky positioning */
+#header-group {
+  position: sticky;
+  top: -1px;
+  z-index: 1000;
+}
+
 /* Make the actual section background transparent, and instead apply it to a separate sibling element to enable stacking with hero shadow  */
 .shopify-section:not(.header-section) :is(.section, .cart__summary-container) {
   background: transparent;
@@ -422,10 +429,8 @@ p:empty {
 .section--full-width.section--full-width-margin > * {
   grid-column: 1 / -1;
 
-  @media screen and (min-width: 750px) {
-    padding-left: var(--page-margin);
-    padding-right: var(--page-margin);
-  }
+  padding-left: var(--page-margin);
+  padding-right: var(--page-margin);
 }
 
 /* Some section content break out to full width of the page */
