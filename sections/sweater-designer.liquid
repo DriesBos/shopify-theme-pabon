@@ -1006,7 +1006,7 @@
 <!-- Expanded Designer Image Overlay with Carousel -->
 <div
   id='expanded-designer-overlay'
-  style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9998; cursor:pointer; overflow-y:auto;'
+  style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; cursor:pointer; overflow-y:auto;'
 >
   <button
     id='close-overlay-btn'
@@ -1017,20 +1017,19 @@
 
   <div
     id='expanded-content'
-    style='position:relative; max-width:700px; width:90%; margin:40px auto; padding-bottom:40px;'
   >
     <!-- Carousel Container -->
-    <div id='carousel-container' style='position:relative; width:100%; background:#000;'>
+    <div id='carousel-container'>
       <!-- Carousel Images/Video -->
-      <div id='carousel-track' style='position:relative; width:100%; aspect-ratio:4/3; overflow:hidden;'>
+      <div id='carousel-track'>
         <div class='carousel-slide active' data-index='0'>
-          <img id='carousel-img-0' src='' style='width:100%; height:100%; object-fit:contain;'>
+          <img id='carousel-img-0' src=''>
         </div>
         <div class='carousel-slide' data-index='1' style='display:none;'>
-          <img id='carousel-img-1' src='' style='width:100%; height:100%; object-fit:contain;'>
+          <img id='carousel-img-1' src=''>
         </div>
         <div class='carousel-slide' data-index='2' style='display:none;'>
-          <img id='carousel-img-2' src='' style='width:100%; height:100%; object-fit:contain;'>
+          <img id='carousel-img-2' src=''>
         </div>
         <div class='carousel-slide carousel-video-slide' data-index='3' style='display:none;'>
           <video
@@ -1038,7 +1037,7 @@
             controls
             playsinline
             webkit-playsinline
-            style='width:100%; height:100%; object-fit:contain; background:#000;'
+            style='width:100%; height:auto; object-fit:contain; background:#000;'
           ></video>
         </div>
       </div>
@@ -1557,6 +1556,54 @@
     box-shadow: 0 6px 16px rgba(0,0,0,0.3);
   }
 
+  #expanded-designer-overlay {
+     background:rgba(0,0,0,0.66)
+  }
+
+  #expanded-content {
+    position:relative;
+    width: calc(100vw - 4vw);
+    height: calc(100vh - 4vh);
+    max-height: calc(100vh - 4vh);
+    margin: 2vh auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #carousel-container {
+    flex: 1;
+    position:relative;
+    width:100%;
+    background:#000;
+  }
+
+  #carousel-track {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  .carousel-slide {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-slide img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #artist-info {
+    flex-shrink: 0;
+  }
+
   /* Hide wool image desktop on mobile */
   @media (max-width: 768px) {
     #mini-designer-image {
@@ -1588,12 +1635,6 @@
     #info-tooltip p:first-of-type {
       font-size: 16px !important;
       margin-bottom: 12px !important;
-    }
-
-    /* Expanded overlay mobile adjustments */
-    #expanded-content {
-      width: 95% !important;
-      margin: 20px auto !important;
     }
 
     #carousel-prev,
@@ -2028,7 +2069,7 @@
     #sweater-confirm,
     #color-warning,
     #expanded-designer-overlay {
-      max-width: calc(100vw - 32px) !important;
+      max-width: 100% !important;
     }
 
     /* Color warning positioning */
