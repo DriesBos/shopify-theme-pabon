@@ -723,14 +723,14 @@
 
 <div
   class='sweater-designer'
-  style='margin:120px auto; padding:0 1rem; display:flex; font-family:Jost, sans-serif; width:100%; position:relative;'
+  style='margin:120px auto; display:flex; font-family:Jost, sans-serif; width:100%; position:relative;'
 >
   <!-- SWEATER AREA (now on left) -->
-  <div id='sweater-area' style='flex:1 1 0; position:relative; order:1; width:100%;'>
+  <div id='sweater-area' style='flex:1 1 0; position:relative; width:100%;'>
     <!-- Combined sweater + swatches container with border -->
     <div
       id='sweater-and-swatches-container'
-      style='border: 12px solid #000; padding: 20px; box-sizing: border-box; max-width: 860px; margin: 0 auto; position: relative;'
+      style='box-sizing: border-box; max-width: 860px; margin: 0 auto; position: relative;'
     >
       <!-- reset and random buttons -->
       <div
@@ -809,7 +809,7 @@
     <!-- Sweater title and navigation -->
     <div
       id='sweater-navigation'
-      style="display:flex; align-items:center; justify-content:center; gap:1rem; margin-top:1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif; position:relative;"
+      style="display:flex; align-items:center; justify-content:center; gap:1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif; position:relative;"
     >
       <!-- Mobile zoom buttons positioned next to navigation -->
       <button
@@ -843,6 +843,38 @@
       </button>
     </div>
 
+    <div class='sweater-controls-mobile'>
+      <button
+        id='random-btn-mobile'
+        class='btn-secondary btn-secondary-mobile'
+        type='button'
+        style='width:auto !important; cursor:pointer; color:black; border:none; text-decoration:underline; background:none;'
+      >
+        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
+          <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/>
+        </svg>
+      </button>
+      <button
+        id='default-btn-mobile'
+        type='button'
+        style='width:auto !important; border-radius:0; ursor:pointer; background:none; color:black; text-decoration:underline; border:none; font-size:9px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;'
+      >
+        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
+          <path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/>
+        </svg>
+      </button>
+
+      <button
+        id='info-btn-mobile'
+        aria-label='details'
+        style='width:auto !important; border-radius:0; background:none; color:black; text-decoration:underline; border:none; cursor:pointer;'
+      >
+        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
+          <path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/>
+        </svg>
+      </button>
+    </div>
+
     <!-- Mobile Controls Panel (hidden on desktop) -->
     <div class='mobile-controls-panel' style='display: none;'>
       <div class='mobile-controls-panel_pricing'>
@@ -866,37 +898,6 @@
           style='padding:16px 16px; border-radius:0; background:black; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:12px; letter-spacing:0.5px; text-transform:uppercase;'
         >
           ADD TO BAG
-        </button>
-      </div>
-      <div class='sweater-controls-mobile'>
-        <button
-          id='random-btn-mobile'
-          class='btn-secondary btn-secondary-mobile'
-          type='button'
-          style='width:auto !important; cursor:pointer; color:black; border:none; text-decoration:underline; background:none;'
-        >
-          <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
-            <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/>
-          </svg>
-        </button>
-        <button
-          id='default-btn-mobile'
-          type='button'
-          style='width:auto !important; border-radius:0; ursor:pointer; background:none; color:black; text-decoration:underline; border:none; font-size:9px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;'
-        >
-          <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
-            <path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/>
-          </svg>
-        </button>
-
-        <button
-          id='info-btn-mobile'
-          aria-label='details'
-          style='width:auto !important; border-radius:0; background:none; color:black; text-decoration:underline; border:none; cursor:pointer;'
-        >
-          <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
-            <path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/>
-          </svg>
         </button>
       </div>
 
@@ -927,7 +928,7 @@
 
   <div
     id='controls-panel'
-    style='flex:1;display:flex; flex-direction:column; justify-content:space-around; width:100%; max-width:160px; box-sizing:border-box; position:relative; order:2;'
+    style='flex:1;display:flex; flex-direction:column; justify-content:space-around; width:100%; max-width:160px; box-sizing:border-box; position:relative;'
   >
     <!-- Pricing (moved above size selector) -->
     {% comment %} <p style="margin:0 0 12px 0; font-size:16px; color:#000; text-align:center; max-width:120px; line-height:1.4;">Customize yours.</p> {% endcomment %}
@@ -1629,8 +1630,8 @@
 
   /* Combined sweater and swatches container */
   #sweater-and-swatches-container {
-    border: 12px solid #000;
-    padding: 20px;
+    border: 0.5rem solid #000;
+    padding: 1rem;
     box-sizing: border-box;
     max-width: 860px;
     margin: 0 auto;
@@ -1650,6 +1651,19 @@
 
   /* Mobile controls grid - hidden on desktop */
   .mobile-controls-grid { display: contents; }
+
+  #sweater-area {
+    width: 100%;
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    box-sizing: border-box;
+  }
+  #sweater-and-swatches-container {
+    width: 100%;
+  }
 
   /* Intermediate breakpoint (1200px to 1920px) for gradual scaling */
   @media (min-width: 1200px) and (max-width: 1919px) {
@@ -1820,6 +1834,12 @@
     }
   }
 
+  @media (min-width: 768px) {
+    .sweater-designer {
+      padding: 0 0.5rem;
+    }
+  }
+
   /* Enhanced responsive design */
   @media (max-width: 768px) {
     /* Prevent horizontal scroll on mobile */
@@ -1831,7 +1851,6 @@
     .sweater-designer {
       flex-direction: column;
       margin: 60px auto 18px auto !important;
-      padding: 8px;
       gap: 0;
       max-width: 100%;
       width: 100%;
@@ -1862,14 +1881,13 @@
     }
 
     #sweater-area {
-      order: 1;
       width: 100%;
       max-width: 100%;
       padding: 0;
-      padding-top: 12px;
       flex: 1;
       display: flex;
       flex-direction: column;
+      gap: 1rem;
       position: relative;
       box-sizing: border-box;
     }
@@ -1893,9 +1911,7 @@
 
     /* Navigation positioned after sweater */
     #sweater-navigation {
-      order: 3;
       position: relative;
-      margin: 12px 0 8px 0;
       max-width: 100%;
       box-sizing: border-box;
     }
@@ -2071,10 +2087,6 @@
       gap: 0 !important;
     }
 
-    #sweater-area {
-      flex: 0 0 auto;
-    }
-
     #controls-panel {
       position: absolute;
       right: calc((100vw - 860px) / 4 - 75px);
@@ -2082,6 +2094,11 @@
     }
   }
 
+  @media (min-width: 769px) {
+    .sweater-controls-mobile {
+      display: none !important;
+    }
+  }
   /* Intermediate sizes - keep panel next to sweater with gap */
   @media (min-width: 769px) and (max-width: 1099px) {
     .sweater-designer {
@@ -2105,7 +2122,13 @@
     color: #fff !important;
   }
   {% comment %} NEW STYLES {% endcomment %}
-
+  .sweater-controls-mobile {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    order: 4;
+  }
   .mobile-controls-panel {
     display: flex;
     flex-direction: column;
@@ -2122,12 +2145,6 @@
     padding:0;
     margin:0;
     padding-bottom: 0.5rem !important;
-  }
-  .sweater-controls-mobile {
-    display: inline-flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 1rem;
   }
 </style>
 
