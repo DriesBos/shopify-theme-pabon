@@ -2113,116 +2113,154 @@ if (timerContainer && timerTooltip) {
   
 
   // Designer configurations (colors now come from galleryData)
-const DESIGNERS = {
-  0: {
-    name: "David Hockney (60s)",
-    available: true,
-    enabled: {{ section.settings.hockney60_enabled | default: true }},
-    defaults: {
-      "hem":"#313539","neck":"#313539","Laag_2":"#313539","Laag_3":"#284354","Laag_4":"#b4a697","Laag_5":"#284354","Laag_6":"#313539",
-      "Laag_7":"#284354","Laag_8":"#313539","Laag_9":"#6b5d93","Laag_10":"#9a6c2c","Laag_11":"#284354","Laag_12":"#313539",
-      "Laag_13":"#313539","Laag_14":"#b4a697","Laag_15":"#313539","Laag_16":"#b3502e","Laag_17":"#313539","Laag_18":"#b4a697",
-      "Laag_19":"#6b5d93","Laag_21":"#b3502e","Laag_22":"#313539","Laag_23":"#284354","Laag_24":"#b4a697","Laag_25":"#9a6c2c",
-      "Laag_26":"#284354","Laag_27":"#313539","Laag_28":"#9a6c2c","leftcuff":"#313539","rightcuff":"#313539"
+  const DESIGNERS = {
+    0: {
+      name: "David Hockney (60s)",
+      available: true,
+      defaults: {
+        "hem":"#313539","neck":"#313539","Laag_2":"#313539","Laag_3":"#284354","Laag_4":"#b4a697","Laag_5":"#284354","Laag_6":"#313539",
+        "Laag_7":"#284354","Laag_8":"#313539","Laag_9":"#6b5d93","Laag_10":"#9a6c2c","Laag_11":"#284354","Laag_12":"#313539",
+        "Laag_13":"#313539","Laag_14":"#b4a697","Laag_15":"#313539","Laag_16":"#b3502e","Laag_17":"#313539","Laag_18":"#b4a697",
+        "Laag_19":"#6b5d93","Laag_21":"#b3502e","Laag_22":"#313539","Laag_23":"#284354","Laag_24":"#b4a697","Laag_25":"#9a6c2c",
+        "Laag_26":"#284354","Laag_27":"#313539","Laag_28":"#9a6c2c","leftcuff":"#313539","rightcuff":"#313539"
+      },
+      tooltipTitle: "David Hockney (60s)",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#"
     },
-    tooltipTitle: "David Hockney (60s)",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#"
-  },
-  1: {
-    name: "Francis Bacon",
-    available: true,
-    enabled: {{ section.settings.bacon_enabled | default: true }},
-    defaults: {
-      "hem":"#8c6f64","neck":"#000000","Laag_2":"#8c6f64","Laag_3":"#1a352c","Laag_4":"#d8d5d2","Laag_5":"#d35968","Laag_6":"#1a352c",
-      "Laag_7":"#d8d5d2","Laag_8":"#ff83a1","Laag_9":"#d35968","Laag_10":"#ff83a1","Laag_11":"#1a352c","Laag_12":"#d8d5d2",
-      "Laag_13":"#000000","Laag_14":"#000000","Laag_15":"#1a352c","Laag_16":"#d35968","Laag_17":"#1a352c","Laag_18":"#d8d5d2",
-      "Laag_19":"#1a352c","Laag_21":"#d35968","Laag_22":"#000000","Laag_23":"#000000","Laag_24":"#d8d5d2","Laag_25":"#000000",
-      "Laag_26":"#ff83a1","Laag_27":"#8c6f64","Laag_28":"#ff83a1","leftcuff":"#8c6f64","rightcuff":"#8c6f64"
+    1: {
+      name: "Francis Bacon",
+      available: true,
+      defaults: {
+        "hem":"#8c6f64","neck":"#000000","Laag_2":"#8c6f64","Laag_3":"#1a352c","Laag_4":"#d8d5d2","Laag_5":"#d35968","Laag_6":"#1a352c",
+        "Laag_7":"#d8d5d2","Laag_8":"#ff83a1","Laag_9":"#d35968","Laag_10":"#ff83a1","Laag_11":"#1a352c","Laag_12":"#d8d5d2",
+        "Laag_13":"#000000","Laag_14":"#000000","Laag_15":"#1a352c","Laag_16":"#d35968","Laag_17":"#1a352c","Laag_18":"#d8d5d2",
+        "Laag_19":"#1a352c","Laag_21":"#d35968","Laag_22":"#000000","Laag_23":"#000000","Laag_24":"#d8d5d2","Laag_25":"#000000",
+        "Laag_26":"#ff83a1","Laag_27":"#8c6f64","Laag_28":"#ff83a1","leftcuff":"#8c6f64","rightcuff":"#8c6f64"
+      },
+      tooltipTitle: "Francis Bacon.",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/bacon1_430x.jpg?v=1762164487",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/francisbacon_430x.jpg?v=1757588774#"
     },
-    tooltipTitle: "Francis Bacon.",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/bacon1_430x.jpg?v=1762164487",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/francisbacon_430x.jpg?v=1757588774#"
-  },
-  2: {
-    name: "Ken Price",
-    available: true,
-    enabled: {{ section.settings.price_enabled | default: true }},
-    defaults: {
-      "hem":"#000000","neck":"#be4b2e","Laag_2":"#000000","Laag_3":"#843345","Laag_4":"#59261f","Laag_5":"#843345","Laag_6":"#59261f",
-      "Laag_7":"#9cbdb4","Laag_8":"#59261f","Laag_9":"#843345","Laag_10":"#843345","Laag_11":"#843345","Laag_12":"#843345",
-      "Laag_13":"#000000","Laag_14":"#9cbdb4","Laag_15":"#000000","Laag_16":"#59261f","Laag_17":"#9cbdb4","Laag_18":"#7d90b2",
-      "Laag_19":"#9cbdb4","Laag_21":"#843345","Laag_22":"#000000","Laag_23":"#59261f","Laag_24":"#9cbdb4","Laag_25":"#7d90b2",
-      "Laag_26":"#9cbdb4","Laag_27":"#000000","Laag_28":"#9cbdb4","leftcuff":"#000000","rightcuff":"#000000"
+    2: {
+      name: "Ken Price",
+      available: true,
+      defaults: {
+        "hem":"#000000",
+    "neck":"#be4b2e",
+    "Laag_2":"#000000",
+    "Laag_3":"#843345",
+    "Laag_4":"#59261f",
+    "Laag_5":"#843345",
+    "Laag_6":"#59261f",
+    "Laag_7":"#9cbdb4",
+    "Laag_8":"#59261f",
+    "Laag_9":"#843345",
+    "Laag_10":"#843345",
+    "Laag_11":"#843345",
+    "Laag_12":"#843345",
+    "Laag_13":"#000000",
+    "Laag_14":"#9cbdb4",
+    "Laag_15":"#000000",
+    "Laag_16":"#59261f",
+    "Laag_17":"#9cbdb4",
+    "Laag_18":"#7d90b2",
+    "Laag_19":"#9cbdb4",
+    "Laag_21":"#843345",
+    "Laag_22":"#000000",
+    "Laag_23":"#59261f",
+    "Laag_24":"#9cbdb4",
+    "Laag_25":"#7d90b2",
+    "Laag_26":"#9cbdb4",
+    "Laag_27":"#000000",
+    "Laag_28":"#9cbdb4",
+    "leftcuff":"#000000",
+    "rightcuff":"#000000"
+      },
+      tooltipTitle: "Ken Price.",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2024-09-30_at_12.05.02_430x.png?v=1758355327"
     },
-    tooltipTitle: "Ken Price.",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2024-09-30_at_12.05.02_430x.png?v=1758355327"
-  },
-  3: {
-    name: "David Hockney (2013)",
-    available: true,
-    enabled: {{ section.settings.hockney13_enabled | default: true }},
-    defaults: {
-      "hem":"#14352a","neck":"#14352a","Laag_2":"#14352a","Laag_3":"#036433","Laag_4":"#f2d075","Laag_5":"#14352a","Laag_6":"#036433",
-      "Laag_7":"#7baa5e","Laag_8":"#036433","Laag_9":"#036433","Laag_10":"#14352a","Laag_11":"#036433","Laag_12":"#036433",
-      "Laag_13":"#14352a","Laag_14":"#7baa5e","Laag_15":"#14352a","Laag_16":"#a40556","Laag_17":"#7baa5e","Laag_18":"#f2d075",
-      "Laag_19":"#14352a","Laag_21":"#890222","Laag_22":"#14352a","Laag_23":"#a40556","Laag_24":"#f2d075","Laag_25":"#a40556",
-      "Laag_26":"#036433","Laag_27":"#14352a","Laag_28":"#7baa5e","leftcuff":"#14352a","rightcuff":"#14352a"
+    3: {
+      name: "David Hockney (2013)",
+      available: true,
+      defaults: {
+        "hem":"#14352a",
+    "neck":"#14352a",
+    "Laag_2":"#14352a",
+    "Laag_3":"#036433",
+    "Laag_4":"#f2d075",
+    "Laag_5":"#14352a",
+    "Laag_6":"#036433",
+    "Laag_7":"#7baa5e",
+    "Laag_8":"#036433",
+    "Laag_9":"#036433",
+    "Laag_10":"#14352a",
+    "Laag_11":"#036433",
+    "Laag_12":"#036433",
+    "Laag_13":"#14352a",
+    "Laag_14":"#7baa5e",
+    "Laag_15":"#14352a",
+    "Laag_16":"#a40556",
+    "Laag_17":"#7baa5e",
+    "Laag_18":"#f2d075",
+    "Laag_19":"#14352a",
+    "Laag_21":"#890222",
+    "Laag_22":"#14352a",
+    "Laag_23":"#a40556",
+    "Laag_24":"#f2d075",
+    "Laag_25":"#a40556",
+    "Laag_26":"#036433",
+    "Laag_27":"#14352a",
+    "Laag_28":"#7baa5e",
+    "leftcuff":"#14352a",
+    "rightcuff":"#14352a"
+      },
+      tooltipTitle: "David Hockney (2013)",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/2246_430x.webp?v=1758361067"
     },
-    tooltipTitle: "David Hockney (2013)",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/2246_430x.webp?v=1758361067"
-  },
-  4: {
-    name: "Natisa Jones",
-    available: true,
-    enabled: {{ section.settings.jones_enabled | default: true }},
-    defaults: {
-      "hem":"#6b191f","neck":"#6b191f","Laag_2":"#6b191f","Laag_3":"#930918","Laag_4":"#f1dbd0","Laag_5":"#930918","Laag_6":"#930918",
-      "Laag_7":"#f1dbd0","Laag_8":"#930918","Laag_9":"#930918","Laag_10":"#c32728","Laag_11":"#930918","Laag_12":"#930918",
-      "Laag_13":"#6b191f","Laag_14":"#c32728","Laag_15":"#930918","Laag_16":"#c32728","Laag_17":"#6b191f","Laag_18":"#c32728",
-      "Laag_19":"#6b191f","Laag_21":"#c32728","Laag_22":"#6b191f","Laag_23":"#000000","Laag_24":"#c32728","Laag_25":"#c32728",
-      "Laag_26":"#c32728","Laag_27":"#6b191f","Laag_28":"#c32728","leftcuff":"#6b191f","rightcuff":"#6b191f"
-    },
-    tooltipTitle: "Natisa Jones.",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
-  }
-};
-// ========== HELPER FUNCTIONS FOR ENABLED DESIGNERS ==========
-// Get list of enabled designer indices
-function getEnabledDesigners() {
-  return Object.keys(DESIGNERS)
-    .map(Number)
-    .filter(index => DESIGNERS[index].enabled);
-}
+    4: {
+      name: "Natisa Jones",
+      available: true,
+      defaults: {
+        "hem":"#6b191f",
+    "neck":"#6b191f",
+    "Laag_2":"#6b191f",
+    "Laag_3":"#930918",
+    "Laag_4":"#f1dbd0",
+    "Laag_5":"#930918",
+    "Laag_6":"#930918",
+    "Laag_7":"#f1dbd0",
+    "Laag_8":"#930918",
+    "Laag_9":"#930918",
+    "Laag_10":"#c32728",
+    "Laag_11":"#930918",
+    "Laag_12":"#930918",
+    "Laag_13":"#6b191f",
+    "Laag_14":"#c32728",
+    "Laag_15":"#930918",
+    "Laag_16":"#c32728",
+    "Laag_17":"#6b191f",
+    "Laag_18":"#c32728",
+    "Laag_19":"#6b191f",
+    "Laag_21":"#c32728",
+    "Laag_22":"#6b191f",
+    "Laag_23":"#000000",
+    "Laag_24":"#c32728",
+    "Laag_25":"#c32728",
+    "Laag_26":"#c32728",
+    "Laag_27":"#6b191f",
+    "Laag_28":"#c32728",
+    "leftcuff":"#6b191f",
+    "rightcuff":"#6b191f"
+      },
+      tooltipTitle: "Natisa Jones.",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
+    }
+  };
 
-// Get next enabled designer index
-function getNextEnabledDesigner(currentIndex) {
-  const enabled = getEnabledDesigners();
-  const currentPos = enabled.indexOf(currentIndex);
-  if (currentPos === -1 || currentPos === enabled.length - 1) {
-    return enabled[0]; // Wrap to first
-  }
-  return enabled[currentPos + 1];
-}
-
-// Get previous enabled designer index
-function getPrevEnabledDesigner(currentIndex) {
-  const enabled = getEnabledDesigners();
-  const currentPos = enabled.indexOf(currentIndex);
-  if (currentPos === -1 || currentPos === 0) {
-    return enabled[enabled.length - 1]; // Wrap to last
-  }
-  return enabled[currentPos - 1];
-}
-
-// Find first enabled designer
-function getFirstEnabledDesigner() {
-  const enabled = getEnabledDesigners();
-  return enabled.length > 0 ? enabled[0] : 0;
-}
   // Helper function to get swatch colors for current designer
   function getSwatchColors(designerIndex) {
     const data = galleryData[designerIndex];
@@ -2281,7 +2319,17 @@ function getFirstEnabledDesigner() {
   let currentCarouselIndex = 0;
   let carouselSlideCount = 0;
 
-  // ============================================
+  
+
+}
+
+
+
+  
+
+  // Continue with the rest of the script...
+  // [REST OF YOUR EXISTING JAVASCRIPT CODE GOES HERE - I'LL CONTINUE IN NEXT MESSAGE]
+// ============================================
   // CAROUSEL FUNCTIONALITY
   // ============================================
   
@@ -2571,7 +2619,6 @@ function getFirstEnabledDesigner() {
   // ============================================
   
   const miniDesignerVideo = document.getElementById('mini-designer-video');
-  const miniDesignerVideoMobile = document.getElementById('mini-designer-video-mobile');
   let videoPreviewTimer = null;
   
   function updateMiniThumbnail(designerIndex) {
@@ -2579,7 +2626,6 @@ function getFirstEnabledDesigner() {
     const data = galleryData[designerIndex] || {};
     
     const miniImg = document.getElementById('mini-designer-img');
-    const miniImgMobile = document.getElementById('mini-designer-img-mobile');
     
     // Clear any existing video preview timer
     if (videoPreviewTimer) {
@@ -2611,18 +2657,6 @@ function getFirstEnabledDesigner() {
           miniDesignerVideo.pause();
         }
       }
-      
-      // Mobile
-      if (miniDesignerVideoMobile && miniImgMobile) {
-        miniDesignerVideoMobile.src = data.video;
-        miniDesignerVideoMobile.style.display = 'block';
-        miniImgMobile.style.display = 'none';
-        
-        if (data.videoPreview) {
-          miniDesignerVideoMobile.currentTime = 0;
-          miniDesignerVideoMobile.play().catch(() => {});
-        }
-      }
     } else {
       // Use image thumbnail - prefer from settings, fallback to hardcoded
       const imageUrl = data.thumbnail || designer.fallbackThumbnail;
@@ -2634,15 +2668,6 @@ function getFirstEnabledDesigner() {
       if (miniDesignerVideo) {
         miniDesignerVideo.style.display = 'none';
         miniDesignerVideo.pause();
-      }
-      
-      if (miniImgMobile) {
-        miniImgMobile.src = imageUrl;
-        miniImgMobile.style.display = 'block';
-      }
-      if (miniDesignerVideoMobile) {
-        miniDesignerVideoMobile.style.display = 'none';
-        miniDesignerVideoMobile.pause();
       }
     }
   }
@@ -2701,38 +2726,9 @@ function getFirstEnabledDesigner() {
     }
   }
   
-  // Debug panel toggle (Ctrl+D)
-  document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.key === 'd') {
-      e.preventDefault();
-      const debugPanel = document.getElementById('debug-info');
-      if (debugPanel) {
-        debugPanel.style.display = debugPanel.style.display === 'none' ? 'block' : 'none';
-      }
-    }
-  });
-  
-  // Update debug info
-  const debugProduct = document.getElementById('debug-product');
-  const debugVariant = document.getElementById('debug-variant');
-  if (debugProduct) debugProduct.textContent = '{% if section.settings.sweater_product %}{{ section.settings.sweater_product.title }}{% else %}Not configured{% endif %}';
-  if (debugVariant) debugVariant.textContent = SINGLE_VARIANT_ID || 'Not found';
-  
-  console.log('=== SWEATER DESIGNER DEBUG ===');
-  console.log('Product configured:', '{% if section.settings.sweater_product %}Yes - {{ section.settings.sweater_product.title }}{% else %}No{% endif %}');
-  console.log('Raw variant value from input:', productVariantIdInput ? productVariantIdInput.value : 'input not found');
-  console.log('Cleaned variant ID:', SINGLE_VARIANT_ID);
-  console.log('Variant ID type:', typeof SINGLE_VARIANT_ID);
-  console.log('Section settings product:', {% if section.settings.sweater_product %}true{% else %}false{% endif %});
-  console.log('Fallback variant ID:', '{{ section.settings.fallback_variant_id }}');
-  console.log('Press Ctrl+D to show debug panel');
-  console.log('==============================');
-  
   // Mini designer image elements
   const miniDesignerImage = document.getElementById('mini-designer-image');
   const miniDesignerImg = document.getElementById('mini-designer-img');
-  const miniDesignerImageMobile = document.getElementById('mini-designer-image-mobile');
-  const miniDesignerImgMobile = document.getElementById('mini-designer-img-mobile');
 
   // Mini designer image click handlers
   function setupMiniImageClick(element) {
@@ -2744,10 +2740,9 @@ function getFirstEnabledDesigner() {
   }
   
   setupMiniImageClick(miniDesignerImage);
-  setupMiniImageClick(miniDesignerImageMobile);
 
   function switchDesigner(designerIndex) {
-    if (!DESIGNERS[designerIndex]) return;
+    if (!DESIGNERS[designerIndex] || !DESIGNERS[designerIndex].enabled) return;
     
     currentDesigner = designerIndex;
     const designer = DESIGNERS[currentDesigner];
@@ -2755,14 +2750,22 @@ function getFirstEnabledDesigner() {
     designerNameEl.textContent = designer.name;
     updateMiniThumbnail(designerIndex);
     
-    prevDesignerBtn.style.opacity = currentDesigner === 0 ? '0.3' : '1';
-    nextDesignerBtn.style.opacity = currentDesigner === Object.keys(DESIGNERS).length - 1 ? '0.3' : '1';
+    // Update button visibility based on enabled designers
+    const enabledDesigners = getEnabledDesigners();
+    
+    // Show/hide or adjust opacity
+    if (enabledDesigners.length <= 1) {
+      prevDesignerBtn.style.opacity = '0.3';
+      nextDesignerBtn.style.opacity = '0.3';
+    } else {
+      prevDesignerBtn.style.opacity = '1';
+      nextDesignerBtn.style.opacity = '1';
+    }
     
     updateAddToCartButton();
     buildSwatches();
     applyDefaults();
     refreshConstraints();
-    syncMobileButtons();
     
     // Dispatch event to update palette selector
     const event = new CustomEvent('designerChanged', { 
@@ -2773,164 +2776,68 @@ function getFirstEnabledDesigner() {
 
   function updateAddToCartButton() {
     const designer = DESIGNERS[currentDesigner];
-    const buttons = [
-      {btn: addBtn, tooltipId: 'coming-soon-tooltip'},
-      {btn: document.getElementById('add-to-cart-mobile'), tooltipId: 'coming-soon-tooltip-mobile'}
-    ];
     
-    buttons.forEach(({btn, tooltipId}) => {
-      if (!btn) return;
+    if (!addBtn) return;
+    
+    // Remove existing tooltip if present
+    const existingTooltip = document.getElementById('coming-soon-tooltip');
+    if (existingTooltip) existingTooltip.remove();
+    
+    if (!designer.available) {
+      addBtn.textContent = 'NOTIFY ME';
+      addBtn.style.background = '#FF6B35';
+      addBtn.style.color = '#fff';
+      addBtn.style.cursor = 'pointer';
+      addBtn.disabled = false;
+      addBtn.style.position = 'relative';
       
-      // Remove existing tooltip if present
-      const existingTooltip = document.getElementById(tooltipId);
-      if (existingTooltip) existingTooltip.remove();
+      // Create tooltip element (hidden by default)
+      const tooltip = document.createElement('div');
+      tooltip.id = 'coming-soon-tooltip';
+      tooltip.textContent = 'Coming Soon';
+      tooltip.style.cssText = 'position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px; white-space: nowrap; pointer-events: none; z-index: 1000; opacity: 0; transition: opacity 0.2s;';
       
-      if (!designer.available) {
-        btn.textContent = 'NOTIFY ME';
-        btn.style.background = '#FF6B35';
-        btn.style.color = '#fff';
-        btn.style.cursor = 'pointer';
-        btn.disabled = false;
-        btn.style.position = 'relative';
-        
-        // Create tooltip element (hidden by default)
-        const tooltip = document.createElement('div');
-        tooltip.id = tooltipId;
-        tooltip.textContent = 'Coming Soon';
-        tooltip.style.cssText = 'position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px; white-space: nowrap; pointer-events: none; z-index: 1000; opacity: 0; transition: opacity 0.2s;';
-        
-        // Add arrow
-        const arrow = document.createElement('div');
-        arrow.style.cssText = 'position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #333;';
-        tooltip.appendChild(arrow);
-        
-        btn.appendChild(tooltip);
-        
-        // Show tooltip on hover
-        btn.addEventListener('mouseenter', () => {
-          tooltip.style.opacity = '1';
-        });
-        btn.addEventListener('mouseleave', () => {
-          tooltip.style.opacity = '0';
-        });
-      } else {
-        btn.textContent = 'ADD TO BAG';
-        btn.style.background = '#0090C1';
-        btn.style.color = '#fff';
-        btn.style.cursor = 'pointer';
-        btn.disabled = false;
-        btn.style.position = '';
-      }
-    });
-  }
-
-  function syncMobileButtons() {
-    const mobileAddBtn = document.getElementById('add-to-cart-mobile');
-    const mobileDefaultBtn = document.getElementById('default-btn-mobile');
-    const mobileRandomBtn = document.getElementById('random-btn-mobile');
-    const mobileInfoBtn = document.getElementById('info-btn-mobile');
-    const mobileSizeSelect = document.getElementById('sweater-size-mobile');
-    const mobileZoomIn = document.getElementById('mobile-zoom-in');
-    const mobileZoomOut = document.getElementById('mobile-zoom-out');
-    
-    if (window.innerWidth <= 768) {
-      if (mobileZoomIn) mobileZoomIn.style.display = 'flex';
-      if (mobileZoomOut) mobileZoomOut.style.display = 'flex';
-    }
-    
-    if (mobileAddBtn) {
-      mobileAddBtn.replaceWith(mobileAddBtn.cloneNode(true));
-      const newMobileAddBtn = document.getElementById('add-to-cart-mobile');
-      newMobileAddBtn.addEventListener('click', (e) => {
-        if (mobileSizeSelect && sizeSelect) {
-          sizeSelect.value = mobileSizeSelect.value;
-        }
-        addBtn.click();
+      // Add arrow
+      const arrow = document.createElement('div');
+      arrow.style.cssText = 'position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #333;';
+      tooltip.appendChild(arrow);
+      
+      addBtn.appendChild(tooltip);
+      
+      // Show tooltip on hover
+      addBtn.addEventListener('mouseenter', () => {
+        tooltip.style.opacity = '1';
       });
-    }
-    
-    if (mobileDefaultBtn) {
-      mobileDefaultBtn.replaceWith(mobileDefaultBtn.cloneNode(true));
-      const newMobileDefaultBtn = document.getElementById('default-btn-mobile');
-      newMobileDefaultBtn.addEventListener('click', () => defaultBtn.click());
-    }
-    
-    if (mobileRandomBtn) {
-      mobileRandomBtn.replaceWith(mobileRandomBtn.cloneNode(true));
-      const newMobileRandomBtn = document.getElementById('random-btn-mobile');
-      newMobileRandomBtn.addEventListener('click', () => randomBtn.click());
-    }
-    
-    if (mobileInfoBtn) {
-      mobileInfoBtn.replaceWith(mobileInfoBtn.cloneNode(true));
-      const newMobileInfoBtn = document.getElementById('info-btn-mobile');
-      newMobileInfoBtn.addEventListener('mouseenter', () => infoBtn.dispatchEvent(new Event('mouseenter')));
-      newMobileInfoBtn.addEventListener('mouseleave', () => infoBtn.dispatchEvent(new Event('mouseleave')));
-    }
-    
-    if (mobileZoomIn) {
-      mobileZoomIn.replaceWith(mobileZoomIn.cloneNode(true));
-      const newMobileZoomIn = document.getElementById('mobile-zoom-in');
-      newMobileZoomIn.addEventListener('click', () => {
-        if (currentZoom < maxZoom) {
-          currentZoom = Math.min(maxZoom, currentZoom + zoomStep);
-          updateZoom();
-        }
+      addBtn.addEventListener('mouseleave', () => {
+        tooltip.style.opacity = '0';
       });
-    }
-    
-    if (mobileZoomOut) {
-      mobileZoomOut.replaceWith(mobileZoomOut.cloneNode(true));
-      const newMobileZoomOut = document.getElementById('mobile-zoom-out');
-      newMobileZoomOut.addEventListener('click', () => {
-        if (currentZoom > minZoom) {
-          currentZoom = Math.max(minZoom, currentZoom - zoomStep);
-          updateZoom();
-        }
-      });
-    }
-    
-    setTimeout(() => {
-      updateAddToCartButton();
-    }, 100);
-  }
-
-  // Zoom functionality
-  let currentZoom = 1;
-  const minZoom = 0.8;
-  const maxZoom = 2.5;
-  const zoomStep = 0.2;
-
-  function updateZoom() {
-    const sweaterWrapper = document.getElementById('sweater-svg-wrapper');
-    if (sweaterWrapper) {
-      sweaterWrapper.style.transform = `scale(${currentZoom})`;
-      
-      const mobileZoomOut = document.getElementById('mobile-zoom-out');
-      const mobileZoomIn = document.getElementById('mobile-zoom-in');
-      
-      if (mobileZoomOut) mobileZoomOut.style.opacity = currentZoom <= minZoom ? '0.5' : '1';
-      if (mobileZoomIn) mobileZoomIn.style.opacity = currentZoom >= maxZoom ? '0.5' : '1';
+    } else {
+      addBtn.textContent = 'ADD TO BAG';
+      addBtn.style.background = 'black';
+      addBtn.style.color = '#fff';
+      addBtn.style.cursor = 'pointer';
+      addBtn.disabled = false;
+      addBtn.style.position = '';
     }
   }
 
   if (nextDesignerBtn) {
-  nextDesignerBtn.addEventListener('click', () => {
-    const nextIndex = getNextEnabledDesigner(currentDesigner);
-    if (nextIndex !== currentDesigner) {
-      switchDesigner(nextIndex);
-    }
-  });
-}
+    nextDesignerBtn.addEventListener('click', () => {
+      const nextIndex = getNextEnabledDesigner(currentDesigner);
+      if (nextIndex !== currentDesigner) {
+        switchDesigner(nextIndex);
+      }
+    });
+  }
 
-if (prevDesignerBtn) {
-  prevDesignerBtn.addEventListener('click', () => {
-    const prevIndex = getPrevEnabledDesigner(currentDesigner);
-    if (prevIndex !== currentDesigner) {
-      switchDesigner(prevIndex);
-    }
-  });
-}
+  if (prevDesignerBtn) {
+    prevDesignerBtn.addEventListener('click', () => {
+      const prevIndex = getPrevEnabledDesigner(currentDesigner);
+      if (prevIndex !== currentDesigner) {
+        switchDesigner(prevIndex);
+      }
+    });
+  }
 
   function normalizeColor(c) {
     if(!c) return c;
@@ -2982,7 +2889,7 @@ if (prevDesignerBtn) {
     ['hem','neck','leftcuff','rightcuff','leftcuff-2'].forEach(id=>{
       const g = document.getElementById(id);
       if(!g) return;
-      const def = designer.defaults[id] || designer.defaults['hem'] || '#8c6f64';
+      const def = designer.defaults[id] || designer.defaults['hem'] || '#000000';
       g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.style.fill = def);
     });
     refreshConstraints();
@@ -3084,9 +2991,20 @@ if (prevDesignerBtn) {
     }
 
     if(addBtn) {
-      addBtn.disabled = exceeded;
-      addBtn.style.background = exceeded ? '#ccc' : '#0090C1';
-      addBtn.style.cursor = exceeded ? 'default' : 'pointer';
+      const designer = DESIGNERS[currentDesigner];
+      if (exceeded) {
+        addBtn.disabled = true;
+        addBtn.style.background = '#ccc';
+        addBtn.style.cursor = 'default';
+      } else if (!designer.available) {
+        addBtn.disabled = false;
+        addBtn.style.background = '#FF6B35';
+        addBtn.style.cursor = 'pointer';
+      } else {
+        addBtn.disabled = false;
+        addBtn.style.background = 'black';
+        addBtn.style.cursor = 'pointer';
+      }
     }
   }
 
@@ -3206,6 +3124,8 @@ if (prevDesignerBtn) {
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     return canvas.toDataURL('image/png', 0.9);
   }
+
+
 
   if(addBtn) addBtn.addEventListener('click', async function(e){
     e.preventDefault();
@@ -3530,27 +3450,13 @@ if (prevDesignerBtn) {
     }
   });
 
- / Initialize with first enabled designer
-  const firstEnabledDesigner = getFirstEnabledDesigner();
-  currentDesigner = firstEnabledDesigner;
-
   makeShapesClickable();
   buildSwatches();
   applyDefaults();
   refreshConstraints();
   updateAddToCartButton();
-  updateMiniThumbnail(firstEnabledDesigner);
+  updateMiniThumbnail(0);
   syncMobileButtons();
-
-  // Update navigation button states
-  const enabledDesigners = getEnabledDesigners();
-  if (enabledDesigners.length <= 1) {
-    if (prevDesignerBtn) prevDesignerBtn.style.display = 'none';
-    if (nextDesignerBtn) nextDesignerBtn.style.display = 'none';
-  }
-
-  // Color picker tooltip functionality
-  const colorPickerTooltip = document.getElementById('color-picker-tooltip');
 
   // Color picker tooltip functionality
   const colorPickerTooltip = document.getElementById('color-picker-tooltip');
