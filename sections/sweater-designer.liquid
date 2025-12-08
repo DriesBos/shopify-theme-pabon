@@ -19,6 +19,13 @@
       "content": "═══ DAVID HOCKNEY (60s) ═══"
     },
     {
+      "type": "checkbox",
+      "id": "hockney60_enabled",
+      "label": "✓ Show this designer",
+      "default": false,
+      "info": "Uncheck to hide this designer from the selector"
+    },
+    {
       "type": "image_picker",
       "id": "hockney60_thumbnail",
       "label": "Thumbnail Image"
@@ -161,6 +168,13 @@
       "content": "═══ FRANCIS BACON ═══"
     },
     {
+      "type": "checkbox",
+      "id": "bacon_enabled",
+      "label": "✓ Show this designer",
+      "default": false,
+      "info": "Uncheck to hide this designer from the selector"
+    },
+    {
       "type": "image_picker",
       "id": "bacon_thumbnail",
       "label": "Thumbnail Image"
@@ -299,6 +313,13 @@
     {
       "type": "header",
       "content": "═══ KEN PRICE ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "price_enabled",
+      "label": "✓ Show this designer",
+      "default": true,
+      "info": "Uncheck to hide this designer from the selector"
     },
     {
       "type": "image_picker",
@@ -441,6 +462,13 @@
       "content": "═══ DAVID HOCKNEY (2013) ═══"
     },
     {
+      "type": "checkbox",
+      "id": "hockney13_enabled",
+      "label": "✓ Show this designer",
+      "default": false,
+      "info": "Uncheck to hide this designer from the selector"
+    },
+    {
       "type": "image_picker",
       "id": "hockney13_thumbnail",
       "label": "Thumbnail Image"
@@ -579,6 +607,13 @@
     {
       "type": "header",
       "content": "═══ NATISA JONES ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "jones_enabled",
+      "label": "✓ Show this designer",
+      "default": false,
+      "info": "Uncheck to hide this designer from the selector"
     },
     {
       "type": "image_picker",
@@ -781,7 +816,7 @@
               <polyline points="15,18 9,12 15,6"></polyline>
             </svg>
           </button>
-          <h3 id='designer-name' style='margin:0; font-size:20px; color:currentColor;'>David Hockney (60s)</h3>
+          <h3 id='designer-name' style='margin:0; font-size:20px; color:currentColor;'>Ken Price</h3>
           <button
             id='next-designer'
             style='background:transparent !important; border:none !important; cursor:pointer; padding:4px; display:flex; align-items:center; justify-content:center; outline:none !important; box-shadow:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;'
@@ -997,7 +1032,7 @@
       <h2 id='expanded-designer-name' style='margin:0 0 8px 0; font-size:24px; font-weight:700; color:#000;'></h2>
       <p id='expanded-painting-name' style='margin:0 0 16px 0; font-size:16px; color:#666; font-style:italic;'></p>
       <p id='expanded-bio' style='margin:0 0 20px 0; font-size:14px; line-height:1.6; color:#333;'></p>
-      <a
+      
         id='expanded-wikipedia'
         href='#'
         target='_blank'
@@ -1018,9 +1053,9 @@
   id='info-tooltip'
   style='display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); max-width:520px; padding:16px; background:#000; color:#fff; border:2px solid #fff; z-index:9999; pointer-events:none; text-align:left;'
 >
-  <p style='margin:0; font-weight:700;'>David Hockney (60s)</p>
+  <p style='margin:0; font-weight:700;'>Ken Price</p>
   <img
-    src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908'
+    src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907'
     style='width:75%; display:block; margin:10px auto;'
   >
   <p style='margin:0;'>
@@ -1472,11 +1507,6 @@
     outline: none !important;
     box-shadow: none !important;
   }
-
-  {% comment %} /* Desktop: hide left panel swatch container completely */
-  #swatch-container {
-    display: none !important;
-  } {% endcomment %}
 
   /* Force select styling */
   select {
@@ -2014,7 +2044,7 @@
       touch-action: manipulation;
     }
   }
-  * Controls panel centering - desktop */
+  /* Controls panel centering - desktop */
   @media (min-width: 1100px) {
     .sweater-designer {
       gap: 0 !important;
@@ -2033,12 +2063,6 @@
       gap: 24px !important;
       justify-content: center !important;
     }
-
-    {% comment %} #controls-panel {
-      position: relative !important;
-      right: auto !important;
-      margin-right: 0 !important;
-    } {% endcomment %}
   }
 
   /* Deadline timer hover effect */
@@ -2060,45 +2084,6 @@ function initSweaterDesigner(){
   if(!root) return;
   if(root.dataset.sweaterInitialized) return;
   root.dataset.sweaterInitialized = '1';
-  // ============================================
-// COUNTDOWN TIMER FUNCTIONALITY
-// ============================================
-
-function updateCountdown() {
-  // Deadline: Dec 19th, 2025, 00:00h (midnight)
-  const deadline = new Date('2025-12-19T00:00:00').getTime();
-  const now = new Date().getTime();
-  const distance = deadline - now;
-  
-  const countdownDisplay = document.getElementById('countdown-display');
-  
-  if (distance < 0) {
-    if (countdownDisplay) countdownDisplay.textContent = 'CLOSED';
-    return;
-  }
-  
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
-  const timeString = `${days}d ${hours}h ${minutes}m`;
-  
-  if (countdownDisplay) countdownDisplay.textContent = timeString;
-}
-
-// Update countdown every second
-setInterval(updateCountdown, 1000);
-updateCountdown(); // Initial call
-
-// Hover tooltip for deadline timer
-const timerContainer = document.getElementById('deadline-timer');
-const timerTooltip = document.getElementById('deadline-tooltip');
-
-if (timerContainer && timerTooltip) {
-  timerContainer.addEventListener('mouseenter', () => timerTooltip.style.display = 'block');
-  timerContainer.addEventListener('mouseleave', () => timerTooltip.style.display = 'none');
-}
 
   // Load gallery data from Shopify settings
   let galleryData = {};
@@ -2111,12 +2096,12 @@ if (timerContainer && timerTooltip) {
     console.warn('Could not parse gallery data:', e);
   }
   
-
   // Designer configurations (colors now come from galleryData)
   const DESIGNERS = {
     0: {
       name: "David Hockney (60s)",
       available: true,
+      enabled: {{ section.settings.hockney60_enabled | default: false }},
       defaults: {
         "hem":"#313539","neck":"#313539","Laag_2":"#313539","Laag_3":"#284354","Laag_4":"#b4a697","Laag_5":"#284354","Laag_6":"#313539",
         "Laag_7":"#284354","Laag_8":"#313539","Laag_9":"#6b5d93","Laag_10":"#9a6c2c","Laag_11":"#284354","Laag_12":"#313539",
@@ -2131,6 +2116,7 @@ if (timerContainer && timerTooltip) {
     1: {
       name: "Francis Bacon",
       available: true,
+      enabled: {{ section.settings.bacon_enabled | default: false }},
       defaults: {
         "hem":"#8c6f64","neck":"#000000","Laag_2":"#8c6f64","Laag_3":"#1a352c","Laag_4":"#d8d5d2","Laag_5":"#d35968","Laag_6":"#1a352c",
         "Laag_7":"#d8d5d2","Laag_8":"#ff83a1","Laag_9":"#d35968","Laag_10":"#ff83a1","Laag_11":"#1a352c","Laag_12":"#d8d5d2",
@@ -2142,40 +2128,16 @@ if (timerContainer && timerTooltip) {
       tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/bacon1_430x.jpg?v=1762164487",
       fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/francisbacon_430x.jpg?v=1757588774#"
     },
-    2: {
+    5: {
       name: "Ken Price",
-      available: true,
+      available: false,
+      enabled: {{ section.settings.price_enabled | default: true }},
       defaults: {
-        "hem":"#000000",
-    "neck":"#be4b2e",
-    "Laag_2":"#000000",
-    "Laag_3":"#843345",
-    "Laag_4":"#59261f",
-    "Laag_5":"#843345",
-    "Laag_6":"#59261f",
-    "Laag_7":"#9cbdb4",
-    "Laag_8":"#59261f",
-    "Laag_9":"#843345",
-    "Laag_10":"#843345",
-    "Laag_11":"#843345",
-    "Laag_12":"#843345",
-    "Laag_13":"#000000",
-    "Laag_14":"#9cbdb4",
-    "Laag_15":"#000000",
-    "Laag_16":"#59261f",
-    "Laag_17":"#9cbdb4",
-    "Laag_18":"#7d90b2",
-    "Laag_19":"#9cbdb4",
-    "Laag_21":"#843345",
-    "Laag_22":"#000000",
-    "Laag_23":"#59261f",
-    "Laag_24":"#9cbdb4",
-    "Laag_25":"#7d90b2",
-    "Laag_26":"#9cbdb4",
-    "Laag_27":"#000000",
-    "Laag_28":"#9cbdb4",
-    "leftcuff":"#000000",
-    "rightcuff":"#000000"
+        "hem":"#000000","neck":"#be4b2e","Laag_2":"#000000","Laag_3":"#843345","Laag_4":"#59261f","Laag_5":"#843345","Laag_6":"#59261f",
+        "Laag_7":"#9cbdb4","Laag_8":"#59261f","Laag_9":"#843345","Laag_10":"#843345","Laag_11":"#843345","Laag_12":"#843345",
+        "Laag_13":"#000000","Laag_14":"#9cbdb4","Laag_15":"#000000","Laag_16":"#59261f","Laag_17":"#9cbdb4","Laag_18":"#7d90b2",
+        "Laag_19":"#9cbdb4","Laag_21":"#843345","Laag_22":"#000000","Laag_23":"#59261f","Laag_24":"#9cbdb4","Laag_25":"#7d90b2",
+        "Laag_26":"#9cbdb4","Laag_27":"#000000","Laag_28":"#9cbdb4","leftcuff":"#000000","rightcuff":"#000000"
       },
       tooltipTitle: "Ken Price.",
       tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
@@ -2184,82 +2146,69 @@ if (timerContainer && timerTooltip) {
     3: {
       name: "David Hockney (2013)",
       available: true,
+      enabled: {{ section.settings.hockney13_enabled | default: false }},
       defaults: {
-        "hem":"#14352a",
-    "neck":"#14352a",
-    "Laag_2":"#14352a",
-    "Laag_3":"#036433",
-    "Laag_4":"#f2d075",
-    "Laag_5":"#14352a",
-    "Laag_6":"#036433",
-    "Laag_7":"#7baa5e",
-    "Laag_8":"#036433",
-    "Laag_9":"#036433",
-    "Laag_10":"#14352a",
-    "Laag_11":"#036433",
-    "Laag_12":"#036433",
-    "Laag_13":"#14352a",
-    "Laag_14":"#7baa5e",
-    "Laag_15":"#14352a",
-    "Laag_16":"#a40556",
-    "Laag_17":"#7baa5e",
-    "Laag_18":"#f2d075",
-    "Laag_19":"#14352a",
-    "Laag_21":"#890222",
-    "Laag_22":"#14352a",
-    "Laag_23":"#a40556",
-    "Laag_24":"#f2d075",
-    "Laag_25":"#a40556",
-    "Laag_26":"#036433",
-    "Laag_27":"#14352a",
-    "Laag_28":"#7baa5e",
-    "leftcuff":"#14352a",
-    "rightcuff":"#14352a"
+        "hem":"#14352a","neck":"#14352a","Laag_2":"#14352a","Laag_3":"#036433","Laag_4":"#f2d075","Laag_5":"#14352a","Laag_6":"#036433",
+        "Laag_7":"#7baa5e","Laag_8":"#036433","Laag_9":"#036433","Laag_10":"#14352a","Laag_11":"#036433","Laag_12":"#036433",
+        "Laag_13":"#14352a","Laag_14":"#7baa5e","Laag_15":"#14352a","Laag_16":"#a40556","Laag_17":"#7baa5e","Laag_18":"#f2d075",
+        "Laag_19":"#14352a","Laag_21":"#890222","Laag_22":"#14352a","Laag_23":"#a40556","Laag_24":"#f2d075","Laag_25":"#a40556",
+        "Laag_26":"#036433","Laag_27":"#14352a","Laag_28":"#7baa5e","leftcuff":"#14352a","rightcuff":"#14352a"
       },
       tooltipTitle: "David Hockney (2013)",
       tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
       fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/2246_430x.webp?v=1758361067"
     },
-    4: {
+    2: {
       name: "Natisa Jones",
       available: true,
+      enabled: {{ section.settings.jones_enabled | default: false }},
       defaults: {
-        "hem":"#6b191f",
-    "neck":"#6b191f",
-    "Laag_2":"#6b191f",
-    "Laag_3":"#930918",
-    "Laag_4":"#f1dbd0",
-    "Laag_5":"#930918",
-    "Laag_6":"#930918",
-    "Laag_7":"#f1dbd0",
-    "Laag_8":"#930918",
-    "Laag_9":"#930918",
-    "Laag_10":"#c32728",
-    "Laag_11":"#930918",
-    "Laag_12":"#930918",
-    "Laag_13":"#6b191f",
-    "Laag_14":"#c32728",
-    "Laag_15":"#930918",
-    "Laag_16":"#c32728",
-    "Laag_17":"#6b191f",
-    "Laag_18":"#c32728",
-    "Laag_19":"#6b191f",
-    "Laag_21":"#c32728",
-    "Laag_22":"#6b191f",
-    "Laag_23":"#000000",
-    "Laag_24":"#c32728",
-    "Laag_25":"#c32728",
-    "Laag_26":"#c32728",
-    "Laag_27":"#6b191f",
-    "Laag_28":"#c32728",
-    "leftcuff":"#6b191f",
-    "rightcuff":"#6b191f"
+        "hem":"#6b191f","neck":"#6b191f","Laag_2":"#6b191f","Laag_3":"#930918","Laag_4":"#f1dbd0","Laag_5":"#930918","Laag_6":"#930918",
+        "Laag_7":"#f1dbd0","Laag_8":"#930918","Laag_9":"#930918","Laag_10":"#c32728","Laag_11":"#930918","Laag_12":"#930918",
+        "Laag_13":"#6b191f","Laag_14":"#c32728","Laag_15":"#930918","Laag_16":"#c32728","Laag_17":"#6b191f","Laag_18":"#c32728",
+        "Laag_19":"#6b191f","Laag_21":"#c32728","Laag_22":"#6b191f","Laag_23":"#000000","Laag_24":"#c32728","Laag_25":"#c32728",
+        "Laag_26":"#c32728","Laag_27":"#6b191f","Laag_28":"#c32728","leftcuff":"#6b191f","rightcuff":"#6b191f"
       },
       tooltipTitle: "Natisa Jones.",
       tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
       fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
     }
   };
+
+  // ========== HELPER FUNCTIONS FOR ENABLED DESIGNERS ==========
+  // Get list of enabled designer indices
+  function getEnabledDesigners() {
+    return Object.keys(DESIGNERS)
+      .map(Number)
+      .filter(index => DESIGNERS[index].enabled);
+  }
+
+  // Get next enabled designer index
+  function getNextEnabledDesigner(currentIndex) {
+    const enabled = getEnabledDesigners();
+    const currentPos = enabled.indexOf(currentIndex);
+    if (currentPos === -1 || currentPos === enabled.length - 1) {
+      return enabled[0]; // Wrap to first
+    }
+    return enabled[currentPos + 1];
+  }
+
+  // Get previous enabled designer index
+  function getPrevEnabledDesigner(currentIndex) {
+    const enabled = getEnabledDesigners();
+    const currentPos = enabled.indexOf(currentIndex);
+    if (currentPos === -1 || currentPos === 0) {
+      return enabled[enabled.length - 1]; // Wrap to last
+    }
+    return enabled[currentPos - 1];
+  }
+
+  // Find first enabled designer
+  function getFirstEnabledDesigner() {
+    const enabled = getEnabledDesigners();
+    return enabled.length > 0 ? enabled[0] : 0;
+  }
+  // ========== END HELPER FUNCTIONS ==========
 
   // Helper function to get swatch colors for current designer
   function getSwatchColors(designerIndex) {
@@ -2314,12 +2263,14 @@ if (timerContainer && timerTooltip) {
   }
 
   // Current state
-  let currentDesigner = 0;
-  let activeColor = getSwatchColors(0)[0].hex;
+  let currentDesigner = getFirstEnabledDesigner();
+  let activeColor = getSwatchColors(currentDesigner)[0].hex;
   let currentCarouselIndex = 0;
   let carouselSlideCount = 0;
 
-  // ============================================
+  // Continue with the rest of the script...
+  // [REST OF YOUR EXISTING JAVASCRIPT CODE GOES HERE - I'LL CONTINUE IN NEXT MESSAGE]
+// ============================================
   // CAROUSEL FUNCTIONALITY
   // ============================================
   
@@ -2609,7 +2560,6 @@ if (timerContainer && timerTooltip) {
   // ============================================
   
   const miniDesignerVideo = document.getElementById('mini-designer-video');
-  const miniDesignerVideoMobile = document.getElementById('mini-designer-video-mobile');
   let videoPreviewTimer = null;
   
   function updateMiniThumbnail(designerIndex) {
@@ -2617,7 +2567,6 @@ if (timerContainer && timerTooltip) {
     const data = galleryData[designerIndex] || {};
     
     const miniImg = document.getElementById('mini-designer-img');
-    const miniImgMobile = document.getElementById('mini-designer-img-mobile');
     
     // Clear any existing video preview timer
     if (videoPreviewTimer) {
@@ -2649,18 +2598,6 @@ if (timerContainer && timerTooltip) {
           miniDesignerVideo.pause();
         }
       }
-      
-      // Mobile
-      if (miniDesignerVideoMobile && miniImgMobile) {
-        miniDesignerVideoMobile.src = data.video;
-        miniDesignerVideoMobile.style.display = 'block';
-        miniImgMobile.style.display = 'none';
-        
-        if (data.videoPreview) {
-          miniDesignerVideoMobile.currentTime = 0;
-          miniDesignerVideoMobile.play().catch(() => {});
-        }
-      }
     } else {
       // Use image thumbnail - prefer from settings, fallback to hardcoded
       const imageUrl = data.thumbnail || designer.fallbackThumbnail;
@@ -2672,15 +2609,6 @@ if (timerContainer && timerTooltip) {
       if (miniDesignerVideo) {
         miniDesignerVideo.style.display = 'none';
         miniDesignerVideo.pause();
-      }
-      
-      if (miniImgMobile) {
-        miniImgMobile.src = imageUrl;
-        miniImgMobile.style.display = 'block';
-      }
-      if (miniDesignerVideoMobile) {
-        miniDesignerVideoMobile.style.display = 'none';
-        miniDesignerVideoMobile.pause();
       }
     }
   }
@@ -2739,38 +2667,9 @@ if (timerContainer && timerTooltip) {
     }
   }
   
-  // Debug panel toggle (Ctrl+D)
-  document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.key === 'd') {
-      e.preventDefault();
-      const debugPanel = document.getElementById('debug-info');
-      if (debugPanel) {
-        debugPanel.style.display = debugPanel.style.display === 'none' ? 'block' : 'none';
-      }
-    }
-  });
-  
-  // Update debug info
-  const debugProduct = document.getElementById('debug-product');
-  const debugVariant = document.getElementById('debug-variant');
-  if (debugProduct) debugProduct.textContent = '{% if section.settings.sweater_product %}{{ section.settings.sweater_product.title }}{% else %}Not configured{% endif %}';
-  if (debugVariant) debugVariant.textContent = SINGLE_VARIANT_ID || 'Not found';
-  
-  console.log('=== SWEATER DESIGNER DEBUG ===');
-  console.log('Product configured:', '{% if section.settings.sweater_product %}Yes - {{ section.settings.sweater_product.title }}{% else %}No{% endif %}');
-  console.log('Raw variant value from input:', productVariantIdInput ? productVariantIdInput.value : 'input not found');
-  console.log('Cleaned variant ID:', SINGLE_VARIANT_ID);
-  console.log('Variant ID type:', typeof SINGLE_VARIANT_ID);
-  console.log('Section settings product:', {% if section.settings.sweater_product %}true{% else %}false{% endif %});
-  console.log('Fallback variant ID:', '{{ section.settings.fallback_variant_id }}');
-  console.log('Press Ctrl+D to show debug panel');
-  console.log('==============================');
-  
   // Mini designer image elements
   const miniDesignerImage = document.getElementById('mini-designer-image');
   const miniDesignerImg = document.getElementById('mini-designer-img');
-  const miniDesignerImageMobile = document.getElementById('mini-designer-image-mobile');
-  const miniDesignerImgMobile = document.getElementById('mini-designer-img-mobile');
 
   // Mini designer image click handlers
   function setupMiniImageClick(element) {
@@ -2782,10 +2681,9 @@ if (timerContainer && timerTooltip) {
   }
   
   setupMiniImageClick(miniDesignerImage);
-  setupMiniImageClick(miniDesignerImageMobile);
 
   function switchDesigner(designerIndex) {
-    if (!DESIGNERS[designerIndex]) return;
+    if (!DESIGNERS[designerIndex] || !DESIGNERS[designerIndex].enabled) return;
     
     currentDesigner = designerIndex;
     const designer = DESIGNERS[currentDesigner];
@@ -2793,14 +2691,22 @@ if (timerContainer && timerTooltip) {
     designerNameEl.textContent = designer.name;
     updateMiniThumbnail(designerIndex);
     
-    prevDesignerBtn.style.opacity = currentDesigner === 0 ? '0.3' : '1';
-    nextDesignerBtn.style.opacity = currentDesigner === Object.keys(DESIGNERS).length - 1 ? '0.3' : '1';
+    // Update button visibility based on enabled designers
+    const enabledDesigners = getEnabledDesigners();
+    
+    // Show/hide or adjust opacity
+    if (enabledDesigners.length <= 1) {
+      prevDesignerBtn.style.opacity = '0.3';
+      nextDesignerBtn.style.opacity = '0.3';
+    } else {
+      prevDesignerBtn.style.opacity = '1';
+      nextDesignerBtn.style.opacity = '1';
+    }
     
     updateAddToCartButton();
     buildSwatches();
     applyDefaults();
     refreshConstraints();
-    syncMobileButtons();
     
     // Dispatch event to update palette selector
     const event = new CustomEvent('designerChanged', { 
@@ -2811,159 +2717,65 @@ if (timerContainer && timerTooltip) {
 
   function updateAddToCartButton() {
     const designer = DESIGNERS[currentDesigner];
-    const buttons = [
-      {btn: addBtn, tooltipId: 'coming-soon-tooltip'},
-      {btn: document.getElementById('add-to-cart-mobile'), tooltipId: 'coming-soon-tooltip-mobile'}
-    ];
     
-    buttons.forEach(({btn, tooltipId}) => {
-      if (!btn) return;
+    if (!addBtn) return;
+    
+    // Remove existing tooltip if present
+    const existingTooltip = document.getElementById('coming-soon-tooltip');
+    if (existingTooltip) existingTooltip.remove();
+    
+    if (!designer.available) {
+      addBtn.textContent = 'NOTIFY ME';
+      addBtn.style.background = '#FF6B35';
+      addBtn.style.color = '#fff';
+      addBtn.style.cursor = 'pointer';
+      addBtn.disabled = false;
+      addBtn.style.position = 'relative';
       
-      // Remove existing tooltip if present
-      const existingTooltip = document.getElementById(tooltipId);
-      if (existingTooltip) existingTooltip.remove();
+      // Create tooltip element (hidden by default)
+      const tooltip = document.createElement('div');
+      tooltip.id = 'coming-soon-tooltip';
+      tooltip.textContent = 'Coming Soon';
+      tooltip.style.cssText = 'position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px; white-space: nowrap; pointer-events: none; z-index: 1000; opacity: 0; transition: opacity 0.2s;';
       
-      if (!designer.available) {
-        btn.textContent = 'NOTIFY ME';
-        btn.style.background = '#FF6B35';
-        btn.style.color = '#fff';
-        btn.style.cursor = 'pointer';
-        btn.disabled = false;
-        btn.style.position = 'relative';
-        
-        // Create tooltip element (hidden by default)
-        const tooltip = document.createElement('div');
-        tooltip.id = tooltipId;
-        tooltip.textContent = 'Coming Soon';
-        tooltip.style.cssText = 'position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px; white-space: nowrap; pointer-events: none; z-index: 1000; opacity: 0; transition: opacity 0.2s;';
-        
-        // Add arrow
-        const arrow = document.createElement('div');
-        arrow.style.cssText = 'position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #333;';
-        tooltip.appendChild(arrow);
-        
-        btn.appendChild(tooltip);
-        
-        // Show tooltip on hover
-        btn.addEventListener('mouseenter', () => {
-          tooltip.style.opacity = '1';
-        });
-        btn.addEventListener('mouseleave', () => {
-          tooltip.style.opacity = '0';
-        });
-      } else {
-        btn.textContent = 'ADD TO BAG';
-        btn.style.background = '#0090C1';
-        btn.style.color = '#fff';
-        btn.style.cursor = 'pointer';
-        btn.disabled = false;
-        btn.style.position = '';
-      }
-    });
-  }
-
-  function syncMobileButtons() {
-    const mobileAddBtn = document.getElementById('add-to-cart-mobile');
-    const mobileDefaultBtn = document.getElementById('default-btn-mobile');
-    const mobileRandomBtn = document.getElementById('random-btn-mobile');
-    const mobileInfoBtn = document.getElementById('info-btn-mobile');
-    const mobileSizeSelect = document.getElementById('sweater-size-mobile');
-    const mobileZoomIn = document.getElementById('mobile-zoom-in');
-    const mobileZoomOut = document.getElementById('mobile-zoom-out');
-    
-    if (window.innerWidth <= 768) {
-      if (mobileZoomIn) mobileZoomIn.style.display = 'flex';
-      if (mobileZoomOut) mobileZoomOut.style.display = 'flex';
-    }
-    
-    if (mobileAddBtn) {
-      mobileAddBtn.replaceWith(mobileAddBtn.cloneNode(true));
-      const newMobileAddBtn = document.getElementById('add-to-cart-mobile');
-      newMobileAddBtn.addEventListener('click', (e) => {
-        if (mobileSizeSelect && sizeSelect) {
-          sizeSelect.value = mobileSizeSelect.value;
-        }
-        addBtn.click();
+      // Add arrow
+      const arrow = document.createElement('div');
+      arrow.style.cssText = 'position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #333;';
+      tooltip.appendChild(arrow);
+      
+      addBtn.appendChild(tooltip);
+      
+      // Show tooltip on hover
+      addBtn.addEventListener('mouseenter', () => {
+        tooltip.style.opacity = '1';
       });
-    }
-    
-    if (mobileDefaultBtn) {
-      mobileDefaultBtn.replaceWith(mobileDefaultBtn.cloneNode(true));
-      const newMobileDefaultBtn = document.getElementById('default-btn-mobile');
-      newMobileDefaultBtn.addEventListener('click', () => defaultBtn.click());
-    }
-    
-    if (mobileRandomBtn) {
-      mobileRandomBtn.replaceWith(mobileRandomBtn.cloneNode(true));
-      const newMobileRandomBtn = document.getElementById('random-btn-mobile');
-      newMobileRandomBtn.addEventListener('click', () => randomBtn.click());
-    }
-    
-    if (mobileInfoBtn) {
-      mobileInfoBtn.replaceWith(mobileInfoBtn.cloneNode(true));
-      const newMobileInfoBtn = document.getElementById('info-btn-mobile');
-      newMobileInfoBtn.addEventListener('mouseenter', () => infoBtn.dispatchEvent(new Event('mouseenter')));
-      newMobileInfoBtn.addEventListener('mouseleave', () => infoBtn.dispatchEvent(new Event('mouseleave')));
-    }
-    
-    if (mobileZoomIn) {
-      mobileZoomIn.replaceWith(mobileZoomIn.cloneNode(true));
-      const newMobileZoomIn = document.getElementById('mobile-zoom-in');
-      newMobileZoomIn.addEventListener('click', () => {
-        if (currentZoom < maxZoom) {
-          currentZoom = Math.min(maxZoom, currentZoom + zoomStep);
-          updateZoom();
-        }
+      addBtn.addEventListener('mouseleave', () => {
+        tooltip.style.opacity = '0';
       });
-    }
-    
-    if (mobileZoomOut) {
-      mobileZoomOut.replaceWith(mobileZoomOut.cloneNode(true));
-      const newMobileZoomOut = document.getElementById('mobile-zoom-out');
-      newMobileZoomOut.addEventListener('click', () => {
-        if (currentZoom > minZoom) {
-          currentZoom = Math.max(minZoom, currentZoom - zoomStep);
-          updateZoom();
-        }
-      });
-    }
-    
-    setTimeout(() => {
-      updateAddToCartButton();
-    }, 100);
-  }
-
-  // Zoom functionality
-  let currentZoom = 1;
-  const minZoom = 0.8;
-  const maxZoom = 2.5;
-  const zoomStep = 0.2;
-
-  function updateZoom() {
-    const sweaterWrapper = document.getElementById('sweater-svg-wrapper');
-    if (sweaterWrapper) {
-      sweaterWrapper.style.transform = `scale(${currentZoom})`;
-      
-      const mobileZoomOut = document.getElementById('mobile-zoom-out');
-      const mobileZoomIn = document.getElementById('mobile-zoom-in');
-      
-      if (mobileZoomOut) mobileZoomOut.style.opacity = currentZoom <= minZoom ? '0.5' : '1';
-      if (mobileZoomIn) mobileZoomIn.style.opacity = currentZoom >= maxZoom ? '0.5' : '1';
+    } else {
+      addBtn.textContent = 'ADD TO BAG';
+      addBtn.style.background = 'black';
+      addBtn.style.color = '#fff';
+      addBtn.style.cursor = 'pointer';
+      addBtn.disabled = false;
+      addBtn.style.position = '';
     }
   }
 
   if (nextDesignerBtn) {
     nextDesignerBtn.addEventListener('click', () => {
-      if (currentDesigner < Object.keys(DESIGNERS).length - 1) {
-        switchDesigner(currentDesigner + 1);
+      const nextIndex = getNextEnabledDesigner(currentDesigner);
+      if (nextIndex !== currentDesigner) {
+        switchDesigner(nextIndex);
       }
     });
   }
-  
+
   if (prevDesignerBtn) {
     prevDesignerBtn.addEventListener('click', () => {
-      if (currentDesigner > 0) {
-        switchDesigner(currentDesigner - 1);
+      const prevIndex = getPrevEnabledDesigner(currentDesigner);
+      if (prevIndex !== currentDesigner) {
+        switchDesigner(prevIndex);
       }
     });
   }
@@ -3018,7 +2830,7 @@ if (timerContainer && timerTooltip) {
     ['hem','neck','leftcuff','rightcuff','leftcuff-2'].forEach(id=>{
       const g = document.getElementById(id);
       if(!g) return;
-      const def = designer.defaults[id] || designer.defaults['hem'] || '#8c6f64';
+      const def = designer.defaults[id] || designer.defaults['hem'] || '#000000';
       g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.style.fill = def);
     });
     refreshConstraints();
@@ -3120,9 +2932,20 @@ if (timerContainer && timerTooltip) {
     }
 
     if(addBtn) {
-      addBtn.disabled = exceeded;
-      addBtn.style.background = exceeded ? '#ccc' : '#0090C1';
-      addBtn.style.cursor = exceeded ? 'default' : 'pointer';
+      const designer = DESIGNERS[currentDesigner];
+      if (exceeded) {
+        addBtn.disabled = true;
+        addBtn.style.background = '#ccc';
+        addBtn.style.cursor = 'default';
+      } else if (!designer.available) {
+        addBtn.disabled = false;
+        addBtn.style.background = '#FF6B35';
+        addBtn.style.cursor = 'pointer';
+      } else {
+        addBtn.disabled = false;
+        addBtn.style.background = 'black';
+        addBtn.style.cursor = 'pointer';
+      }
     }
   }
 
@@ -3242,6 +3065,8 @@ if (timerContainer && timerTooltip) {
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     return canvas.toDataURL('image/png', 0.9);
   }
+
+
 
   if(addBtn) addBtn.addEventListener('click', async function(e){
     e.preventDefault();
