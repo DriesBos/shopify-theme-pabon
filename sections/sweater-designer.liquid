@@ -2022,18 +2022,19 @@
       touch-action: manipulation;
     }
   }
-  * Controls panel centering - desktop */
-  @media (min-width: 1100px) {
-    .sweater-designer {
-      gap: 0 !important;
-    }
-
-    #controls-panel {
-      position: absolute;
-      right: calc((100vw - 860px) / 4 - 75px);
-      top: 0;
-    }
+ @media (min-width: 1100px) {
+  .sweater-designer {
+    gap: 0 !important;
   }
+
+  #controls-panel {
+    position: absolute;
+    right: calc((100vw - 860px) / 4 - 75px);
+    top: 0;
+    bottom: 0;
+    height: auto;
+  }
+}
 
   /* Intermediate sizes - keep panel next to sweater with gap */
   @media (min-width: 769px) and (max-width: 1099px) {
