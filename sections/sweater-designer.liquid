@@ -726,7 +726,7 @@
   style='margin:120px auto; display:flex; font-family:Jost, sans-serif; width:100%; position:relative;'
 >
   <!-- SWEATER AREA (now on left) -->
-  <div id='sweater-area' style='flex:1 1 0; position:relative; width:100%;'>
+  <div id='sweater-area' class='sweater-area'>
     <!-- Combined sweater + swatches container with border -->
     <div
       id='sweater-and-swatches-container'
@@ -794,7 +794,7 @@
         <!-- SWEATER CONTROLS -->
         <div class='sweater-designer_controls'>
           <button
-            id='random-btn-mobile'
+            id='random-btn'
             class='sweater-designer_control-buttons'
             type='button'
             style='width:auto !important; color:black; border:none; background:none;'
@@ -805,7 +805,7 @@
             <span>random</span>
           </button>
           <button
-            id='default-btn-mobile'
+            id='default-btn'
             class='sweater-designer_control-buttons'
             type='button'
             style='width:auto !important; border-radius:0; background:none; color:black; border:none;'
@@ -816,7 +816,7 @@
             <span>reset</span>
           </button>
           <button
-            id='info-btn-mobile'
+            id='info-btn'
             class='sweater-designer_control-buttons'
             aria-label='details'
             style='width:auto !important; border-radius:0; background:none; color:black; border:none;'
@@ -1241,9 +1241,10 @@
   }
   .sweater-designer_control-buttons span {
     text-decoration: none;
-    font-size: 9px;
+    font-size: 10px !important;
     letter-spacing: 0.3px;
     text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif !important;
   }
 
   .sweater-designer_controls {
@@ -1293,10 +1294,10 @@
   }
   .mini-designer-image span {
     text-decoration: none;
-    font-size: 9px;
+    font-size: 10px !important;
     letter-spacing: 0.3px;
     text-transform: uppercase;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif !important;
 
   }
   .mini-designer-image img, .mini-designer-image video {
@@ -1694,6 +1695,7 @@
 
   #sweater-area {
     width: 100%;
+    max-width: 860px;
     flex: 1 1 0%;
     display: flex;
     flex-direction: column;
