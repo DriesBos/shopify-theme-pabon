@@ -2112,87 +2112,154 @@ if (timerContainer && timerTooltip) {
   }
   
 
+  // Designer configurations (colors now come from galleryData)
   const DESIGNERS = {
-  0: {
-    name: "David Hockney (60s)",
-    available: true,
-    enabled: {{ section.settings.hockney60_enabled | default: true }},
-    defaults: {
-      "hem":"#313539","neck":"#313539","Laag_2":"#313539","Laag_3":"#284354","Laag_4":"#b4a697","Laag_5":"#284354","Laag_6":"#313539",
-      "Laag_7":"#284354","Laag_8":"#313539","Laag_9":"#6b5d93","Laag_10":"#9a6c2c","Laag_11":"#284354","Laag_12":"#313539",
-      "Laag_13":"#313539","Laag_14":"#b4a697","Laag_15":"#313539","Laag_16":"#b3502e","Laag_17":"#313539","Laag_18":"#b4a697",
-      "Laag_19":"#6b5d93","Laag_21":"#b3502e","Laag_22":"#313539","Laag_23":"#284354","Laag_24":"#b4a697","Laag_25":"#9a6c2c",
-      "Laag_26":"#284354","Laag_27":"#313539","Laag_28":"#9a6c2c","leftcuff":"#313539","rightcuff":"#313539"
+    0: {
+      name: "David Hockney (60s)",
+      available: true,
+      defaults: {
+        "hem":"#313539","neck":"#313539","Laag_2":"#313539","Laag_3":"#284354","Laag_4":"#b4a697","Laag_5":"#284354","Laag_6":"#313539",
+        "Laag_7":"#284354","Laag_8":"#313539","Laag_9":"#6b5d93","Laag_10":"#9a6c2c","Laag_11":"#284354","Laag_12":"#313539",
+        "Laag_13":"#313539","Laag_14":"#b4a697","Laag_15":"#313539","Laag_16":"#b3502e","Laag_17":"#313539","Laag_18":"#b4a697",
+        "Laag_19":"#6b5d93","Laag_21":"#b3502e","Laag_22":"#313539","Laag_23":"#284354","Laag_24":"#b4a697","Laag_25":"#9a6c2c",
+        "Laag_26":"#284354","Laag_27":"#313539","Laag_28":"#9a6c2c","leftcuff":"#313539","rightcuff":"#313539"
+      },
+      tooltipTitle: "David Hockney (60s)",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#"
     },
-    tooltipTitle: "David Hockney (60s)",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#"
-  },
-  1: {
-    name: "Francis Bacon",
-    available: true,
-enabled: {{ section.settings.price_enabled | default: true }},
-    enabled: {{ section.settings.bacon_enabled | default: true }},
-    defaults: {
-      "hem":"#8c6f64","neck":"#000000","Laag_2":"#8c6f64","Laag_3":"#1a352c","Laag_4":"#d8d5d2","Laag_5":"#d35968","Laag_6":"#1a352c",
-      "Laag_7":"#d8d5d2","Laag_8":"#ff83a1","Laag_9":"#d35968","Laag_10":"#ff83a1","Laag_11":"#1a352c","Laag_12":"#d8d5d2",
-      "Laag_13":"#000000","Laag_14":"#000000","Laag_15":"#1a352c","Laag_16":"#d35968","Laag_17":"#1a352c","Laag_18":"#d8d5d2",
-      "Laag_19":"#1a352c","Laag_21":"#d35968","Laag_22":"#000000","Laag_23":"#000000","Laag_24":"#d8d5d2","Laag_25":"#000000",
-      "Laag_26":"#ff83a1","Laag_27":"#8c6f64","Laag_28":"#ff83a1","leftcuff":"#8c6f64","rightcuff":"#8c6f64"
+    1: {
+      name: "Francis Bacon",
+      available: true,
+      defaults: {
+        "hem":"#8c6f64","neck":"#000000","Laag_2":"#8c6f64","Laag_3":"#1a352c","Laag_4":"#d8d5d2","Laag_5":"#d35968","Laag_6":"#1a352c",
+        "Laag_7":"#d8d5d2","Laag_8":"#ff83a1","Laag_9":"#d35968","Laag_10":"#ff83a1","Laag_11":"#1a352c","Laag_12":"#d8d5d2",
+        "Laag_13":"#000000","Laag_14":"#000000","Laag_15":"#1a352c","Laag_16":"#d35968","Laag_17":"#1a352c","Laag_18":"#d8d5d2",
+        "Laag_19":"#1a352c","Laag_21":"#d35968","Laag_22":"#000000","Laag_23":"#000000","Laag_24":"#d8d5d2","Laag_25":"#000000",
+        "Laag_26":"#ff83a1","Laag_27":"#8c6f64","Laag_28":"#ff83a1","leftcuff":"#8c6f64","rightcuff":"#8c6f64"
+      },
+      tooltipTitle: "Francis Bacon.",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/bacon1_430x.jpg?v=1762164487",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/francisbacon_430x.jpg?v=1757588774#"
     },
-    tooltipTitle: "Francis Bacon.",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/bacon1_430x.jpg?v=1762164487",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/francisbacon_430x.jpg?v=1757588774#"
-  },
-  2: {
-    name: "Ken Price",
-    available: true,
-enabled: {{ section.settings.price_enabled | default: true }},
-    enabled: {{ section.settings.price_enabled | default: true }},
-    defaults: {
-      "hem":"#000000","neck":"#be4b2e","Laag_2":"#000000","Laag_3":"#843345","Laag_4":"#59261f","Laag_5":"#843345","Laag_6":"#59261f",
-      "Laag_7":"#9cbdb4","Laag_8":"#59261f","Laag_9":"#843345","Laag_10":"#843345","Laag_11":"#843345","Laag_12":"#843345",
-      "Laag_13":"#000000","Laag_14":"#9cbdb4","Laag_15":"#000000","Laag_16":"#59261f","Laag_17":"#9cbdb4","Laag_18":"#7d90b2",
-      "Laag_19":"#9cbdb4","Laag_21":"#843345","Laag_22":"#000000","Laag_23":"#59261f","Laag_24":"#9cbdb4","Laag_25":"#7d90b2",
-      "Laag_26":"#9cbdb4","Laag_27":"#000000","Laag_28":"#9cbdb4","leftcuff":"#000000","rightcuff":"#000000"
+    2: {
+      name: "Ken Price",
+      available: false,
+      defaults: {
+        "hem":"#000000",
+    "neck":"#be4b2e",
+    "Laag_2":"#000000",
+    "Laag_3":"#843345",
+    "Laag_4":"#59261f",
+    "Laag_5":"#843345",
+    "Laag_6":"#59261f",
+    "Laag_7":"#9cbdb4",
+    "Laag_8":"#59261f",
+    "Laag_9":"#843345",
+    "Laag_10":"#843345",
+    "Laag_11":"#843345",
+    "Laag_12":"#843345",
+    "Laag_13":"#000000",
+    "Laag_14":"#9cbdb4",
+    "Laag_15":"#000000",
+    "Laag_16":"#59261f",
+    "Laag_17":"#9cbdb4",
+    "Laag_18":"#7d90b2",
+    "Laag_19":"#9cbdb4",
+    "Laag_21":"#843345",
+    "Laag_22":"#000000",
+    "Laag_23":"#59261f",
+    "Laag_24":"#9cbdb4",
+    "Laag_25":"#7d90b2",
+    "Laag_26":"#9cbdb4",
+    "Laag_27":"#000000",
+    "Laag_28":"#9cbdb4",
+    "leftcuff":"#000000",
+    "rightcuff":"#000000"
+      },
+      tooltipTitle: "Ken Price.",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2024-09-30_at_12.05.02_430x.png?v=1758355327"
     },
-    tooltipTitle: "Ken Price.",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2024-09-30_at_12.05.02_430x.png?v=1758355327"
-  },
-  3: {
-    name: "David Hockney (2013)",
-    available: true,
-enabled: {{ section.settings.price_enabled | default: true }},
-    enabled: {{ section.settings.hockney13_enabled | default: true }},
-    defaults: {
-      "hem":"#14352a","neck":"#14352a","Laag_2":"#14352a","Laag_3":"#036433","Laag_4":"#f2d075","Laag_5":"#14352a","Laag_6":"#036433",
-      "Laag_7":"#7baa5e","Laag_8":"#036433","Laag_9":"#036433","Laag_10":"#14352a","Laag_11":"#036433","Laag_12":"#036433",
-      "Laag_13":"#14352a","Laag_14":"#7baa5e","Laag_15":"#14352a","Laag_16":"#a40556","Laag_17":"#7baa5e","Laag_18":"#f2d075",
-      "Laag_19":"#14352a","Laag_21":"#890222","Laag_22":"#14352a","Laag_23":"#a40556","Laag_24":"#f2d075","Laag_25":"#a40556",
-      "Laag_26":"#036433","Laag_27":"#14352a","Laag_28":"#7baa5e","leftcuff":"#14352a","rightcuff":"#14352a"
+    3: {
+      name: "David Hockney (2013)",
+      available: true,
+      defaults: {
+        "hem":"#14352a",
+    "neck":"#14352a",
+    "Laag_2":"#14352a",
+    "Laag_3":"#036433",
+    "Laag_4":"#f2d075",
+    "Laag_5":"#14352a",
+    "Laag_6":"#036433",
+    "Laag_7":"#7baa5e",
+    "Laag_8":"#036433",
+    "Laag_9":"#036433",
+    "Laag_10":"#14352a",
+    "Laag_11":"#036433",
+    "Laag_12":"#036433",
+    "Laag_13":"#14352a",
+    "Laag_14":"#7baa5e",
+    "Laag_15":"#14352a",
+    "Laag_16":"#a40556",
+    "Laag_17":"#7baa5e",
+    "Laag_18":"#f2d075",
+    "Laag_19":"#14352a",
+    "Laag_21":"#890222",
+    "Laag_22":"#14352a",
+    "Laag_23":"#a40556",
+    "Laag_24":"#f2d075",
+    "Laag_25":"#a40556",
+    "Laag_26":"#036433",
+    "Laag_27":"#14352a",
+    "Laag_28":"#7baa5e",
+    "leftcuff":"#14352a",
+    "rightcuff":"#14352a"
+      },
+      tooltipTitle: "David Hockney (2013)",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/2246_430x.webp?v=1758361067"
     },
-    tooltipTitle: "David Hockney (2013)",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/2246_430x.webp?v=1758361067"
-  },
-  4: {
-    name: "Natisa Jones",
-    available: true,
-enabled: {{ section.settings.price_enabled | default: true }},
-    enabled: {{ section.settings.jones_enabled | default: true }},
-    defaults: {
-      "hem":"#6b191f","neck":"#6b191f","Laag_2":"#6b191f","Laag_3":"#930918","Laag_4":"#f1dbd0","Laag_5":"#930918","Laag_6":"#930918",
-      "Laag_7":"#f1dbd0","Laag_8":"#930918","Laag_9":"#930918","Laag_10":"#c32728","Laag_11":"#930918","Laag_12":"#930918",
-      "Laag_13":"#6b191f","Laag_14":"#c32728","Laag_15":"#930918","Laag_16":"#c32728","Laag_17":"#6b191f","Laag_18":"#c32728",
-      "Laag_19":"#6b191f","Laag_21":"#c32728","Laag_22":"#6b191f","Laag_23":"#000000","Laag_24":"#c32728","Laag_25":"#c32728",
-      "Laag_26":"#c32728","Laag_27":"#6b191f","Laag_28":"#c32728","leftcuff":"#6b191f","rightcuff":"#6b191f"
-    },
-    tooltipTitle: "Natisa Jones.",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
-  }
-};
+    4: {
+      name: "Natisa Jones",
+      available: true,
+      defaults: {
+        "hem":"#6b191f",
+    "neck":"#6b191f",
+    "Laag_2":"#6b191f",
+    "Laag_3":"#930918",
+    "Laag_4":"#f1dbd0",
+    "Laag_5":"#930918",
+    "Laag_6":"#930918",
+    "Laag_7":"#f1dbd0",
+    "Laag_8":"#930918",
+    "Laag_9":"#930918",
+    "Laag_10":"#c32728",
+    "Laag_11":"#930918",
+    "Laag_12":"#930918",
+    "Laag_13":"#6b191f",
+    "Laag_14":"#c32728",
+    "Laag_15":"#930918",
+    "Laag_16":"#c32728",
+    "Laag_17":"#6b191f",
+    "Laag_18":"#c32728",
+    "Laag_19":"#6b191f",
+    "Laag_21":"#c32728",
+    "Laag_22":"#6b191f",
+    "Laag_23":"#000000",
+    "Laag_24":"#c32728",
+    "Laag_25":"#c32728",
+    "Laag_26":"#c32728",
+    "Laag_27":"#6b191f",
+    "Laag_28":"#c32728",
+    "leftcuff":"#6b191f",
+    "rightcuff":"#6b191f"
+      },
+      tooltipTitle: "Natisa Jones.",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
+    }
+  };
 
   // Helper function to get swatch colors for current designer
   function getSwatchColors(designerIndex) {
@@ -2885,23 +2952,21 @@ enabled: {{ section.settings.price_enabled | default: true }},
     }
   }
 
- if (nextDesignerBtn) {
-  nextDesignerBtn.addEventListener('click', () => {
-    const nextIndex = getNextEnabledDesigner(currentDesigner);
-    if (nextIndex !== currentDesigner) {
-      switchDesigner(nextIndex);
-    }
-  });
-}
-
-if (prevDesignerBtn) {
-  prevDesignerBtn.addEventListener('click', () => {
-    const prevIndex = getPrevEnabledDesigner(currentDesigner);
-    if (prevIndex !== currentDesigner) {
-      switchDesigner(prevIndex);
-    }
-  });
-}
+  if (nextDesignerBtn) {
+    nextDesignerBtn.addEventListener('click', () => {
+      if (currentDesigner < Object.keys(DESIGNERS).length - 1) {
+        switchDesigner(currentDesigner + 1);
+      }
+    });
+  }
+  
+  if (prevDesignerBtn) {
+    prevDesignerBtn.addEventListener('click', () => {
+      if (currentDesigner > 0) {
+        switchDesigner(currentDesigner - 1);
+      }
+    });
+  }
 
   function normalizeColor(c) {
     if(!c) return c;
@@ -3501,27 +3566,13 @@ if (prevDesignerBtn) {
     }
   });
 
-// Initialize with first enabled designer
-  const firstEnabledDesigner = getFirstEnabledDesigner();
-  currentDesigner = firstEnabledDesigner;
-
   makeShapesClickable();
   buildSwatches();
   applyDefaults();
   refreshConstraints();
   updateAddToCartButton();
-  updateMiniThumbnail(firstEnabledDesigner);
+  updateMiniThumbnail(0);
   syncMobileButtons();
-
-  // Update navigation button states
-  const enabledDesigners = getEnabledDesigners();
-  if (enabledDesigners.length <= 1) {
-    if (prevDesignerBtn) prevDesignerBtn.style.display = 'none';
-    if (nextDesignerBtn) nextDesignerBtn.style.display = 'none';
-  }
-
-  // Color picker tooltip functionality
-  const colorPickerTooltip = document.getElementById('color-picker-tooltip');
 
   // Color picker tooltip functionality
   const colorPickerTooltip = document.getElementById('color-picker-tooltip');
