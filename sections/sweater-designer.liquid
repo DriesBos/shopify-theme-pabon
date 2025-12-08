@@ -732,44 +732,6 @@
       id='sweater-and-swatches-container'
       style='box-sizing: border-box; max-width: 860px; margin: 0 auto; position: relative;'
     >
-      <!-- reset and random buttons -->
-      <div
-        id='controls-column-left'
-        style='position:absolute; bottom:12px; left:12px; display:flex; flex-direction:column; align-items:flex-start;'
-      >
-        <button
-          id='random-btn'
-          class='btn-secondary btn-secondary-desktop'
-          type='button'
-          style='display:flex; gap:2px; align-items:center; justify-content:flex-start; padding:10px 12px; border-radius:0; width:120px; cursor:pointer; color:black; border:none; font-weight:600; font-size:10px; letter-spacing:0.3px; text-transform:uppercase; text-decoration:underline; background:none;'
-        >
-          <span>Randomize</span>
-          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
-            <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/>
-          </svg>
-        </button>
-        <button
-          id='default-btn'
-          type='button'
-          style='padding:10px 12px; display:flex; gap:2px; align-items:center; justify-content:flex-start; border-radius:0; width:120px; cursor:pointer; background:none; color:black; text-decoration:underline; border:none; font-weight:600; font-size:10px; letter-spacing:0.3px; text-transform:uppercase;'
-        >
-          <span>Reset</span>
-          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
-            <path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/>
-          </svg>
-        </button>
-        <button
-          id='info-btn'
-          aria-label='details'
-          style='display:flex; gap:2px; align-items:center; justify-content:flex-start; padding:10px 12px; border-radius:0; background:none; color:black; text-decoration:underline; border:none; cursor:pointer; font-size:10px; width:120px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;'
-        >
-          <span>Info</span>
-          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 -960 960 960'>
-            <path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/>
-          </svg>
-        </button>
-      </div>
-
       <button id='tutorial-btn' title='Show tutorial'>?</button>
 
       <div
@@ -786,138 +748,87 @@
         </svg>
       </div>
 
-      <!-- Desktop: Swatches underneath sweater (inside same box) -->
-      <div style='position:relative; display:flex; justify-content:center; margin-top:20px;'>
-        <div
-          id='swatch-container'
-          style='display:flex; flex-direction:row; justify-content:center; gap:12px; padding:0; background:none; border:none;'
-        ></div>
-
-        <!-- Color Picker Tooltip -->
-        <div
-          id='color-picker-tooltip'
-          style='display:none; position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%); background:#000; color:#fff; padding:8px 12px; border-radius:0; font-size:10px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase; white-space:nowrap; z-index:1000; pointer-events:auto; font-family:Arial, sans-serif;'
-        >
-          Select color, click a stripe
+      <div class='sweater-designer_bottom'>
+        <!-- SWEATER SWATCHES -->
+        <div style='position:relative; display:flex; justify-content:center; margin-top:20px;'>
           <div
-            style='position:absolute; top:100%; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:6px solid #000;'
+            id='swatch-container'
+            style='display:flex; flex-direction:row; justify-content:center; gap:12px; padding:0; background:none; border:none;'
           ></div>
+
+          <!-- SWEATER TOOLTIP -->
+          <div
+            id='color-picker-tooltip'
+            style='display:none; position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%); background:#000; color:#fff; padding:8px 12px; border-radius:0; font-size:10px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase; white-space:nowrap; z-index:1000; pointer-events:auto; font-family:Arial, sans-serif;'
+          >
+            Select color, click a stripe
+            <div
+              style='position:absolute; top:100%; left:50%; transform:translateX(-50%); width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-top:6px solid #000;'
+            ></div>
+          </div>
+        </div>
+
+        <!-- SWEATER TITLE AND NAVIGATION -->
+        <div
+          id='sweater-navigation'
+          class='sweater-designer_nav'
+        >
+          <button
+            id='prev-designer'
+            style='background:transparent !important; border:none !important; cursor:pointer; padding:4px; display:flex; align-items:center; justify-content:center; opacity: 0.3; outline:none !important; box-shadow:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;'
+          >
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#666' stroke-width='2'>
+              <polyline points="15,18 9,12 15,6"></polyline>
+            </svg>
+          </button>
+          <h3 id='designer-name' style='margin:0; font-size:20px; color:currentColor;'>David Hockney (60s)</h3>
+          <button
+            id='next-designer'
+            style='background:transparent !important; border:none !important; cursor:pointer; padding:4px; display:flex; align-items:center; justify-content:center; outline:none !important; box-shadow:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;'
+          >
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#666' stroke-width='2'>
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </button>
+        </div>
+        <!-- SWEATER CONTROLS -->
+        <div class='sweater-designer_controls'>
+          <button
+            id='random-btn-mobile'
+            class='sweater-designer_control-buttons'
+            type='button'
+            style='width:auto !important; color:black; border:none; background:none;'
+          >
+            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
+              <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/>
+            </svg>
+            <span>random</span>
+          </button>
+          <button
+            id='default-btn-mobile'
+            class='sweater-designer_control-buttons'
+            type='button'
+            style='width:auto !important; border-radius:0; background:none; color:black; border:none;'
+          >
+            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
+              <path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/>
+            </svg>
+            <span>reset</span>
+          </button>
+          <button
+            id='info-btn-mobile'
+            class='sweater-designer_control-buttons'
+            aria-label='details'
+            style='width:auto !important; border-radius:0; background:none; color:black; border:none;'
+          >
+            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
+              <path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/>
+            </svg>
+            <span>garment</span>
+          </button>
         </div>
       </div>
-    </div>
-
-    <!-- Sweater title and navigation -->
-    <div
-      id='sweater-navigation'
-      style="display:flex; align-items:center; justify-content:center; gap:1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif; position:relative;"
-    >
-      <!-- Mobile zoom buttons positioned next to navigation -->
-      <button
-        id='mobile-zoom-out'
-        style='display: none; position:absolute; left:-60px; width: 32px; height: 32px; border: 2px solid #ccc; background: white; cursor: pointer; border-radius: 50%; align-items: center; justify-content: center; font-size: 16px; color: #666; box-shadow: 0 2px 6px rgba(0,0,0,0.15);'
-      >
-        −
-      </button>
-      <button
-        id='prev-designer'
-        style='background:transparent !important; border:none !important; cursor:pointer; padding:4px; display:flex; align-items:center; justify-content:center; opacity: 0.3; outline:none !important; box-shadow:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;'
-      >
-        <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#666' stroke-width='2'>
-          <polyline points="15,18 9,12 15,6"></polyline>
-        </svg>
-      </button>
-      <h3 id='designer-name' style='margin:0; font-size:20px; color:currentColor;'>David Hockney (60s)</h3>
-      <button
-        id='next-designer'
-        style='background:transparent !important; border:none !important; cursor:pointer; padding:4px; display:flex; align-items:center; justify-content:center; outline:none !important; box-shadow:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;'
-      >
-        <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#666' stroke-width='2'>
-          <polyline points="9,18 15,12 9,6"></polyline>
-        </svg>
-      </button>
-      <button
-        id='mobile-zoom-in'
-        style='display: none; position:absolute; right:-60px; width: 32px; height: 32px; border: 2px solid #ccc; background: white; cursor: pointer; border-radius: 50%; align-items: center; justify-content: center; font-size: 16px; color: #666; box-shadow: 0 2px 6px rgba(0,0,0,0.15);'
-      >
-        +
-      </button>
-    </div>
-
-    <div class='sweater-controls-mobile'>
-      <button
-        id='random-btn-mobile'
-        class='btn-secondary btn-secondary-mobile'
-        type='button'
-        style='width:auto !important; cursor:pointer; color:black; border:none; text-decoration:underline; background:none;'
-      >
-        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
-          <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/>
-        </svg>
-      </button>
-      <button
-        id='default-btn-mobile'
-        type='button'
-        style='width:auto !important; border-radius:0; ursor:pointer; background:none; color:black; text-decoration:underline; border:none; font-size:9px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase;'
-      >
-        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
-          <path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/>
-        </svg>
-      </button>
-
-      <button
-        id='info-btn-mobile'
-        aria-label='details'
-        style='width:auto !important; border-radius:0; background:none; color:black; text-decoration:underline; border:none; cursor:pointer;'
-      >
-        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
-          <path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Mobile Controls Panel (hidden on desktop) -->
-    <div class='mobile-controls-panel' style='display: none;'>
-      <div class='mobile-controls-panel_pricing'>
-        <p style='font-size:22px; color:#000; text-align:center; width:100%; max-width:100%; line-height:1.4;'>
-          <strong>€320</strong>
-        </p>
-        <select
-          id='sweater-size-mobile'
-          style="padding:8px 10px; border-radius:8px; border:2px solid #ccc; font-size:18px; width:100%; text-align:center; cursor:pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;"
-        >
-          <option value='XXS'>XXS</option>
-          <option value='XS'>XS</option>
-          <option value='S'>S</option>
-          <option value='M' selected>M</option>
-          <option value='L'>L</option>
-          <option value='XL'>XL</option>
-        </select>
-
-        <button
-          id='add-to-cart-mobile'
-          style='padding:16px 16px; border-radius:0; background:black; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:12px; letter-spacing:0.5px; text-transform:uppercase;'
-        >
-          ADD TO BAG
-        </button>
-      </div>
-
-      <!-- Mini Designer Image (mobile) - Square with border -->
-      <div
-        id='mini-designer-image-mobile'
-        style='width:100% !important; height:auto !important; aspect-ratio:1 / 1; border-radius:0; overflow:hidden; border:3px solid #000; cursor:pointer; transition:all 0.3s ease; position:relative;'
-      >
-        <img
-          id='mini-designer-img-mobile'
-          src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#'
-          style='width:100%; height:100%; object-fit:cover;'
-        >
-        <video
-          id='mini-designer-video-mobile'
-          muted
-          playsinline
-          style='display:none; width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;'
-        ></video>
-      </div>
+      <!-- END SWEATHER-DESIGNER -->
     </div>
 
     <div
@@ -926,27 +837,15 @@
     ></div>
   </div>
 
+  <!-- CONTROLS PANEL -->
   <div
     id='controls-panel'
-    style='flex:1;display:flex; flex-direction:column; justify-content:space-around; width:100%; max-width:160px; box-sizing:border-box; position:relative;'
+    class='controls-panel'
   >
-    <!-- Pricing (moved above size selector) -->
-    {% comment %} <p style="margin:0 0 12px 0; font-size:16px; color:#000; text-align:center; max-width:120px; line-height:1.4;">Customize yours.</p> {% endcomment %}
-    <!-- Deadline Timer -->
-    {% comment %}
-      <div id="deadline-timer-container" style="position: relative; display:none; width: 120px;">
-        <div id="deadline-timer" style="background: #fff; border: 2px solid #000; padding: 8px 10px; text-align: center; cursor: default; transition: all 0.2s ease;">
-          <span id="countdown-display" style="font-size: 11px; font-weight: 600; color: #000; font-family: 'Courier New', monospace; letter-spacing: 0.5px;"></span>
-        </div>
-        <div id="deadline-tooltip" style="display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 6px 10px; font-size: 10px; white-space: nowrap; margin-bottom: 6px; z-index: 100;">
-          Deadline closes at: Dec 19th, 00:00h
-          <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #000;"></div>
-        </div>
-      </div>
-    {% endcomment %}
+    <!-- PRICE -->
     <div
-      id='controls-column-center'
-      style='display:flex; flex-direction:column; align-items:center; gap:0.5rem; width:100%; max-width:300px;'
+      id='controls-panel_price'
+      class='controls-panel_price'
     >
       <p style='font-size:22px; padding:0; margin:0; margin-bottom:0.5rem; color:#000; text-align:center; width:100%; max-width:100%; line-height:1.4;'>
         <strong>€320</strong>
@@ -973,10 +872,10 @@
       </div>
     </div>
 
-    <!-- Mini Designer Image (desktop only) - Square with border -->
+    <!-- DESIGNER IMAGE -->
     <div
       id='mini-designer-image'
-      style='width:100%; aspect-ratio:1 / 1; border-radius:0; overflow:hidden; border:3px solid #000; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 8px rgba(0,0,0,0.15); margin-top:16px; position:relative;'
+      class='mini-designer-image'
     >
       <img
         id='mini-designer-img'
@@ -989,6 +888,7 @@
         playsinline
         style='display:none; width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;'
       ></video>
+      <span>Palette</span>
     </div>
   </div>
 </div>
@@ -1293,6 +1193,169 @@
 </script>
 
 <style>
+  /* NEW NEW NEW NEW NEW NEW NEW NEW NEW SWEATER DESIGNER */
+  .sweater-designer {
+    display: flex;
+    padding: 0 1rem;
+    gap: 0;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    justify-content: space-around;
+  }
+  @media (max-width: 768px) {
+    .sweater-designer {
+      gap: 4rem;
+      flex-direction: column;
+    }
+  }
+  .sweater-designer_bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .sweater-designer_nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+    position: relative;
+  }
+  @media (max-width: 768px) {
+    .sweater-designer_nav {
+      justify-content: space-between;
+    }
+  }
+  .sweater-designer_control-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    cursor: pointer;
+  }
+  .sweater-designer_control-buttons span {
+    text-decoration: none;
+    font-size: 9px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .sweater-designer_controls {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    order: 4;
+  }
+
+  /* NEW NEW NEW NEW NEW NEW NEW NEW NEW DETAILS PANEL */
+  .controls-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem 0;
+    width: 100%;
+    max-width: 160px;
+  }
+  .controls-panel_price {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .controls-panel {
+      width: 100%;
+      max-width: none;
+      gap: 4rem;
+      padding: 0;
+    }
+  }
+  /* NEW NEW NEW NEW NEW NEW NEW NEW NEW MINI DESIGNER */
+  .mini-designer-image {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  .mini-designer-image span {
+    text-decoration: none;
+    font-size: 9px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+
+  }
+  .mini-designer-image img, .mini-designer-image video {
+    border: 6px solid black;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* NEW NEW NEW NEW NEW NEW NEW NEW NEW MODAL */
+  #expanded-designer-overlay {
+     background:rgba(0,0,0,0.66)
+  }
+
+  #expanded-content {
+    position:relative;
+    width: calc(100vw - 4vw);
+    height: calc(100vh - 4vh);
+    max-height: calc(100vh - 4vh);
+    margin: 2vh auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #carousel-container {
+    flex: 1;
+    position:relative;
+    width:100%;
+    background:#000;
+  }
+
+  #carousel-track {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  .carousel-slide {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-slide img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #artist-info {
+    flex-shrink: 0;
+  }
+
+  /* END END END END END END NEW NEW NEW NEW NEW NEW NEW NEW */
+
+
   /* Tutorial button */
   #tutorial-btn {
     position: absolute;
@@ -1322,9 +1385,6 @@
       font-size: 14px;
       top: 8px;
       left: 8px;
-    }
-    #controls-column-left {
-      display: none !important;
     }
   }
 
@@ -1416,10 +1476,10 @@
     box-shadow: none !important;
   }
 
-  /* Desktop: hide left panel swatch container completely */
-  #controls-panel #swatch-container {
+  {% comment %} /* Desktop: hide left panel swatch container completely */
+  #swatch-container {
     display: none !important;
-  }
+  } {% endcomment %}
 
   /* Force select styling */
   select {
@@ -1546,69 +1606,8 @@
     display: none;
   }
 
-  /* Mini designer image styles */
-  #mini-designer-image {
-    transition: all 0.3s ease;
-  }
-
-  #mini-designer-image:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-  }
-
-  #expanded-designer-overlay {
-     background:rgba(0,0,0,0.66)
-  }
-
-  #expanded-content {
-    position:relative;
-    width: calc(100vw - 4vw);
-    height: calc(100vh - 4vh);
-    max-height: calc(100vh - 4vh);
-    margin: 2vh auto;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #carousel-container {
-    flex: 1;
-    position:relative;
-    width:100%;
-    background:#000;
-  }
-
-  #carousel-track {
-    height: 100%;
-    width: 100%;
-    position: relative;
-  }
-
-  .carousel-slide {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .carousel-slide img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  #artist-info {
-    flex-shrink: 0;
-  }
-
   /* Hide wool image desktop on mobile */
   @media (max-width: 768px) {
-    #mini-designer-image {
-      display: none !important;
-    }
 
     /* Make info tooltip much larger on mobile */
     #info-tooltip {
@@ -1708,9 +1707,6 @@
 
   /* Intermediate breakpoint (1200px to 1920px) for gradual scaling */
   @media (min-width: 1200px) and (max-width: 1919px) {
-    .sweater-designer {
-      max-width: calc(100vw - 100px) !important;
-    }
 
     #sweater-and-swatches-container {
       max-width: calc((100vw - 100px) * 0.7) !important;
@@ -1723,9 +1719,6 @@
 
   /* Large desktop screens (1920px+) */
   @media (min-width: 1920px) {
-    .sweater-designer {
-      max-width: 1600px !important;
-    }
 
     #sweater-svg-wrapper {
       max-width: 1200px !important;
@@ -1735,20 +1728,11 @@
       max-width: 1200px !important;
     }
 
-    #controls-panel {
-      width: 200px !important;
-    }
-
     #controls-panel button,
     #controls-panel select {
       width: 160px !important;
       font-size: 12px !important;
       padding: 12px 14px !important;
-    }
-
-    #mini-designer-image {
-      width: 160px !important;
-      height: 160px !important;
     }
 
     #wool-image {
@@ -1768,9 +1752,6 @@
 
   /* 4K screens (2560px+) - ENHANCED SCALING */
   @media (min-width: 2560px) {
-    .sweater-designer {
-      max-width: 2800px !important;
-    }
 
     #sweater-svg-wrapper {
       max-width: 2400px !important;
@@ -1836,9 +1817,6 @@
 
   /* Ultra-wide 5K/6K screens (3440px+) */
   @media (min-width: 3440px) {
-    .sweater-designer {
-      max-width: 3400px !important;
-    }
 
     #sweater-svg-wrapper {
       max-width: 3000px !important;
@@ -1875,40 +1853,12 @@
     }
   }
 
-  @media (min-width: 768px) {
-    .sweater-designer {
-      padding: 0 0.5rem;
-    }
-  }
-
   /* Enhanced responsive design */
   @media (max-width: 768px) {
     /* Prevent horizontal scroll on mobile */
     html, body {
       overflow-x: hidden !important;
       width: 100% !important;
-    }
-
-    .sweater-designer {
-      flex-direction: column;
-      margin: 60px auto 18px auto !important;
-      gap: 0;
-      max-width: 100%;
-      width: 100%;
-      min-height: 100vh;
-      position: relative;
-      box-sizing: border-box;
-      overflow-x: hidden;
-    }
-
-    /* Hide right sidebar completely on mobile */
-    #controls-panel {
-      display: none !important;
-    }
-
-    /* Show mobile controls panel */
-    .mobile-controls-panel {
-      display: flex !important;
     }
 
     /* Combined sweater and swatches container on mobile */
@@ -2015,34 +1965,6 @@
       box-sizing: border-box;
     }
 
-    .mobile-controls-grid {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      gap: 10px;
-      width: 100%;
-      max-width: 240px;
-    }
-
-    .mobile-controls-panel #info-btn-mobile {
-      grid-column: 1 / -1;
-      width: 100%;
-      box-sizing: border-box;
-      font-size: 10px;
-      padding: 6px 8px;
-      border-radius: 0;
-    }
-
-    .mobile-controls-panel #sweater-size-mobile,
-    .mobile-controls-panel #add-to-cart-mobile,
-    .mobile-controls-panel #default-btn-mobile,
-    .mobile-controls-panel #random-btn-mobile {
-      width: 100%;
-      box-sizing: border-box;
-      font-size: 10px;
-      padding: 6px 8px;
-      border-radius: 0;
-    }
-
     .mobile-instruction-text {
       font-size: 10px;
       color: #666;
@@ -2051,13 +1973,6 @@
       margin: 0;
       padding: 0 12px;
       box-sizing: border-box;
-    }
-
-    /* Mini designer image mobile */
-    #mini-designer-image-mobile {
-      width: 180px !important;
-      height: 180px !important;
-      max-width: calc(100% - 48px) !important;
     }
 
     /* Remove bottom padding since controls are now inline */
@@ -2135,11 +2050,6 @@
     }
   }
 
-  @media (min-width: 769px) {
-    .sweater-controls-mobile {
-      display: none !important;
-    }
-  }
   /* Intermediate sizes - keep panel next to sweater with gap */
   @media (min-width: 769px) and (max-width: 1099px) {
     .sweater-designer {
@@ -2161,31 +2071,6 @@
 
   #deadline-timer:hover #countdown-display {
     color: #fff !important;
-  }
-  {% comment %} NEW STYLES {% endcomment %}
-  .sweater-controls-mobile {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    order: 4;
-  }
-  .mobile-controls-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-  }
-  .mobile-controls-panel_pricing {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 1rem;
-  }
-  .mobile-controls-panel_pricing p {
-    padding:0;
-    margin:0;
-    padding-bottom: 0.5rem !important;
   }
 </style>
 
