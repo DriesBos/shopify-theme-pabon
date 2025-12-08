@@ -851,26 +851,34 @@
         <strong>€320</strong>
       </p>
       <div class='mobile-controls-grid'>
-        <select
-          id='sweater-size'
-          style="padding:8px 10px; border-radius:8px; border:2px solid #ccc; font-size:18px; width:100%; text-align:center; cursor:pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;"
-        >
-          <option value='XXS'>XXS</option>
-          <option value='XS'>XS</option>
-          <option value='S'>S</option>
-          <option value='M' selected>M</option>
-          <option value='L'>L</option>
-          <option value='XL'>XL</option>
-        </select>
-        <button
-          id='add-to-cart'
-          style='padding:16px 16px; border-radius:0; background:black; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:12px; letter-spacing:0.5px; text-transform:uppercase;'
-        >
-          ADD TO BAG
-        </button>
-        <input id='custom-name' type='text' placeholder='name?' style='display: none;'>
-      </div>
+  <select
+    id='sweater-size'
+    style="padding:8px 10px; border-radius:8px; border:2px solid #ccc; font-size:18px; width:100%; text-align:center; cursor:pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;"
+  >
+    <option value='XXS'>XXS</option>
+    <option value='XS'>XS</option>
+    <option value='S'>S</option>
+    <option value='M' selected>M</option>
+    <option value='L'>L</option>
+    <option value='XL'>XL</option>
+  </select>
+  <button
+    id='add-to-cart'
+    style='padding:16px 16px; border-radius:0; background:black; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:12px; letter-spacing:0.5px; text-transform:uppercase;'
+  >
+    ADD TO BAG
+  </button>
+  <div id="deadline-timer-container" style="position: relative; width: 100%; margin-top: 8px;">
+    <div id="deadline-timer" style="padding: 16px 16px; border: 2px solid #000; background: #fff; width: 100%; box-sizing: border-box; text-align: center; cursor: default; transition: all 0.2s ease;">
+      <span id="countdown-display" style="font-weight: 700; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; color: #000;">Loading...</span>
     </div>
+    <div id="deadline-tooltip" style="display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 8px 12px; font-size: 11px; white-space: nowrap; z-index: 100;">
+      Deadline: Dec 19th, 00:00h
+      <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #000;"></div>
+    </div>
+  </div>
+  <input id='custom-name' type='text' placeholder='name?' style='display: none;'>
+</div>
 
     <!-- DESIGNER IMAGE -->
     <div
