@@ -150,23 +150,11 @@
       "label": "Color 6",
       "default": "#9a6c2c"
     },
-   {
+    {
       "type": "text",
       "id": "hockney60_color_6_name",
       "label": "Color 6 Name",
       "default": "Bronze"
-     },
-    {
-      "type": "checkbox",
-      "id": "hockney60_enabled",
-      "label": "✓ Show this designer",
-      "default": false
-    },
-    {
-      "type": "textarea",
-      "id": "hockney60_default_pattern",
-      "label": "Default Pattern (Advanced)",
-      "info": "Leave empty to use built-in defaults. Format: Laag_2:#313539,Laag_3:#284354,hem:#313539"
     },
     {
       "type": "header",
@@ -307,18 +295,6 @@
       "id": "bacon_color_6_name",
       "label": "Color 6 Name",
       "default": "Black"
-    },   
-    {
-      "type": "textarea",
-      "id": "bacon_default_pattern",
-      "label": "Default Pattern (Advanced)",
-      "info": "Leave empty to use built-in defaults. Format: Laag_2:#8c6f64,Laag_3:#1a352c,hem:#8c6f64"
-    },
-    {
-      "type": "checkbox",
-      "id": "bacon_enabled",
-      "label": "✓ Show this designer",
-      "default": false
     },
     {
       "type": "header",
@@ -461,19 +437,6 @@
       "default": "Burgundy"
     },
     {
-      "type": "checkbox",
-      "id": "price_enabled",
-      "label": "✓ Show this designer",
-      "default": true
-   
-    },
-    {
-      "type": "textarea",
-      "id": "price_default_pattern",
-      "label": "Default Pattern (Advanced)",
-      "info": "Leave empty to use built-in defaults. Format: Laag_2:#000000,Laag_3:#843345,hem:#000000"
-    },   
-    {
       "type": "header",
       "content": "═══ DAVID HOCKNEY (2013) ═══"
     },
@@ -614,18 +577,6 @@
       "default": "Yellow"
     },
     {
-      "type": "textarea",
-      "id": "hockney13_default_pattern",
-      "label": "Default Pattern (Advanced)",
-      "info": "Leave empty to use built-in defaults. Format: Laag_2:#14352a,Laag_3:#036433,hem:#14352a"
-    },
-    {
-      "type": "checkbox",
-      "id": "hockney13_enabled",
-      "label": "✓ Show this designer",
-      "default": false
-    },    
-    {
       "type": "header",
       "content": "═══ NATISA JONES ═══"
     },
@@ -764,19 +715,7 @@
       "id": "jones_color_6_name",
       "label": "Color 6 Name",
       "default": "Cream"
-    },
-    {
-      "type": "checkbox",
-      "id": "jones_enabled",
-      "label": "✓ Show this designer",
-      "default": false
-    },
-    {
-      "type": "textarea",
-      "id": "jones_default_pattern",
-      "label": "Default Pattern (Advanced)",
-      "info": "Leave empty to use built-in defaults. Format: Laag_2:#6b191f,Laag_3:#930918,hem:#6b191f"
-    },
+    }
   ],
   "presets": [{ "name": "Sweater Designer" }]
 }
@@ -912,32 +851,42 @@
         <strong>€320</strong>
       </p>
       <div class='mobile-controls-grid'>
-        <select
-          id='sweater-size'
-          style="padding:8px 10px; border-radius:8px; border:2px solid #ccc; font-size:18px; width:100%; text-align:center; cursor:pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;"
-        >
-          <option value='XXS'>XXS</option>
-          <option value='XS'>XS</option>
-          <option value='S'>S</option>
-          <option value='M' selected>M</option>
-          <option value='L'>L</option>
-          <option value='XL'>XL</option>
-        </select>
-        <button
-          id='add-to-cart'
-          style='padding:16px 16px; border-radius:0; background:black; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:12px; letter-spacing:0.5px; text-transform:uppercase;'
-        >
-          ADD TO BAG
-        </button>
-        <input id='custom-name' type='text' placeholder='name?' style='display: none;'>
+  <select
+    id='sweater-size'
+    style="padding:8px 10px; border-radius:8px; border:2px solid #ccc; font-size:18px; width:100%; text-align:center; cursor:pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;"
+  >
+    <option value='XXS'>XXS</option>
+    <option value='XS'>XS</option>
+    <option value='S'>S</option>
+    <option value='M' selected>M</option>
+    <option value='L'>L</option>
+    <option value='XL'>XL</option>
+  </select>
+  <button
+    id='add-to-cart'
+    style='padding:16px 16px; border-radius:0; background:black; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:12px; letter-spacing:0.5px; text-transform:uppercase;'
+  >
+    ADD TO BAG
+  </button>
+  <div id="deadline-timer-container" style="position: relative; width: 100%; margin-top: 8px;">
+    <div id="deadline-timer" style="padding: 16px 16px; border: 2px solid #000; background: #fff; width: 100%; box-sizing: border-box; text-align: center; cursor: default; transition: all 0.2s ease;">
+      <span id="countdown-display" style="font-weight: 700; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; color: #000;">Loading...</span>
+    </div>
+    <div id="deadline-tooltip" style="display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 8px 12px; font-size: 11px; white-space: nowrap; z-index: 100;">
+      Deadline: Dec 19th, 00:00h
+      <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #000;"></div>
+    </div>
+   <input id='custom-name' type='text' placeholder='name?' style='display: none;'>
       </div>
     </div>
+  </div>
 
     <!-- DESIGNER IMAGE -->
     <div
       id='mini-designer-image'
       class='mini-designer-image'
     >
+
       <img
         id='mini-designer-img'
         src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#'
@@ -1085,7 +1034,7 @@
     style='width:75%; display:block; margin:10px auto;'
   >
   <p style='margin:0;'>
-    - Heavy weight sweater, with round neck. Ribbed hem and cuffs. <br>
+    - Heavy weight sweater, with round neck. Ribbed hem and cuffs. Size down if you want it fitted.<br>
     - Oversized - size down if you want it more fitted, 2 sized down if you want it a bit shorter.  <br>
     195-200 cm XL <br>
 194-185 cm L <br>
@@ -1093,6 +1042,7 @@
 177-170cm S <br>
 169-162cm XS <br>
 162-158cm XXS <br>
+ 
     - Due to technical limitations there is a maximum of 4 colors in the body, 5 per sleeve, 6 for the hems and cuffs.
     <br>
     - Third stripe on the right arm is reversed.<br>
@@ -1286,14 +1236,19 @@
     margin-bottom: 2rem;
   }
   .sweater-designer_nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    gap: 1rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
-    position: relative;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+  position: relative;
+}
+
+#designer-name {
+  min-width: 200px;
+  text-align: center;
+}
   .sweater-designer_control-buttons {
     display: flex;
     flex-direction: column;
@@ -2081,18 +2036,19 @@
       touch-action: manipulation;
     }
   }
-  * Controls panel centering - desktop */
-  @media (min-width: 1100px) {
-    .sweater-designer {
-      gap: 0 !important;
-    }
-
-    #controls-panel {
-      position: absolute;
-      right: calc((100vw - 860px) / 4 - 75px);
-      top: 0;
-    }
+ @media (min-width: 1100px) {
+  .sweater-designer {
+    gap: 0 !important;
   }
+
+  #controls-panel {
+    position: absolute;
+    right: calc((100vw - 860px) / 4 - 75px);
+    top: 0;
+    bottom: 0;
+    height: auto;
+  }
+}
 
   /* Intermediate sizes - keep panel next to sweater with gap */
   @media (min-width: 769px) and (max-width: 1099px) {
@@ -2116,6 +2072,33 @@
   #deadline-timer:hover #countdown-display {
     color: #fff !important;
   }
+  /* Deadline timer styling */
+#deadline-timer:hover {
+  background: #000 !important;
+}
+
+#deadline-timer:hover #countdown-display {
+  color: #fff !important;
+}
+
+/* Timer responsive scaling */
+@media (min-width: 1920px) {
+  #deadline-timer {
+    padding: 18px 18px !important;
+  }
+  #deadline-timer #countdown-display {
+    font-size: 14px !important;
+  }
+}
+
+@media (min-width: 2560px) {
+  #deadline-timer {
+    padding: 20px 20px !important;
+  }
+  #deadline-timer #countdown-display {
+    font-size: 16px !important;
+  }
+}
 </style>
 
 <script>
@@ -2179,11 +2162,11 @@ if (timerContainer && timerTooltip) {
   }
   
 
+  // Designer configurations (colors now come from galleryData)
   const DESIGNERS = {
     0: {
       name: "David Hockney (60s)",
       available: true,
-      enabled: {{ section.settings.hockney60_enabled | default: false }},
       defaults: {
         "hem":"#313539","neck":"#313539","Laag_2":"#313539","Laag_3":"#284354","Laag_4":"#b4a697","Laag_5":"#284354","Laag_6":"#313539",
         "Laag_7":"#284354","Laag_8":"#313539","Laag_9":"#6b5d93","Laag_10":"#9a6c2c","Laag_11":"#284354","Laag_12":"#313539",
@@ -2198,7 +2181,6 @@ if (timerContainer && timerTooltip) {
     1: {
       name: "Francis Bacon",
       available: true,
-      enabled: {{ section.settings.bacon_enabled | default: false }},
       defaults: {
         "hem":"#8c6f64","neck":"#000000","Laag_2":"#8c6f64","Laag_3":"#1a352c","Laag_4":"#d8d5d2","Laag_5":"#d35968","Laag_6":"#1a352c",
         "Laag_7":"#d8d5d2","Laag_8":"#ff83a1","Laag_9":"#d35968","Laag_10":"#ff83a1","Laag_11":"#1a352c","Laag_12":"#d8d5d2",
@@ -2213,13 +2195,37 @@ if (timerContainer && timerTooltip) {
     2: {
       name: "Ken Price",
       available: false,
-      enabled: {{ section.settings.price_enabled | default: true }},
       defaults: {
-        "hem":"#000000","neck":"#be4b2e","Laag_2":"#000000","Laag_3":"#843345","Laag_4":"#59261f","Laag_5":"#843345","Laag_6":"#59261f",
-        "Laag_7":"#9cbdb4","Laag_8":"#59261f","Laag_9":"#843345","Laag_10":"#843345","Laag_11":"#843345","Laag_12":"#843345",
-        "Laag_13":"#000000","Laag_14":"#9cbdb4","Laag_15":"#000000","Laag_16":"#59261f","Laag_17":"#9cbdb4","Laag_18":"#7d90b2",
-        "Laag_19":"#9cbdb4","Laag_21":"#843345","Laag_22":"#000000","Laag_23":"#59261f","Laag_24":"#9cbdb4","Laag_25":"#7d90b2",
-        "Laag_26":"#9cbdb4","Laag_27":"#000000","Laag_28":"#9cbdb4","leftcuff":"#000000","rightcuff":"#000000"
+        "hem":"#000000",
+    "neck":"#be4b2e",
+    "Laag_2":"#000000",
+    "Laag_3":"#843345",
+    "Laag_4":"#59261f",
+    "Laag_5":"#843345",
+    "Laag_6":"#59261f",
+    "Laag_7":"#9cbdb4",
+    "Laag_8":"#59261f",
+    "Laag_9":"#843345",
+    "Laag_10":"#843345",
+    "Laag_11":"#843345",
+    "Laag_12":"#843345",
+    "Laag_13":"#000000",
+    "Laag_14":"#9cbdb4",
+    "Laag_15":"#000000",
+    "Laag_16":"#59261f",
+    "Laag_17":"#9cbdb4",
+    "Laag_18":"#7d90b2",
+    "Laag_19":"#9cbdb4",
+    "Laag_21":"#843345",
+    "Laag_22":"#000000",
+    "Laag_23":"#59261f",
+    "Laag_24":"#9cbdb4",
+    "Laag_25":"#7d90b2",
+    "Laag_26":"#9cbdb4",
+    "Laag_27":"#000000",
+    "Laag_28":"#9cbdb4",
+    "leftcuff":"#000000",
+    "rightcuff":"#000000"
       },
       tooltipTitle: "Ken Price.",
       tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
@@ -2228,13 +2234,37 @@ if (timerContainer && timerTooltip) {
     3: {
       name: "David Hockney (2013)",
       available: true,
-      enabled: {{ section.settings.hockney13_enabled | default: false }},
       defaults: {
-        "hem":"#14352a","neck":"#14352a","Laag_2":"#14352a","Laag_3":"#036433","Laag_4":"#f2d075","Laag_5":"#14352a","Laag_6":"#036433",
-        "Laag_7":"#7baa5e","Laag_8":"#036433","Laag_9":"#036433","Laag_10":"#14352a","Laag_11":"#036433","Laag_12":"#036433",
-        "Laag_13":"#14352a","Laag_14":"#7baa5e","Laag_15":"#14352a","Laag_16":"#a40556","Laag_17":"#7baa5e","Laag_18":"#f2d075",
-        "Laag_19":"#14352a","Laag_21":"#890222","Laag_22":"#14352a","Laag_23":"#a40556","Laag_24":"#f2d075","Laag_25":"#a40556",
-        "Laag_26":"#036433","Laag_27":"#14352a","Laag_28":"#7baa5e","leftcuff":"#14352a","rightcuff":"#14352a"
+        "hem":"#14352a",
+    "neck":"#14352a",
+    "Laag_2":"#14352a",
+    "Laag_3":"#036433",
+    "Laag_4":"#f2d075",
+    "Laag_5":"#14352a",
+    "Laag_6":"#036433",
+    "Laag_7":"#7baa5e",
+    "Laag_8":"#036433",
+    "Laag_9":"#036433",
+    "Laag_10":"#14352a",
+    "Laag_11":"#036433",
+    "Laag_12":"#036433",
+    "Laag_13":"#14352a",
+    "Laag_14":"#7baa5e",
+    "Laag_15":"#14352a",
+    "Laag_16":"#a40556",
+    "Laag_17":"#7baa5e",
+    "Laag_18":"#f2d075",
+    "Laag_19":"#14352a",
+    "Laag_21":"#890222",
+    "Laag_22":"#14352a",
+    "Laag_23":"#a40556",
+    "Laag_24":"#f2d075",
+    "Laag_25":"#a40556",
+    "Laag_26":"#036433",
+    "Laag_27":"#14352a",
+    "Laag_28":"#7baa5e",
+    "leftcuff":"#14352a",
+    "rightcuff":"#14352a"
       },
       tooltipTitle: "David Hockney (2013)",
       tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
@@ -2243,47 +2273,43 @@ if (timerContainer && timerTooltip) {
     4: {
       name: "Natisa Jones",
       available: true,
-      enabled: {{ section.settings.jones_enabled | default: false }},
       defaults: {
-        "hem":"#6b191f","neck":"#6b191f","Laag_2":"#6b191f","Laag_3":"#930918","Laag_4":"#f1dbd0","Laag_5":"#930918","Laag_6":"#930918",
-        "Laag_7":"#f1dbd0","Laag_8":"#930918","Laag_9":"#930918","Laag_10":"#c32728","Laag_11":"#930918","Laag_12":"#930918",
-        "Laag_13":"#6b191f","Laag_14":"#c32728","Laag_15":"#930918","Laag_16":"#c32728","Laag_17":"#6b191f","Laag_18":"#c32728",
-        "Laag_19":"#6b191f","Laag_21":"#c32728","Laag_22":"#6b191f","Laag_23":"#000000","Laag_24":"#c32728","Laag_25":"#c32728",
-        "Laag_26":"#c32728","Laag_27":"#6b191f","Laag_28":"#c32728","leftcuff":"#6b191f","rightcuff":"#6b191f"
+        "hem":"#6b191f",
+    "neck":"#6b191f",
+    "Laag_2":"#6b191f",
+    "Laag_3":"#930918",
+    "Laag_4":"#f1dbd0",
+    "Laag_5":"#930918",
+    "Laag_6":"#930918",
+    "Laag_7":"#f1dbd0",
+    "Laag_8":"#930918",
+    "Laag_9":"#930918",
+    "Laag_10":"#c32728",
+    "Laag_11":"#930918",
+    "Laag_12":"#930918",
+    "Laag_13":"#6b191f",
+    "Laag_14":"#c32728",
+    "Laag_15":"#930918",
+    "Laag_16":"#c32728",
+    "Laag_17":"#6b191f",
+    "Laag_18":"#c32728",
+    "Laag_19":"#6b191f",
+    "Laag_21":"#c32728",
+    "Laag_22":"#6b191f",
+    "Laag_23":"#000000",
+    "Laag_24":"#c32728",
+    "Laag_25":"#c32728",
+    "Laag_26":"#c32728",
+    "Laag_27":"#6b191f",
+    "Laag_28":"#c32728",
+    "leftcuff":"#6b191f",
+    "rightcuff":"#6b191f"
       },
       tooltipTitle: "Natisa Jones.",
       tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
       fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
     }
   };
-
-  // Helper functions for enabled designers
-  function getEnabledDesigners() {
-    return Object.keys(DESIGNERS)
-      .map(Number)
-      .filter(i => DESIGNERS[i].enabled);
-  }
-
-  function getFirstEnabledDesigner() {
-    const enabled = getEnabledDesigners();
-    return enabled.length > 0 ? enabled[0] : 0;
-  }
-
-  function getNextEnabledDesigner(currentIndex) {
-    const enabled = getEnabledDesigners();
-    if (enabled.length <= 1) return currentIndex;
-    const currentPos = enabled.indexOf(currentIndex);
-    const nextPos = (currentPos + 1) % enabled.length;
-    return enabled[nextPos];
-  }
-
-  function getPrevEnabledDesigner(currentIndex) {
-    const enabled = getEnabledDesigners();
-    if (enabled.length <= 1) return currentIndex;
-    const currentPos = enabled.indexOf(currentIndex);
-    const prevPos = (currentPos - 1 + enabled.length) % enabled.length;
-    return enabled[prevPos];
-  }
 
   // Helper function to get swatch colors for current designer
   function getSwatchColors(designerIndex) {
@@ -2338,7 +2364,7 @@ if (timerContainer && timerTooltip) {
   }
 
   // Current state
-  let currentDesigner = getFirstEnabledDesigner();
+  let currentDesigner = 0;
   let activeColor = getSwatchColors(0)[0].hex;
   let currentCarouselIndex = 0;
   let carouselSlideCount = 0;
@@ -2809,7 +2835,7 @@ if (timerContainer && timerTooltip) {
   setupMiniImageClick(miniDesignerImageMobile);
 
   function switchDesigner(designerIndex) {
-    if (!DESIGNERS[designerIndex] || !DESIGNERS[designerIndex].enabled) return;
+    if (!DESIGNERS[designerIndex]) return;
     
     currentDesigner = designerIndex;
     const designer = DESIGNERS[currentDesigner];
@@ -2817,14 +2843,8 @@ if (timerContainer && timerTooltip) {
     designerNameEl.textContent = designer.name;
     updateMiniThumbnail(designerIndex);
     
-       const enabledDesigners = getEnabledDesigners();
-    if (enabledDesigners.length <= 1) {
-      prevDesignerBtn.style.opacity = '0.3';
-      nextDesignerBtn.style.opacity = '0.3';
-    } else {
-      prevDesignerBtn.style.opacity = '1';
-      nextDesignerBtn.style.opacity = '1';
-    }
+    prevDesignerBtn.style.opacity = currentDesigner === 0 ? '0.3' : '1';
+    nextDesignerBtn.style.opacity = currentDesigner === Object.keys(DESIGNERS).length - 1 ? '0.3' : '1';
     
     updateAddToCartButton();
     buildSwatches();
@@ -2982,20 +3002,18 @@ if (timerContainer && timerTooltip) {
     }
   }
 
-if (nextDesignerBtn) {
+  if (nextDesignerBtn) {
     nextDesignerBtn.addEventListener('click', () => {
-      const nextIndex = getNextEnabledDesigner(currentDesigner);
-      if (nextIndex !== currentDesigner) {
-        switchDesigner(nextIndex);
+      if (currentDesigner < Object.keys(DESIGNERS).length - 1) {
+        switchDesigner(currentDesigner + 1);
       }
     });
   }
   
   if (prevDesignerBtn) {
     prevDesignerBtn.addEventListener('click', () => {
-      const prevIndex = getPrevEnabledDesigner(currentDesigner);
-      if (prevIndex !== currentDesigner) {
-        switchDesigner(prevIndex);
+      if (currentDesigner > 0) {
+        switchDesigner(currentDesigner - 1);
       }
     });
   }
@@ -3598,25 +3616,13 @@ if (nextDesignerBtn) {
     }
   });
 
-// Initialize with first enabled designer
-  const firstEnabledDesigner = getFirstEnabledDesigner();
-  currentDesigner = firstEnabledDesigner;
-
   makeShapesClickable();
   buildSwatches();
   applyDefaults();
   refreshConstraints();
   updateAddToCartButton();
-  updateMiniThumbnail(getFirstEnabledDesigner);
+  updateMiniThumbnail(0);
   syncMobileButtons();
-
-  // Update navigation button states
-  const enabledDesigners = getEnabledDesigners();
-  if (enabledDesigners.length <= 1) {
-    if (prevDesignerBtn) prevDesignerBtn.style.display = 'none';
-    if (nextDesignerBtn) nextDesignerBtn.style.display = 'none';
-  }
-
 
   // Color picker tooltip functionality
   const colorPickerTooltip = document.getElementById('color-picker-tooltip');
