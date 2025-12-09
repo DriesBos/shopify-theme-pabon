@@ -19,6 +19,12 @@
       "content": "═══ DAVID HOCKNEY (60s) ═══"
     },
     {
+      "type": "checkbox",
+      "id": "hockney60_enabled",
+      "label": "✓ Show this designer",
+      "default": true
+    },
+    {
       "type": "image_picker",
       "id": "hockney60_thumbnail",
       "label": "Thumbnail Image"
@@ -157,8 +163,20 @@
       "default": "Bronze"
     },
     {
+      "type": "textarea",
+      "id": "hockney60_default_pattern",
+      "label": "Default Pattern (Advanced)",
+      "info": "Leave empty to use built-in defaults. Format: Laag_2:#313539,Laag_3:#284354,hem:#313539"
+    },
+    {
       "type": "header",
       "content": "═══ FRANCIS BACON ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "bacon_enabled",
+      "label": "✓ Show this designer",
+      "default": true
     },
     {
       "type": "image_picker",
@@ -297,68 +315,80 @@
       "default": "Black"
     },
     {
+      "type": "textarea",
+      "id": "bacon_default_pattern",
+      "label": "Default Pattern (Advanced)",
+      "info": "Leave empty to use built-in defaults. Format: Laag_2:#8c6f64,Laag_3:#1a352c,hem:#8c6f64"
+    },
+    {
       "type": "header",
-      "content": "═══ KEN PRICE ═══"
+      "content": "═══ NATISA JONES ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "jones_enabled",
+      "label": "✓ Show this designer",
+      "default": false
     },
     {
       "type": "image_picker",
-      "id": "price_thumbnail",
+      "id": "jones_thumbnail",
       "label": "Thumbnail Image"
     },
     {
       "type": "image_picker",
-      "id": "price_image_1",
+      "id": "jones_image_1",
       "label": "Gallery Image 1"
     },
     {
       "type": "image_picker",
-      "id": "price_image_2",
+      "id": "jones_image_2",
       "label": "Gallery Image 2"
     },
     {
       "type": "image_picker",
-      "id": "price_image_3",
+      "id": "jones_image_3",
       "label": "Gallery Image 3"
     },
     {
       "type": "video",
-      "id": "price_video",
+      "id": "jones_video",
       "label": "Video (optional)"
     },
     {
       "type": "checkbox",
-      "id": "price_video_as_thumbnail",
+      "id": "jones_video_as_thumbnail",
       "label": "Use video as mini thumbnail",
       "default": false
     },
     {
       "type": "checkbox",
-      "id": "price_video_preview",
+      "id": "jones_video_preview",
       "label": "Show 5-second preview loop",
       "default": true
     },
     {
       "type": "checkbox",
-      "id": "price_start_with_video",
+      "id": "jones_start_with_video",
       "label": "Start popup with video",
       "default": false
     },
     {
       "type": "text",
-      "id": "price_painting_name",
-      "label": "Artwork Name",
-      "default": "Untitled Cup (1972)"
+      "id": "jones_painting_name",
+      "label": "Painting Name",
+      "default": "Growth Spurt (2021)"
     },
     {
       "type": "textarea",
-      "id": "price_bio",
+      "id": "jones_bio",
       "label": "Artist Bio",
-      "default": "Ken Price was an American artist known for his ceramic sculptures. His works are notable for their unique shapes, vibrant colors, and surfaces that blur the line between sculpture and painting."
+      "default": "Natisa Jones is a Bali-based artist whose expressive paintings explore themes of growth, identity, and the human condition through bold colors and dynamic brushwork."
     },
     {
       "type": "url",
-      "id": "price_wikipedia",
-      "label": "Wikipedia Link"
+      "id": "jones_wikipedia",
+      "label": "Wikipedia/Website Link"
     },
     {
       "type": "paragraph",
@@ -366,79 +396,91 @@
     },
     {
       "type": "color",
-      "id": "price_color_1",
+      "id": "jones_color_1",
       "label": "Color 1",
-      "default": "#59261f"
+      "default": "#6b191f"
     },
     {
       "type": "text",
-      "id": "price_color_1_name",
+      "id": "jones_color_1_name",
       "label": "Color 1 Name",
-      "default": "Brown"
+      "default": "Deep Red"
     },
     {
       "type": "color",
-      "id": "price_color_2",
+      "id": "jones_color_2",
       "label": "Color 2",
+      "default": "#c32728"
+    },
+    {
+      "type": "text",
+      "id": "jones_color_2_name",
+      "label": "Color 2 Name",
+      "default": "Bright Red"
+    },
+    {
+      "type": "color",
+      "id": "jones_color_3",
+      "label": "Color 3",
+      "default": "#930918"
+    },
+    {
+      "type": "text",
+      "id": "jones_color_3_name",
+      "label": "Color 3 Name",
+      "default": "Crimson"
+    },
+    {
+      "type": "color",
+      "id": "jones_color_4",
+      "label": "Color 4",
+      "default": "#f1dbd0"
+    },
+    {
+      "type": "text",
+      "id": "jones_color_4_name",
+      "label": "Color 4 Name",
+      "default": "Peach"
+    },
+    {
+      "type": "color",
+      "id": "jones_color_5",
+      "label": "Color 5",
       "default": "#000000"
     },
     {
       "type": "text",
-      "id": "price_color_2_name",
-      "label": "Color 2 Name",
+      "id": "jones_color_5_name",
+      "label": "Color 5 Name",
       "default": "Black"
     },
     {
       "type": "color",
-      "id": "price_color_3",
-      "label": "Color 3",
-      "default": "#9cbdb4"
-    },
-    {
-      "type": "text",
-      "id": "price_color_3_name",
-      "label": "Color 3 Name",
-      "default": "Teal"
-    },
-    {
-      "type": "color",
-      "id": "price_color_4",
-      "label": "Color 4",
-      "default": "#be4b2e"
-    },
-    {
-      "type": "text",
-      "id": "price_color_4_name",
-      "label": "Color 4 Name",
-      "default": "Rust"
-    },
-    {
-      "type": "color",
-      "id": "price_color_5",
-      "label": "Color 5",
-      "default": "#7d90b2"
-    },
-    {
-      "type": "text",
-      "id": "price_color_5_name",
-      "label": "Color 5 Name",
-      "default": "Blue"
-    },
-    {
-      "type": "color",
-      "id": "price_color_6",
+      "id": "jones_color_6",
       "label": "Color 6",
-      "default": "#843345"
+      "default": "#f3f2de"
     },
     {
       "type": "text",
-      "id": "price_color_6_name",
+      "id": "jones_color_6_name",
       "label": "Color 6 Name",
-      "default": "Burgundy"
+      "default": "Cream"
+    },
+    {
+      "type": "textarea",
+      "id": "jones_default_pattern",
+      "label": "Default Pattern (Advanced)",
+      "info": "Leave empty to use built-in defaults. Format: Laag_2:#6b191f,Laag_3:#930918,hem:#6b191f"
     },
     {
       "type": "header",
       "content": "═══ DAVID HOCKNEY (2013) ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "hockney13_enabled",
+      "label": "✓ Show this designer",
+      "default": false
     },
     {
       "type": "image_picker",
@@ -577,68 +619,80 @@
       "default": "Yellow"
     },
     {
+      "type": "textarea",
+      "id": "hockney13_default_pattern",
+      "label": "Default Pattern (Advanced)",
+      "info": "Leave empty to use built-in defaults. Format: Laag_2:#14352a,Laag_3:#036433,hem:#14352a"
+    },
+    {
       "type": "header",
-      "content": "═══ NATISA JONES ═══"
+      "content": "═══ KEN PRICE ═══"
+    },
+    {
+      "type": "checkbox",
+      "id": "price_enabled",
+      "label": "✓ Show this designer",
+      "default": false
     },
     {
       "type": "image_picker",
-      "id": "jones_thumbnail",
+      "id": "price_thumbnail",
       "label": "Thumbnail Image"
     },
     {
       "type": "image_picker",
-      "id": "jones_image_1",
+      "id": "price_image_1",
       "label": "Gallery Image 1"
     },
     {
       "type": "image_picker",
-      "id": "jones_image_2",
+      "id": "price_image_2",
       "label": "Gallery Image 2"
     },
     {
       "type": "image_picker",
-      "id": "jones_image_3",
+      "id": "price_image_3",
       "label": "Gallery Image 3"
     },
     {
       "type": "video",
-      "id": "jones_video",
+      "id": "price_video",
       "label": "Video (optional)"
     },
     {
       "type": "checkbox",
-      "id": "jones_video_as_thumbnail",
+      "id": "price_video_as_thumbnail",
       "label": "Use video as mini thumbnail",
       "default": false
     },
     {
       "type": "checkbox",
-      "id": "jones_video_preview",
+      "id": "price_video_preview",
       "label": "Show 5-second preview loop",
       "default": true
     },
     {
       "type": "checkbox",
-      "id": "jones_start_with_video",
+      "id": "price_start_with_video",
       "label": "Start popup with video",
       "default": false
     },
     {
       "type": "text",
-      "id": "jones_painting_name",
-      "label": "Painting Name",
-      "default": "Growth Spurt (2021)"
+      "id": "price_painting_name",
+      "label": "Artwork Name",
+      "default": "Untitled Cup (1972)"
     },
     {
       "type": "textarea",
-      "id": "jones_bio",
+      "id": "price_bio",
       "label": "Artist Bio",
-      "default": "Natisa Jones is a Bali-based artist whose expressive paintings explore themes of growth, identity, and the human condition through bold colors and dynamic brushwork."
+      "default": "Ken Price was an American artist known for his ceramic sculptures. His works are notable for their unique shapes, vibrant colors, and surfaces that blur the line between sculpture and painting."
     },
     {
       "type": "url",
-      "id": "jones_wikipedia",
-      "label": "Wikipedia/Website Link"
+      "id": "price_wikipedia",
+      "label": "Wikipedia Link"
     },
     {
       "type": "paragraph",
@@ -646,75 +700,81 @@
     },
     {
       "type": "color",
-      "id": "jones_color_1",
+      "id": "price_color_1",
       "label": "Color 1",
-      "default": "#6b191f"
+      "default": "#59261f"
     },
     {
       "type": "text",
-      "id": "jones_color_1_name",
+      "id": "price_color_1_name",
       "label": "Color 1 Name",
-      "default": "Deep Red"
+      "default": "Brown"
     },
     {
       "type": "color",
-      "id": "jones_color_2",
+      "id": "price_color_2",
       "label": "Color 2",
-      "default": "#c32728"
-    },
-    {
-      "type": "text",
-      "id": "jones_color_2_name",
-      "label": "Color 2 Name",
-      "default": "Bright Red"
-    },
-    {
-      "type": "color",
-      "id": "jones_color_3",
-      "label": "Color 3",
-      "default": "#930918"
-    },
-    {
-      "type": "text",
-      "id": "jones_color_3_name",
-      "label": "Color 3 Name",
-      "default": "Crimson"
-    },
-    {
-      "type": "color",
-      "id": "jones_color_4",
-      "label": "Color 4",
-      "default": "#f1dbd0"
-    },
-    {
-      "type": "text",
-      "id": "jones_color_4_name",
-      "label": "Color 4 Name",
-      "default": "Peach"
-    },
-    {
-      "type": "color",
-      "id": "jones_color_5",
-      "label": "Color 5",
       "default": "#000000"
     },
     {
       "type": "text",
-      "id": "jones_color_5_name",
-      "label": "Color 5 Name",
+      "id": "price_color_2_name",
+      "label": "Color 2 Name",
       "default": "Black"
     },
     {
       "type": "color",
-      "id": "jones_color_6",
-      "label": "Color 6",
-      "default": "#f3f2de"
+      "id": "price_color_3",
+      "label": "Color 3",
+      "default": "#9cbdb4"
     },
     {
       "type": "text",
-      "id": "jones_color_6_name",
+      "id": "price_color_3_name",
+      "label": "Color 3 Name",
+      "default": "Teal"
+    },
+    {
+      "type": "color",
+      "id": "price_color_4",
+      "label": "Color 4",
+      "default": "#be4b2e"
+    },
+    {
+      "type": "text",
+      "id": "price_color_4_name",
+      "label": "Color 4 Name",
+      "default": "Rust"
+    },
+    {
+      "type": "color",
+      "id": "price_color_5",
+      "label": "Color 5",
+      "default": "#7d90b2"
+    },
+    {
+      "type": "text",
+      "id": "price_color_5_name",
+      "label": "Color 5 Name",
+      "default": "Blue"
+    },
+    {
+      "type": "color",
+      "id": "price_color_6",
+      "label": "Color 6",
+      "default": "#843345"
+    },
+    {
+      "type": "text",
+      "id": "price_color_6_name",
       "label": "Color 6 Name",
-      "default": "Cream"
+      "default": "Burgundy"
+    },
+    {
+      "type": "textarea",
+      "id": "price_default_pattern",
+      "label": "Default Pattern (Advanced)",
+      "info": "Leave empty to use built-in defaults. Format: Laag_2:#000000,Laag_3:#843345,hem:#000000"
     }
   ],
   "presets": [{ "name": "Sweater Designer" }]
