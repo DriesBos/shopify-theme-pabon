@@ -3607,7 +3607,7 @@ if (nextDesignerBtn) {
   applyDefaults();
   refreshConstraints();
   updateAddToCartButton();
-  updateMiniThumbnail(getFirstEnabledDesigner());
+  updateMiniThumbnail(getFirstEnabledDesigner);
   syncMobileButtons();
 
   // Update navigation button states
@@ -3617,8 +3617,6 @@ if (nextDesignerBtn) {
     if (nextDesignerBtn) nextDesignerBtn.style.display = 'none';
   }
 
-  // Color picker tooltip functionality
-  const colorPickerTooltip = document.getElementById('color-picker-tooltip');
 
   // Color picker tooltip functionality
   const colorPickerTooltip = document.getElementById('color-picker-tooltip');
