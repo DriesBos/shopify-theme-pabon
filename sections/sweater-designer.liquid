@@ -2170,45 +2170,42 @@ function initSweaterDesigner(){
   if(!root) return;
   if(root.dataset.sweaterInitialized) return;
   root.dataset.sweaterInitialized = '1';
+  
   // ============================================
-// COUNTDOWN TIMER FUNCTIONALITY
-// ============================================
+  // COUNTDOWN TIMER FUNCTIONALITY
+  // ============================================
 
-function updateCountdown() {
-  // Deadline: Dec 19th, 2025, 00:00h (midnight)
-  const deadline = new Date('2025-12-19T00:00:00').getTime();
-  const now = new Date().getTime();
-  const distance = deadline - now;
-  
-  const countdownDisplay = document.getElementById('countdown-display');
-  
-  if (distance < 0) {
-    if (countdownDisplay) countdownDisplay.textContent = 'CLOSED';
-    return;
+  function updateCountdown() {
+    const deadline = new Date('2025-12-19T00:00:00').getTime();
+    const now = new Date().getTime();
+    const distance = deadline - now;
+    
+    const countdownDisplay = document.getElementById('countdown-display');
+    
+    if (distance < 0) {
+      if (countdownDisplay) countdownDisplay.textContent = 'CLOSED';
+      return;
+    }
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    
+    const timeString = `${days}d ${hours}h ${minutes}m`;
+    
+    if (countdownDisplay) countdownDisplay.textContent = timeString;
   }
-  
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
-  const timeString = `${days}d ${hours}h ${minutes}m`;
-  
-  if (countdownDisplay) countdownDisplay.textContent = timeString;
-}
 
-// Update countdown every second
-setInterval(updateCountdown, 1000);
-updateCountdown(); // Initial call
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
 
-// Hover tooltip for deadline timer
-const timerContainer = document.getElementById('deadline-timer');
-const timerTooltip = document.getElementById('deadline-tooltip');
+  const timerContainer = document.getElementById('deadline-timer');
+  const timerTooltip = document.getElementById('deadline-tooltip');
 
-if (timerContainer && timerTooltip) {
-  timerContainer.addEventListener('mouseenter', () => timerTooltip.style.display = 'block');
-  timerContainer.addEventListener('mouseleave', () => timerTooltip.style.display = 'none');
-}
+  if (timerContainer && timerTooltip) {
+    timerContainer.addEventListener('mouseenter', () => timerTooltip.style.display = 'block');
+    timerContainer.addEventListener('mouseleave', () => timerTooltip.style.display = 'none');
+  }
 
   // Load gallery data from Shopify settings
   let galleryData = {};
@@ -2221,8 +2218,6 @@ if (timerContainer && timerTooltip) {
     console.warn('Could not parse gallery data:', e);
   }
   
-
-  // Designer configurations (colors now come from galleryData)
   const DESIGNERS = {
     0: {
       name: "David Hockney (60s)",
@@ -2254,127 +2249,80 @@ if (timerContainer && timerTooltip) {
       tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/bacon1_430x.jpg?v=1762164487",
       fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/francisbacon_430x.jpg?v=1757588774#"
     },
-    4: {
-      name: "Ken Price",
-      available: false,
-      enabled: {{ section.settings.price_enabled | default: false }},
+    2: {
+      name: "Natisa Jones",
+      available: true,
+      enabled: {{ section.settings.jones_enabled | default: false }},
       defaults: {
-        "hem":"#000000",
-        "neck":"#be4b2e",
-        "Laag_2":"#000000",
-        "Laag_3":"#843345",
-        "Laag_4":"#59261f",
-        "Laag_5":"#843345",
-        "Laag_6":"#59261f",
-        "Laag_7":"#9cbdb4",
-        "Laag_8":"#59261f",
-        "Laag_9":"#843345",
-        "Laag_10":"#843345",
-        "Laag_11":"#843345",
-        "Laag_12":"#843345",
-        "Laag_13":"#000000",
-        "Laag_14":"#9cbdb4",
-        "Laag_15":"#000000",
-        "Laag_16":"#59261f",
-        "Laag_17":"#9cbdb4",
-        "Laag_18":"#7d90b2",
-        "Laag_19":"#9cbdb4",
-        "Laag_21":"#843345",
-        "Laag_22":"#000000",
-        "Laag_23":"#59261f",
-        "Laag_24":"#9cbdb4",
-        "Laag_25":"#7d90b2",
-        "Laag_26":"#9cbdb4",
-        "Laag_27":"#000000",
-        "Laag_28":"#9cbdb4",
-        "leftcuff":"#000000",
-        "rightcuff":"#000000"
+        "hem":"#6b191f","neck":"#6b191f","Laag_2":"#6b191f","Laag_3":"#930918","Laag_4":"#f1dbd0","Laag_5":"#930918","Laag_6":"#930918",
+        "Laag_7":"#f1dbd0","Laag_8":"#930918","Laag_9":"#930918","Laag_10":"#c32728","Laag_11":"#930918","Laag_12":"#930918",
+        "Laag_13":"#6b191f","Laag_14":"#c32728","Laag_15":"#930918","Laag_16":"#c32728","Laag_17":"#6b191f","Laag_18":"#c32728",
+        "Laag_19":"#6b191f","Laag_21":"#c32728","Laag_22":"#6b191f","Laag_23":"#000000","Laag_24":"#c32728","Laag_25":"#c32728",
+        "Laag_26":"#c32728","Laag_27":"#6b191f","Laag_28":"#c32728","leftcuff":"#6b191f","rightcuff":"#6b191f"
       },
-      tooltipTitle: "Ken Price.",
-      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
-      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2024-09-30_at_12.05.02_430x.png?v=1758355327"
+      tooltipTitle: "Natisa Jones.",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
     },
     3: {
       name: "David Hockney (2013)",
       available: true,
       enabled: {{ section.settings.hockney13_enabled | default: false }},
       defaults: {
-        "hem":"#14352a",
-        "neck":"#14352a",
-        "Laag_2":"#14352a",
-        "Laag_3":"#036433",
-        "Laag_4":"#f2d075",
-        "Laag_5":"#14352a",
-        "Laag_6":"#036433",
-        "Laag_7":"#7baa5e",
-        "Laag_8":"#036433",
-        "Laag_9":"#036433",
-        "Laag_10":"#14352a",
-        "Laag_11":"#036433",
-        "Laag_12":"#036433",
-        "Laag_13":"#14352a",
-        "Laag_14":"#7baa5e",
-        "Laag_15":"#14352a",
-        "Laag_16":"#a40556",
-        "Laag_17":"#7baa5e",
-        "Laag_18":"#f2d075",
-        "Laag_19":"#14352a",
-        "Laag_21":"#890222",
-        "Laag_22":"#14352a",
-        "Laag_23":"#a40556",
-        "Laag_24":"#f2d075",
-        "Laag_25":"#a40556",
-        "Laag_26":"#036433",
-        "Laag_27":"#14352a",
-        "Laag_28":"#7baa5e",
-        "leftcuff":"#14352a",
-        "rightcuff":"#14352a"
+        "hem":"#14352a","neck":"#14352a","Laag_2":"#14352a","Laag_3":"#036433","Laag_4":"#f2d075","Laag_5":"#14352a","Laag_6":"#036433",
+        "Laag_7":"#7baa5e","Laag_8":"#036433","Laag_9":"#036433","Laag_10":"#14352a","Laag_11":"#036433","Laag_12":"#036433",
+        "Laag_13":"#14352a","Laag_14":"#7baa5e","Laag_15":"#14352a","Laag_16":"#a40556","Laag_17":"#7baa5e","Laag_18":"#f2d075",
+        "Laag_19":"#14352a","Laag_21":"#890222","Laag_22":"#14352a","Laag_23":"#a40556","Laag_24":"#f2d075","Laag_25":"#a40556",
+        "Laag_26":"#036433","Laag_27":"#14352a","Laag_28":"#7baa5e","leftcuff":"#14352a","rightcuff":"#14352a"
       },
       tooltipTitle: "David Hockney (2013)",
       tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
       fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/2246_430x.webp?v=1758361067"
     },
-    2: {
-      name: "Natisa Jones",
-      available: true,
-      enabled: {{ section.settings.jones_enabled | default: false }},
+    4: {
+      name: "Ken Price",
+      available: false,
+      enabled: {{ section.settings.price_enabled | default: false }},
       defaults: {
-        "hem":"#6b191f",
-        "neck":"#6b191f",
-        "Laag_2":"#6b191f",
-        "Laag_3":"#930918",
-        "Laag_4":"#f1dbd0",
-        "Laag_5":"#930918",
-        "Laag_6":"#930918",
-        "Laag_7":"#f1dbd0",
-        "Laag_8":"#930918",
-        "Laag_9":"#930918",
-        "Laag_10":"#c32728",
-        "Laag_11":"#930918",
-        "Laag_12":"#930918",
-        "Laag_13":"#6b191f",
-        "Laag_14":"#c32728",
-        "Laag_15":"#930918",
-        "Laag_16":"#c32728",
-        "Laag_17":"#6b191f",
-        "Laag_18":"#c32728",
-        "Laag_19":"#6b191f",
-        "Laag_21":"#c32728",
-        "Laag_22":"#6b191f",
-        "Laag_23":"#000000",
-        "Laag_24":"#c32728",
-        "Laag_25":"#c32728",
-        "Laag_26":"#c32728",
-        "Laag_27":"#6b191f",
-        "Laag_28":"#c32728",
-        "leftcuff":"#6b191f",
-        "rightcuff":"#6b191f"
+        "hem":"#000000","neck":"#be4b2e","Laag_2":"#000000","Laag_3":"#843345","Laag_4":"#59261f","Laag_5":"#843345","Laag_6":"#59261f",
+        "Laag_7":"#9cbdb4","Laag_8":"#59261f","Laag_9":"#843345","Laag_10":"#843345","Laag_11":"#843345","Laag_12":"#843345",
+        "Laag_13":"#000000","Laag_14":"#9cbdb4","Laag_15":"#000000","Laag_16":"#59261f","Laag_17":"#9cbdb4","Laag_18":"#7d90b2",
+        "Laag_19":"#9cbdb4","Laag_21":"#843345","Laag_22":"#000000","Laag_23":"#59261f","Laag_24":"#9cbdb4","Laag_25":"#7d90b2",
+        "Laag_26":"#9cbdb4","Laag_27":"#000000","Laag_28":"#9cbdb4","leftcuff":"#000000","rightcuff":"#000000"
       },
-      tooltipTitle: "Natisa Jones.",
-      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
-      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
+      tooltipTitle: "Ken Price.",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2024-09-30_at_12.05.02_430x.png?v=1758355327"
     }
   };
+
+  // Helper functions for enabled designers
+  function getEnabledDesigners() {
+    return Object.keys(DESIGNERS)
+      .map(Number)
+      .filter(i => DESIGNERS[i].enabled);
+  }
+
+  function getFirstEnabledDesigner() {
+    const enabled = getEnabledDesigners();
+    return enabled.length > 0 ? enabled[0] : 0;
+  }
+
+  function getNextEnabledDesigner(currentIndex) {
+    const enabled = getEnabledDesigners();
+    if (enabled.length <= 1) return currentIndex;
+    const currentPos = enabled.indexOf(currentIndex);
+    const nextPos = (currentPos + 1) % enabled.length;
+    return enabled[nextPos];
+  }
+
+  function getPrevEnabledDesigner(currentIndex) {
+    const enabled = getEnabledDesigners();
+    if (enabled.length <= 1) return currentIndex;
+    const currentPos = enabled.indexOf(currentIndex);
+    const prevPos = (currentPos - 1 + enabled.length) % enabled.length;
+    return enabled[prevPos];
+  }
 
   // Helper function to get swatch colors for current designer
   function getSwatchColors(designerIndex) {
@@ -2382,7 +2330,6 @@ if (timerContainer && timerTooltip) {
     if (data && data.colors && data.colors.length > 0) {
       return data.colors;
     }
-    // Fallback to hardcoded defaults if settings not configured
     const fallbackColors = {
       0: [
         { name: "Purple", hex: "#6b5d93" },
@@ -2401,12 +2348,12 @@ if (timerContainer && timerTooltip) {
         { name: "Black", hex: "#000000" }
       ],
       2: [
-        { name: "Brown", hex: "#59261f" },
+        { name: "Deep Red", hex: "#6b191f" },
+        { name: "Bright Red", hex: "#c32728" },
+        { name: "Crimson", hex: "#930918" },
+        { name: "Peach", hex: "#f1dbd0" },
         { name: "Black", hex: "#000000" },
-        { name: "Teal", hex: "#9cbdb4" },
-        { name: "Rust", hex: "#be4b2e" },
-        { name: "Blue", hex: "#7d90b2" },
-        { name: "Burgundy", hex: "#843345" }
+        { name: "Cream", hex: "#f3f2de" }
       ],
       3: [
         { name: "Crimson", hex: "#890222" },
@@ -2417,20 +2364,20 @@ if (timerContainer && timerTooltip) {
         { name: "Yellow", hex: "#f2d075" }
       ],
       4: [
-        { name: "Deep Red", hex: "#6b191f" },
-        { name: "Bright Red", hex: "#c32728" },
-        { name: "Crimson", hex: "#930918" },
-        { name: "Peach", hex: "#f1dbd0" },
+        { name: "Brown", hex: "#59261f" },
         { name: "Black", hex: "#000000" },
-        { name: "Cream", hex: "#f3f2de" }
+        { name: "Teal", hex: "#9cbdb4" },
+        { name: "Rust", hex: "#be4b2e" },
+        { name: "Blue", hex: "#7d90b2" },
+        { name: "Burgundy", hex: "#843345" }
       ]
     };
     return fallbackColors[designerIndex] || fallbackColors[0];
   }
 
   // Current state
-  let currentDesigner = 0;
-  let activeColor = getSwatchColors(0)[0].hex;
+  let currentDesigner = getFirstEnabledDesigner();
+  let activeColor = getSwatchColors(currentDesigner)[0].hex;
   let currentCarouselIndex = 0;
   let carouselSlideCount = 0;
 
@@ -2448,17 +2395,15 @@ if (timerContainer && timerTooltip) {
   const soundOnIcon = document.getElementById('sound-on-icon');
   const soundOffIcon = document.getElementById('sound-off-icon');
   
-  let isVideoMuted = false; // Track mute state
+  let isVideoMuted = false;
   
   function updateCarousel(designerIndex) {
     const data = galleryData[designerIndex] || {};
     const images = (data.images || []).filter(img => img && img !== '');
     const video = data.video || '';
     
-    // Reset
     currentCarouselIndex = 0;
     
-    // Build list of all slides (images + video)
     const slideContent = [];
     images.forEach((img, i) => {
       slideContent.push({ type: 'image', src: img, index: i });
@@ -2469,7 +2414,6 @@ if (timerContainer && timerTooltip) {
     
     carouselSlideCount = slideContent.length;
     
-    // Update image slides
     for (let i = 0; i < 3; i++) {
       const img = document.getElementById(`carousel-img-${i}`);
       const slide = img?.parentElement;
@@ -2486,10 +2430,8 @@ if (timerContainer && timerTooltip) {
       }
     }
     
-    // Update video slide
     const videoSlide = document.querySelector('.carousel-video-slide');
     if (video && carouselVideo && videoSlide) {
-      // Reset video
       carouselVideo.pause();
       carouselVideo.src = video;
       carouselVideo.load();
@@ -2501,7 +2443,6 @@ if (timerContainer && timerTooltip) {
       videoSlide.classList.remove('active');
     }
     
-    // Rebuild dots
     if (carouselDots) {
       carouselDots.innerHTML = '';
       slideContent.forEach((item, i) => {
@@ -2513,14 +2454,12 @@ if (timerContainer && timerTooltip) {
       });
     }
     
-    // Handle single slide or no slides case
     if (carouselSlideCount <= 1) {
       carouselContainer?.classList.add('single-slide');
     } else {
       carouselContainer?.classList.remove('single-slide');
     }
     
-    // Show first slide
     if (carouselSlideCount > 0) {
       showSlide(0);
     }
@@ -2539,38 +2478,31 @@ if (timerContainer && timerTooltip) {
     const videoSlideIndex = hasVideo ? images.length : -1;
     const isOnVideoSlide = (index === videoSlideIndex);
     
-    // Show/hide sound toggle based on whether we're on video slide
     if (carouselSoundToggle) {
       carouselSoundToggle.style.display = isOnVideoSlide ? 'flex' : 'none';
     }
     
-    // Hide all slides first
     const allSlides = carouselTrack?.querySelectorAll('.carousel-slide');
     allSlides?.forEach(slide => {
       slide.classList.remove('active');
       slide.style.display = 'none';
     });
     
-    // Pause video
     if (carouselVideo) {
       carouselVideo.pause();
     }
     
-    // Show the correct slide
     if (index < images.length) {
-      // It's an image slide
       const imgSlide = document.getElementById(`carousel-img-${index}`)?.parentElement;
       if (imgSlide) {
         imgSlide.style.display = 'flex';
         imgSlide.classList.add('active');
       }
     } else if (hasVideo && isOnVideoSlide) {
-      // It's the video slide
       const videoSlide = document.querySelector('.carousel-video-slide');
       if (videoSlide) {
         videoSlide.style.display = 'flex';
         videoSlide.classList.add('active');
-        // Autoplay video with current mute state
         if (carouselVideo) {
           carouselVideo.muted = isVideoMuted;
           carouselVideo.play().catch(e => console.log('Autoplay prevented:', e));
@@ -2578,7 +2510,6 @@ if (timerContainer && timerTooltip) {
       }
     }
     
-    // Update dots
     const dots = carouselDots?.querySelectorAll('.carousel-dot');
     dots?.forEach((dot, i) => {
       dot.classList.toggle('active', i === index);
@@ -2606,7 +2537,6 @@ if (timerContainer && timerTooltip) {
     }
   });
   
-  // Sound toggle functionality
   carouselSoundToggle?.addEventListener('click', (e) => {
     e.stopPropagation();
     if (carouselVideo) {
@@ -2628,13 +2558,11 @@ if (timerContainer && timerTooltip) {
     }
   }
   
-  // Keyboard navigation for carousel
   document.addEventListener('keydown', (e) => {
     if (expandedOverlay?.style.display === 'block') {
       if (e.key === 'ArrowLeft') showSlide(currentCarouselIndex - 1);
       if (e.key === 'ArrowRight') showSlide(currentCarouselIndex + 1);
       if (e.key === 'Escape') closeExpandedOverlay();
-      // M key to toggle mute
       if (e.key === 'm' || e.key === 'M') {
         if (carouselVideo && carouselSoundToggle?.style.display === 'flex') {
           isVideoMuted = !isVideoMuted;
@@ -2660,10 +2588,8 @@ if (timerContainer && timerTooltip) {
     const designer = DESIGNERS[designerIndex];
     const data = galleryData[designerIndex] || {};
     
-    // Update carousel
     updateCarousel(designerIndex);
     
-    // Update artist info
     if (expandedName) expandedName.textContent = designer.name;
     if (expandedPaintingName) expandedPaintingName.textContent = data.paintingName || '';
     if (expandedBio) expandedBio.textContent = data.bio || '';
@@ -2680,11 +2606,9 @@ if (timerContainer && timerTooltip) {
     if (expandedOverlay) expandedOverlay.style.display = 'block';
     document.body.style.overflow = 'hidden';
     
-    // Check if we should start with video
     const images = (data.images || []).filter(img => img && img !== '');
     const hasVideo = !!(data.video);
     if (data.startWithVideo && hasVideo) {
-      // Jump to video slide
       const videoSlideIndex = images.length;
       showSlide(videoSlideIndex);
     }
@@ -2697,7 +2621,6 @@ if (timerContainer && timerTooltip) {
       carouselVideo.pause();
       carouselVideo.currentTime = 0;
     }
-    // Hide sound toggle
     if (carouselSoundToggle) {
       carouselSoundToggle.style.display = 'none';
     }
@@ -2714,7 +2637,6 @@ if (timerContainer && timerTooltip) {
     }
   });
   
-  // Prevent clicks inside content from closing
   document.getElementById('expanded-content')?.addEventListener('click', (e) => {
     e.stopPropagation();
   });
@@ -2734,22 +2656,18 @@ if (timerContainer && timerTooltip) {
     const miniImg = document.getElementById('mini-designer-img');
     const miniImgMobile = document.getElementById('mini-designer-img-mobile');
     
-    // Clear any existing video preview timer
     if (videoPreviewTimer) {
       clearInterval(videoPreviewTimer);
       videoPreviewTimer = null;
     }
     
-    // Check if we should use video as thumbnail
     if (data.videoAsThumbnail && data.video) {
-      // Desktop
       if (miniDesignerVideo && miniImg) {
         miniDesignerVideo.src = data.video;
         miniDesignerVideo.style.display = 'block';
         miniImg.style.display = 'none';
         
         if (data.videoPreview) {
-          // 5-second preview loop
           miniDesignerVideo.currentTime = 0;
           miniDesignerVideo.play().catch(() => {});
           
@@ -2759,13 +2677,11 @@ if (timerContainer && timerTooltip) {
             }
           }, 100);
         } else {
-          // Just show first frame (poster)
           miniDesignerVideo.currentTime = 0;
           miniDesignerVideo.pause();
         }
       }
       
-      // Mobile
       if (miniDesignerVideoMobile && miniImgMobile) {
         miniDesignerVideoMobile.src = data.video;
         miniDesignerVideoMobile.style.display = 'block';
@@ -2777,7 +2693,6 @@ if (timerContainer && timerTooltip) {
         }
       }
     } else {
-      // Use image thumbnail - prefer from settings, fallback to hardcoded
       const imageUrl = data.thumbnail || designer.fallbackThumbnail;
       
       if (miniImg) {
@@ -2814,7 +2729,6 @@ if (timerContainer && timerTooltip) {
   const maxBodyColors = 4;
   const maxSleeveColors = 5;
 
-  // Layer categories
   const bodyLayers = ["Laag_3","Laag_4","Laag_5","Laag_6","Laag_7","Laag_8","Laag_9","Laag_11","Laag_12","Laag_15"];
   const leftSleeveLayers = ["Laag_10","Laag_14","Laag_16","Laag_17","Laag_18","Laag_19"];
   const rightSleeveLayers = ["Laag_21","Laag_28","Laag_23","Laag_24","Laag_25","Laag_26"];
@@ -2822,7 +2736,6 @@ if (timerContainer && timerTooltip) {
   
   const sleeveLayers = [...leftSleeveLayers, ...rightSleeveLayers];
 
-  // elements
   const swatchContainer = document.getElementById('swatch-container');
   const infoBtn = document.getElementById('info-btn');
   const tooltip = document.getElementById('info-tooltip');
@@ -2842,11 +2755,9 @@ if (timerContainer && timerTooltip) {
   const prevDesignerBtn = document.getElementById('prev-designer');
   const designerNameEl = document.getElementById('designer-name');
   
-  // Get the single product variant ID
   const productVariantIdInput = document.getElementById('product-variant-id');
   let SINGLE_VARIANT_ID = productVariantIdInput ? productVariantIdInput.value : null;
   
-  // Clean up the variant ID (remove any whitespace)
   if (SINGLE_VARIANT_ID) {
     SINGLE_VARIANT_ID = SINGLE_VARIANT_ID.trim();
     if (SINGLE_VARIANT_ID === '' || SINGLE_VARIANT_ID === 'null' || SINGLE_VARIANT_ID === 'undefined') {
@@ -2854,7 +2765,6 @@ if (timerContainer && timerTooltip) {
     }
   }
   
-  // Debug panel toggle (Ctrl+D)
   document.addEventListener('keydown', function(e) {
     if (e.ctrlKey && e.key === 'd') {
       e.preventDefault();
@@ -2865,7 +2775,6 @@ if (timerContainer && timerTooltip) {
     }
   });
   
-  // Update debug info
   const debugProduct = document.getElementById('debug-product');
   const debugVariant = document.getElementById('debug-variant');
   if (debugProduct) debugProduct.textContent = '{% if section.settings.sweater_product %}{{ section.settings.sweater_product.title }}{% else %}Not configured{% endif %}';
@@ -2881,13 +2790,11 @@ if (timerContainer && timerTooltip) {
   console.log('Press Ctrl+D to show debug panel');
   console.log('==============================');
   
-  // Mini designer image elements
   const miniDesignerImage = document.getElementById('mini-designer-image');
   const miniDesignerImg = document.getElementById('mini-designer-img');
   const miniDesignerImageMobile = document.getElementById('mini-designer-image-mobile');
   const miniDesignerImgMobile = document.getElementById('mini-designer-img-mobile');
 
-  // Mini designer image click handlers
   function setupMiniImageClick(element) {
     if (element) {
       element.addEventListener('click', () => {
@@ -2900,7 +2807,7 @@ if (timerContainer && timerTooltip) {
   setupMiniImageClick(miniDesignerImageMobile);
 
   function switchDesigner(designerIndex) {
-    if (!DESIGNERS[designerIndex]) return;
+    if (!DESIGNERS[designerIndex] || !DESIGNERS[designerIndex].enabled) return;
     
     currentDesigner = designerIndex;
     const designer = DESIGNERS[currentDesigner];
@@ -2908,8 +2815,14 @@ if (timerContainer && timerTooltip) {
     designerNameEl.textContent = designer.name;
     updateMiniThumbnail(designerIndex);
     
-    prevDesignerBtn.style.opacity = currentDesigner === 0 ? '0.3' : '1';
-    nextDesignerBtn.style.opacity = currentDesigner === Object.keys(DESIGNERS).length - 1 ? '0.3' : '1';
+    const enabledDesigners = getEnabledDesigners();
+    if (enabledDesigners.length <= 1) {
+      prevDesignerBtn.style.opacity = '0.3';
+      nextDesignerBtn.style.opacity = '0.3';
+    } else {
+      prevDesignerBtn.style.opacity = '1';
+      nextDesignerBtn.style.opacity = '1';
+    }
     
     updateAddToCartButton();
     buildSwatches();
@@ -2917,7 +2830,6 @@ if (timerContainer && timerTooltip) {
     refreshConstraints();
     syncMobileButtons();
     
-    // Dispatch event to update palette selector
     const event = new CustomEvent('designerChanged', { 
       detail: { designerIndex: currentDesigner } 
     });
@@ -2934,7 +2846,6 @@ if (timerContainer && timerTooltip) {
     buttons.forEach(({btn, tooltipId}) => {
       if (!btn) return;
       
-      // Remove existing tooltip if present
       const existingTooltip = document.getElementById(tooltipId);
       if (existingTooltip) existingTooltip.remove();
       
@@ -2946,20 +2857,17 @@ if (timerContainer && timerTooltip) {
         btn.disabled = false;
         btn.style.position = 'relative';
         
-        // Create tooltip element (hidden by default)
         const tooltip = document.createElement('div');
         tooltip.id = tooltipId;
         tooltip.textContent = 'Coming Soon';
         tooltip.style.cssText = 'position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px; white-space: nowrap; pointer-events: none; z-index: 1000; opacity: 0; transition: opacity 0.2s;';
         
-        // Add arrow
         const arrow = document.createElement('div');
         arrow.style.cssText = 'position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #333;';
         tooltip.appendChild(arrow);
         
         btn.appendChild(tooltip);
         
-        // Show tooltip on hover
         btn.addEventListener('mouseenter', () => {
           tooltip.style.opacity = '1';
         });
@@ -3048,7 +2956,6 @@ if (timerContainer && timerTooltip) {
     }, 100);
   }
 
-  // Zoom functionality
   let currentZoom = 1;
   const minZoom = 0.8;
   const maxZoom = 2.5;
@@ -3069,16 +2976,18 @@ if (timerContainer && timerTooltip) {
 
   if (nextDesignerBtn) {
     nextDesignerBtn.addEventListener('click', () => {
-      if (currentDesigner < Object.keys(DESIGNERS).length - 1) {
-        switchDesigner(currentDesigner + 1);
+      const nextIndex = getNextEnabledDesigner(currentDesigner);
+      if (nextIndex !== currentDesigner) {
+        switchDesigner(nextIndex);
       }
     });
   }
   
   if (prevDesignerBtn) {
     prevDesignerBtn.addEventListener('click', () => {
-      if (currentDesigner > 0) {
-        switchDesigner(currentDesigner - 1);
+      const prevIndex = getPrevEnabledDesigner(currentDesigner);
+      if (prevIndex !== currentDesigner) {
+        switchDesigner(prevIndex);
       }
     });
   }
@@ -3410,7 +3319,6 @@ if (timerContainer && timerTooltip) {
       return;
     }
     
-    // Check if we have a product variant ID
     if (!SINGLE_VARIANT_ID) {
       alert('⚠️ Product not configured!\n\nPlease follow these steps:\n\n1. Go to Customize Theme\n2. Click on the Sweater Designer section\n3. Select your sweater product\n4. Save\n\nOr paste a Variant ID in the Fallback field.\n\nPress Ctrl+D to see debug info.');
       console.error('No variant ID found. Configure the section settings or check the console for details.');
@@ -3428,7 +3336,6 @@ if (timerContainer && timerTooltip) {
 
       const pngDataUrl = await svgToPngDataUrl(svg, 1000);
       
-      // Always use the single variant ID
       const chosenVariant = SINGLE_VARIANT_ID;
 
       const timestamp = Date.now();
@@ -3436,7 +3343,6 @@ if (timerContainer && timerTooltip) {
       const designId = `${designerClean}_${timestamp}`;
       const customName = designer.name + ' Design';
 
-      // Get size from selector (stored as property, not variant)
       const sizeText = sizeSelect ? sizeSelect.value : 'M';
       
       console.log('=== SIZE DEBUG ===');
@@ -3681,13 +3587,24 @@ if (timerContainer && timerTooltip) {
     }
   });
 
+  // Initialize with first enabled designer
+  const firstEnabledDesigner = getFirstEnabledDesigner();
+  currentDesigner = firstEnabledDesigner;
+
   makeShapesClickable();
   buildSwatches();
   applyDefaults();
   refreshConstraints();
   updateAddToCartButton();
-  updateMiniThumbnail(0);
+  updateMiniThumbnail(getFirstEnabledDesigner());
   syncMobileButtons();
+
+  // Update navigation button states
+  const enabledDesigners = getEnabledDesigners();
+  if (enabledDesigners.length <= 1) {
+    if (prevDesignerBtn) prevDesignerBtn.style.display = 'none';
+    if (nextDesignerBtn) nextDesignerBtn.style.display = 'none';
+  }
 
   // Color picker tooltip functionality
   const colorPickerTooltip = document.getElementById('color-picker-tooltip');
@@ -3733,12 +3650,10 @@ if (timerContainer && timerTooltip) {
     tutorialBtn.classList.add('playing');
     tutorialBtn.textContent = '⏸';
     
-    // Get elements - find the actual shape elements that have click handlers
     const allSwatches = swatchContainer.querySelectorAll('.color-swatch');
     const firstSwatch = allSwatches[0];
     const secondSwatch = allSwatches[1];
     
-    // Find stripe elements from their parent groups
     const firstStripeGroup = document.getElementById('Laag_3');
     const firstStripe = firstStripeGroup ? firstStripeGroup.querySelector('path, rect, polygon, polyline, circle, ellipse') : null;
     
@@ -3752,7 +3667,6 @@ if (timerContainer && timerTooltip) {
       return;
     }
     
-    // Helper function to move cursor
     function moveCursor(element, duration = 800) {
       return new Promise(resolve => {
         const rect = element.getBoundingClientRect();
@@ -3767,7 +3681,6 @@ if (timerContainer && timerTooltip) {
       });
     }
     
-    // Helper function to click animation
     function simulateClick() {
       return new Promise(resolve => {
         tutorialCursor.classList.add('clicking');
@@ -3778,14 +3691,12 @@ if (timerContainer && timerTooltip) {
       });
     }
     
-    // Helper to actually change stripe color
     function changeStripeColor(stripe, color) {
       if (stripe && color) {
         stripe.style.fill = normalizeColor(color);
       }
     }
     
-    // Start animation - position cursor off screen
     tutorialCursor.classList.add('active');
     tutorialCursor.style.transition = 'none';
     tutorialCursor.style.left = '-100px';
@@ -3794,50 +3705,39 @@ if (timerContainer && timerTooltip) {
     
     await new Promise(resolve => setTimeout(resolve, 100));
     
-    // FIRST INTERACTION
-    // Step 1: Move to first swatch
     firstSwatch.classList.add('tutorial-highlight');
     await moveCursor(firstSwatch, 1000);
     await new Promise(resolve => setTimeout(resolve, 300));
     
-    // Step 2: Click swatch and select color
     await simulateClick();
     firstSwatch.classList.remove('tutorial-highlight');
-    firstSwatch.click(); // Select the swatch
-    const firstColor = firstSwatch.style.backgroundColor || getComputedStyle(firstSwatch).backgroundColor;
+    firstSwatch.click();
     await new Promise(resolve => setTimeout(resolve, 500));
     
-    // Step 3: Move to first stripe
     firstStripe.classList.add('tutorial-highlight');
     await moveCursor(firstStripe, 1000);
     await new Promise(resolve => setTimeout(resolve, 300));
     
-    // Step 4: Click stripe and apply color
     await simulateClick();
     firstStripe.classList.remove('tutorial-highlight');
-    changeStripeColor(firstStripe, activeColor); // Use the active color
+    changeStripeColor(firstStripe, activeColor);
     refreshConstraints();
     await new Promise(resolve => setTimeout(resolve, 800));
     
-    // SECOND INTERACTION
     if (secondSwatch && secondStripe) {
-      // Move to second swatch
       secondSwatch.classList.add('tutorial-highlight');
       await moveCursor(secondSwatch, 800);
       await new Promise(resolve => setTimeout(resolve, 200));
       
-      // Click second swatch
       await simulateClick();
       secondSwatch.classList.remove('tutorial-highlight');
       secondSwatch.click();
       await new Promise(resolve => setTimeout(resolve, 400));
       
-      // Move to second stripe
       secondStripe.classList.add('tutorial-highlight');
       await moveCursor(secondStripe, 800);
       await new Promise(resolve => setTimeout(resolve, 200));
       
-      // Click second stripe and apply color
       await simulateClick();
       secondStripe.classList.remove('tutorial-highlight');
       changeStripeColor(secondStripe, activeColor);
@@ -3845,7 +3745,6 @@ if (timerContainer && timerTooltip) {
       await new Promise(resolve => setTimeout(resolve, 500));
     }
     
-    // End animation - fade out and hide cursor
     tutorialCursor.style.transition = 'opacity 0.3s ease';
     tutorialCursor.style.opacity = '0';
     
@@ -3859,6 +3758,5 @@ if (timerContainer && timerTooltip) {
     tutorialBtn.classList.remove('playing');
     tutorialBtn.textContent = '?';
   }
-  // ========== END TUTORIAL ANIMATION ==========
 }
 </script>
