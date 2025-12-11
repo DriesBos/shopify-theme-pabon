@@ -775,7 +775,47 @@
       "id": "price_default_pattern",
       "label": "Default Pattern (Advanced)",
       "info": "Leave empty to use built-in defaults. Format: Laag_2:#000000,Laag_3:#843345,hem:#000000"
-    }
+    },
+{
+  "type": "header",
+  "content": "═══ SIZING INFORMATION ═══"
+},
+{
+  "type": "image_picker",
+  "id": "sizing_image_1",
+  "label": "Sizing Image 1"
+},
+{
+  "type": "image_picker",
+  "id": "sizing_image_2",
+  "label": "Sizing Image 2"
+},
+{
+  "type": "image_picker",
+  "id": "sizing_image_3",
+  "label": "Sizing Image 3"
+},
+{
+  "type": "video",
+  "id": "sizing_video_1",
+  "label": "Sizing Video 1"
+},
+{
+  "type": "video",
+  "id": "sizing_video_2",
+  "label": "Sizing Video 2"
+},
+{
+  "type": "video",
+  "id": "sizing_video_3",
+  "label": "Sizing Video 3"
+},
+{
+  "type": "textarea",
+  "id": "sizing_description",
+  "label": "Sizing Description",
+  "default": "Please refer to the sizing guide above. Size down if you want a more fitted look."
+}
   ],
   "presets": [{ "name": "Sweater Designer" }]
 }
@@ -852,35 +892,31 @@
           </button>
         </div>
         <!-- SWEATER CONTROLS -->
-        <div class='sweater-designer_controls'>
-          <button
-            id='random-btn'
-            class='sweater-designer_control-buttons'
-            type='button'
-            style='width:auto !important; color:black; border:none; background:none;'
-          >
-            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
-              <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/>
-            </svg>
-            <span>random</span>
-          </button>
-          <button
-            id='default-btn'
-            class='sweater-designer_control-buttons'
-            type='button'
-            style='width:auto !important; border-radius:0; background:none; color:black; border:none;'
-          >
-            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
-              <path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/>
-            </svg>
-            <span>reset</span>
-          </button>
-          <button
-            id='info-btn'
-            class='sweater-designer_control-buttons'
-            aria-label='details'
-            style='width:auto !important; border-radius:0; background:none; color:black; border:none;'
-          >
+<div class='sweater-designer_controls'>
+  <button
+    id='random-btn'
+    class='sweater-designer_control-buttons'
+    type='button'
+    style='width:auto !important; color:black; border:none; background:none;'
+  >
+    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
+      <path d="M560-160v-80h104L537-367l57-57 126 126v-102h80v240zm-344 0-56-56 504-504H560v-80h240v240h-80v-104zm151-377L160-744l56-56 207 207z"/>
+    </svg>
+    <span>random</span>
+  </button>
+  <button
+    id='default-btn'
+    class='sweater-designer_control-buttons'
+    type='button'
+    style='width:auto !important; border-radius:0; background:none; color:black; border:none;'
+  >
+    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
+      <path d="M480-80q-75 0-140.5-28.5t-114-77-77-114T120-440h80q0 117 81.5 198.5T480-160t198.5-81.5T760-440t-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77 77 114T840-440t-28.5 140.5-77 114-114 77T480-80"/>
+    </svg>
+    <span>reset</span>
+  </button>
+</div>
+
             <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
               <path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/>
             </svg>
@@ -898,68 +934,92 @@
   </div>
 
   <!-- CONTROLS PANEL -->
+<div
+  id='controls-panel'
+  class='controls-panel'
+>
+  <!-- PRICE -->
   <div
-    id='controls-panel'
-    class='controls-panel'
+    id='controls-panel_price'
+    class='controls-panel_price'
   >
-    <!-- PRICE -->
-    <div
-      id='controls-panel_price'
-      class='controls-panel_price'
-    >
-      <p style='font-size:22px; padding:0; margin:0; margin-bottom:0.5rem; color:#000; text-align:center; width:100%; max-width:100%; line-height:1.4;'>
-        <strong>€320</strong>
-      </p>
-      <div class='mobile-controls-grid'>
-  <select
-    id='sweater-size'
-    style="padding:8px 10px; border-radius:8px; border:2px solid #ccc; font-size:18px; width:100%; text-align:center; cursor:pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;"
-  >
-    <option value='XXS'>XXS</option>
-    <option value='XS'>XS</option>
-    <option value='S'>S</option>
-    <option value='M' selected>M</option>
-    <option value='L'>L</option>
-    <option value='XL'>XL</option>
-  </select>
-  <button
-    id='add-to-cart'
-    style='padding:16px 16px; border-radius:0; background:black; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:12px; letter-spacing:0.5px; text-transform:uppercase;'
-  >
-    ADD TO BAG
-  </button>
-  <div id="deadline-timer-container" style="position: relative; width: 100%; margin-top: 8px;">
-    <div id="deadline-timer" style="padding: 16px 16px; border: 2px solid #000; background: #fff; width: 100%; box-sizing: border-box; text-align: center; cursor: default; transition: all 0.2s ease;">
-      <span id="countdown-display" style="font-weight: 700; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; color: #000;">Loading...</span>
-    </div>
-    <div id="deadline-tooltip" style="display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 8px 12px; font-size: 11px; white-space: nowrap; z-index: 100;">
-      Deadline: Dec 19th, 00:00h
-      <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #000;"></div>
-    </div>
-   <input id='custom-name' type='text' placeholder='name?' style='display: none;'>
+    <p style='font-size:22px; padding:0; margin:0; margin-bottom:0.5rem; color:#000; text-align:center; width:100%; max-width:100%; line-height:1.4;'>
+      <strong>€320</strong>
+    </p>
+    <div class='mobile-controls-grid'>
+      <select
+        id='sweater-size'
+        style="padding:8px 10px; border-radius:8px; border:2px solid #ccc; font-size:18px; width:100%; text-align:center; cursor:pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;"
+      >
+        <option value='XXS'>XXS</option>
+        <option value='XS'>XS</option>
+        <option value='S'>S</option>
+        <option value='M' selected>M</option>
+        <option value='L'>L</option>
+        <option value='XL'>XL</option>
+      </select>
+      <button
+        id='add-to-cart'
+        style='padding:16px 16px; border-radius:0; background:black; color:#fff; border:none; cursor:pointer; width:100%; font-weight:700; font-size:12px; letter-spacing:0.5px; text-transform:uppercase;'
+      >
+        ADD TO BAG
+      </button>
+      
+      <!-- GARMENT AND SIZING BUTTONS -->
+      <button
+        id='info-btn'
+        class='sweater-designer_control-buttons'
+        aria-label='details'
+        style='width:100% !important; border-radius:0; background:none; color:black; border:none; margin-top:8px; padding:12px;'
+      >
+        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
+          <path d="M440-280h80v-240h-80zm40-320q17 0 28.5-11.5T520-640t-11.5-28.5T480-680t-28.5 11.5T440-640t11.5 28.5T480-600m0 520q-83 0-156-31.5T197-197t-85.5-127T80-480t31.5-156T197-763t127-85.5T480-880t156 31.5T763-763t85.5 127T880-480t-31.5 156T763-197t-127 85.5T480-80m0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93m0-320"/>
+        </svg>
+        <span>GARMENT (i)</span>
+      </button>
+      
+      <button
+        id='sizing-btn'
+        class='sweater-designer_control-buttons'
+        aria-label='sizing'
+        style='width:100% !important; border-radius:0; background:none; color:black; border:none; padding:12px;'
+      >
+        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 -960 960 960'>
+          <path d="M280-120v-80h160v-124q-49-11-87.5-41.5T296-442q-75-9-125.5-65.5T120-640v-40q0-33 23.5-56.5T200-760h80v-80h400v80h80q33 0 56.5 23.5T840-680v40q0 76-50.5 132.5T664-442q-18 46-56.5 76.5T520-324v124h160v80H280Zm0-408v-152h-80v40q0 38 22 68.5t58 43.5Zm200 128q50 0 85-35t35-85v-240H360v240q0 50 35 85t85 35Zm200-128q36-13 58-43.5t22-68.5v-40h-80v152Zm-200-52Z"/>
+        </svg>
+        <span>SIZING</span>
+      </button>
+      
+      <!-- DEADLINE TIMER -->
+      <div id="deadline-timer-container" style="position: relative; width: 100%; margin-top: 8px;">
+        <div id="deadline-timer" style="padding: 16px 16px; border: none; background: #fff; width: 100%; box-sizing: border-box; text-align: center; cursor: default; transition: all 0.2s ease;">
+          <span id="countdown-display" style="font-weight: 700; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; color: #000;">Loading...</span>
+        </div>
+        <div id="deadline-tooltip" style="display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 8px 12px; font-size: 11px; white-space: nowrap; z-index: 100;">
+          Deadline: Dec 19th, 00:00h
+          <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #000;"></div>
+        </div>
       </div>
     </div>
   </div>
 
-    <!-- DESIGNER IMAGE -->
-    <div
-      id='mini-designer-image'
-      class='mini-designer-image'
+  <!-- DESIGNER IMAGE -->
+  <div
+    id='mini-designer-image'
+    class='mini-designer-image'
+  >
+    <img
+      id='mini-designer-img'
+      src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#'
+      style='width:100%; height:100%; object-fit:cover;'
     >
-
-      <img
-        id='mini-designer-img'
-        src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#'
-        style='width:100%; height:100%; object-fit:cover;'
-      >
-      <video
-        id='mini-designer-video'
-        muted
-        playsinline
-        style='display:none; width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;'
-      ></video>
-      <span>Artist Palettes</span>
-    </div>
+    <video
+      id='mini-designer-video'
+      muted
+      playsinline
+      style='display:none; width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;'
+    ></video>
+    <span>Artist Palettes</span>
   </div>
 </div>
 
@@ -1079,6 +1139,124 @@
         </svg>
         Learn more on Wikipedia
       </a>
+    </div>
+  </div>
+</div>
+<!-- Sizing Information Overlay -->
+<div
+  id='sizing-overlay'
+  style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; cursor:pointer; overflow-y:auto; background:rgba(0,0,0,0.66);'
+>
+  <button
+    id='close-sizing-btn'
+    style='position:fixed; top:20px; right:20px; background:transparent; border:none; color:white; font-size:32px; cursor:pointer; z-index:10000; width:44px; height:44px; display:flex; align-items:center; justify-content:center;'
+  >
+    ×
+  </button>
+
+  <div
+    id='sizing-content'
+    style='position:relative; width:calc(100vw - 4vw); height:calc(100vh - 4vh); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
+  >
+    <!-- Sizing Carousel Container -->
+    <div id='sizing-carousel-container' style='flex:1; position:relative; width:100%; background:#000;'>
+      <!-- Sizing Carousel Images/Video -->
+      <div id='sizing-carousel-track' style='height:100%; width:100%; position:relative;'>
+  <!-- Image slides -->
+  <div class='sizing-carousel-slide' data-index='0' data-type='image'>
+    <img id='sizing-carousel-img-0' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain;'>
+  </div>
+  <div class='sizing-carousel-slide' data-index='1' data-type='image' style='display:none;'>
+    <img id='sizing-carousel-img-1' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain;'>
+  </div>
+  <div class='sizing-carousel-slide' data-index='2' data-type='image' style='display:none;'>
+    <img id='sizing-carousel-img-2' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain;'>
+  </div>
+  <!-- Video slides -->
+  <div class='sizing-carousel-slide sizing-carousel-video-slide' data-index='3' data-type='video' style='display:none;'>
+    <video
+      id='sizing-carousel-video-0'
+      controls
+      playsinline
+      webkit-playsinline
+      style='width:100%; height:auto; object-fit:contain; background:#000;'
+    ></video>
+  </div>
+  <div class='sizing-carousel-slide sizing-carousel-video-slide' data-index='4' data-type='video' style='display:none;'>
+    <video
+      id='sizing-carousel-video-1'
+      controls
+      playsinline
+      webkit-playsinline
+      style='width:100%; height:auto; object-fit:contain; background:#000;'
+    ></video>
+  </div>
+  <div class='sizing-carousel-slide sizing-carousel-video-slide' data-index='5' data-type='video' style='display:none;'>
+    <video
+      id='sizing-carousel-video-2'
+      controls
+      playsinline
+      webkit-playsinline
+      style='width:100%; height:auto; object-fit:contain; background:#000;'
+    ></video>
+  </div>
+</div>
+      </div>
+
+      <!-- Sizing Carousel Navigation Arrows -->
+      <button
+        id='sizing-carousel-prev'
+        style='position:absolute; left:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border:none; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 2px 8px rgba(0,0,0,0.3); z-index:10;'
+      >
+        <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#000' stroke-width='2.5'>
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
+      </button>
+      <button
+        id='sizing-carousel-next'
+        style='position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border:none; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 2px 8px rgba(0,0,0,0.3); z-index:10;'
+      >
+        <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#000' stroke-width='2.5'>
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
+
+      <!-- Sizing Sound Toggle Button -->
+      <button
+        id='sizing-sound-toggle'
+        style='display:none; position:absolute; right:10px; top:10px; background:rgba(0,0,0,0.7); border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; align-items:center; justify-content:center; z-index:10; transition: all 0.2s ease;'
+      >
+        <svg id='sizing-sound-on' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#fff' stroke-width='2'>
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <svg
+          id='sizing-sound-off'
+          width='20'
+          height='20'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='#fff'
+          stroke-width='2'
+          style='display:none;'
+        >
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+      </button>
+
+      <!-- Sizing Carousel Dots -->
+      <div
+        id='sizing-carousel-dots'
+        style='position:absolute; bottom:15px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:10;'
+      ></div>
+    </div>
+
+    <!-- Sizing Description Section -->
+    <div id='sizing-info' style='background:#fff; padding:24px; margin-top:0; flex-shrink:0;'>
+      <h2 style='margin:0 0 16px 0; font-size:24px; font-weight:700; color:#000;'>Sizing Guide</h2>
+      <p id='sizing-description-text' style='margin:0; font-size:14px; line-height:1.6; color:#333;'></p>
     </div>
   </div>
 </div>
@@ -1266,6 +1444,20 @@
         { "name": {{ section.settings.jones_color_6_name | json }}, "hex": "{{ section.settings.jones_color_6 }}" }
       ]
     }
+,
+"sizing": {
+  "images": [
+    {% if section.settings.sizing_image_1 %}"{{ section.settings.sizing_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+    {% if section.settings.sizing_image_2 %}"{{ section.settings.sizing_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+    {% if section.settings.sizing_image_3 %}"{{ section.settings.sizing_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+  ],
+  "videos": [
+    {% if section.settings.sizing_video_1 %}"{{ section.settings.sizing_video_1.sources[0].url }}"{% else %}""{% endif %},
+    {% if section.settings.sizing_video_2 %}"{{ section.settings.sizing_video_2.sources[0].url }}"{% else %}""{% endif %},
+    {% if section.settings.sizing_video_3 %}"{{ section.settings.sizing_video_3.sources[0].url }}"{% else %}""{% endif %}
+  ],
+  "description": {{ section.settings.sizing_description | json }}
+}
   }
 </script>
 
@@ -1431,6 +1623,46 @@
   #artist-info {
     flex-shrink: 0;
   }
+/* NEW NEW NEW SIZING styles */
+.sizing-carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: none;
+}
+
+.sizing-carousel-slide.active {
+  opacity: 1;
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.sizing-carousel-video-slide video {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+#sizing-carousel-container.single-slide #sizing-carousel-prev,
+#sizing-carousel-container.single-slide #sizing-carousel-next,
+#sizing-carousel-container.single-slide #sizing-carousel-dots {
+  display: none;
+}
+
+#sizing-sound-toggle.muted {
+  background: rgba(255,0,0,0.7);
+}
+
+#sizing-sound-toggle.muted:hover {
+  background: rgba(255,0,0,0.9);
+}
 
   /* END END END END END END NEW NEW NEW NEW NEW NEW NEW NEW */
 
@@ -3758,5 +3990,264 @@ function initSweaterDesigner(){
     tutorialBtn.classList.remove('playing');
     tutorialBtn.textContent = '?';
   }
+// ============================================
+  // SIZING OVERLAY FUNCTIONALITY
+  // ============================================
+  
+  const sizingBtn = document.getElementById('sizing-btn');
+  const sizingOverlay = document.getElementById('sizing-overlay');
+  const closeSizingBtn = document.getElementById('close-sizing-btn');
+  const sizingCarouselContainer = document.getElementById('sizing-carousel-container');
+  const sizingCarouselPrev = document.getElementById('sizing-carousel-prev');
+  const sizingCarouselNext = document.getElementById('sizing-carousel-next');
+  const sizingCarouselDots = document.getElementById('sizing-carousel-dots');
+  const sizingCarouselVideo = document.getElementById('sizing-carousel-video');
+  const sizingSoundToggle = document.getElementById('sizing-sound-toggle');
+  const sizingSoundOn = document.getElementById('sizing-sound-on');
+  const sizingSoundOff = document.getElementById('sizing-sound-off');
+  const sizingDescriptionText = document.getElementById('sizing-description-text');
+  
+  let sizingCarouselIndex = 0;
+  let sizingSlideCount = 0;
+  let isSizingVideoMuted = false;
+  
+  function openSizingOverlay() {
+  const sizingData = galleryData.sizing || {};
+  const images = (sizingData.images || []).filter(img => img && img !== '');
+  const videos = (sizingData.videos || []).filter(vid => vid && vid !== '');
+  
+  sizingCarouselIndex = 0;
+  
+  const slideContent = [];
+  
+  // Add images first
+  images.forEach((img, i) => {
+    slideContent.push({ type: 'image', src: img, index: i });
+  });
+  
+  // Then add videos
+  videos.forEach((vid, i) => {
+    slideContent.push({ type: 'video', src: vid, index: images.length + i });
+  });
+  
+  sizingSlideCount = slideContent.length;
+  
+  // Setup image slides
+  for (let i = 0; i < 3; i++) {
+    const img = document.getElementById(`sizing-carousel-img-${i}`);
+    const slide = img?.parentElement;
+    if (img && slide) {
+      if (images[i]) {
+        img.src = images[i];
+        slide.style.display = 'none';
+        slide.classList.remove('active');
+        slide.dataset.index = i;
+      } else {
+        slide.style.display = 'none';
+        slide.classList.remove('active');
+      }
+    }
+  }
+  
+  // Setup video slides
+  for (let i = 0; i < 3; i++) {
+    const video = document.getElementById(`sizing-carousel-video-${i}`);
+    const slide = video?.parentElement;
+    if (video && slide) {
+      if (videos[i]) {
+        video.pause();
+        video.src = videos[i];
+        video.load();
+        slide.style.display = 'none';
+        slide.classList.remove('active');
+        slide.dataset.index = images.length + i;
+      } else {
+        slide.style.display = 'none';
+        slide.classList.remove('active');
+      }
+    }
+  }
+  
+  // Setup dots
+  if (sizingCarouselDots) {
+    sizingCarouselDots.innerHTML = '';
+    slideContent.forEach((item, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'carousel-dot' + (item.type === 'video' ? ' carousel-dot-video' : '');
+      dot.dataset.index = i;
+      if (i === 0) dot.classList.add('active');
+      sizingCarouselDots.appendChild(dot);
+    });
+  }
+  
+  // Handle single slide
+  if (sizingSlideCount <= 1) {
+    sizingCarouselContainer?.classList.add('single-slide');
+  } else {
+    sizingCarouselContainer?.classList.remove('single-slide');
+  }
+  
+  // Set description
+  if (sizingDescriptionText) {
+    sizingDescriptionText.textContent = sizingData.description || '';
+  }
+  
+  // Show first slide
+  if (sizingSlideCount > 0) {
+    showSizingSlide(0);
+  }
+  
+  // Show overlay
+  if (sizingOverlay) sizingOverlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+  
+  function showSizingSlide(index) {
+  const sizingData = galleryData.sizing || {};
+  const images = (sizingData.images || []).filter(img => img && img !== '');
+  const videos = (sizingData.videos || []).filter(vid => vid && vid !== '');
+  
+  if (sizingSlideCount === 0) return;
+  if (index < 0) index = sizingSlideCount - 1;
+  if (index >= sizingSlideCount) index = 0;
+  sizingCarouselIndex = index;
+  
+  // Determine if current slide is a video
+  const isVideoSlide = index >= images.length;
+  
+  // Show/hide sound toggle based on slide type
+  if (sizingSoundToggle) {
+    sizingSoundToggle.style.display = isVideoSlide ? 'flex' : 'none';
+  }
+  
+  // Hide all slides and pause all videos
+  const allSlides = document.querySelectorAll('.sizing-carousel-slide');
+  allSlides?.forEach(slide => {
+    slide.classList.remove('active');
+    slide.style.display = 'none';
+    const video = slide.querySelector('video');
+    if (video) video.pause();
+  });
+  
+  // Show current slide
+  if (index < images.length) {
+    // It's an image slide
+    const imgSlide = document.getElementById(`sizing-carousel-img-${index}`)?.parentElement;
+    if (imgSlide) {
+      imgSlide.style.display = 'flex';
+      imgSlide.classList.add('active');
+    }
+  } else {
+    // It's a video slide
+    const videoIndex = index - images.length;
+    const video = document.getElementById(`sizing-carousel-video-${videoIndex}`);
+    const videoSlide = video?.parentElement;
+    if (videoSlide && video) {
+      videoSlide.style.display = 'flex';
+      videoSlide.classList.add('active');
+      video.muted = isSizingVideoMuted;
+      video.play().catch(e => console.log('Autoplay prevented:', e));
+    }
+  }
+  
+  // Update dots
+  const dots = sizingCarouselDots?.querySelectorAll('.carousel-dot');
+  dots?.forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
+}
+  
+  function closeSizingOverlay() {
+  if (sizingOverlay) sizingOverlay.style.display = 'none';
+  document.body.style.overflow = '';
+  
+  // Pause all sizing videos
+  for (let i = 0; i < 3; i++) {
+    const video = document.getElementById(`sizing-carousel-video-${i}`);
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  }
+  
+  if (sizingSoundToggle) {
+    sizingSoundToggle.style.display = 'none';
+  }
+}
+  
+  function updateSizingSoundIcon() {
+    if (isSizingVideoMuted) {
+      sizingSoundOn.style.display = 'none';
+      sizingSoundOff.style.display = 'block';
+      sizingSoundToggle?.classList.add('muted');
+    } else {
+      sizingSoundOn.style.display = 'block';
+      sizingSoundOff.style.display = 'none';
+      sizingSoundToggle?.classList.remove('muted');
+    }
+  }
+  
+  // Event listeners
+  sizingBtn?.addEventListener('click', openSizingOverlay);
+  closeSizingBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeSizingOverlay();
+  });
+  
+  sizingOverlay?.addEventListener('click', (e) => {
+    if (e.target === sizingOverlay) {
+      closeSizingOverlay();
+    }
+  });
+  
+  document.getElementById('sizing-content')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+  
+  sizingCarouselPrev?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showSizingSlide(sizingCarouselIndex - 1);
+  });
+  
+  sizingCarouselNext?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showSizingSlide(sizingCarouselIndex + 1);
+  });
+  
+  sizingCarouselDots?.addEventListener('click', (e) => {
+    const dot = e.target.closest('.carousel-dot');
+    if (dot) {
+      e.stopPropagation();
+      const index = parseInt(dot.dataset.index);
+      if (!isNaN(index)) {
+        showSizingSlide(index);
+      }
+    }
+  });
+  
+  sizingSoundToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (sizingCarouselVideo) {
+      isSizingVideoMuted = !isSizingVideoMuted;
+      sizingCarouselVideo.muted = isSizingVideoMuted;
+      updateSizingSoundIcon();
+    }
+  });
+  
+  // Keyboard navigation for sizing overlay
+  document.addEventListener('keydown', (e) => {
+    if (sizingOverlay?.style.display === 'block') {
+      if (e.key === 'ArrowLeft') showSizingSlide(sizingCarouselIndex - 1);
+      if (e.key === 'ArrowRight') showSizingSlide(sizingCarouselIndex + 1);
+      if (e.key === 'Escape') closeSizingOverlay();
+      if (e.key === 'm' || e.key === 'M') {
+        if (sizingCarouselVideo && sizingSoundToggle?.style.display === 'flex') {
+          isSizingVideoMuted = !isSizingVideoMuted;
+          sizingCarouselVideo.muted = isSizingVideoMuted;
+          updateSizingSoundIcon();
+        }
+      }
+    }
+  });
 }
 </script>
