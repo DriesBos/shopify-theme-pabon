@@ -1244,55 +1244,67 @@
     </div>
   </div>
 </div>
-
-<!-- Info tooltip -->
+<!-- Garment Info Overlay -->
 <div
-  id='info-tooltip'
-  style='display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); max-width:520px; padding:20px; background:#000; color:#fff; border:2px solid #fff; z-index:9999; pointer-events:none; text-align:left; line-height:1.6;'
+  id='info-overlay'
+  style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; cursor:pointer; overflow-y:auto; background:rgba(0,0,0,0.85);'
 >
-  <h3 style='margin:0 0 12px 0; font-weight:700; font-size:18px;'>David Hockney (60s)</h3>
-  
-  <img
-    src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908'
-    style='width:75%; display:block; margin:0 auto 16px auto;'
+  <button
+    id='close-info-btn'
+    style='position:fixed; top:20px; right:20px; background:transparent; border:none; color:white; font-size:32px; cursor:pointer; z-index:10000; width:44px; height:44px; display:flex; align-items:center; justify-content:center;'
   >
-  
-  <div style='margin-bottom:16px;'>
-    <h4 style='margin:0 0 8px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;'>Fit & Style</h4>
-    <ul style='margin:0; padding-left:20px; font-size:13px;'>
-      <li style='margin-bottom:6px;'>Heavy weight sweater with round neck</li>
-      <li style='margin-bottom:6px;'>Ribbed hem and cuffs</li>
-      <li style='margin-bottom:6px;'>Oversized fit - size down for fitted look, two sizes down for shorter length</li>
-    </ul>
-  </div>
-  
-  <div style='margin-bottom:16px;'>
-    <h4 style='margin:0 0 8px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;'>Size Guide</h4>
-    <table style='width:100%; font-size:13px; border-collapse:collapse;'>
-      <tr><td style='padding:4px 0;'>195-200 cm</td><td style='padding:4px 0; text-align:right; font-weight:600;'>XL</td></tr>
-      <tr><td style='padding:4px 0;'>185-194 cm</td><td style='padding:4px 0; text-align:right; font-weight:600;'>L</td></tr>
-      <tr><td style='padding:4px 0;'>178-185 cm</td><td style='padding:4px 0; text-align:right; font-weight:600;'>M</td></tr>
-      <tr><td style='padding:4px 0;'>170-177 cm</td><td style='padding:4px 0; text-align:right; font-weight:600;'>S</td></tr>
-      <tr><td style='padding:4px 0;'>162-169 cm</td><td style='padding:4px 0; text-align:right; font-weight:600;'>XS</td></tr>
-      <tr><td style='padding:4px 0;'>158-162 cm</td><td style='padding:4px 0; text-align:right; font-weight:600;'>XXS</td></tr>
-    </table>
-  </div>
-  
-  <div style='margin-bottom:16px;'>
-    <h4 style='margin:0 0 8px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;'>Design Details</h4>
-    <ul style='margin:0; padding-left:20px; font-size:13px;'>
-      <li style='margin-bottom:6px;'>Maximum 4 colors in body, 5 per sleeve, 6 for hems and cuffs</li>
-      <li style='margin-bottom:6px;'>Third stripe on right arm is reversed</li>
-      <li style='margin-bottom:6px;'>Colors carefully selected to work in any combination</li>
-    </ul>
-  </div>
-  
-  <div>
-    <h4 style='margin:0 0 8px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;'>Materials & Origin</h4>
-    <ul style='margin:0; padding-left:20px; font-size:13px;'>
-      <li style='margin-bottom:6px;'>100% superfine merino wool</li>
-      <li style='margin-bottom:6px;'>Made from start to finish in the Netherlands</li>
-    </ul>
+    ×
+  </button>
+
+  <div
+    id='info-content'
+    style='position:relative; width:calc(100% - 4vw); max-width:600px; margin:2vh auto; padding:32px; background:#000; color:#fff; border:2px solid #fff; box-sizing:border-box;'
+  >
+    <h3 id='info-designer-name' style='margin:0 0 16px 0; font-weight:700; font-size:20px; text-align:center;'>David Hockney (60s)</h3>
+    
+    <img
+      id='info-designer-img'
+      src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908'
+      style='width:75%; display:block; margin:0 auto 20px auto;'
+    >
+    
+    <div style='margin-bottom:20px;'>
+      <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#fff;'>Fit & Style</h4>
+      <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6;'>
+        <li style='margin-bottom:8px;'>Heavy weight sweater with round neck</li>
+        <li style='margin-bottom:8px;'>Ribbed hem and cuffs</li>
+        <li style='margin-bottom:8px;'>Oversized fit - size down for fitted look, two sizes down for shorter length</li>
+      </ul>
+    </div>
+    
+    <div style='margin-bottom:20px;'>
+      <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#fff;'>Size Guide</h4>
+      <table style='width:100%; font-size:14px; border-collapse:collapse;'>
+        <tr><td style='padding:6px 0; border-bottom:1px solid #333;'>195-200 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #333;'>XL</td></tr>
+        <tr><td style='padding:6px 0; border-bottom:1px solid #333;'>185-194 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #333;'>L</td></tr>
+        <tr><td style='padding:6px 0; border-bottom:1px solid #333;'>178-185 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #333;'>M</td></tr>
+        <tr><td style='padding:6px 0; border-bottom:1px solid #333;'>170-177 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #333;'>S</td></tr>
+        <tr><td style='padding:6px 0; border-bottom:1px solid #333;'>162-169 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #333;'>XS</td></tr>
+        <tr><td style='padding:6px 0;'>158-162 cm</td><td style='padding:6px 0; text-align:right; font-weight:600;'>XXS</td></tr>
+      </table>
+    </div>
+    
+    <div style='margin-bottom:20px;'>
+      <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#fff;'>Design Details</h4>
+      <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6;'>
+        <li style='margin-bottom:8px;'>Maximum 4 colors in body, 5 per sleeve, 6 for hems and cuffs</li>
+        <li style='margin-bottom:8px;'>Third stripe on right arm is reversed</li>
+        <li style='margin-bottom:8px;'>Colors carefully selected to work in any combination</li>
+      </ul>
+    </div>
+    
+    <div>
+      <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#fff;'>Materials & Origin</h4>
+      <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6;'>
+        <li style='margin-bottom:8px;'>100% superfine merino wool</li>
+        <li style='margin-bottom:8px;'>Made from start to finish in the Netherlands</li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -1926,32 +1938,7 @@
   /* Hide wool image desktop on mobile */
   @media (max-width: 768px) {
 
-    /* Make info tooltip much larger on mobile */
-    #info-tooltip {
-      max-width: 90vw !important;
-      width: 90vw !important;
-      max-height: 80vh !important;
-      overflow-y: auto !important;
-      padding: 20px !important;
-    }
-
-    /* Enlarge wool thumbnail image on mobile */
-    #info-tooltip img {
-      width: 100% !important;
-      max-width: 100% !important;
-      margin: 15px 0 !important;
-    }
-
-    #info-tooltip p {
-      font-size: 12px !important;
-      line-height: 1.5 !important;
-      margin: 8px 0 !important;
-    }
-
-    #info-tooltip p:first-of-type {
-      font-size: 16px !important;
-      margin-bottom: 12px !important;
-    }
+   
 
     #carousel-prev,
     #carousel-next {
@@ -3449,15 +3436,54 @@ function initSweaterDesigner(){
   if(defaultBtn) defaultBtn.addEventListener('click', applyDefaults);
   if(randomBtn) randomBtn.addEventListener('click', randomizeWithinConstraints);
 
-  if(infoBtn && tooltip) {
-    infoBtn.addEventListener('mouseenter', ()=> {
-      const designer = DESIGNERS[currentDesigner];
-      tooltip.querySelector('p').textContent = designer.tooltipTitle;
-      tooltip.querySelector('img').src = designer.tooltipImage;
-      tooltip.style.display = 'block';
-    });
-    infoBtn.addEventListener('mouseleave', ()=> tooltip.style.display = 'none');
+  // Info overlay functionality
+const infoOverlay = document.getElementById('info-overlay');
+const closeInfoBtn = document.getElementById('close-info-btn');
+const infoDesignerName = document.getElementById('info-designer-name');
+const infoDesignerImg = document.getElementById('info-designer-img');
+
+function openInfoOverlay() {
+  const designer = DESIGNERS[currentDesigner];
+  if (infoDesignerName) infoDesignerName.textContent = designer.name;
+  if (infoDesignerImg) infoDesignerImg.src = designer.tooltipImage;
+  if (infoOverlay) infoOverlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeInfoOverlay() {
+  if (infoOverlay) infoOverlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+if (infoBtn) {
+  infoBtn.addEventListener('click', openInfoOverlay);
+}
+
+if (closeInfoBtn) {
+  closeInfoBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeInfoOverlay();
+  });
+}
+
+if (infoOverlay) {
+  infoOverlay.addEventListener('click', (e) => {
+    if (e.target === infoOverlay) {
+      closeInfoOverlay();
+    }
+  });
+}
+
+document.getElementById('info-content')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+});
+
+// Keyboard escape for info overlay
+document.addEventListener('keydown', (e) => {
+  if (infoOverlay?.style.display === 'block' && e.key === 'Escape') {
+    closeInfoOverlay();
   }
+});
 
   if(nameInput) {
     nameInput.addEventListener('keypress', function(e){
