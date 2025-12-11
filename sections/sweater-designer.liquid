@@ -1243,11 +1243,10 @@
       <p id='sizing-description-text' style='margin:0; font-size:14px; line-height:1.6; color:#333;'></p>
     </div>
   </div>
-</div>
-<!-- Garment Info Overlay -->
+<!-- Garment Info Overlay (matches Artist Palette style) -->
 <div
   id='info-overlay'
-  style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; cursor:pointer; overflow-y:auto; background:rgba(0,0,0,0.85);'
+  style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; cursor:pointer; overflow-y:auto; background:rgba(0,0,0,0.66);'
 >
   <button
     id='close-info-btn'
@@ -1258,52 +1257,60 @@
 
   <div
     id='info-content'
-    style='position:relative; width:calc(100% - 4vw); max-width:600px; margin:2vh auto; padding:32px; background:#000; color:#fff; border:2px solid #fff; box-sizing:border-box;'
+    style='position:relative; width:calc(100vw - 4vw); height:calc(100vh - 4vh); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
   >
-    <h3 id='info-designer-name' style='margin:0 0 16px 0; font-weight:700; font-size:20px; text-align:center;'>David Hockney (60s)</h3>
-    
-    <img
-      id='info-designer-img'
-      src='https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908'
-      style='width:75%; display:block; margin:0 auto 20px auto;'
-    >
-    
-    <div style='margin-bottom:20px;'>
-      <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#fff;'>Fit & Style</h4>
-      <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6;'>
-        <li style='margin-bottom:8px;'>Heavy weight sweater with round neck</li>
-        <li style='margin-bottom:8px;'>Ribbed hem and cuffs</li>
-        <li style='margin-bottom:8px;'>Oversized fit - size down for fitted look, two sizes down for shorter length</li>
-      </ul>
+    <!-- Carousel Container -->
+    <div id='info-carousel-container' style='flex:1; position:relative; width:100%; background:#000;'>
+      <!-- Carousel Track -->
+      <div id='info-carousel-track' style='height:100%; width:100%; position:relative;'>
+        <div class='info-carousel-slide active' data-index='0'>
+          <img id='info-carousel-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain;'>
+        </div>
+      </div>
     </div>
-    
-    <div style='margin-bottom:20px;'>
-      <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#fff;'>Size Guide</h4>
-      <table style='width:100%; font-size:14px; border-collapse:collapse;'>
-        <tr><td style='padding:6px 0; border-bottom:1px solid #333;'>195-200 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #333;'>XL</td></tr>
-        <tr><td style='padding:6px 0; border-bottom:1px solid #333;'>185-194 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #333;'>L</td></tr>
-        <tr><td style='padding:6px 0; border-bottom:1px solid #333;'>178-185 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #333;'>M</td></tr>
-        <tr><td style='padding:6px 0; border-bottom:1px solid #333;'>170-177 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #333;'>S</td></tr>
-        <tr><td style='padding:6px 0; border-bottom:1px solid #333;'>162-169 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #333;'>XS</td></tr>
-        <tr><td style='padding:6px 0;'>158-162 cm</td><td style='padding:6px 0; text-align:right; font-weight:600;'>XXS</td></tr>
-      </table>
-    </div>
-    
-    <div style='margin-bottom:20px;'>
-      <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#fff;'>Design Details</h4>
-      <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6;'>
-        <li style='margin-bottom:8px;'>Maximum 4 colors in body, 5 per sleeve, 6 for hems and cuffs</li>
-        <li style='margin-bottom:8px;'>Third stripe on right arm is reversed</li>
-        <li style='margin-bottom:8px;'>Colors carefully selected to work in any combination</li>
-      </ul>
-    </div>
-    
-    <div>
-      <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#fff;'>Materials & Origin</h4>
-      <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6;'>
-        <li style='margin-bottom:8px;'>100% superfine merino wool</li>
-        <li style='margin-bottom:8px;'>Made from start to finish in the Netherlands</li>
-      </ul>
+
+    <!-- Garment Info Section -->
+    <div id='garment-info-section' style='background:#fff; padding:24px; margin-top:0; flex-shrink:0;'>
+      <h2 id='info-designer-name' style='margin:0 0 8px 0; font-size:24px; font-weight:700; color:#000;'>David Hockney (60s)</h2>
+      <p style='margin:0 0 16px 0; font-size:16px; color:#666; font-style:italic;'>Garment Information</p>
+      
+      <div style='margin-bottom:20px;'>
+        <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;'>Fit & Style</h4>
+        <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6; color:#333;'>
+          <li style='margin-bottom:8px;'>Heavy weight sweater with round neck</li>
+          <li style='margin-bottom:8px;'>Ribbed hem and cuffs</li>
+          <li style='margin-bottom:8px;'>Oversized fit - size down for fitted look, two sizes down for shorter length</li>
+        </ul>
+      </div>
+      
+      <div style='margin-bottom:20px;'>
+        <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;'>Size Guide</h4>
+        <table style='width:100%; font-size:14px; border-collapse:collapse;'>
+          <tr><td style='padding:6px 0; border-bottom:1px solid #ddd;'>195-200 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #ddd;'>XL</td></tr>
+          <tr><td style='padding:6px 0; border-bottom:1px solid #ddd;'>185-194 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #ddd;'>L</td></tr>
+          <tr><td style='padding:6px 0; border-bottom:1px solid #ddd;'>178-185 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #ddd;'>M</td></tr>
+          <tr><td style='padding:6px 0; border-bottom:1px solid #ddd;'>170-177 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #ddd;'>S</td></tr>
+          <tr><td style='padding:6px 0; border-bottom:1px solid #ddd;'>162-169 cm</td><td style='padding:6px 0; text-align:right; font-weight:600; border-bottom:1px solid #ddd;'>XS</td></tr>
+          <tr><td style='padding:6px 0;'>158-162 cm</td><td style='padding:6px 0; text-align:right; font-weight:600;'>XXS</td></tr>
+        </table>
+      </div>
+      
+      <div style='margin-bottom:20px;'>
+        <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;'>Design Details</h4>
+        <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6; color:#333;'>
+          <li style='margin-bottom:8px;'>Maximum 4 colors in body, 5 per sleeve, 6 for hems and cuffs</li>
+          <li style='margin-bottom:8px;'>Third stripe on right arm is reversed</li>
+          <li style='margin-bottom:8px;'>Colors carefully selected to work in any combination</li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;'>Materials & Origin</h4>
+        <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6; color:#333;'>
+          <li style='margin-bottom:8px;'>100% superfine merino wool</li>
+          <li style='margin-bottom:8px;'>Made from start to finish in the Netherlands</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -2404,6 +2411,25 @@
     font-size: 16px !important;
   }
 }
+/* Garment info mobile responsiveness */
+@media (max-width: 768px) {
+  #garment-info-section {
+    padding: 16px !important;
+  }
+
+  #info-designer-name {
+    font-size: 20px !important;
+  }
+
+  #garment-info-section h4 {
+    font-size: 13px !important;
+  }
+
+  #garment-info-section ul,
+  #garment-info-section table {
+    font-size: 13px !important;
+  }
+}
 </style>
 
 <script>
@@ -3436,16 +3462,20 @@ function initSweaterDesigner(){
   if(defaultBtn) defaultBtn.addEventListener('click', applyDefaults);
   if(randomBtn) randomBtn.addEventListener('click', randomizeWithinConstraints);
 
-  // Info overlay functionality
+  // ============================================
+// GARMENT INFO OVERLAY FUNCTIONALITY
+// ============================================
 const infoOverlay = document.getElementById('info-overlay');
 const closeInfoBtn = document.getElementById('close-info-btn');
 const infoDesignerName = document.getElementById('info-designer-name');
-const infoDesignerImg = document.getElementById('info-designer-img');
+const infoCarouselImg = document.getElementById('info-carousel-img');
 
 function openInfoOverlay() {
   const designer = DESIGNERS[currentDesigner];
+  
   if (infoDesignerName) infoDesignerName.textContent = designer.name;
-  if (infoDesignerImg) infoDesignerImg.src = designer.tooltipImage;
+  if (infoCarouselImg) infoCarouselImg.src = designer.tooltipImage;
+  
   if (infoOverlay) infoOverlay.style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
@@ -3473,6 +3503,27 @@ if (infoOverlay) {
     }
   });
 }
+
+document.getElementById('info-content')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+});
+
+// Keyboard escape for info overlay
+document.addEventListener('keydown', (e) => {
+  if (infoOverlay?.style.display === 'block' && e.key === 'Escape') {
+    closeInfoOverlay();
+  }
+});
+
+
+if (infoOverlay) {
+  infoOverlay.addEventListener('click', (e) => {
+    if (e.target === infoOverlay) {
+      closeInfoOverlay();
+    }
+  });
+}
+
 
 document.getElementById('info-content')?.addEventListener('click', (e) => {
   e.stopPropagation();
