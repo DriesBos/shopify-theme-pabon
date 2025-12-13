@@ -1033,7 +1033,6 @@
   </button>
 </div>
 
-<!-- Hidden data from Shopify settings -->
 <script type='application/json' id='designer-gallery-data'>
   {
     "0": {
@@ -1106,24 +1105,18 @@
       ]
     },
     "sizing": {
-      // Keep your existing sizing section here
+      "images": [
+        {% if section.settings.sizing_image_1 %}"{{ section.settings.sizing_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.sizing_image_2 %}"{{ section.settings.sizing_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.sizing_image_3 %}"{{ section.settings.sizing_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+      ],
+      "videos": [
+        {% if section.settings.sizing_video_1 %}"{{ section.settings.sizing_video_1.sources[0].url }}"{% else %}""{% endif %},
+        {% if section.settings.sizing_video_2 %}"{{ section.settings.sizing_video_2.sources[0].url }}"{% else %}""{% endif %},
+        {% if section.settings.sizing_video_3 %}"{{ section.settings.sizing_video_3.sources[0].url }}"{% else %}""{% endif %}
+      ],
+      "description": {{ section.settings.sizing_description | json }}
     }
-  }
-</script>
-,
-"sizing": {
-  "images": [
-    {% if section.settings.sizing_image_1 %}"{{ section.settings.sizing_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-    {% if section.settings.sizing_image_2 %}"{{ section.settings.sizing_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-    {% if section.settings.sizing_image_3 %}"{{ section.settings.sizing_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-  ],
-  "videos": [
-    {% if section.settings.sizing_video_1 %}"{{ section.settings.sizing_video_1.sources[0].url }}"{% else %}""{% endif %},
-    {% if section.settings.sizing_video_2 %}"{{ section.settings.sizing_video_2.sources[0].url }}"{% else %}""{% endif %},
-    {% if section.settings.sizing_video_3 %}"{{ section.settings.sizing_video_3.sources[0].url }}"{% else %}""{% endif %}
-  ],
-  "description": {{ section.settings.sizing_description | json }}
-}
   }
 </script>
 
