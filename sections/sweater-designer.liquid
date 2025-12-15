@@ -4417,94 +4417,42 @@ document.addEventListener('keydown', (e) => {
 }
   
   function showSizingSlide(index) {
-  const sizingData = galleryData.sizing || {};
-  const images = (sizingData.images || []).filter(img => img && img !== '');
-  const videos = (sizingData.videos ||function showSizingSlide(index) {
-  if (sizingSlideCount === 0) return;
-  if (index < 0) index = sizingSlideCount - 1;
-  if (index >= sizingSlideCount) index = 0;
-  sizingCarouselIndex = index;
-  
-  const allSlides = document.querySelectorAll('.sizing-carousel-slide');
-  allSlides?.forEach(slide => {
-    slide.classList.remove('active');
-    slide.style.display = 'none';
-    const video = slide.querySelector('.sizing-slide-video');
-    if (video) video.pause();
-  });
-  
-  const currentSlide = allSlides[index];
-  if (currentSlide) {
-    currentSlide.style.display = 'flex';
-    currentSlide.classList.add('active');
+    if (sizingSlideCount === 0) return;
+    if (index < 0) index = sizingSlideCount - 1;
+    if (index >= sizingSlideCount) index = 0;
+    sizingCarouselIndex = index;
     
-    const img = currentSlide.querySelector('.sizing-slide-img');
-    const video = currentSlide.querySelector('.sizing-slide-video');
+    const allSlides = document.querySelectorAll('.sizing-carousel-slide');
+    allSlides?.forEach(slide => {
+      slide.classList.remove('active');
+      slide.style.display = 'none';
+      const video = slide.querySelector('.sizing-slide-video');
+      if (video) video.pause();
+    });
     
-    if (video && video.src) {
-      video.style.display = 'block';
-      if (img) img.style.display = 'none';
-      video.play().catch(e => console.log('Autoplay prevented'));
-    } else if (img && img.src) {
-      img.style.display = 'block';
-      if (video) video.style.display = 'none';
+    const currentSlide = allSlides[index];
+    if (currentSlide) {
+      currentSlide.style.display = 'flex';
+      currentSlide.classList.add('active');
+      
+      const img = currentSlide.querySelector('.sizing-slide-img');
+      const video = currentSlide.querySelector('.sizing-slide-video');
+      
+      if (video && video.src) {
+        video.style.display = 'block';
+        if (img) img.style.display = 'none';
+        video.play().catch(e => console.log('Autoplay prevented'));
+      } else if (img && img.src) {
+        img.style.display = 'block';
+        if (video) video.style.display = 'none';
+      }
     }
+    
+    const dots = sizingCarouselDots?.querySelectorAll('.carousel-dot');
+    dots?.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
   }
-  
-  const dots = sizingCarouselDots?.querySelectorAll('.carousel-dot');
-  dots?.forEach((dot, i) => {
-    dot.classList.toggle('active', i === index);
-  });
-  
-  if (sizingSlideCount === 0) return;
-  if (index < 0) index = sizingSlideCount - 1;
-  if (index >= sizingSlideCount) index = 0;
-  sizingCarouselIndex = index;
-  
-  // Determine if current slide is a video
-  const isVideoSlide = index >= images.length;
-  
-  // Show/hide sound toggle based on slide type
-  if (sizingSoundToggle) {
-    sizingSoundToggle.style.display = isVideoSlide ? 'flex' : 'none';
-  }
-  
-  // Hide all slides and pause all videos
-  const allSlides = document.querySelectorAll('.sizing-carousel-slide');
-  allSlides?.forEach(slide => {
-    slide.classList.remove('active');
-    slide.style.display = 'none';
-    const video = slide.querySelector('video');
-    if (video) video.pause();
-  });
-  
-  // Show current slide
-  if (index < images.length) {
-    // It's an image slide
-    const imgSlide = document.getElementById(`sizing-carousel-img-${index}`)?.parentElement;
-    if (imgSlide) {
-      imgSlide.style.display = 'flex';
-      imgSlide.classList.add('active');
-    }
-  } else {
-    // It's a video slide
-    const videoIndex = index - images.length;
-    const video = document.getElementById(`sizing-carousel-video-${videoIndex}`);
-    const videoSlide = video?.parentElement;
-    if (videoSlide && video) {
-      videoSlide.style.display = 'flex';
-      videoSlide.classList.add('active');
-      video.muted = isSizingVideoMuted;
-      video.play().catch(e => console.log('Autoplay prevented:', e));
-    }
-  }
-  
-  // Update dots
-  const dots = sizingCarouselDots?.querySelectorAll('.carousel-dot');
-  dots?.forEach((dot, i) => {
-    dot.classList.toggle('active', i === index);
-  });
-}
   
   function closeSizingOverlay() {
   if (sizingOverlay) sizingOverlay.style.display = 'none';
