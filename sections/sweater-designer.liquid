@@ -1311,17 +1311,17 @@
     class='overlay-close'
     onclick='closeSizingOverlay()'
     aria-label='Close sizing guide'
-    style='position:fixed; top:2vh; right:2vw; background:rgba(255,255,255,0.2); border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:10001; transition:background 0.2s;'
+   style='position:fixed; top:20px; right:20px; background:rgba(255,255,255,0.2); border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:10001; transition:background 0.2s;'
   >
     <span style='color:#fff; font-size:32px; line-height:1;'>×</span>
   </button>
 
   <div
     id='sizing-content'
-    style='position:relative; width:calc(100vw - 4vw); min-height:calc(100vh - 4vh); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
+  style='position:relative; width:100vw; height:100vh; margin:0; display:flex; flex-direction:column;' max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
   >
     <!-- Sizing Carousel Container - FIXED HEIGHT -->
-    <div id='sizing-carousel-container' style='flex:0 0 auto; height:65vh; max-height:65vh; position:relative; width:100%; background:#000; display:flex; align-items:center; justify-content:center; overflow:hidden;'>
+    <div id='sizing-carousel-container' style='flex:1; position:relative; width:100%; background:#000; display:flex; align-items:center; justify-content:center; overflow:hidden;'>
       <div id='sizing-carousel-track' style='height:100%; width:100%; position:relative;'>
         <!-- Your 8 slides here (don't change these) -->
         
@@ -1382,9 +1382,6 @@
       >
         <span style='color:#fff; font-size:24px; margin-left:2px;'>›</span>
       </button>
-
-      <!-- Carousel Dots -->
-      <div id='sizing-carousel-dots' style='position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:100;'></div>
 
       <!-- Sound Toggle -->
       <button
@@ -2071,13 +2068,16 @@
   }
 
   .carousel-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.4);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  min-height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
 
   .carousel-dot:hover {
     background: rgba(255,255,255,0.7);
@@ -2610,6 +2610,40 @@
   #garment-info-section table {
     font-size: 13px !important;
   }
+}
+/* Sizing full screen */
+#sizing-overlay {
+  background: rgba(0,0,0,0.95) !important;
+}
+
+#sizing-info {
+  background: #fff;
+  padding: 32px 40px;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.sizing-carousel-slide {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.sizing-carousel-slide.active {
+  display: flex !important;
+  position: relative;
+}
+
+.sizing-carousel-slide video,
+.sizing-carousel-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 </style>
 
@@ -4385,7 +4419,42 @@ document.addEventListener('keydown', (e) => {
   function showSizingSlide(index) {
   const sizingData = galleryData.sizing || {};
   const images = (sizingData.images || []).filter(img => img && img !== '');
-  const videos = (sizingData.videos || []).filter(vid => vid && vid !== '');
+  const videos = (sizingData.videos ||function showSizingSlide(index) {
+  if (sizingSlideCount === 0) return;
+  if (index < 0) index = sizingSlideCount - 1;
+  if (index >= sizingSlideCount) index = 0;
+  sizingCarouselIndex = index;
+  
+  const allSlides = document.querySelectorAll('.sizing-carousel-slide');
+  allSlides?.forEach(slide => {
+    slide.classList.remove('active');
+    slide.style.display = 'none';
+    const video = slide.querySelector('.sizing-slide-video');
+    if (video) video.pause();
+  });
+  
+  const currentSlide = allSlides[index];
+  if (currentSlide) {
+    currentSlide.style.display = 'flex';
+    currentSlide.classList.add('active');
+    
+    const img = currentSlide.querySelector('.sizing-slide-img');
+    const video = currentSlide.querySelector('.sizing-slide-video');
+    
+    if (video && video.src) {
+      video.style.display = 'block';
+      if (img) img.style.display = 'none';
+      video.play().catch(e => console.log('Autoplay prevented'));
+    } else if (img && img.src) {
+      img.style.display = 'block';
+      if (video) video.style.display = 'none';
+    }
+  }
+  
+  const dots = sizingCarouselDots?.querySelectorAll('.carousel-dot');
+  dots?.forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
   
   if (sizingSlideCount === 0) return;
   if (index < 0) index = sizingSlideCount - 1;
