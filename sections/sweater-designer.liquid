@@ -4507,14 +4507,14 @@ document.addEventListener('keydown', (e) => {
   });
   
   sizingCarouselPrev?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    showSizingSlide(sizingCarouselIndex - 1);
-  });
-  
-  sizingCarouselNext?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    showSizingSlide(sizingCarouselIndex + 1);
-  });
+  e.stopPropagation();
+  navigateSizing(-1);  // ← Fixed!
+});
+
+sizingCarouselNext?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  navigateSizing(1);  // ← Fixed!
+});
   
   sizingCarouselDots?.addEventListener('click', (e) => {
     const dot = e.target.closest('.carousel-dot');
