@@ -1628,10 +1628,8 @@
         { "name": {{ section.settings.jones_color_5_name | json }}, "hex": "{{ section.settings.jones_color_5 }}" },
         { "name": {{ section.settings.jones_color_6_name | json }}, "hex": "{{ section.settings.jones_color_6 }}" }
       ]
-    }
-,
+        },
 "sizing": {
-  "images": "sizing": {
   "slides": [
     {% if section.settings.sizing_slot_1_type == "image" and section.settings.sizing_slot_1_image %}
       { "type": "image", "src": "{{ section.settings.sizing_slot_1_image | image_url: width: 1200 }}" },
