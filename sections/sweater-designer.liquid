@@ -4546,5 +4546,37 @@ document.addEventListener('keydown', (e) => {
       }
     }
   });
+  // Handle window resize for sizing modal
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    if (sizingOverlay?.style.display !== 'block') return;
+    
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      const currentSlide = document.querySelector('.sizing-carousel-slide.active');
+      if (!currentSlide) return;
+      
+      const video = currentSlide.querySelector('.sizing-slide-video');
+      if (video && video.src && !video.paused) {
+        video.play().catch(e => console.log('Autoplay prevented on resize'));
+      }
+      
+      const allSlides = document.querySelectorAll('.sizing-carousel-slide');
+      allSlides.forEach((slide, index) => {
+        if (slide === currentSlide) {
+          slide.style.display = 'flex';
+          slide.classList.add('active');
+        } else {
+          slide.style.display = 'none';
+          slide.classList.remove('active');
+        }
+      });
+      
+      const dots = sizingCarouselDots?.querySelectorAll('.carousel-dot');
+      dots?.forEach((dot, i) => {
+        dot.classList.toggle('active', i === sizingCarouselIndex);
+      });
+    }, 150);
+  });
 }
 </script>
