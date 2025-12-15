@@ -2595,6 +2595,65 @@
 .sizing-slide-video {
   pointer-events: none !important;
 }
+#sizing-overlay {
+  -webkit-overflow-scrolling: touch;
+}
+
+.sizing-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sizing-slide.active {
+  display: flex;
+  opacity: 1;
+}
+
+.sizing-slide img,
+.sizing-slide video {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.sizing-slide video {
+  width: 100%;
+  height: 100%;
+}
+
+#sizing-prev:hover,
+#sizing-next:hover,
+#close-sizing:hover {
+  background: rgba(255,255,255,0.5);
+}
+
+.sizing-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.sizing-dot:hover {
+  background: rgba(255,255,255,0.7);
+}
+
+.sizing-dot.active {
+  background: #fff;
+  transform: scale(1.2);
+}
 </style>
 
 <script>
@@ -4259,290 +4318,159 @@ document.addEventListener('keydown', (e) => {
     tutorialBtn.textContent = '?';
   }
 // ============================================
-  // SIZING OVERLAY FUNCTIONALITY
-  // ============================================
+// SIZING OVERLAY - SIMPLIFIED & WORKING
+// ============================================
+
+const sizingOverlay = document.getElementById('sizing-overlay');
+const sizingSlidesContainer = document.getElementById('sizing-slides');
+const sizingDotsContainer = document.getElementById('sizing-dots');
+const sizingDescription = document.getElementById('sizing-description');
+const sizingPrevBtn = document.getElementById('sizing-prev');
+const sizingNextBtn = document.getElementById('sizing-next');
+const closeSizingBtn = document.getElementById('close-sizing');
+const sizingBtn = document.getElementById('sizing-btn');
+
+let sizingSlides = [];
+let currentSizingIndex = 0;
+
+function initSizingModal() {
+  const sizingData = galleryData?.sizing;
+  if (!sizingData) return;
   
-  const sizingBtn = document.getElementById('sizing-btn');
-  const sizingOverlay = document.getElementById('sizing-overlay');
-  const closeSizingBtn = document.getElementById('close-sizing-btn');
-  const sizingCarouselContainer = document.getElementById('sizing-carousel-container');
-  const sizingCarouselPrev = document.getElementById('sizing-carousel-prev');
-  const sizingCarouselNext = document.getElementById('sizing-carousel-next');
-  const sizingCarouselDots = document.getElementById('sizing-carousel-dots');
-  const sizingCarouselVideo = document.getElementById('sizing-carousel-video');
-  const sizingSoundToggle = document.getElementById('sizing-sound-toggle');
-  const sizingSoundOn = document.getElementById('sizing-sound-on');
-  const sizingSoundOff = document.getElementById('sizing-sound-off');
-  const sizingDescriptionText = document.getElementById('sizing-description-text');
+  // Get slides from Shopify data
+  const rawSlides = sizingData.slides || [];
+  sizingSlides = rawSlides.filter(s => s && s.type !== 'none' && s.type !== 'dummy' && s.src);
   
-  let sizingCarouselIndex = 0;
-  let sizingSlideCount = 0;
-  let isSizingVideoMuted = false;
+  console.log('Sizing slides loaded:', sizingSlides.length);
   
-  function openSizingOverlay() {
-  const sizingData = galleryData.sizing || {};
-  
-  // Get slides in the order they were configured
-  const slides = (sizingData.slides || [])
-    .filter(slide => slide && slide.type && slide.type !== 'dummy' && slide.src && slide.src !== '');
-  
-  sizingCarouselIndex = 0;
-  sizingSlideCount = slides.length;
-  
-  // Reset all slides
-  const allSlides = document.querySelectorAll('.sizing-carousel-slide');
-  allSlides.forEach(slide => {
-    slide.style.display = 'none';
-    slide.classList.remove('active');
-    const img = slide.querySelector('.sizing-slide-img');
-    const video = slide.querySelector('.sizing-slide-video');
-    if (img) {
-      img.style.display = 'none';
-      img.src = '';
-    }
-    if (video) {
-      video.style.display = 'none';
-      video.pause();
-      video.src = '';
-    }
-  });
-  
-  // Populate slides with content
-  slides.forEach((slideData, i) => {
-    if (i >= 8) return; // Max 8 slides
-    
-    const slideElement = allSlides[i];
-    if (!slideElement) return;
-    
-    const img = slideElement.querySelector('.sizing-slide-img');
-    const video = slideElement.querySelector('.sizing-slide-video');
-    
-    if (slideData.type === 'image' && img) {
-      img.src = slideData.src;
-      img.style.display = 'block';
-      video.style.display = 'none';
-      slideElement.dataset.type = 'image';
-    } else if (slideData.type === 'video' && video) {
-      video.src = slideData.src;
-      video.load();
-      video.style.display = 'block';
-      img.style.display = 'none';
-      slideElement.dataset.type = 'video';
-      slideElement.classList.add('sizing-carousel-video-slide');
-    }
-  });
-  
-  // Setup dots
-  if (sizingCarouselDots) {
-    sizingCarouselDots.innerHTML = '';
-    slides.forEach((slide, i) => {
-      const dot = document.createElement('span');
-      dot.className = 'carousel-dot' + (slide.type === 'video' ? ' carousel-dot-video' : '');
-      dot.dataset.index = i;
-      if (i === 0) dot.classList.add('active');
-      sizingCarouselDots.appendChild(dot);
-    });
+  if (sizingSlides.length === 0) {
+    console.warn('No sizing slides configured in Shopify');
+    return;
   }
   
-  // Handle single slide
-  if (sizingSlideCount <= 1) {
-    sizingCarouselContainer?.classList.add('single-slide');
-  } else {
-    sizingCarouselContainer?.classList.remove('single-slide');
-  }
+  // Build slides HTML
+  sizingSlidesContainer.innerHTML = '';
+  sizingSlides.forEach((slide, i) => {
+    const slideDiv = document.createElement('div');
+    slideDiv.className = 'sizing-slide' + (i === 0 ? ' active' : '');
+    
+    if (slide.type === 'image') {
+      slideDiv.innerHTML = `<img src="${slide.src}" alt="Sizing guide ${i+1}">`;
+    } else if (slide.type === 'video') {
+      slideDiv.innerHTML = `<video src="${slide.src}" controls loop playsinline webkit-playsinline style="width:100%; height:100%; object-fit:contain;"></video>`;
+    }
+    
+    sizingSlidesContainer.appendChild(slideDiv);
+  });
+  
+  // Build dots
+  sizingDotsContainer.innerHTML = '';
+  sizingSlides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'sizing-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goToSizingSlide(i);
+    sizingDotsContainer.appendChild(dot);
+  });
   
   // Set description
-  if (sizingDescriptionText) {
-    sizingDescriptionText.textContent = sizingData.description || '';
+  if (sizingDescription && sizingData.description) {
+    sizingDescription.textContent = sizingData.description;
   }
   
-  // Show first slide
-  if (sizingSlideCount > 0) {
-    showSizingSlide(0);
+  // Hide arrows if only one slide
+  if (sizingSlides.length <= 1) {
+    sizingPrevBtn.style.display = 'none';
+    sizingNextBtn.style.display = 'none';
   }
-  
-  // Show overlay
-  if (sizingOverlay) sizingOverlay.style.display = 'block';
-  document.body.style.overflow = 'hidden';
 }
 
-  function navigateSizing(direction) {
-  showSizingSlide(sizingCarouselIndex + direction);
+function openSizingModal() {
+  if (!sizingOverlay || sizingSlides.length === 0) return;
+  
+  sizingOverlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  
+  goToSizingSlide(0);
 }
-  function showSizingSlide(index) {
-    if (sizingSlideCount === 0) return;
-    if (index < 0) index = sizingSlideCount - 1;
-    if (index >= sizingSlideCount) index = 0;
-    sizingCarouselIndex = index;
-    
-    const allSlides = document.querySelectorAll('.sizing-carousel-slide');
-    allSlides?.forEach(slide => {
-      slide.classList.remove('active');
-      slide.style.display = 'none';
-      const video = slide.querySelector('.sizing-slide-video');
-      if (video) video.pause();
-    });
-    
-    const currentSlide = allSlides[index];
-    if (currentSlide) {
-      currentSlide.style.display = 'flex';
-      currentSlide.classList.add('active');
-      
-      const img = currentSlide.querySelector('.sizing-slide-img');
-      const video = currentSlide.querySelector('.sizing-slide-video');
-      
-      if (video && video.src) {
-        video.style.display = 'block';
-        if (img) img.style.display = 'none';
-        video.play().catch(e => console.log('Autoplay prevented'));
-      } else if (img && img.src) {
-        img.style.display = 'block';
-        if (video) video.style.display = 'none';
-      }
-    }
-    
-    const dots = sizingCarouselDots?.querySelectorAll('.carousel-dot');
-    dots?.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
-    });
-  }
-   function navigateSizing(direction) {
-    showSizingSlide(sizingCarouselIndex + direction);
-  }
-  function closeSizingOverlay() {
-  if (sizingOverlay) sizingOverlay.style.display = 'none';
+
+function closeSizingModal() {
+  if (!sizingOverlay) return;
+  
+  sizingOverlay.style.display = 'none';
   document.body.style.overflow = '';
   
-  // Pause all sizing videos
-  for (let i = 0; i < 3; i++) {
-    const video = document.getElementById(`sizing-carousel-video-${i}`);
-    if (video) {
-      video.pause();
-      video.currentTime = 0;
-    }
-  }
-  
-  if (sizingSoundToggle) {
-    sizingSoundToggle.style.display = 'none';
-  }
+  // Pause all videos
+  document.querySelectorAll('.sizing-slide video').forEach(v => {
+    v.pause();
+    v.currentTime = 0;
+  });
 }
+
+function goToSizingSlide(index) {
+  if (sizingSlides.length === 0) return;
   
-  function updateSizingSoundIcon() {
-    if (isSizingVideoMuted) {
-      sizingSoundOn.style.display = 'none';
-      sizingSoundOff.style.display = 'block';
-      sizingSoundToggle?.classList.add('muted');
+  // Wrap around
+  if (index < 0) index = sizingSlides.length - 1;
+  if (index >= sizingSlides.length) index = 0;
+  
+  currentSizingIndex = index;
+  
+  // Update slides
+  const allSlides = document.querySelectorAll('.sizing-slide');
+  allSlides.forEach((slide, i) => {
+    if (i === index) {
+      slide.classList.add('active');
+      
+      // Autoplay video if present
+      const video = slide.querySelector('video');
+      if (video) {
+        video.play().catch(e => console.log('Autoplay prevented'));
+      }
     } else {
-      sizingSoundOn.style.display = 'block';
-      sizingSoundOff.style.display = 'none';
-      sizingSoundToggle?.classList.remove('muted');
+      slide.classList.remove('active');
+      
+      // Pause other videos
+      const video = slide.querySelector('video');
+      if (video) video.pause();
     }
+  });
+  
+  // Update dots
+  const allDots = document.querySelectorAll('.sizing-dot');
+  allDots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
+}
+
+function nextSizingSlide() {
+  goToSizingSlide(currentSizingIndex + 1);
+}
+
+function prevSizingSlide() {
+  goToSizingSlide(currentSizingIndex - 1);
+}
+
+// Event listeners
+if (sizingBtn) sizingBtn.addEventListener('click', openSizingModal);
+if (closeSizingBtn) closeSizingBtn.addEventListener('click', closeSizingModal);
+if (sizingPrevBtn) sizingPrevBtn.addEventListener('click', prevSizingSlide);
+if (sizingNextBtn) sizingNextBtn.addEventListener('click', nextSizingSlide);
+
+if (sizingOverlay) {
+  sizingOverlay.addEventListener('click', (e) => {
+    if (e.target === sizingOverlay) closeSizingModal();
+  });
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (sizingOverlay?.style.display === 'block') {
+    if (e.key === 'ArrowLeft') prevSizingSlide();
+    if (e.key === 'ArrowRight') nextSizingSlide();
+    if (e.key === 'Escape') closeSizingModal();
   }
-  
-  // Event listeners
-  sizingBtn?.addEventListener('click', openSizingOverlay);
-  closeSizingBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    closeSizingOverlay();
-  });
-  
-  sizingOverlay?.addEventListener('click', (e) => {
-    if (e.target === sizingOverlay) {
-      closeSizingOverlay();
-    }
-  });
-  
-  document.getElementById('sizing-content')?.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
-  
-  sizingCarouselPrev?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  navigateSizing(-1);  // ← Fixed!
 });
 
-sizingCarouselNext?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  navigateSizing(1);  // ← Fixed!
-});
-  
-  sizingCarouselDots?.addEventListener('click', (e) => {
-    const dot = e.target.closest('.carousel-dot');
-    if (dot) {
-      e.stopPropagation();
-      const index = parseInt(dot.dataset.index);
-      if (!isNaN(index)) {
-        showSizingSlide(index);
-      }
-    }
-  });
-  
-  sizingSoundToggle?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (sizingCarouselVideo) {
-      isSizingVideoMuted = !isSizingVideoMuted;
-      sizingCarouselVideo.muted = isSizingVideoMuted;
-      updateSizingSoundIcon();
-    }
-  });
-  
-  function toggleSizingSound() {
-    const allSlides = document.querySelectorAll('.sizing-carousel-slide');
-    allSlides.forEach(slide => {
-      const video = slide.querySelector('.sizing-slide-video');
-      if (video && video.src) {
-        isSizingVideoMuted = !isSizingVideoMuted;
-        video.muted = isSizingVideoMuted;
-      }
-    });
-    updateSizingSoundIcon();
-  }
-  // Keyboard navigation for sizing overlay
-  document.addEventListener('keydown', (e) => {
-    if (sizingOverlay?.style.display === 'block') {
-      if (e.key === 'ArrowLeft') showSizingSlide(sizingCarouselIndex - 1);
-      if (e.key === 'ArrowRight') showSizingSlide(sizingCarouselIndex + 1);
-      if (e.key === 'Escape') closeSizingOverlay();
-      if (e.key === 'm' || e.key === 'M') {
-        if (sizingCarouselVideo && sizingSoundToggle?.style.display === 'flex') {
-          isSizingVideoMuted = !isSizingVideoMuted;
-          sizingCarouselVideo.muted = isSizingVideoMuted;
-          updateSizingSoundIcon();
-        }
-      }
-    }
-  });
-  // Handle window resize for sizing modal
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    if (sizingOverlay?.style.display !== 'block') return;
-    
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      const currentSlide = document.querySelector('.sizing-carousel-slide.active');
-      if (!currentSlide) return;
-      
-      const video = currentSlide.querySelector('.sizing-slide-video');
-      if (video && video.src && !video.paused) {
-        video.play().catch(e => console.log('Autoplay prevented on resize'));
-      }
-      
-      const allSlides = document.querySelectorAll('.sizing-carousel-slide');
-      allSlides.forEach((slide, index) => {
-        if (slide === currentSlide) {
-          slide.style.display = 'flex';
-          slide.classList.add('active');
-        } else {
-          slide.style.display = 'none';
-          slide.classList.remove('active');
-        }
-      });
-      
-      const dots = sizingCarouselDots?.querySelectorAll('.carousel-dot');
-      dots?.forEach((dot, i) => {
-        dot.classList.toggle('active', i === sizingCarouselIndex);
-      });
-    }, 150);
-  });
-}
+// Initialize when page loads
+initSizingModal();
 </script>
