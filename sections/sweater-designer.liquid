@@ -4456,7 +4456,9 @@ document.addEventListener('keydown', (e) => {
       dot.classList.toggle('active', i === index);
     });
   }
-  
+   function navigateSizing(direction) {
+    showSizingSlide(sizingCarouselIndex + direction);
+  }
   function closeSizingOverlay() {
   if (sizingOverlay) sizingOverlay.style.display = 'none';
   document.body.style.overflow = '';
@@ -4533,9 +4535,6 @@ document.addEventListener('keydown', (e) => {
       updateSizingSoundIcon();
     }
   });
-  function navigateSizing(direction) {
-    showSizingSlide(sizingCarouselIndex + direction);
-  }
   
   function toggleSizingSound() {
     const allSlides = document.querySelectorAll('.sizing-carousel-slide');
