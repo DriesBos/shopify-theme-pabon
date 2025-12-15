@@ -472,6 +472,164 @@
 },
 {
   "type": "header",
+  "content": "═══ DESIGNER 4 ═══"
+},
+{
+  "type": "text",
+  "id": "designer4_name",
+  "label": "Designer Name",
+  "default": "Designer 4"
+},
+{
+  "type": "checkbox",
+  "id": "designer4_enabled",
+  "label": "✓ Show this designer",
+  "default": true
+},
+{
+  "type": "image_picker",
+  "id": "designer4_thumbnail",
+  "label": "Thumbnail Image"
+},
+{
+  "type": "image_picker",
+  "id": "designer4_image_1",
+  "label": "Gallery Image 1"
+},
+{
+  "type": "image_picker",
+  "id": "designer4_image_2",
+  "label": "Gallery Image 2"
+},
+{
+  "type": "image_picker",
+  "id": "designer4_image_3",
+  "label": "Gallery Image 3"
+},
+{
+  "type": "video",
+  "id": "designer4_video",
+  "label": "Video (optional)"
+},
+{
+  "type": "checkbox",
+  "id": "designer4_video_as_thumbnail",
+  "label": "Use video as mini thumbnail",
+  "default": false
+},
+{
+  "type": "checkbox",
+  "id": "designer4_video_preview",
+  "label": "Show 5-second preview loop",
+  "default": true
+},
+{
+  "type": "checkbox",
+  "id": "designer4_start_with_video",
+  "label": "Start popup with video",
+  "default": false
+},
+{
+  "type": "text",
+  "id": "designer4_painting_name",
+  "label": "Artwork Name",
+  "default": "Designer 4 Collection"
+},
+{
+  "type": "textarea",
+  "id": "designer4_bio",
+  "label": "Designer Bio",
+  "default": "A unique color palette featuring cool blues and warm neutrals."
+},
+{
+  "type": "url",
+  "id": "designer4_wikipedia",
+  "label": "Wikipedia/Website Link"
+},
+{
+  "type": "paragraph",
+  "content": "── Palette Colors ──"
+},
+{
+  "type": "color",
+  "id": "designer4_color_1",
+  "label": "Color 1 (5E5321)",
+  "default": "#96bfd1"
+},
+{
+  "type": "text",
+  "id": "designer4_color_1_name",
+  "label": "Color 1 Name",
+  "default": "5E5321"
+},
+{
+  "type": "color",
+  "id": "designer4_color_2",
+  "label": "Color 2 (5M0660)",
+  "default": "#445470"
+},
+{
+  "type": "text",
+  "id": "designer4_color_2_name",
+  "label": "Color 2 Name",
+  "default": "5M0660"
+},
+{
+  "type": "color",
+  "id": "designer4_color_3",
+  "label": "Color 3 (6M0339)",
+  "default": "#bdc6b5"
+},
+{
+  "type": "text",
+  "id": "designer4_color_3_name",
+  "label": "Color 3 Name",
+  "default": "6M0339"
+},
+{
+  "type": "color",
+  "id": "designer4_color_4",
+  "label": "Color 4 (6M0979)",
+  "default": "#333631"
+},
+{
+  "type": "text",
+  "id": "designer4_color_4_name",
+  "label": "Color 4 Name",
+  "default": "6M0979"
+},
+{
+  "type": "color",
+  "id": "designer4_color_5",
+  "label": "Color 5 (5M1857)",
+  "default": "#575a69"
+},
+{
+  "type": "text",
+  "id": "designer4_color_5_name",
+  "label": "Color 5 Name",
+  "default": "5M1857"
+},
+{
+  "type": "color",
+  "id": "designer4_color_6",
+  "label": "Color 6 (2M1653)",
+  "default": "#e2d0be"
+},
+{
+  "type": "text",
+  "id": "designer4_color_6_name",
+  "label": "Color 6 Name",
+  "default": "2M1653"
+},
+{
+  "type": "textarea",
+  "id": "designer4_default_pattern",
+  "label": "Default Pattern (Advanced)",
+  "info": "Leave empty to use built-in defaults."
+},
+{
+  "type": "header",
   "content": "═══ SIZING INFORMATION ═══"
 },
 {
@@ -1102,6 +1260,28 @@
         { "name": {{ section.settings.kleinebomen_color_4_name | json }}, "hex": "{{ section.settings.kleinebomen_color_4 }}" },
         { "name": {{ section.settings.kleinebomen_color_5_name | json }}, "hex": "{{ section.settings.kleinebomen_color_5 }}" },
         { "name": {{ section.settings.kleinebomen_color_6_name | json }}, "hex": "{{ section.settings.kleinebomen_color_6 }}" }
+      ]
+      "3": {
+      "thumbnail": {% if section.settings.designer4_thumbnail %}"{{ section.settings.designer4_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+      "images": [
+        {% if section.settings.designer4_image_1 %}"{{ section.settings.designer4_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.designer4_image_2 %}"{{ section.settings.designer4_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+        {% if section.settings.designer4_image_3 %}"{{ section.settings.designer4_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+      ],
+      "video": {% if section.settings.designer4_video %}"{{ section.settings.designer4_video.sources[0].url }}"{% else %}""{% endif %},
+      "videoAsThumbnail": {{ section.settings.designer4_video_as_thumbnail | json }},
+      "videoPreview": {{ section.settings.designer4_video_preview | json }},
+      "startWithVideo": {{ section.settings.designer4_start_with_video | json }},
+      "paintingName": {{ section.settings.designer4_painting_name | json }},
+      "bio": {{ section.settings.designer4_bio | json }},
+      "wikipedia": {{ section.settings.designer4_wikipedia | json }},
+      "colors": [
+        { "name": {{ section.settings.designer4_color_1_name | json }}, "hex": "{{ section.settings.designer4_color_1 }}" },
+        { "name": {{ section.settings.designer4_color_2_name | json }}, "hex": "{{ section.settings.designer4_color_2 }}" },
+        { "name": {{ section.settings.designer4_color_3_name | json }}, "hex": "{{ section.settings.designer4_color_3 }}" },
+        { "name": {{ section.settings.designer4_color_4_name | json }}, "hex": "{{ section.settings.designer4_color_4 }}" },
+        { "name": {{ section.settings.designer4_color_5_name | json }}, "hex": "{{ section.settings.designer4_color_5 }}" },
+        { "name": {{ section.settings.designer4_color_6_name | json }}, "hex": "{{ section.settings.designer4_color_6 }}" }
       ]
     },
     "sizing": {
@@ -2169,6 +2349,22 @@ function initSweaterDesigner(){
     tooltipImage: "",
     fallbackThumbnail: ""
   }
+  3: {
+    name: "Designer 4",
+    available: true,
+    enabled: {{ section.settings.designer4_enabled | default: false }},
+    defaults: {
+      "hem":"#333631","neck":"#96bfd1","Laag_2":"#575a69","Laag_3":"#445470","Laag_4":"#bdc6b5","Laag_5":"#e2d0be","Laag_6":"#96bfd1",
+      "Laag_7":"#333631","Laag_8":"#445470","Laag_9":"#575a69","Laag_10":"#bdc6b5","Laag_11":"#e2d0be","Laag_12":"#96bfd1",
+      "Laag_13":"#333631","Laag_14":"#445470","Laag_15":"#575a69","Laag_16":"#bdc6b5","Laag_17":"#e2d0be","Laag_18":"#96bfd1",
+      "Laag_19":"#333631","Laag_21":"#445470","Laag_22":"#575a69","Laag_23":"#bdc6b5","Laag_24":"#e2d0be","Laag_25":"#96bfd1",
+      "Laag_26":"#333631","Laag_27":"#445470","Laag_28":"#575a69","leftcuff":"#333631","rightcuff":"#333631"
+    },
+    tooltipTitle: "Designer 4",
+    tooltipImage: "",
+    fallbackThumbnail: ""
+  }
+};
 };
 
   // Helper functions for enabled designers
@@ -2229,6 +2425,14 @@ function initSweaterDesigner(){
     { name: "4M0833", hex: "#552731" },
     { name: "6M0302", hex: "#ecd450" },
     { name: "1E3066", hex: "#f1cb07" }
+  ]
+   3: [
+    { name: "5E5321", hex: "#96bfd1" },
+    { name: "5M0660", hex: "#445470" },
+    { name: "6M0339", hex: "#bdc6b5" },
+    { name: "6M0979", hex: "#333631" },
+    { name: "5M1857", hex: "#575a69" },
+    { name: "2M1653", hex: "#e2d0be" }
   ]
 };
     return fallbackColors[designerIndex] || fallbackColors[0];
