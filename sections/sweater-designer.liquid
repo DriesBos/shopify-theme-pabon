@@ -1314,103 +1314,123 @@
     ×
   </button>
 
+  <!-- Sizing Carousel Container -->
+<div
+  id="sizing-carousel-container"
+  style="
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    background: #000;
+    overflow: hidden;
+    flex-shrink: 0;
+  "
+>
+  <!-- Track -->
   <div
-    id='sizing-content'
-    style='position:relative; width:calc(100vw - 4vw); height:calc(100vh - 4vh); min-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
+    id="sizing-carousel-track"
+    style="position: relative; width: 100%; height: 100%;"
   >
-    <!-- Sizing Carousel Container -->
-    <div id='sizing-carousel-container' style='flex:0 0 auto; height:65vh; min-height:70vh; position:relative; width:100%; background:#000; overflow:hidden;'>
-      <!-- Sizing Carousel Images/Video -->
-      <div id='sizing-carousel-track' style='height:100%; width:100%; position:relative;'>
-        <!-- Slide 0 -->
-        <div class='sizing-carousel-slide' data-index='0' style='display:none;'>
-          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video
-            class='sizing-slide-video'
-            controls
-            playsinline
-            webkit-playsinline
-            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
-          ></video>
-        </div>
-        <!-- Slide 1 -->
-        <div class='sizing-carousel-slide' data-index='1' style='display:none;'>
-          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video
-            class='sizing-slide-video'
-            controls
-            playsinline
-            webkit-playsinline
-            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
-          ></video>
-        </div>
-        <!-- Slide 2 -->
-        <div class='sizing-carousel-slide' data-index='2' style='display:none;'>
-          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video
-            class='sizing-slide-video'
-            controls
-            playsinline
-            webkit-playsinline
-            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
-          ></video>
-        </div>
-        <!-- Slide 3 -->
-        <div class='sizing-carousel-slide' data-index='3' style='display:none;'>
-          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video
-            class='sizing-slide-video'
-            controls
-            playsinline
-            webkit-playsinline
-            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
-          ></video>
-        </div>
-        <!-- Slide 4 -->
-        <div class='sizing-carousel-slide' data-index='4' style='display:none;'>
-          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video
-            class='sizing-slide-video'
-            controls
-            playsinline
-            webkit-playsinline
-            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
-          ></video>
-        </div>
-        <!-- Slide 5 -->
-        <div class='sizing-carousel-slide' data-index='5' style='display:none;'>
-          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video
-            class='sizing-slide-video'
-            controls
-            playsinline
-            webkit-playsinline
-            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
-          ></video>
-        </div>
-        <!-- Slide 6 -->
-        <div class='sizing-carousel-slide' data-index='6' style='display:none;'>
-          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video
-            class='sizing-slide-video'
-            controls
-            playsinline
-            webkit-playsinline
-            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
-          ></video>
-        </div>
-        <!-- Slide 7 -->
-        <div class='sizing-carousel-slide' data-index='7' style='display:none;'>
-          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video
-            class='sizing-slide-video'
-            controls
-            playsinline
-            webkit-playsinline
-            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
-          ></video>
-        </div>
-      </div>
+    <!-- Image slides -->
+    <div class="sizing-carousel-slide" data-index="0" data-type="image">
+      <img
+        src=""
+        style="
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        "
+      />
+    </div>
+
+    <div class="sizing-carousel-slide" data-index="1" data-type="image" style="display:none;">
+      <img
+        src=""
+        style="
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        "
+      />
+    </div>
+
+    <div class="sizing-carousel-slide" data-index="2" data-type="image" style="display:none;">
+      <img
+        src=""
+        style="
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        "
+      />
+    </div>
+
+    <!-- Video slides -->
+    <div class="sizing-carousel-slide" data-index="3" data-type="video" style="display:none;">
+      <video
+        controls
+        playsinline
+        webkit-playsinline
+        style="
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          background: #000;
+        "
+      ></video>
+    </div>
+
+    <div class="sizing-carousel-slide" data-index="4" data-type="video" style="display:none;">
+      <video
+        controls
+        playsinline
+        webkit-playsinline
+        style="
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          background: #000;
+        "
+      ></video>
+    </div>
+
+    <div class="sizing-carousel-slide" data-index="5" data-type="video" style="display:none;">
+      <video
+        controls
+        playsinline
+        webkit-playsinline
+        style="
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          background: #000;
+        "
+      ></video>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <button id="sizing-carousel-prev" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); z-index:10;">
+    ‹
+  </button>
+
+  <button id="sizing-carousel-next" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); z-index:10;">
+    ›
+  </button>
+
+  <!-- Dots -->
+  <div
+    id="sizing-carousel-dots"
+    style="position:absolute; bottom:15px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:10;"
+  ></div>
+</div>
+
       </div>
 
       <!-- Sizing Carousel Navigation Arrows -->
