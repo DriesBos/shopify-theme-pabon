@@ -1328,42 +1328,42 @@
         <!-- Slide 0 -->
         <div class='sizing-carousel-slide' data-index='0' style='display:none;'>
           <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video class='sizing-slide-video' controls playsinline webkit-playsinline style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
+          <<video class='sizing-slide-video' controls playsinline webkit-playsinline loop style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
         </div>
         <!-- Slide 1 -->
         <div class='sizing-carousel-slide' data-index='1' style='display:none;'>
           <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video class='sizing-slide-video' controls playsinline webkit-playsinline style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
+          <<video class='sizing-slide-video' controls playsinline webkit-playsinline loop style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
         </div>
         <!-- Slide 2 -->
         <div class='sizing-carousel-slide' data-index='2' style='display:none;'>
           <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video class='sizing-slide-video' controls playsinline webkit-playsinline style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
+          <<video class='sizing-slide-video' controls playsinline webkit-playsinline loop style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
         </div>
         <!-- Slide 3 -->
         <div class='sizing-carousel-slide' data-index='3' style='display:none;'>
           <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video class='sizing-slide-video' controls playsinline webkit-playsinline style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
+          <<video class='sizing-slide-video' controls playsinline webkit-playsinline loop style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
         </div>
         <!-- Slide 4 -->
         <div class='sizing-carousel-slide' data-index='4' style='display:none;'>
           <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video class='sizing-slide-video' controls playsinline webkit-playsinline style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
+          <<video class='sizing-slide-video' controls playsinline webkit-playsinline loop style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
         </div>
         <!-- Slide 5 -->
         <div class='sizing-carousel-slide' data-index='5' style='display:none;'>
           <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video class='sizing-slide-video' controls playsinline webkit-playsinline style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
+          <<video class='sizing-slide-video' controls playsinline webkit-playsinline loop style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
         </div>
         <!-- Slide 6 -->
         <div class='sizing-carousel-slide' data-index='6' style='display:none;'>
           <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video class='sizing-slide-video' controls playsinline webkit-playsinline style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
+          <<video class='sizing-slide-video' controls playsinline webkit-playsinline loop style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
         </div>
         <!-- Slide 7 -->
         <div class='sizing-carousel-slide' data-index='7' style='display:none;'>
           <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
-          <video class='sizing-slide-video' controls playsinline webkit-playsinline style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
+          <<video class='sizing-slide-video' controls playsinline webkit-playsinline loop style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'></video>
         </div>
       </div>
 
@@ -4530,7 +4530,21 @@ document.addEventListener('keydown', (e) => {
       updateSizingSoundIcon();
     }
   });
+  function navigateSizing(direction) {
+    showSizingSlide(sizingCarouselIndex + direction);
+  }
   
+  function toggleSizingSound() {
+    const allSlides = document.querySelectorAll('.sizing-carousel-slide');
+    allSlides.forEach(slide => {
+      const video = slide.querySelector('.sizing-slide-video');
+      if (video && video.src) {
+        isSizingVideoMuted = !isSizingVideoMuted;
+        video.muted = isSizingVideoMuted;
+      }
+    });
+    updateSizingSoundIcon();
+  }
   // Keyboard navigation for sizing overlay
   document.addEventListener('keydown', (e) => {
     if (sizingOverlay?.style.display === 'block') {
