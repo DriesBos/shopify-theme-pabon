@@ -1322,45 +1322,95 @@
     <div id='sizing-carousel-container' style='flex:1; position:relative; width:100%; background:#000;'>
       <!-- Sizing Carousel Images/Video -->
       <div id='sizing-carousel-track' style='height:100%; width:100%; position:relative;'>
-  <!-- Image slides -->
-  <div class='sizing-carousel-slide' data-index='0' data-type='image'>
-    <img id='sizing-carousel-img-0' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain;'>
-  </div>
-  <div class='sizing-carousel-slide' data-index='1' data-type='image' style='display:none;'>
-    <img id='sizing-carousel-img-1' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain;'>
-  </div>
-  <div class='sizing-carousel-slide' data-index='2' data-type='image' style='display:none;'>
-    <img id='sizing-carousel-img-2' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain;'>
-  </div>
-  <!-- Video slides -->
-  <div class='sizing-carousel-slide sizing-carousel-video-slide' data-index='3' data-type='video' style='display:none;'>
-    <video
-      id='sizing-carousel-video-0'
-      controls
-      playsinline
-      webkit-playsinline
-      style='width:100%; height:auto; object-fit:contain; background:#000;'
-    ></video>
-  </div>
-  <div class='sizing-carousel-slide sizing-carousel-video-slide' data-index='4' data-type='video' style='display:none;'>
-    <video
-      id='sizing-carousel-video-1'
-      controls
-      playsinline
-      webkit-playsinline
-      style='width:100%; height:auto; object-fit:contain; background:#000;'
-    ></video>
-  </div>
-  <div class='sizing-carousel-slide sizing-carousel-video-slide' data-index='5' data-type='video' style='display:none;'>
-    <video
-      id='sizing-carousel-video-2'
-      controls
-      playsinline
-      webkit-playsinline
-      style='width:100%; height:auto; object-fit:contain; background:#000;'
-    ></video>
-  </div>
-</div>
+        <!-- Slide 0 -->
+        <div class='sizing-carousel-slide' data-index='0' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 1 -->
+        <div class='sizing-carousel-slide' data-index='1' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 2 -->
+        <div class='sizing-carousel-slide' data-index='2' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 3 -->
+        <div class='sizing-carousel-slide' data-index='3' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 4 -->
+        <div class='sizing-carousel-slide' data-index='4' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 5 -->
+        <div class='sizing-carousel-slide' data-index='5' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 6 -->
+        <div class='sizing-carousel-slide' data-index='6' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 7 -->
+        <div class='sizing-carousel-slide' data-index='7' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+      </div>
       </div>
 
       <!-- Sizing Carousel Navigation Arrows -->
@@ -1635,15 +1685,49 @@
     }
 ,
 "sizing": {
-  "images": [
-    {% if section.settings.sizing_image_1 %}"{{ section.settings.sizing_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-    {% if section.settings.sizing_image_2 %}"{{ section.settings.sizing_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-    {% if section.settings.sizing_image_3 %}"{{ section.settings.sizing_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-  ],
-  "videos": [
-    {% if section.settings.sizing_video_1 %}"{{ section.settings.sizing_video_1.sources[0].url }}"{% else %}""{% endif %},
-    {% if section.settings.sizing_video_2 %}"{{ section.settings.sizing_video_2.sources[0].url }}"{% else %}""{% endif %},
-    {% if section.settings.sizing_video_3 %}"{{ section.settings.sizing_video_3.sources[0].url }}"{% else %}""{% endif %}
+  "images": "sizing": {
+  "slides": [
+    {% if section.settings.sizing_slot_1_type == "image" and section.settings.sizing_slot_1_image %}
+      { "type": "image", "src": "{{ section.settings.sizing_slot_1_image | image_url: width: 1200 }}" },
+    {% elsif section.settings.sizing_slot_1_type == "video" and section.settings.sizing_slot_1_video %}
+      { "type": "video", "src": "{{ section.settings.sizing_slot_1_video.sources[0].url }}" },
+    {% endif %}
+    {% if section.settings.sizing_slot_2_type == "image" and section.settings.sizing_slot_2_image %}
+      { "type": "image", "src": "{{ section.settings.sizing_slot_2_image | image_url: width: 1200 }}" },
+    {% elsif section.settings.sizing_slot_2_type == "video" and section.settings.sizing_slot_2_video %}
+      { "type": "video", "src": "{{ section.settings.sizing_slot_2_video.sources[0].url }}" },
+    {% endif %}
+    {% if section.settings.sizing_slot_3_type == "image" and section.settings.sizing_slot_3_image %}
+      { "type": "image", "src": "{{ section.settings.sizing_slot_3_image | image_url: width: 1200 }}" },
+    {% elsif section.settings.sizing_slot_3_type == "video" and section.settings.sizing_slot_3_video %}
+      { "type": "video", "src": "{{ section.settings.sizing_slot_3_video.sources[0].url }}" },
+    {% endif %}
+    {% if section.settings.sizing_slot_4_type == "image" and section.settings.sizing_slot_4_image %}
+      { "type": "image", "src": "{{ section.settings.sizing_slot_4_image | image_url: width: 1200 }}" },
+    {% elsif section.settings.sizing_slot_4_type == "video" and section.settings.sizing_slot_4_video %}
+      { "type": "video", "src": "{{ section.settings.sizing_slot_4_video.sources[0].url }}" },
+    {% endif %}
+    {% if section.settings.sizing_slot_5_type == "image" and section.settings.sizing_slot_5_image %}
+      { "type": "image", "src": "{{ section.settings.sizing_slot_5_image | image_url: width: 1200 }}" },
+    {% elsif section.settings.sizing_slot_5_type == "video" and section.settings.sizing_slot_5_video %}
+      { "type": "video", "src": "{{ section.settings.sizing_slot_5_video.sources[0].url }}" },
+    {% endif %}
+    {% if section.settings.sizing_slot_6_type == "image" and section.settings.sizing_slot_6_image %}
+      { "type": "image", "src": "{{ section.settings.sizing_slot_6_image | image_url: width: 1200 }}" },
+    {% elsif section.settings.sizing_slot_6_type == "video" and section.settings.sizing_slot_6_video %}
+      { "type": "video", "src": "{{ section.settings.sizing_slot_6_video.sources[0].url }}" },
+    {% endif %}
+    {% if section.settings.sizing_slot_7_type == "image" and section.settings.sizing_slot_7_image %}
+      { "type": "image", "src": "{{ section.settings.sizing_slot_7_image | image_url: width: 1200 }}" },
+    {% elsif section.settings.sizing_slot_7_type == "video" and section.settings.sizing_slot_7_video %}
+      { "type": "video", "src": "{{ section.settings.sizing_slot_7_video.sources[0].url }}" },
+    {% endif %}
+    {% if section.settings.sizing_slot_8_type == "image" and section.settings.sizing_slot_8_image %}
+      { "type": "image", "src": "{{ section.settings.sizing_slot_8_image | image_url: width: 1200 }}" },
+    {% elsif section.settings.sizing_slot_8_type == "video" and section.settings.sizing_slot_8_video %}
+      { "type": "video", "src": "{{ section.settings.sizing_slot_8_video.sources[0].url }}" },
+    {% endif %}
+    { "type": "dummy" }
   ],
   "description": {{ section.settings.sizing_description | json }}
 }
@@ -4280,67 +4364,63 @@ document.addEventListener('keydown', (e) => {
   
   function openSizingOverlay() {
   const sizingData = galleryData.sizing || {};
-  const images = (sizingData.images || []).filter(img => img && img !== '');
-  const videos = (sizingData.videos || []).filter(vid => vid && vid !== '');
+  
+  // Get slides in the order they were configured
+  const slides = (sizingData.slides || [])
+    .filter(slide => slide && slide.type && slide.type !== 'dummy' && slide.src && slide.src !== '');
   
   sizingCarouselIndex = 0;
+  sizingSlideCount = slides.length;
   
-  const slideContent = [];
-  
-  // Add images first
-  images.forEach((img, i) => {
-    slideContent.push({ type: 'image', src: img, index: i });
+  // Reset all slides
+  const allSlides = document.querySelectorAll('.sizing-carousel-slide');
+  allSlides.forEach(slide => {
+    slide.style.display = 'none';
+    slide.classList.remove('active');
+    const img = slide.querySelector('.sizing-slide-img');
+    const video = slide.querySelector('.sizing-slide-video');
+    if (img) {
+      img.style.display = 'none';
+      img.src = '';
+    }
+    if (video) {
+      video.style.display = 'none';
+      video.pause();
+      video.src = '';
+    }
   });
   
-  // Then add videos
-  videos.forEach((vid, i) => {
-    slideContent.push({ type: 'video', src: vid, index: images.length + i });
+  // Populate slides with content
+  slides.forEach((slideData, i) => {
+    if (i >= 8) return; // Max 8 slides
+    
+    const slideElement = allSlides[i];
+    if (!slideElement) return;
+    
+    const img = slideElement.querySelector('.sizing-slide-img');
+    const video = slideElement.querySelector('.sizing-slide-video');
+    
+    if (slideData.type === 'image' && img) {
+      img.src = slideData.src;
+      img.style.display = 'block';
+      video.style.display = 'none';
+      slideElement.dataset.type = 'image';
+    } else if (slideData.type === 'video' && video) {
+      video.src = slideData.src;
+      video.load();
+      video.style.display = 'block';
+      img.style.display = 'none';
+      slideElement.dataset.type = 'video';
+      slideElement.classList.add('sizing-carousel-video-slide');
+    }
   });
-  
-  sizingSlideCount = slideContent.length;
-  
-  // Setup image slides
-  for (let i = 0; i < 3; i++) {
-    const img = document.getElementById(`sizing-carousel-img-${i}`);
-    const slide = img?.parentElement;
-    if (img && slide) {
-      if (images[i]) {
-        img.src = images[i];
-        slide.style.display = 'none';
-        slide.classList.remove('active');
-        slide.dataset.index = i;
-      } else {
-        slide.style.display = 'none';
-        slide.classList.remove('active');
-      }
-    }
-  }
-  
-  // Setup video slides
-  for (let i = 0; i < 3; i++) {
-    const video = document.getElementById(`sizing-carousel-video-${i}`);
-    const slide = video?.parentElement;
-    if (video && slide) {
-      if (videos[i]) {
-        video.pause();
-        video.src = videos[i];
-        video.load();
-        slide.style.display = 'none';
-        slide.classList.remove('active');
-        slide.dataset.index = images.length + i;
-      } else {
-        slide.style.display = 'none';
-        slide.classList.remove('active');
-      }
-    }
-  }
   
   // Setup dots
   if (sizingCarouselDots) {
     sizingCarouselDots.innerHTML = '';
-    slideContent.forEach((item, i) => {
+    slides.forEach((slide, i) => {
       const dot = document.createElement('span');
-      dot.className = 'carousel-dot' + (item.type === 'video' ? ' carousel-dot-video' : '');
+      dot.className = 'carousel-dot' + (slide.type === 'video' ? ' carousel-dot-video' : '');
       dot.dataset.index = i;
       if (i === 0) dot.classList.add('active');
       sizingCarouselDots.appendChild(dot);
