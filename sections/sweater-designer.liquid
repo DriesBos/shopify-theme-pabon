@@ -1318,7 +1318,7 @@
 
   <div
     id='sizing-content'
-  style='position:relative; width:100vw; height:100vh; margin:0; display:flex; flex-direction:column;' max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
+  style='position:relative; width:100vw; height:100vh; margin:0; display:flex; flex-direction:column;'
   >
     <!-- Sizing Carousel Container - FIXED HEIGHT -->
     <div id='sizing-carousel-container' style='flex:1; position:relative; width:100%; background:#000; display:flex; align-items:center; justify-content:center; overflow:hidden;'>
@@ -1382,7 +1382,6 @@
       >
         <span style='color:#fff; font-size:24px; margin-left:2px;'>›</span>
       </button>
-
 
       <!-- Sound Toggle -->
       <button
@@ -2069,13 +2068,16 @@
   }
 
   .carousel-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.4);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  min-height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
 
   .carousel-dot:hover {
     background: rgba(255,255,255,0.7);
@@ -2608,6 +2610,40 @@
   #garment-info-section table {
     font-size: 13px !important;
   }
+}
+/* Sizing full screen */
+#sizing-overlay {
+  background: rgba(0,0,0,0.95) !important;
+}
+
+#sizing-info {
+  background: #fff;
+  padding: 32px 40px;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.sizing-carousel-slide {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.sizing-carousel-slide.active {
+  display: flex !important;
+  position: relative;
+}
+
+.sizing-carousel-slide video,
+.sizing-carousel-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 </style>
 
