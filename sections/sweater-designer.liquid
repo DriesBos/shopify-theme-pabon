@@ -4415,7 +4415,10 @@ document.addEventListener('keydown', (e) => {
   if (sizingOverlay) sizingOverlay.style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
-  
+
+  function navigateSizing(direction) {
+  showSizingSlide(sizingCarouselIndex + direction);
+}
   function showSizingSlide(index) {
     if (sizingSlideCount === 0) return;
     if (index < 0) index = sizingSlideCount - 1;
