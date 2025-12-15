@@ -1315,54 +1315,103 @@
   </button>
 
   <div
-    id='info-content'
-    style='position:relative; width:calc(100vw - 4vw); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
+    id='sizing-content'
+    style='position:relative; width:calc(100vw - 4vw); height:calc(100vh - 4vh); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
   >
-    <!-- Carousel Container - 70% of screen -->
-    <div id='info-carousel-container' style='flex:0 0 70vh; position:relative; width:100%; background:#000;'>
-    <!-- Carousel Container -->
-    <div id='info-carousel-container' style='flex:1; position:relative; width:100%; background:#000;'>
-      <!-- Carousel Track -->
-      <div id='info-carousel-track' style='height:100%; width:100%; position:relative;'>
-        <div class='info-carousel-slide active' data-index='0'>
-          <img id='info-carousel-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain;'>
+    <!-- Sizing Carousel Container -->
+    <div id='sizing-carousel-container' style='flex:0 0 auto; height:75vh; max-height:vh; position:relative; width:100%; background:#000; overflow:hidden;'>
+      <!-- Sizing Carousel Images/Video -->
+      <div id='sizing-carousel-track' style='height:100%; width:100%; position:relative;'>
+        <!-- Slide 0 -->
+        <div class='sizing-carousel-slide' data-index='0' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 1 -->
+        <div class='sizing-carousel-slide' data-index='1' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 2 -->
+        <div class='sizing-carousel-slide' data-index='2' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 3 -->
+        <div class='sizing-carousel-slide' data-index='3' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 4 -->
+        <div class='sizing-carousel-slide' data-index='4' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 5 -->
+        <div class='sizing-carousel-slide' data-index='5' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 6 -->
+        <div class='sizing-carousel-slide' data-index='6' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
+        </div>
+        <!-- Slide 7 -->
+        <div class='sizing-carousel-slide' data-index='7' style='display:none;'>
+          <img class='sizing-slide-img' src='' style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; display:none;'>
+          <video
+            class='sizing-slide-video'
+            controls
+            playsinline
+            webkit-playsinline
+            style='width:100%; height:100%; object-fit:contain; background:#000; display:none;'
+          ></video>
         </div>
       </div>
-    </div>
-
-    <!-- Garment Info Section -->
-    <div id='garment-info-section' style='background:#fff; padding:24px; margin-top:0; flex-shrink:0;'>
-      <h2 id='info-designer-name' style='margin:0 0 8px 0; font-size:24px; font-weight:700; color:#000;'>David Hockney (60s)</h2>
-      <p style='margin:0 0 16px 0; font-size:16px; color:#666; font-style:italic;'>Garment Information</p>
-      
-      <div style='margin-bottom:20px;'>
-        <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;'>Fit & Style</h4>
-        <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6; color:#333;'>
-          <li style='margin-bottom:8px;'>Heavy weight sweater with round neck</li>
-          <li style='margin-bottom:8px;'>Ribbed hem and cuffs</li>
-          <li style='margin-bottom:8px;'>Oversized fit - size down for fitted look, two sizes down for shorter length</li>
-        </ul>
       </div>
-      
-      <div style='margin-bottom:20px;'>
-        <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;'>Design Details</h4>
-        <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6; color:#333;'>
-          <li style='margin-bottom:8px;'>Maximum 4 colors in body, 5 per sleeve, 6 for hems and cuffs</li>
-          <li style='margin-bottom:8px;'>Third stripe on right arm is reversed</li>
-          <li style='margin-bottom:8px;'>Colors carefully selected to work in any combination</li>
-        </ul>
-      </div>
-      
-      <div>
-        <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;'>Materials & Origin</h4>
-        <ul style='margin:0; padding-left:20px; font-size:14px; line-height:1.6; color:#333;'>
-          <li style='margin-bottom:8px;'>100% superfine merino wool</li>
-          <li style='margin-bottom:8px;'>Made from start to finish in the Netherlands</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
 
       <!-- Sizing Carousel Navigation Arrows -->
       <button
