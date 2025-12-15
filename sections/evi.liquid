@@ -1261,6 +1261,7 @@
         { "name": {{ section.settings.kleinebomen_color_5_name | json }}, "hex": "{{ section.settings.kleinebomen_color_5 }}" },
         { "name": {{ section.settings.kleinebomen_color_6_name | json }}, "hex": "{{ section.settings.kleinebomen_color_6 }}" }
       ]
+    },
       "3": {
       "thumbnail": {% if section.settings.designer4_thumbnail %}"{{ section.settings.designer4_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
       "images": [
@@ -2348,7 +2349,7 @@ function initSweaterDesigner(){
     tooltipTitle: "Kleine bomen",
     tooltipImage: "",
     fallbackThumbnail: ""
-  }
+  },
   3: {
     name: "Designer 4",
     available: true,
@@ -2364,7 +2365,6 @@ function initSweaterDesigner(){
     tooltipImage: "",
     fallbackThumbnail: ""
   }
-};
 };
 
   // Helper functions for enabled designers
@@ -2425,7 +2425,7 @@ function initSweaterDesigner(){
     { name: "4M0833", hex: "#552731" },
     { name: "6M0302", hex: "#ecd450" },
     { name: "1E3066", hex: "#f1cb07" }
-  ]
+  ],
    3: [
     { name: "5E5321", hex: "#96bfd1" },
     { name: "5M0660", hex: "#445470" },
