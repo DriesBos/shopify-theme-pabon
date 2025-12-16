@@ -1325,16 +1325,6 @@
     class='overlay'
     style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9998; overflow-y:auto;'
   >
-    <button
-      id='close-sizing-btn'
-      class='overlay-close'
-      type='button'
-      aria-label='Close sizing guide'
-      style='position:fixed; top:20px; right:20px; background:rgba(255,255,255,0.2); border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:10001; transition:background 0.2s;'
-    >
-      <span style='color:#fff; font-size:32px; line-height:1;'>×</span>
-    </button>
-
     <div
       id='sizing-content'
       style='position:relative; width:calc(100vw - 4vw); min-height:calc(100vh - 4vh); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
@@ -1476,6 +1466,16 @@
             ></video>
           </div>
         </div>
+
+        <button
+          id='close-sizing-btn'
+          class='overlay-close'
+          type='button'
+          aria-label='Close sizing guide'
+          style='position:absolute !important; top:20px; right:20px; background:rgba(255,255,255,0.2); border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:10001; transition:background 0.2s;'
+        >
+          <span style='color:#fff; font-size:32px; line-height:1;'>×</span>
+        </button>
 
         <!-- Navigation Arrows -->
         <button
@@ -2772,6 +2772,7 @@
 
   .sizing-slide-video {
     pointer-events: none !important;
+    aspect-ratio: 16 / 9;
   }
 
   #close-info-btn,
