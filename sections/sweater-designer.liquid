@@ -3731,62 +3731,71 @@ function initSweaterDesigner(){
   }
 
   function refreshConstraints() {
-    const bodyUsed = uniqueColors(bodyLayers);
-    const leftSleeveUsed = uniqueColors(leftSleeveLayers);
-    const rightSleeveUsed = uniqueColors(rightSleeveLayers);
+  const bodyUsed = uniqueColors(bodyLayers);
+  const leftSleeveUsed = uniqueColors(leftSleeveLayers);
+  const rightSleeveUsed = uniqueColors(rightSleeveLayers);
 
-    [...bodyLayers,...leftSleeveLayers,...rightSleeveLayers].forEach(layerId=>{
+  // DEBUG: Log what colors are detected
+  console.log('=== CONSTRAINT CHECK ===');
+  console.log('Body colors:', bodyUsed.length, bodyUsed);
+  console.log('Left sleeve colors:', leftSleeveUsed.length, leftSleeveUsed);
+  console.log('Right sleeve colors:', rightSleeveUsed.length, rightSleeveUsed);
+  console.log('=======================');
+
+  [...bodyLayers,...leftSleeveLayers,...rightSleeveLayers].forEach(layerId=>{
+    const g = document.getElementById(layerId);
+    if(!g) return;
+    g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.classList.remove('over-limit'));
+  });
+
+  let exceeded = false;
+  let warningMessages = [];
+
+  if(bodyUsed.length > maxBodyColors) {
+    exceeded = true;
+    warningMessages.push(`Body: ${bodyUsed.length}/${maxBodyColors} colors`);
+    bodyLayers.forEach(layerId=>{
       const g = document.getElementById(layerId);
       if(!g) return;
-      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.classList.remove('over-limit'));
+      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.classList.add('over-limit'));
     });
-
-    let exceeded = false;
-    let warningMessages = [];
-
-    if(bodyUsed.length > maxBodyColors) {
-      exceeded = true;
-      warningMessages.push(`Body: ${bodyUsed.length}/${maxBodyColors} colors`);
-      bodyLayers.forEach(layerId=>{
-        const g = document.getElementById(layerId);
-        if(!g) return;
-        g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.classList.add('over-limit'));
-      });
-    }
-
-    if(leftSleeveUsed.length > maxSleeveColors) {
-      exceeded = true;
-      warningMessages.push(`Left sleeve: ${leftSleeveUsed.length}/${maxSleeveColors} colors`);
-      leftSleeveLayers.forEach(layerId=>{
-        const g = document.getElementById(layerId);
-        if(!g) return;
-        g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.classList.add('over-limit'));
-      });
-    }
-
-    if(rightSleeveUsed.length > maxSleeveColors) {
-      exceeded = true;
-      warningMessages.push(`Right sleeve: ${rightSleeveUsed.length}/${maxSleeveColors} colors`);
-      rightSleeveLayers.forEach(layerId=>{
-        const g = document.getElementById(layerId);
-        if(!g) return;
-        g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.classList.add('over-limit'));
-      });
-    }
-
-    if(exceeded && warningMessages.length > 0) {
-      colorWarningText.textContent = 'Too many colors: ' + warningMessages.join(', ');
-      colorWarning.style.display = 'block';
-    } else {
-      colorWarning.style.display = 'none';
-    }
-
-    if(addBtn) {
-      addBtn.disabled = exceeded;
-      addBtn.style.background = exceeded ? '#ccc' : '#0090C1';
-      addBtn.style.cursor = exceeded ? 'default' : 'pointer';
-    }
   }
+
+  if(leftSleeveUsed.length > maxSleeveColors) {
+    exceeded = true;
+    warningMessages.push(`Left sleeve: ${leftSleeveUsed.length}/${maxSleeveColors} colors`);
+    console.log('⚠️ LEFT SLEEVE EXCEEDED:', leftSleeveUsed.length, '>', maxSleeveColors);
+    leftSleeveLayers.forEach(layerId=>{
+      const g = document.getElementById(layerId);
+      if(!g) return;
+      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.classList.add('over-limit'));
+    });
+  }
+
+  if(rightSleeveUsed.length > maxSleeveColors) {
+    exceeded = true;
+    warningMessages.push(`Right sleeve: ${rightSleeveUsed.length}/${maxSleeveColors} colors`);
+    console.log('⚠️ RIGHT SLEEVE EXCEEDED:', rightSleeveUsed.length, '>', maxSleeveColors);
+    rightSleeveLayers.forEach(layerId=>{
+      const g = document.getElementById(layerId);
+      if(!g) return;
+      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.classList.add('over-limit'));
+    });
+  }
+
+  if(exceeded && warningMessages.length > 0) {
+    colorWarningText.textContent = 'Too many colors: ' + warningMessages.join(', ');
+    colorWarning.style.display = 'block';
+  } else {
+    colorWarning.style.display = 'none';
+  }
+
+  if(addBtn) {
+    addBtn.disabled = exceeded;
+    addBtn.style.background = exceeded ? '#ccc' : '#0090C1';
+    addBtn.style.cursor = exceeded ? 'default' : 'pointer';
+  }
+}
 
   function randomizeWithinConstraints() {
     const swatchColors = getSwatchColors(currentDesigner);
