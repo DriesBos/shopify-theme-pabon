@@ -3665,16 +3665,37 @@ function initSweaterDesigner(){
   }
 
   function normalizeColor(c) {
-    if(!c) return c;
-    c = String(c).trim().toLowerCase();
-    if(c.indexOf('rgb') === 0) {
-      const nums = c.replace(/rgba?|\(|\)|\s/g,'').split(',').map(n=>parseInt(n,10)||0);
-      if(nums.length>=3) c = '#' + nums.slice(0,3).map(n=>n.toString(16).padStart(2,'0')).join('');
+  if(!c) return c;
+  c = String(c).trim().toLowerCase();
+  
+  // Handle RGB/RGBA format
+  if(c.indexOf('rgb') === 0) {
+    const nums = c.replace(/rgba?|\(|\)|\s/g,'').split(',').map(n=>parseInt(n,10)||0);
+    if(nums.length>=3) {
+      c = '#' + nums.slice(0,3).map(n=>{
+        const hex = n.toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+      }).join('');
     }
-    const blacks = ['#000','#000000','black','#050505','#1d1d1b','#070606'];
-    if(blacks.includes(c)) return '#000000';
-    return c;
   }
+  
+  // Expand 3-digit hex to 6-digit
+  if(c.match(/^#[0-9a-f]{3}$/i)) {
+    c = '#' + c[1] + c[1] + c[2] + c[2] + c[3] + c[3];
+  }
+  
+  // Ensure it starts with # and is 6 digits
+  if(c.match(/^[0-9a-f]{6}$/i)) {
+    c = '#' + c;
+  }
+  
+  // Normalize all black variations
+  const blacks = ['#000','#000000','black','#050505','#1d1d1b','#070606'];
+  if(blacks.includes(c)) return '#000000';
+  
+  // Ensure lowercase for consistency
+  return c.toLowerCase();
+}
 
   function buildSwatches() {
     const swatchColors = getSwatchColors(currentDesigner);
