@@ -2892,43 +2892,45 @@ function initSweaterDesigner(){
   available: true,
   enabled: {{ section.settings.jones_enabled | default: false }},
   defaults: {
-    // Body (10 stripes): Cream (1), Peach (1), Crimson (8)
+    // Body (10 stripes): 8 Crimson, 1 Peach, 1 Cream
     "Laag_3":"#930918",  // Crimson
-    "Laag_4":"#f1dbd0",  // Peach
+    "Laag_4":"#930918",  // Crimson
     "Laag_5":"#930918",  // Crimson
     "Laag_6":"#930918",  // Crimson
-    "Laag_7":"#f3f2de",  // Cream
+    "Laag_7":"#930918",  // Crimson
     "Laag_8":"#930918",  // Crimson
     "Laag_9":"#930918",  // Crimson
     "Laag_11":"#930918", // Crimson
-    "Laag_12":"#930918", // Crimson
-    "Laag_15":"#930918", // Crimson
+    "Laag_12":"#f1dbd0", // Peach (bottom of body)
+    "Laag_15":"#f3f2de", // Cream (bottom of body)
     
-    // Left Sleeve (6 stripes): Bright Red (3), Crimson (3)
+    // Left Sleeve (6 stripes): 3 Bright Red, 3 Crimson
     "Laag_10":"#c32728", // Bright Red
     "Laag_14":"#c32728", // Bright Red
-    "Laag_16":"#930918", // Crimson
+    "Laag_16":"#c32728", // Bright Red
     "Laag_17":"#930918", // Crimson
     "Laag_18":"#930918", // Crimson
-    "Laag_19":"#c32728", // Bright Red
+    "Laag_19":"#930918", // Crimson
     
-    // Right Sleeve (6 stripes): Bright Red (1), Crimson (1), Deep Red (2), Peach (1), Cream (1)
-    "Laag_21":"#c32728", // Bright Red
+    // Right Sleeve (6 stripes): Bright Red, Crimson, 2 Deep Red, Peach, Cream
+    "Laag_21":"#c32728", // Bright Red (shoulder)
     "Laag_23":"#930918", // Crimson
-    "Laag_24":"#f1dbd0", // Peach
+    "Laag_24":"#6b191f", // Deep Red
     "Laag_25":"#6b191f", // Deep Red
-    "Laag_26":"#6b191f", // Deep Red
+    "Laag_26":"#f1dbd0", // Peach
     "Laag_28":"#f3f2de", // Cream
     
-    // Hem/Cuffs (9 stripes): Black (2), Deep Red (1), Bright Red (1)
-    "Laag_2":"#000000",  // Black
-    "Laag_13":"#000000", // Black
-    "Laag_22":"#6b191f", // Deep Red
-    "Laag_27":"#c32728", // Bright Red
-    "hem":"#6b191f",     // Deep Red
-    "neck":"#6b191f",    // Deep Red
-    "leftcuff":"#6b191f",    // Deep Red
-    "rightcuff":"#6b191f"    // Deep Red
+    // Hem area: Black bottom, then progressing up
+    "Laag_2":"#f1dbd0",  // Peach (third from bottom)
+    "Laag_13":"#000000", // Black (bottom hem)
+    "Laag_22":"#f3f2de", // Cream (second from bottom)
+    "Laag_27":"#6b191f", // Deep Red
+    
+    // Cuffs and neck
+    "hem":"#000000",      // Black
+    "neck":"#6b191f",     // Deep Red
+    "leftcuff":"#6b191f", // Deep Red
+    "rightcuff":"#000000" // Black (visible in image)
   },
   tooltipTitle: "Natisa Jones.",
   tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
