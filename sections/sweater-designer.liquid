@@ -3742,48 +3742,59 @@ function initSweaterDesigner(){
   }
 
   function makeShapesClickable() {
-    const allIds = new Set(Object.keys(DESIGNERS[0].defaults));
-    bodyLayers.forEach(x=>allIds.add(x));
-    sleeveLayers.forEach(x=>allIds.add(x));
-    hemLayers.forEach(x=>allIds.add(x));
-    ['hem','neck','leftcuff','rightcuff','leftcuff-2'].forEach(x=>allIds.add(x));
+  const allIds = new Set(Object.keys(DESIGNERS[0].defaults));
+  bodyLayers.forEach(x=>allIds.add(x));
+  sleeveLayers.forEach(x=>allIds.add(x));
+  hemLayers.forEach(x=>allIds.add(x));
+  ['hem','neck','leftcuff','rightcuff','leftcuff-2'].forEach(x=>allIds.add(x));
 
-    allIds.forEach(layerId=>{
-      const g = document.getElementById(layerId);
-      if(!g) return;
-      const shapes = g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse');
-      shapes.forEach(s=>{
-        s.classList.add('sweater-layer');
-        if(!(s.style && s.style.fill)) {
-          const attr = s.getAttribute('fill');
-          if(attr) s.style.fill = normalizeColor(attr);
-        } else {
-          s.style.fill = normalizeColor(s.style.fill);
-        }
-        s.addEventListener('click', function(){
-          if(!activeColor) return;
-          s.style.fill = normalizeColor(activeColor);
-          refreshConstraints();
-        });
+  allIds.forEach(layerId=>{
+    const g = document.getElementById(layerId);
+    if(!g) return;
+    const shapes = g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse');
+    shapes.forEach(s=>{
+      s.classList.add('sweater-layer');
+      
+      // Get and normalize existing color
+      const attr = s.getAttribute('fill');
+      const styleColor = s.style && s.style.fill;
+      const existingColor = styleColor || attr;
+      
+      if(existingColor) {
+        const normalized = normalizeColor(existingColor);
+        s.style.fill = normalized;
+        s.setAttribute('fill', normalized);
+      }
+      
+      s.addEventListener('click', function(){
+        if(!activeColor) return;
+        const normalizedColor = normalizeColor(activeColor);
+        s.style.fill = normalizedColor;
+        s.setAttribute('fill', normalizedColor);
+        refreshConstraints();
       });
     });
-  }
+  });
+}
 
   function getFill(layerId) {
-    const s = getFirstShapeById(layerId);
-    if(!s) return null;
-    const f = (s.style && s.style.fill) ? s.style.fill : s.getAttribute('fill');
-    return normalizeColor(f);
-  }
+  const s = getFirstShapeById(layerId);
+  if(!s) return null;
+  let f = (s.style && s.style.fill) ? s.style.fill : s.getAttribute('fill');
+  return normalizeColor(f);
+}
 
   function uniqueColors(layers) {
-    const set = new Set();
-    layers.forEach(l=>{
-      const f = getFill(l);
-      if(f) set.add(f);
-    });
-    return Array.from(set);
-  }
+  const colorMap = new Map(); // Use Map for better deduplication
+  layers.forEach(l=>{
+    const f = getFill(l);
+    if(f) {
+      const normalized = normalizeColor(f);
+      colorMap.set(normalized, true);
+    }
+  });
+  return Array.from(colorMap.keys());
+}
 
   function refreshConstraints() {
   const bodyUsed = uniqueColors(bodyLayers);
