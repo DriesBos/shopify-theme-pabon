@@ -5108,131 +5108,102 @@ sizingCarouselNext?.addEventListener('click', (e) => {
     }, 150);
   });
 }
-// Admin Save as Default Functionality
-{% if customer.tags contains 'staff' or request.design_mode %}
-const adminSaveBtn = document.getElementById('admin-save-default');
-const adminModal = document.getElementById('admin-save-modal');
-const adminModalClose = document.getElementById('admin-modal-close');
-const copyJsonBtn = document.getElementById('copy-json-btn');
-const downloadJsonBtn = document.getElementById('admin-download-json');
+// ============================================
+// ADMIN: SAVE AS DEFAULT (no Liquid conditional)
+// ============================================
+setTimeout(function() {
+  const adminSaveBtn = document.getElementById('admin-save-default');
+  const adminModal = document.getElementById('admin-save-modal');
+  const adminModalClose = document.getElementById('admin-modal-close');
+  const copyJsonBtn = document.getElementById('copy-json-btn');
+  const downloadJsonBtn = document.getElementById('admin-download-json');
 
-if (adminSaveBtn) {
-  adminSaveBtn.addEventListener('click', function() {
-    console.log('Admin button clicked!'); // Debug
-    openAdminSaveModal();
+  console.log('Admin elements check:', {
+    button: adminSaveBtn ? 'Found' : 'Not found',
+    modal: adminModal ? 'Found' : 'Not found'
   });
-}
 
-function openAdminSaveModal() {
-  console.log('Opening admin modal...'); // Debug
-  const designer = DESIGNERS[currentDesigner];
-  
-  // Collect ALL current layer colors from the actual SVG
-  const currentDefaults = {};
-  const allLayerIds = [...bodyLayers, ...sleeveLayers, ...hemLayers, 'hem', 'neck', 'leftcuff', 'rightcuff', 'leftcuff-2'];
-  
-  allLayerIds.forEach(layerId => {
-    const color = getFill(layerId);
-    if (color) {
-      currentDefaults[layerId] = normalizeColor(color);
-    }
-  });
-  
-  // Update modal content
-  document.getElementById('admin-current-designer').textContent = designer.name;
-  document.getElementById('admin-designer-name').textContent = designer.name;
-  
-  // Show just the defaults code
-  const jsonOutput = generateDefaultsCode(currentDefaults, designer);
-  document.getElementById('admin-json-textarea').value = jsonOutput;
-  
-  // Show modal
-  if (adminModal) {
-    adminModal.style.display = 'flex';
-    console.log('Modal should be visible now'); // Debug
-  } else {
-    console.error('Modal element not found!'); // Debug
+  if (!adminSaveBtn || !adminModal) {
+    console.log('Admin features not available (not staff or not in customizer)');
+    return;
   }
-}
 
-function generateDefaultsCode(currentDefaults, designer) {
-  let output = `Copy this entire "defaults" block and paste it into your theme code:\n\n`;
-  output += `defaults: {\n`;
-  
-  const sortedKeys = Object.keys(currentDefaults).sort();
-  sortedKeys.forEach((key, index) => {
-    const hex = currentDefaults[key];
-    const comma = index < sortedKeys.length - 1 ? ',' : '';
-    output += `  "${key}":"${hex}"${comma}\n`;
-  });
-  
-  output += `}\n`;
-  
-  return output;
-}
-
-// Copy button
-if (copyJsonBtn) {
-  copyJsonBtn.addEventListener('click', function() {
-    const textarea = document.getElementById('admin-json-textarea');
-    textarea.select();
-    document.execCommand('copy');
+  adminSaveBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('Admin button clicked!');
     
-    this.innerHTML = `
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg>
-      Copied!
-    `;
-    this.classList.add('copied');
+    const designer = DESIGNERS[currentDesigner];
     
-    setTimeout(() => {
-      this.innerHTML = `
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"/>
-        </svg>
-        Copy JSON
-      `;
-      this.classList.remove('copied');
-    }, 2000);
-  });
-}
-
-// Download button
-if (downloadJsonBtn) {
-  downloadJsonBtn.addEventListener('click', function() {
-    const textarea = document.getElementById('admin-json-textarea');
-    const designerName = document.getElementById('admin-current-designer').textContent;
-    const timestamp = new Date().toISOString().split('T')[0];
-    const filename = `${designerName.toLowerCase().replace(/\s+/g, '-')}-defaults-${timestamp}.txt`;
+    const currentDefaults = {};
+    const allLayerIds = [...bodyLayers, ...sleeveLayers, ...hemLayers, 'hem', 'neck', 'leftcuff', 'rightcuff'];
     
-    const blob = new Blob([textarea.value], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+    allLayerIds.forEach(layerId => {
+      const color = getFill(layerId);
+      if (color) {
+        currentDefaults[layerId] = normalizeColor(color);
+      }
+    });
+    
+    document.getElementById('admin-current-designer').textContent = designer.name;
+    document.getElementById('admin-designer-name').textContent = designer.name;
+    
+    let output = `// Paste this into DESIGNERS[${currentDesigner}].defaults:\n\n`;
+    output += `defaults: {\n`;
+    
+    const sortedKeys = Object.keys(currentDefaults).sort();
+    sortedKeys.forEach((key, index) => {
+      const hex = currentDefaults[key];
+      const comma = index < sortedKeys.length - 1 ? ',' : '';
+      output += `  "${key}":"${hex}"${comma}\n`;
+    });
+    
+    output += `}\n`;
+    
+    document.getElementById('admin-json-textarea').value = output;
+    adminModal.style.display = 'flex';
+    console.log('Modal opened!');
   });
-}
 
-// Close modal
-if (adminModalClose) {
-  adminModalClose.addEventListener('click', function() {
-    adminModal.style.display = 'none';
-  });
-}
+  if (copyJsonBtn) {
+    copyJsonBtn.addEventListener('click', function() {
+      const textarea = document.getElementById('admin-json-textarea');
+      textarea.select();
+      document.execCommand('copy');
+      alert('Copied to clipboard!');
+    });
+  }
 
-if (adminModal) {
-  adminModal.addEventListener('click', function(e) {
-    if (e.target === this || e.target.classList.contains('admin-modal-overlay')) {
-      this.style.display = 'none';
-    }
-  });
+  if (downloadJsonBtn) {
+    downloadJsonBtn.addEventListener('click', function() {
+      const textarea = document.getElementById('admin-json-textarea');
+      const designerName = document.getElementById('admin-current-designer').textContent;
+      const timestamp = new Date().toISOString().split('T')[0];
+      const filename = `${designerName.toLowerCase().replace(/\s+/g, '-')}-defaults-${timestamp}.txt`;
+      
+      const blob = new Blob([textarea.value], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    });
+  }
+
+  if (adminModalClose) {
+    adminModalClose.addEventListener('click', () => adminModal.style.display = 'none');
+  }
+
+  if (adminModal) {
+    adminModal.addEventListener('click', (e) => {
+      if (e.target === adminModal || e.target.classList.contains('admin-modal-overlay')) {
+        adminModal.style.display = 'none';
+      }
+    });
+  }
+}, 500);
 }
-{% endif %}
 
 </script>
