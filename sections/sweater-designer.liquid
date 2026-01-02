@@ -3684,16 +3684,6 @@ function initSweaterDesigner(){
 
   const maxBodyColors = 4;
   const maxSleeveColors = 5;
-// Check if current user is admin/staff
-  const isShopifyAdmin = () => {
-    return window.Shopify && (
-      window.Shopify.designMode ||
-      window.location.search.includes('preview_theme_id')
-    );
-  };
-  
-  const isStaffMember = {{ customer.tags | json | default: '[]' }}.includes('staff');
-  const showAdminFeatures = isShopifyAdmin() || isStaffMember;
   const bodyLayers = ["Laag_3","Laag_4","Laag_5","Laag_6","Laag_7","Laag_8","Laag_9","Laag_11","Laag_12","Laag_15"];
   const leftSleeveLayers = ["Laag_10","Laag_14","Laag_16","Laag_17","Laag_18","Laag_19"];
   const rightSleeveLayers = ["Laag_21","Laag_28","Laag_23","Laag_24","Laag_25","Laag_26"];
