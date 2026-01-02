@@ -3067,28 +3067,29 @@ html<!-- Wool Colors Interactive Grid -->
 .wool-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 0px; /* ← Changed from 16px */
   max-width: 800px;
   margin: 0 auto;
-  height: calc(100% - 60px);
+  height: 100%; /* ← Changed from calc(100% - 60px) */
   align-content: center;
 }
 
 @media (max-width: 768px) {
   .wool-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 0px; /* ← Changed from 12px */
   }
 }
 
 .wool-grid-item {
   aspect-ratio: 1;
-  border-radius: 12px;
+  border-radius: 0px; /* ← Changed from 12px */
   overflow: hidden;
   cursor: grab;
   transition: all 0.3s ease;
   background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: none; /* ← Changed from 0 4px 12px rgba(0,0,0,0.1) */
+  border: 1px solid #ddd; /* ← Added for definition */
   position: relative;
 }
 
@@ -3107,12 +3108,8 @@ html<!-- Wool Colors Interactive Grid -->
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 
-.wool-grid-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-  user-select: none;
+.wool-grid-item .wool-label {
+  display: none; /* ← Hide the color names */
 }
 
 .wool-grid-item .wool-label {
@@ -3153,22 +3150,7 @@ html<!-- Wool Colors Interactive Grid -->
 }
 
 .reset-wool-btn {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(0,0,0,0.7);
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-  z-index: 10;
+  display: none; /* ← Hide reset button */
 }
 
 .reset-wool-btn:hover {
