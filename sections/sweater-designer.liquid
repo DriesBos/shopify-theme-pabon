@@ -3048,44 +3048,41 @@
   background: #4c5ab3;
 }
 {% endif %}
+/* Wool Grid Styles */
 #wool-grid-container {
   flex: 0 0 auto !important;
-  max-height: calc(100vh - 200px) !important; /* Leaves 200px for garment info peek */
-  min-height: 50vh !important;
-  overflow: visible !important;
+  width: 100% !important;
+  max-height: 70vh !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  background: #fff !important;
 }
+
 .wool-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 0px;
   width: 100%;
-  max-width: 900px;
-  aspect-ratio: 3 / 2; /* Maintains grid proportions */
-  max-height: calc(100vh - 250px); /* Ensures it fits in viewport */
+  max-width: min(900px, 90vw);
+  height: auto;
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .wool-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    aspect-ratio: 2 / 3;
-    max-height: calc(100vh - 300px); /* More space for mobile controls */
-  }
- #wool-grid-container {
-    max-height: calc(100vh - 250px) !important;
-  }
-}
 .wool-grid-item {
-  aspect-ratio: 1;
-  border-radius: 0px; /* ← Changed from 12px */
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 0px;
   overflow: hidden;
   cursor: grab;
   transition: all 0.3s ease;
   background: #fff;
-  box-shadow: none; /* ← Changed from 0 4px 12px rgba(0,0,0,0.1) */
-  border: none; /* ← Added for definition */
+  box-shadow: none;
+  border: none;
   position: relative;
 }
 
@@ -3104,22 +3101,17 @@
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 
-.wool-grid-item .wool-label {
-  display: none; /* ← Hide the color names */
+.wool-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  display: block;
 }
 
 .wool-grid-item .wool-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  color: #fff;
-  padding: 12px 8px 8px;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-  pointer-events: none;
+  display: none;
 }
 
 .wool-grid-hint {
@@ -3146,7 +3138,7 @@
 }
 
 .reset-wool-btn {
-  display: none; /* ← Hide reset button */
+  display: none;
 }
 
 .reset-wool-btn:hover {
@@ -3155,6 +3147,17 @@
 }
 
 @media (max-width: 768px) {
+  #wool-grid-container {
+    max-height: 60vh !important;
+    padding: 10px !important;
+  }
+  
+  .wool-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    max-width: min(600px, 95vw);
+  }
+  
   .wool-grid-hint {
     font-size: 11px;
     padding: 6px 12px;
