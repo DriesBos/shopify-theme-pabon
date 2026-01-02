@@ -3048,17 +3048,15 @@
   background: #4c5ab3;
 }
 {% endif %}
-/* Wool Grid Styles */
+* Wool Grid Styles */
 #wool-grid-container {
   flex: 0 0 auto !important;
   width: 100% !important;
-  max-height: 70vh !important;
   padding: 20px !important;
   box-sizing: border-box !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  overflow: hidden !important;
   background: #fff !important;
 }
 
@@ -3069,13 +3067,13 @@
   gap: 0px;
   width: 100%;
   max-width: min(900px, 90vw);
-  height: auto;
+  aspect-ratio: 3 / 2; /* This locks the grid to 3:2 ratio */
   margin: 0 auto;
 }
 
 .wool-grid-item {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
   border-radius: 0px;
   overflow: hidden;
   cursor: grab;
@@ -3148,13 +3146,13 @@
 
 @media (max-width: 768px) {
   #wool-grid-container {
-    max-height: 60vh !important;
     padding: 10px !important;
   }
   
   .wool-grid {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    aspect-ratio: 2 / 3; /* Mobile is 2:3 ratio */
     max-width: min(600px, 95vw);
   }
   
