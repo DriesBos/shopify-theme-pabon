@@ -5118,13 +5118,14 @@ const downloadJsonBtn = document.getElementById('admin-download-json');
 
 if (adminSaveBtn) {
   adminSaveBtn.addEventListener('click', function() {
+    console.log('Admin button clicked!'); // Debug
     openAdminSaveModal();
   });
 }
 
 function openAdminSaveModal() {
+  console.log('Opening admin modal...'); // Debug
   const designer = DESIGNERS[currentDesigner];
-  const colors = getSwatchColors(currentDesigner);
   
   // Collect ALL current layer colors from the actual SVG
   const currentDefaults = {};
@@ -5137,112 +5138,46 @@ function openAdminSaveModal() {
     }
   });
   
-  // Get unique colors actually used
-  const uniqueColorsUsed = new Set(Object.values(currentDefaults));
-  const usedColorsList = Array.from(uniqueColorsUsed);
-  
-  // Map hex codes to color names
-  const colorNameMap = {};
-  colors.forEach(c => {
-    colorNameMap[normalizeColor(c.hex)] = c.name;
-  });
-  
   // Update modal content
   document.getElementById('admin-current-designer').textContent = designer.name;
   document.getElementById('admin-designer-name').textContent = designer.name;
   
-  // Show color preview (only colors actually used)
-  const previewGrid = document.getElementById('admin-color-preview');
-  previewGrid.innerHTML = '';
-  
-  usedColorsList.forEach(hex => {
-    const colorName = colorNameMap[hex] || hex;
-    const item = document.createElement('div');
-    item.className = 'admin-color-item';
-    item.innerHTML = `
-      <div class="admin-color-swatch" style="background-color: ${hex};"></div>
-      <span class="admin-color-name">${colorName}</span>
-      <span class="admin-color-hex">${hex}</span>
-    `;
-    previewGrid.appendChild(item);
-  });
-  
-  // Generate copy-paste ready defaults
-  const jsonOutput = generateDefaultsJSON(currentDefaults, designer, usedColorsList, colorNameMap);
+  // Show just the defaults code
+  const jsonOutput = generateDefaultsCode(currentDefaults, designer);
   document.getElementById('admin-json-textarea').value = jsonOutput;
   
   // Show modal
-  adminModal.style.display = 'flex';
+  if (adminModal) {
+    adminModal.style.display = 'flex';
+    console.log('Modal should be visible now'); // Debug
+  } else {
+    console.error('Modal element not found!'); // Debug
+  }
 }
 
-function generateDefaultsJSON(currentDefaults, designer, usedColors, colorNameMap) {
-  const designerKeys = ['hockney60', 'bacon', 'jones', 'hockney13', 'price'];
-  const designerKey = designerKeys[currentDesigner];
-  
-  let output = `// =============================================\n`;
-  output += `// SAVE AS DEFAULT - ${designer.name}\n`;
-  output += `// =============================================\n\n`;
-  
-  output += `INSTRUCTIONS:\n`;
-  output += `1. Copy the "defaults" object below (lines marked with arrows)\n`;
-  output += `2. Open your theme code editor\n`;
-  output += `3. Find the sweater designer section JavaScript\n`;
-  output += `4. Find the DESIGNERS object for "${designer.name}"\n`;
-  output += `5. Replace the entire "defaults: { ... }" section\n`;
-  output += `6. Save the file\n\n`;
-  
-  output += `COLORS USED IN THIS DESIGN:\n`;
-  usedColors.forEach(hex => {
-    const name = colorNameMap[hex] || hex;
-    output += `  • ${name} (${hex})\n`;
-  });
-  output += `\n`;
-  
-  output += `// ↓↓↓ COPY FROM HERE ↓↓↓\n`;
+function generateDefaultsCode(currentDefaults, designer) {
+  let output = `Copy this entire "defaults" block and paste it into your theme code:\n\n`;
   output += `defaults: {\n`;
   
-  // Sort keys for readability
-  const sortedKeys = Object.keys(currentDefaults).sort((a, b) => {
-    // Sort by layer type, then by name
-    const order = ['hem', 'neck', 'leftcuff', 'rightcuff', 'leftcuff-2'];
-    const aIndex = order.indexOf(a);
-    const bIndex = order.indexOf(b);
-    if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
-    if (aIndex !== -1) return -1;
-    if (bIndex !== -1) return 1;
-    return a.localeCompare(b);
-  });
-  
+  const sortedKeys = Object.keys(currentDefaults).sort();
   sortedKeys.forEach((key, index) => {
     const hex = currentDefaults[key];
-    const colorName = colorNameMap[hex] || hex;
     const comma = index < sortedKeys.length - 1 ? ',' : '';
-    output += `  "${key}":"${hex}"${comma}  // ${colorName}\n`;
+    output += `  "${key}":"${hex}"${comma}\n`;
   });
   
   output += `}\n`;
-  output += `// ↑↑↑ COPY TO HERE ↑↑↑\n\n`;
-  
-  output += `// Full JSON (for reference):\n`;
-  output += JSON.stringify({
-    designer: designer.name,
-    designerIndex: currentDesigner,
-    designerKey: designerKey,
-    colorsUsed: usedColors.length,
-    defaults: currentDefaults
-  }, null, 2);
   
   return output;
 }
 
-// Copy JSON functionality
+// Copy button
 if (copyJsonBtn) {
   copyJsonBtn.addEventListener('click', function() {
     const textarea = document.getElementById('admin-json-textarea');
     textarea.select();
     document.execCommand('copy');
     
-    // Visual feedback
     this.innerHTML = `
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="20 6 9 17 4 12"/>
@@ -5255,7 +5190,7 @@ if (copyJsonBtn) {
       this.innerHTML = `
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"/>
         </svg>
         Copy JSON
       `;
@@ -5264,7 +5199,7 @@ if (copyJsonBtn) {
   });
 }
 
-// Download JSON functionality
+// Download button
 if (downloadJsonBtn) {
   downloadJsonBtn.addEventListener('click', function() {
     const textarea = document.getElementById('admin-json-textarea');
