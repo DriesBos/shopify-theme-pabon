@@ -1573,7 +1573,7 @@
     </button>
 
     <!-- Wool Colors Interactive Grid -->
-<div id='wool-grid-container' style='flex: 0 0 auto; position: relative; width: 100%; background: #fff; padding: 20px; box-sizing: border-box; display: flex; align-items: center; justify-content: center;'>
+<div id='wool-grid-container' style='flex: 0 0 60vh; position: relative; width: 100%; background: #fff; padding: 20px; box-sizing: border-box; display: flex; align-items: center; justify-content: center;'>
       <div id='wool-grid' class='wool-grid'>
         <!-- Grid items will be populated by JavaScript -->
       </div>
@@ -3052,21 +3052,20 @@
 {% endif %}
 /* Wool Grid Styles */
 .wool-grid {
-  dwool-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr); /* ← Add this */
+  grid-template-rows: repeat(2, 1fr);
   gap: 0px;
-  width: 100%; /* ← Add this */
-  aspect-ratio: 3 / 2; /* ← Add this - creates perfect 3:2 ratio */
+  width: 100%;
+  max-width: 900px;
+  height: 100%; /* ← Makes it fill the container */
   margin: 0 auto;
 }
 
 @media (max-width: 768px) {
   .wool-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr); /* ← 2 columns = 3 rows for 6 items */
-    aspect-ratio: 2 / 3; /* ← Adjust for mobile */
+    grid-template-rows: repeat(3, 1fr);
     gap: 0px;
   }
 }
