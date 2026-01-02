@@ -2797,7 +2797,291 @@
   #sizing-overlay {
     pointer-events: auto;
   }
+  /* Admin Save as Default Styles */
+{% if customer.tags contains 'staff' or request.design_mode %}
+.admin-only-btn:hover {
+  background: #4c5ab3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(92,106,196,0.5);
+}
+
+.admin-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+}
+
+.admin-modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  z-index: 1;
+}
+
+.admin-modal-content h3 {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+}
+
+.admin-modal-content h4 {
+  margin: 16px 0 8px 0;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #000;
+}
+
+.admin-modal-content p {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.admin-preview {
+  background: #f9f9f9;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.admin-color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.admin-color-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.admin-color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+.admin-color-name {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.admin-color-hex {
+  font-size: 10px;
+  font-family: monospace;
+  color: #666;
+}
+
+.admin-instructions {
+  background: #fffbea;
+  border-left: 4px solid #f59e0b;
+  padding: 12px;
+  border-radius: 4px;
+  margin: 16px 0;
+}
+
+.admin-instructions ol {
+  margin: 8px 0 0 0;
+  padding-left: 20px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.admin-instructions li {
+  margin-bottom: 4px;
+}
+
+.admin-json-output {
+  margin: 16px 0;
+}
+
+.admin-copy-btn {
+  background: #10b981;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.admin-copy-btn:hover {
+  background: #059669;
+}
+
+.admin-copy-btn.copied {
+  background: #6366f1;
+}
+
+.admin-modal-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.admin-btn-secondary,
+.admin-btn-primary {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.admin-btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.admin-btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+.admin-btn-primary {
+  background: #5c6ac4;
+  color: #fff;
+  border: none;
+}
+
+.admin-btn-primary:hover {
+  background: #4c5ab3;
+}
+{% endif %}
+
 </style>
+{% if customer.tags contains 'staff' or request.design_mode %}
+<!-- Admin Save as Default Button -->
+<button
+  id='admin-save-default'
+  class='admin-only-btn'
+  style='
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #5c6ac4;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(92,106,196,0.4);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  '
+  type='button'
+  title='Admin only: Save current design as default'
+>
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+    <polyline points="17 21 17 13 7 13 7 21"/>
+    <polyline points="7 3 7 8 15 8"/>
+  </svg>
+  Save as Default
+</button>
+
+<!-- Admin Modal for Saving Defaults -->
+<div id='admin-save-modal' class='admin-modal' style='display: none;'>
+  <div class='admin-modal-overlay'></div>
+  <div class='admin-modal-content'>
+    <h3>Save Current Design as Default</h3>
+    <p>Current Designer: <strong id='admin-current-designer'></strong></p>
+    
+    <div class='admin-preview'>
+      <h4>Current Design Preview:</h4>
+      <div id='admin-color-preview' class='admin-color-grid'></div>
+    </div>
+    
+    <div class='admin-instructions'>
+      <h4>Instructions:</h4>
+      <ol>
+        <li>Copy the JSON code below</li>
+        <li>Go to Theme Customizer → Sweater Designer section</li>
+        <li>Find "<span id='admin-designer-name'></span>" section</li>
+        <li>Scroll to "Palette Colors" and update each color + name</li>
+      </ol>
+    </div>
+    
+    <div class='admin-json-output'>
+      <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'>
+        <label style='font-weight: 600;'>Generated JSON:</label>
+        <button id='copy-json-btn' class='admin-copy-btn'>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          Copy JSON
+        </button>
+      </div>
+      <textarea 
+        id='admin-json-textarea' 
+        readonly
+        style='width: 100%; height: 200px; font-family: monospace; font-size: 12px; padding: 12px; border: 1px solid #ddd; border-radius: 4px;'
+      ></textarea>
+    </div>
+    
+    <div class='admin-modal-footer'>
+      <button id='admin-modal-close' class='admin-btn-secondary'>Close</button>
+      <button id='admin-download-json' class='admin-btn-primary'>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download JSON
+      </button>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 <script>
 document.addEventListener('DOMContentLoaded', initSweaterDesigner);
@@ -3400,7 +3684,16 @@ function initSweaterDesigner(){
 
   const maxBodyColors = 4;
   const maxSleeveColors = 5;
-
+// Check if current user is admin/staff
+  const isShopifyAdmin = () => {
+    return window.Shopify && (
+      window.Shopify.designMode ||
+      window.location.search.includes('preview_theme_id')
+    );
+  };
+  
+  const isStaffMember = {{ customer.tags | json | default: '[]' }}.includes('staff');
+  const showAdminFeatures = isShopifyAdmin() || isStaffMember;
   const bodyLayers = ["Laag_3","Laag_4","Laag_5","Laag_6","Laag_7","Laag_8","Laag_9","Laag_11","Laag_12","Laag_15"];
   const leftSleeveLayers = ["Laag_10","Laag_14","Laag_16","Laag_17","Laag_18","Laag_19"];
   const rightSleeveLayers = ["Laag_21","Laag_28","Laag_23","Laag_24","Laag_25","Laag_26"];
@@ -4823,4 +5116,169 @@ sizingCarouselNext?.addEventListener('click', (e) => {
     }, 150);
   });
 }
+// Admin Save as Default Functionality
+{% if customer.tags contains 'staff' or request.design_mode %}
+if (showAdminFeatures) {
+  const adminSaveBtn = document.getElementById('admin-save-default');
+  const adminModal = document.getElementById('admin-save-modal');
+  const adminModalClose = document.getElementById('admin-modal-close');
+  const copyJsonBtn = document.getElementById('copy-json-btn');
+  const downloadJsonBtn = document.getElementById('admin-download-json');
+
+  if (adminSaveBtn) {
+    adminSaveBtn.addEventListener('click', function() {
+      openAdminSaveModal();
+    });
+  }
+
+  function openAdminSaveModal() {
+    const designer = DESIGNERS[currentDesigner];
+    const colors = getSwatchColors(currentDesigner);
+    
+    // Get current design colors
+    const currentDesign = {
+      designer: designer.name,
+      designerIndex: currentDesigner,
+      colors: []
+    };
+    
+    // Collect all layer colors
+    const allLayers = [...bodyLayers, ...sleeveLayers, ...hemLayers, 'hem', 'neck', 'leftcuff', 'rightcuff'];
+    const usedColors = new Map();
+    
+    allLayers.forEach(layerId => {
+      const color = getFill(layerId);
+      if (color) {
+        const normalized = normalizeColor(color);
+        if (!usedColors.has(normalized)) {
+          usedColors.set(normalized, true);
+        }
+      }
+    });
+    
+    // Match with palette
+    const usedColorsArray = Array.from(usedColors.keys());
+    colors.forEach((color, index) => {
+      const normalizedPalette = normalizeColor(color.hex);
+      const isUsed = usedColorsArray.includes(normalizedPalette);
+      
+      currentDesign.colors.push({
+        index: index + 1,
+        name: color.name,
+        hex: color.hex,
+        used: isUsed
+      });
+    });
+    
+    // Update modal content
+    document.getElementById('admin-current-designer').textContent = designer.name;
+    document.getElementById('admin-designer-name').textContent = designer.name;
+    
+    // Show color preview
+    const previewGrid = document.getElementById('admin-color-preview');
+    previewGrid.innerHTML = '';
+    
+    currentDesign.colors.forEach(color => {
+      const item = document.createElement('div');
+      item.className = 'admin-color-item';
+      item.innerHTML = `
+        <div class="admin-color-swatch" style="background-color: ${color.hex};"></div>
+        <span class="admin-color-name">${color.name}</span>
+        <span class="admin-color-hex">${color.hex}</span>
+      `;
+      previewGrid.appendChild(item);
+    });
+    
+    // Generate JSON for theme customizer
+    const jsonOutput = generateThemeSettingsJSON(currentDesign);
+    document.getElementById('admin-json-textarea').value = jsonOutput;
+    
+    // Show modal
+    adminModal.style.display = 'flex';
+  }
+
+  function generateThemeSettingsJSON(design) {
+    const designerKeys = ['hockney60', 'bacon', 'jones', 'hockney13', 'price'];
+    const designerKey = designerKeys[design.designerIndex];
+    
+    let json = `// Copy these values into Theme Customizer\n`;
+    json += `// Section: Sweater Designer → ${design.designer}\n`;
+    json += `// Go to: Palette Colors section\n\n`;
+    
+    design.colors.forEach(color => {
+      json += `Color ${color.index}: ${color.hex}\n`;
+      json += `Color ${color.index} Name: ${color.name}\n\n`;
+    });
+    
+    json += `\n// JSON Format (for developer reference):\n`;
+    json += JSON.stringify(design, null, 2);
+    
+    return json;
+  }
+
+  // Copy JSON functionality
+  if (copyJsonBtn) {
+    copyJsonBtn.addEventListener('click', function() {
+      const textarea = document.getElementById('admin-json-textarea');
+      textarea.select();
+      document.execCommand('copy');
+      
+      // Visual feedback
+      this.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Copied!
+      `;
+      this.classList.add('copied');
+      
+      setTimeout(() => {
+        this.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          Copy JSON
+        `;
+        this.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Download JSON functionality
+  if (downloadJsonBtn) {
+    downloadJsonBtn.addEventListener('click', function() {
+      const textarea = document.getElementById('admin-json-textarea');
+      const designerName = document.getElementById('admin-current-designer').textContent;
+      const filename = `${designerName.toLowerCase().replace(/\s+/g, '-')}-default-colors.txt`;
+      
+      const blob = new Blob([textarea.value], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    });
+  }
+
+  // Close modal
+  if (adminModalClose) {
+    adminModalClose.addEventListener('click', function() {
+      adminModal.style.display = 'none';
+    });
+  }
+
+  if (adminModal) {
+    adminModal.addEventListener('click', function(e) {
+      if (e.target === this || e.target.classList.contains('admin-modal-overlay')) {
+        this.style.display = 'none';
+      }
+    });
+  }
+}
+{% endif %}
+
 </script>
