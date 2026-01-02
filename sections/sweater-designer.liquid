@@ -1680,124 +1680,122 @@
   </button>
 </div>
 
-<!-- Hidden data from Shopify settings -->
-<script type='application/json' id='designer-gallery-data'>
-    {
-      "0": {
-        "thumbnail": {% if section.settings.hockney60_thumbnail %}"{{ section.settings.hockney60_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-        "images": [
-          {% if section.settings.hockney60_image_1 %}"{{ section.settings.hockney60_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-          {% if section.settings.hockney60_image_2 %}"{{ section.settings.hockney60_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-          {% if section.settings.hockney60_image_3 %}"{{ section.settings.hockney60_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-        ],
-        "video": {% if section.settings.hockney60_video %}"{{ section.settings.hockney60_video.sources[0].url }}"{% else %}""{% endif %},
-        "videoAsThumbnail": {{ section.settings.hockney60_video_as_thumbnail | json }},
-        "videoPreview": {{ section.settings.hockney60_video_preview | json }},
-        "startWithVideo": {{ section.settings.hockney60_start_with_video | json }},
-        "paintingName": {{ section.settings.hockney60_painting_name | json }},
-        "bio": {{ section.settings.hockney60_bio | json }},
-        "wikipedia": {{ section.settings.hockney60_wikipedia | json }},
-        "colors": [
-          { "name": {{ section.settings.hockney60_color_1_name | json }}, "hex": "{{ section.settings.hockney60_color_1 }}" },
-          { "name": {{ section.settings.hockney60_color_2_name | json }}, "hex": "{{ section.settings.hockney60_color_2 }}" },
-          { "name": {{ section.settings.hockney60_color_3_name | json }}, "hex": "{{ section.settings.hockney60_color_3 }}" },
-          { "name": {{ section.settings.hockney60_color_4_name | json }}, "hex": "{{ section.settings.hockney60_color_4 }}" },
-          { "name": {{ section.settings.hockney60_color_5_name | json }}, "hex": "{{ section.settings.hockney60_color_5 }}" },
-          { "name": {{ section.settings.hockney60_color_6_name | json }}, "hex": "{{ section.settings.hockney60_color_6 }}" }
-        ]
-      },
-      "1": {
-        "thumbnail": {% if section.settings.bacon_thumbnail %}"{{ section.settings.bacon_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-        "images": [
-          {% if section.settings.bacon_image_1 %}"{{ section.settings.bacon_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-          {% if section.settings.bacon_image_2 %}"{{ section.settings.bacon_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-          {% if section.settings.bacon_image_3 %}"{{ section.settings.bacon_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-        ],
-        "video": {% if section.settings.bacon_video %}"{{ section.settings.bacon_video.sources[0].url }}"{% else %}""{% endif %},
-        "videoAsThumbnail": {{ section.settings.bacon_video_as_thumbnail | json }},
-        "videoPreview": {{ section.settings.bacon_video_preview | json }},
-        "startWithVideo": {{ section.settings.bacon_start_with_video | json }},
-        "paintingName": {{ section.settings.bacon_painting_name | json }},
-        "bio": {{ section.settings.bacon_bio | json }},
-        "wikipedia": {{ section.settings.bacon_wikipedia | json }},
-        "colors": [
-          { "name": {{ section.settings.bacon_color_1_name | json }}, "hex": "{{ section.settings.bacon_color_1 }}" },
-          { "name": {{ section.settings.bacon_color_2_name | json }}, "hex": "{{ section.settings.bacon_color_2 }}" },
-          { "name": {{ section.settings.bacon_color_3_name | json }}, "hex": "{{ section.settings.bacon_color_3 }}" },
-          { "name": {{ section.settings.bacon_color_4_name | json }}, "hex": "{{ section.settings.bacon_color_4 }}" },
-          { "name": {{ section.settings.bacon_color_5_name | json }}, "hex": "{{ section.settings.bacon_color_5 }}" },
-          { "name": {{ section.settings.bacon_color_6_name | json }}, "hex": "{{ section.settings.bacon_color_6 }}" }
-        ]
-      },
-      "4": {
-        "thumbnail": {% if section.settings.price_thumbnail %}"{{ section.settings.price_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-        "images": [
-          {% if section.settings.price_image_1 %}"{{ section.settings.price_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-          {% if section.settings.price_image_2 %}"{{ section.settings.price_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-          {% if section.settings.price_image_3 %}"{{ section.settings.price_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-        ],
-        "video": {% if section.settings.price_video %}"{{ section.settings.price_video.sources[0].url }}"{% else %}""{% endif %},
-        "videoAsThumbnail": {{ section.settings.price_video_as_thumbnail | json }},
-        "videoPreview": {{ section.settings.price_video_preview | json }},
-        "startWithVideo": {{ section.settings.price_start_with_video | json }},
-        "paintingName": {{ section.settings.price_painting_name | json }},
-        "bio": {{ section.settings.price_bio | json }},
-        "wikipedia": {{ section.settings.price_wikipedia | json }},
-        "colors": [
-          { "name": {{ section.settings.price_color_1_name | json }}, "hex": "{{ section.settings.price_color_1 }}" },
-          { "name": {{ section.settings.price_color_2_name | json }}, "hex": "{{ section.settings.price_color_2 }}" },
-          { "name": {{ section.settings.price_color_3_name | json }}, "hex": "{{ section.settings.price_color_3 }}" },
-          { "name": {{ section.settings.price_color_4_name | json }}, "hex": "{{ section.settings.price_color_4 }}" },
-          { "name": {{ section.settings.price_color_5_name | json }}, "hex": "{{ section.settings.price_color_5 }}" },
-          { "name": {{ section.settings.price_color_6_name | json }}, "hex": "{{ section.settings.price_color_6 }}" }
-        ]
-      },
-      "3": {
-        "thumbnail": {% if section.settings.hockney13_thumbnail %}"{{ section.settings.hockney13_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-        "images": [
-          {% if section.settings.hockney13_image_1 %}"{{ section.settings.hockney13_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-          {% if section.settings.hockney13_image_2 %}"{{ section.settings.hockney13_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-          {% if section.settings.hockney13_image_3 %}"{{ section.settings.hockney13_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-        ],
-        "video": {% if section.settings.hockney13_video %}"{{ section.settings.hockney13_video.sources[0].url }}"{% else %}""{% endif %},
-        "videoAsThumbnail": {{ section.settings.hockney13_video_as_thumbnail | json }},
-        "videoPreview": {{ section.settings.hockney13_video_preview | json }},
-        "startWithVideo": {{ section.settings.hockney13_start_with_video | json }},
-        "paintingName": {{ section.settings.hockney13_painting_name | json }},
-        "bio": {{ section.settings.hockney13_bio | json }},
-        "wikipedia": {{ section.settings.hockney13_wikipedia | json }},
-        "colors": [
-          { "name": {{ section.settings.hockney13_color_1_name | json }}, "hex": "{{ section.settings.hockney13_color_1 }}" },
-          { "name": {{ section.settings.hockney13_color_2_name | json }}, "hex": "{{ section.settings.hockney13_color_2 }}" },
-          { "name": {{ section.settings.hockney13_color_3_name | json }}, "hex": "{{ section.settings.hockney13_color_3 }}" },
-          { "name": {{ section.settings.hockney13_color_4_name | json }}, "hex": "{{ section.settings.hockney13_color_4 }}" },
-          { "name": {{ section.settings.hockney13_color_5_name | json }}, "hex": "{{ section.settings.hockney13_color_5 }}" },
-          { "name": {{ section.settings.hockney13_color_6_name | json }}, "hex": "{{ section.settings.hockney13_color_6 }}" }
-        ]
-      },
-      "2": {
-        "thumbnail": {% if section.settings.jones_thumbnail %}"{{ section.settings.jones_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-        "images": [
-          {% if section.settings.jones_image_1 %}"{{ section.settings.jones_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-          {% if section.settings.jones_image_2 %}"{{ section.settings.jones_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-          {% if section.settings.jones_image_3 %}"{{ section.settings.jones_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-        ],
-        "video": {% if section.settings.jones_video %}"{{ section.settings.jones_video.sources[0].url }}"{% else %}""{% endif %},
-        "videoAsThumbnail": {{ section.settings.jones_video_as_thumbnail | json }},
-        "videoPreview": {{ section.settings.jones_video_preview | json }},
-        "startWithVideo": {{ section.settings.jones_start_with_video | json }},
-        "paintingName": {{ section.settings.jones_painting_name | json }},
-        "bio": {{ section.settings.jones_bio | json }},
-        "wikipedia": {{ section.settings.jones_wikipedia | json }},
-        "colors": [
-          { "name": {{ section.settings.jones_color_1_name | json }}, "hex": "{{ section.settings.jones_color_1 }}" },
-          { "name": {{ section.settings.jones_color_2_name | json }}, "hex": "{{ section.settings.jones_color_2 }}" },
-          { "name": {{ section.settings.jones_color_3_name | json }}, "hex": "{{ section.settings.jones_color_3 }}" },
-          { "name": {{ section.settings.jones_color_4_name | json }}, "hex": "{{ section.settings.jones_color_4 }}" },
-          { "name": {{ section.settings.jones_color_5_name | json }}, "hex": "{{ section.settings.jones_color_5 }}" },
-          { "name": {{ section.settings.jones_color_6_name | json }}, "hex": "{{ section.settings.jones_color_6 }}" }
-        ]
-          },
+{
+  "0": {
+    "thumbnail": {% if section.settings.jones_thumbnail %}"{{ section.settings.jones_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+    "images": [
+      {% if section.settings.jones_image_1 %}"{{ section.settings.jones_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_image_2 %}"{{ section.settings.jones_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_image_3 %}"{{ section.settings.jones_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+    ],
+    "video": {% if section.settings.jones_video %}"{{ section.settings.jones_video.sources[0].url }}"{% else %}""{% endif %},
+    "videoAsThumbnail": {{ section.settings.jones_video_as_thumbnail | json }},
+    "videoPreview": {{ section.settings.jones_video_preview | json }},
+    "startWithVideo": {{ section.settings.jones_start_with_video | json }},
+    "paintingName": {{ section.settings.jones_painting_name | json }},
+    "bio": {{ section.settings.jones_bio | json }},
+    "wikipedia": {{ section.settings.jones_wikipedia | json }},
+    "colors": [
+      { "name": {{ section.settings.jones_color_1_name | json }}, "hex": "{{ section.settings.jones_color_1 }}" },
+      { "name": {{ section.settings.jones_color_2_name | json }}, "hex": "{{ section.settings.jones_color_2 }}" },
+      { "name": {{ section.settings.jones_color_3_name | json }}, "hex": "{{ section.settings.jones_color_3 }}" },
+      { "name": {{ section.settings.jones_color_4_name | json }}, "hex": "{{ section.settings.jones_color_4 }}" },
+      { "name": {{ section.settings.jones_color_5_name | json }}, "hex": "{{ section.settings.jones_color_5 }}" },
+      { "name": {{ section.settings.jones_color_6_name | json }}, "hex": "{{ section.settings.jones_color_6 }}" }
+    ]
+  },
+  "1": {
+    "thumbnail": {% if section.settings.hockney60_thumbnail %}"{{ section.settings.hockney60_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+    "images": [
+      {% if section.settings.hockney60_image_1 %}"{{ section.settings.hockney60_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney60_image_2 %}"{{ section.settings.hockney60_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney60_image_3 %}"{{ section.settings.hockney60_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+    ],
+    "video": {% if section.settings.hockney60_video %}"{{ section.settings.hockney60_video.sources[0].url }}"{% else %}""{% endif %},
+    "videoAsThumbnail": {{ section.settings.hockney60_video_as_thumbnail | json }},
+    "videoPreview": {{ section.settings.hockney60_video_preview | json }},
+    "startWithVideo": {{ section.settings.hockney60_start_with_video | json }},
+    "paintingName": {{ section.settings.hockney60_painting_name | json }},
+    "bio": {{ section.settings.hockney60_bio | json }},
+    "wikipedia": {{ section.settings.hockney60_wikipedia | json }},
+    "colors": [
+      { "name": {{ section.settings.hockney60_color_1_name | json }}, "hex": "{{ section.settings.hockney60_color_1 }}" },
+      { "name": {{ section.settings.hockney60_color_2_name | json }}, "hex": "{{ section.settings.hockney60_color_2 }}" },
+      { "name": {{ section.settings.hockney60_color_3_name | json }}, "hex": "{{ section.settings.hockney60_color_3 }}" },
+      { "name": {{ section.settings.hockney60_color_4_name | json }}, "hex": "{{ section.settings.hockney60_color_4 }}" },
+      { "name": {{ section.settings.hockney60_color_5_name | json }}, "hex": "{{ section.settings.hockney60_color_5 }}" },
+      { "name": {{ section.settings.hockney60_color_6_name | json }}, "hex": "{{ section.settings.hockney60_color_6 }}" }
+    ]
+  },
+  "2": {
+    "thumbnail": {% if section.settings.bacon_thumbnail %}"{{ section.settings.bacon_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+    "images": [
+      {% if section.settings.bacon_image_1 %}"{{ section.settings.bacon_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+      {% if section.settings.bacon_image_2 %}"{{ section.settings.bacon_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+      {% if section.settings.bacon_image_3 %}"{{ section.settings.bacon_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+    ],
+    "video": {% if section.settings.bacon_video %}"{{ section.settings.bacon_video.sources[0].url }}"{% else %}""{% endif %},
+    "videoAsThumbnail": {{ section.settings.bacon_video_as_thumbnail | json }},
+    "videoPreview": {{ section.settings.bacon_video_preview | json }},
+    "startWithVideo": {{ section.settings.bacon_start_with_video | json }},
+    "paintingName": {{ section.settings.bacon_painting_name | json }},
+    "bio": {{ section.settings.bacon_bio | json }},
+    "wikipedia": {{ section.settings.bacon_wikipedia | json }},
+    "colors": [
+      { "name": {{ section.settings.bacon_color_1_name | json }}, "hex": "{{ section.settings.bacon_color_1 }}" },
+      { "name": {{ section.settings.bacon_color_2_name | json }}, "hex": "{{ section.settings.bacon_color_2 }}" },
+      { "name": {{ section.settings.bacon_color_3_name | json }}, "hex": "{{ section.settings.bacon_color_3 }}" },
+      { "name": {{ section.settings.bacon_color_4_name | json }}, "hex": "{{ section.settings.bacon_color_4 }}" },
+      { "name": {{ section.settings.bacon_color_5_name | json }}, "hex": "{{ section.settings.bacon_color_5 }}" },
+      { "name": {{ section.settings.bacon_color_6_name | json }}, "hex": "{{ section.settings.bacon_color_6 }}" }
+    ]
+  },
+  "3": {
+    "thumbnail": {% if section.settings.hockney13_thumbnail %}"{{ section.settings.hockney13_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+    "images": [
+      {% if section.settings.hockney13_image_1 %}"{{ section.settings.hockney13_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney13_image_2 %}"{{ section.settings.hockney13_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney13_image_3 %}"{{ section.settings.hockney13_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+    ],
+    "video": {% if section.settings.hockney13_video %}"{{ section.settings.hockney13_video.sources[0].url }}"{% else %}""{% endif %},
+    "videoAsThumbnail": {{ section.settings.hockney13_video_as_thumbnail | json }},
+    "videoPreview": {{ section.settings.hockney13_video_preview | json }},
+    "startWithVideo": {{ section.settings.hockney13_start_with_video | json }},
+    "paintingName": {{ section.settings.hockney13_painting_name | json }},
+    "bio": {{ section.settings.hockney13_bio | json }},
+    "wikipedia": {{ section.settings.hockney13_wikipedia | json }},
+    "colors": [
+      { "name": {{ section.settings.hockney13_color_1_name | json }}, "hex": "{{ section.settings.hockney13_color_1 }}" },
+      { "name": {{ section.settings.hockney13_color_2_name | json }}, "hex": "{{ section.settings.hockney13_color_2 }}" },
+      { "name": {{ section.settings.hockney13_color_3_name | json }}, "hex": "{{ section.settings.hockney13_color_3 }}" },
+      { "name": {{ section.settings.hockney13_color_4_name | json }}, "hex": "{{ section.settings.hockney13_color_4 }}" },
+      { "name": {{ section.settings.hockney13_color_5_name | json }}, "hex": "{{ section.settings.hockney13_color_5 }}" },
+      { "name": {{ section.settings.hockney13_color_6_name | json }}, "hex": "{{ section.settings.hockney13_color_6 }}" }
+    ]
+  },
+  "4": {
+    "thumbnail": {% if section.settings.price_thumbnail %}"{{ section.settings.price_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+    "images": [
+      {% if section.settings.price_image_1 %}"{{ section.settings.price_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+      {% if section.settings.price_image_2 %}"{{ section.settings.price_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+      {% if section.settings.price_image_3 %}"{{ section.settings.price_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+    ],
+    "video": {% if section.settings.price_video %}"{{ section.settings.price_video.sources[0].url }}"{% else %}""{% endif %},
+    "videoAsThumbnail": {{ section.settings.price_video_as_thumbnail | json }},
+    "videoPreview": {{ section.settings.price_video_preview | json }},
+    "startWithVideo": {{ section.settings.price_start_with_video | json }},
+    "paintingName": {{ section.settings.price_painting_name | json }},
+    "bio": {{ section.settings.price_bio | json }},
+    "wikipedia": {{ section.settings.price_wikipedia | json }},
+    "colors": [
+      { "name": {{ section.settings.price_color_1_name | json }}, "hex": "{{ section.settings.price_color_1 }}" },
+      { "name": {{ section.settings.price_color_2_name | json }}, "hex": "{{ section.settings.price_color_2 }}" },
+      { "name": {{ section.settings.price_color_3_name | json }}, "hex": "{{ section.settings.price_color_3 }}" },
+      { "name": {{ section.settings.price_color_4_name | json }}, "hex": "{{ section.settings.price_color_4 }}" },
+      { "name": {{ section.settings.price_color_5_name | json }}, "hex": "{{ section.settings.price_color_5 }}" },
+      { "name": {{ section.settings.price_color_6_name | json }}, "hex": "{{ section.settings.price_color_6 }}" }
+    ]
+  },
   "sizing": {
     "slides": [
       {% if section.settings.sizing_slot_1_type == "image" and section.settings.sizing_slot_1_image %}
@@ -3317,97 +3315,83 @@ function initSweaterDesigner(){
       enabled: {{ section.settings.hockney60_enabled | default: false }},
       defaults: {
         "hem":"#313539","neck":"#313539","Laag_2":"#313539","Laag_3":"#284354","Laag_4":"#b4a697","Laag_5":"#284354","Laag_6":"#313539",
-        "Laag_7":"#284354","Laag_8":"#313539","Laag_9":"#6b5d93","Laag_10":"#9a6c2c","Laag_11":"#284354","Laag_12":"#313539",
-        "Laag_13":"#313539","Laag_14":"#b4a697","Laag_15":"#313539","Laag_16":"#b3502e","Laag_17":"#313539","Laag_18":"#b4a697",
-        "Laag_19":"#6b5d93","Laag_21":"#b3502e","Laag_22":"#313539","Laag_23":"#284354","Laag_24":"#b4a697","Laag_25":"#9a6c2c",
-        "Laag_26":"#284354","Laag_27":"#313539","Laag_28":"#9a6c2c","leftcuff":"#313539","rightcuff":"#313539"
-      },
-      tooltipTitle: "David Hockney (60s)",
-      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908",
-      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#"
+        "Laag_7":"#284354","Laag_8":"#313539","Lconst DESIGNERS = {
+  0: {
+    name: "Natisa Jones",
+    available: true,
+    enabled: {{ section.settings.jones_enabled | default: false }},
+    defaults: {
+      "hem":"#000000","neck":"#6b191f","Laag_2":"#f1dbd0","Laag_3":"#930918","Laag_4":"#930918","Laag_5":"#930918","Laag_6":"#930918",
+      "Laag_7":"#930918","Laag_8":"#930918","Laag_9":"#930918","Laag_10":"#c32728","Laag_11":"#930918","Laag_12":"#f1dbd0",
+      "Laag_13":"#000000","Laag_14":"#c32728","Laag_15":"#f3f2de","Laag_16":"#c32728","Laag_17":"#930918","Laag_18":"#930918",
+      "Laag_19":"#930918","Laag_21":"#c32728","Laag_22":"#f3f2de","Laag_23":"#930918","Laag_24":"#6b191f","Laag_25":"#6b191f",
+      "Laag_26":"#f1dbd0","Laag_27":"#6b191f","Laag_28":"#f3f2de","leftcuff":"#6b191f","rightcuff":"#000000"
     },
-    2: {
-      name: "Francis Bacon",
-      available: true,
-      enabled: {{ section.settings.bacon_enabled | default: false }},
-      defaults: {
-        "hem":"#8c6f64","neck":"#000000","Laag_2":"#8c6f64","Laag_3":"#1a352c","Laag_4":"#d8d5d2","Laag_5":"#d35968","Laag_6":"#1a352c",
-        "Laag_7":"#d8d5d2","Laag_8":"#ff83a1","Laag_9":"#d35968","Laag_10":"#ff83a1","Laag_11":"#1a352c","Laag_12":"#d8d5d2",
-        "Laag_13":"#000000","Laag_14":"#000000","Laag_15":"#1a352c","Laag_16":"#d35968","Laag_17":"#1a352c","Laag_18":"#d8d5d2",
-        "Laag_19":"#1a352c","Laag_21":"#d35968","Laag_22":"#000000","Laag_23":"#000000","Laag_24":"#d8d5d2","Laag_25":"#000000",
-        "Laag_26":"#ff83a1","Laag_27":"#8c6f64","Laag_28":"#ff83a1","leftcuff":"#8c6f64","rightcuff":"#8c6f64"
-      },
-      tooltipTitle: "Francis Bacon.",
-      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/bacon1_430x.jpg?v=1762164487",
-      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/francisbacon_430x.jpg?v=1757588774#"
-    },
-    0: {
-  name: "Natisa Jones",
-  available: true,
-  enabled: {{ section.settings.jones_enabled | default: false }},
-  defaults: {
-  "Laag_10":"#930918",
-  "Laag_11":"#930918",
-  "Laag_12":"#930918",
-  "Laag_14":"#930918",
-  "Laag_15":"#930918",
-  "Laag_16":"#930918",
-  "Laag_17":"#930918",
-  "Laag_18":"#c32728",
-  "Laag_19":"#c32728",
-  "Laag_21":"#c32728",
-  "Laag_23":"#6b191f",
-  "Laag_24":"#6b191f",
-  "Laag_25":"#f1dbd0",
-  "Laag_26":"#f3f2de",
-  "Laag_28":"#930918",
-  "Laag_3":"#f3f2de",
-  "Laag_4":"#f1dbd0",
-  "Laag_5":"#930918",
-  "Laag_6":"#930918",
-  "Laag_7":"#930918",
-  "Laag_8":"#930918",
-  "Laag_9":"#930918",
-  "hem":"#000000",
-  "leftcuff":"#c32728",
-  "leftcuff-2":"#000000",
-  "neck":"#6b191f"
+    tooltipTitle: "Natisa Jones.",
+    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
+    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
   },
-  tooltipTitle: "Natisa Jones.",
-  tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
-  fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
-},
-    3: {
-      name: "David Hockney (2013)",
-      available: true,
-      enabled: {{ section.settings.hockney13_enabled | default: false }},
-      defaults: {
-        "hem":"#14352a","neck":"#14352a","Laag_2":"#14352a","Laag_3":"#036433","Laag_4":"#f2d075","Laag_5":"#14352a","Laag_6":"#036433",
-        "Laag_7":"#7baa5e","Laag_8":"#036433","Laag_9":"#036433","Laag_10":"#14352a","Laag_11":"#036433","Laag_12":"#036433",
-        "Laag_13":"#14352a","Laag_14":"#7baa5e","Laag_15":"#14352a","Laag_16":"#a40556","Laag_17":"#7baa5e","Laag_18":"#f2d075",
-        "Laag_19":"#14352a","Laag_21":"#890222","Laag_22":"#14352a","Laag_23":"#a40556","Laag_24":"#f2d075","Laag_25":"#a40556",
-        "Laag_26":"#036433","Laag_27":"#14352a","Laag_28":"#7baa5e","leftcuff":"#14352a","rightcuff":"#14352a"
-      },
-      tooltipTitle: "David Hockney (2013)",
-      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
-      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/2246_430x.webp?v=1758361067"
+  1: {
+    name: "David Hockney (60s)",
+    available: true,
+    enabled: {{ section.settings.hockney60_enabled | default: false }},
+    defaults: {
+      "hem":"#313539","neck":"#313539","Laag_2":"#313539","Laag_3":"#284354","Laag_4":"#b4a697","Laag_5":"#284354","Laag_6":"#313539",
+      "Laag_7":"#284354","Laag_8":"#313539","Laag_9":"#6b5d93","Laag_10":"#9a6c2c","Laag_11":"#284354","Laag_12":"#313539",
+      "Laag_13":"#313539","Laag_14":"#b4a697","Laag_15":"#313539","Laag_16":"#b3502e","Laag_17":"#313539","Laag_18":"#b4a697",
+      "Laag_19":"#6b5d93","Laag_21":"#b3502e","Laag_22":"#313539","Laag_23":"#284354","Laag_24":"#b4a697","Laag_25":"#9a6c2c",
+      "Laag_26":"#284354","Laag_27":"#313539","Laag_28":"#9a6c2c","leftcuff":"#313539","rightcuff":"#313539"
     },
-    4: {
-      name: "Ken Price",
-      available: false,
-      enabled: {{ section.settings.price_enabled | default: false }},
-      defaults: {
-        "hem":"#000000","neck":"#be4b2e","Laag_2":"#000000","Laag_3":"#843345","Laag_4":"#59261f","Laag_5":"#843345","Laag_6":"#59261f",
-        "Laag_7":"#9cbdb4","Laag_8":"#59261f","Laag_9":"#843345","Laag_10":"#843345","Laag_11":"#843345","Laag_12":"#843345",
-        "Laag_13":"#000000","Laag_14":"#9cbdb4","Laag_15":"#000000","Laag_16":"#59261f","Laag_17":"#9cbdb4","Laag_18":"#7d90b2",
-        "Laag_19":"#9cbdb4","Laag_21":"#843345","Laag_22":"#000000","Laag_23":"#59261f","Laag_24":"#9cbdb4","Laag_25":"#7d90b2",
-        "Laag_26":"#9cbdb4","Laag_27":"#000000","Laag_28":"#9cbdb4","leftcuff":"#000000","rightcuff":"#000000"
-      },
-      tooltipTitle: "Ken Price.",
-      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
-      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2024-09-30_at_12.05.02_430x.png?v=1758355327"
-    }
-  };
+    tooltipTitle: "David Hockney (60s)",
+    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908",
+    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#"
+  },
+  2: {
+    name: "Francis Bacon",
+    available: true,
+    enabled: {{ section.settings.bacon_enabled | default: false }},
+    defaults: {
+      "hem":"#8c6f64","neck":"#000000","Laag_2":"#8c6f64","Laag_3":"#1a352c","Laag_4":"#d8d5d2","Laag_5":"#d35968","Laag_6":"#1a352c",
+      "Laag_7":"#d8d5d2","Laag_8":"#ff83a1","Laag_9":"#d35968","Laag_10":"#ff83a1","Laag_11":"#1a352c","Laag_12":"#d8d5d2",
+      "Laag_13":"#000000","Laag_14":"#000000","Laag_15":"#1a352c","Laag_16":"#d35968","Laag_17":"#1a352c","Laag_18":"#d8d5d2",
+      "Laag_19":"#1a352c","Laag_21":"#d35968","Laag_22":"#000000","Laag_23":"#000000","Laag_24":"#d8d5d2","Laag_25":"#000000",
+      "Laag_26":"#ff83a1","Laag_27":"#8c6f64","Laag_28":"#ff83a1","leftcuff":"#8c6f64","rightcuff":"#8c6f64"
+    },
+    tooltipTitle: "Francis Bacon.",
+    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/bacon1_430x.jpg?v=1762164487",
+    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/francisbacon_430x.jpg?v=1757588774#"
+  },
+  3: {
+    name: "David Hockney (2013)",
+    available: true,
+    enabled: {{ section.settings.hockney13_enabled | default: false }},
+    defaults: {
+      "hem":"#14352a","neck":"#14352a","Laag_2":"#14352a","Laag_3":"#036433","Laag_4":"#f2d075","Laag_5":"#14352a","Laag_6":"#036433",
+      "Laag_7":"#7baa5e","Laag_8":"#036433","Laag_9":"#036433","Laag_10":"#14352a","Laag_11":"#036433","Laag_12":"#036433",
+      "Laag_13":"#14352a","Laag_14":"#7baa5e","Laag_15":"#14352a","Laag_16":"#a40556","Laag_17":"#7baa5e","Laag_18":"#f2d075",
+      "Laag_19":"#14352a","Laag_21":"#890222","Laag_22":"#14352a","Laag_23":"#a40556","Laag_24":"#f2d075","Laag_25":"#a40556",
+      "Laag_26":"#036433","Laag_27":"#14352a","Laag_28":"#7baa5e","leftcuff":"#14352a","rightcuff":"#14352a"
+    },
+    tooltipTitle: "David Hockney (2013)",
+    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
+    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/2246_430x.webp?v=1758361067"
+  },
+  4: {
+    name: "Ken Price",
+    available: false,
+    enabled: {{ section.settings.price_enabled | default: false }},
+    defaults: {
+      "hem":"#000000","neck":"#be4b2e","Laag_2":"#000000","Laag_3":"#843345","Laag_4":"#59261f","Laag_5":"#843345","Laag_6":"#59261f",
+      "Laag_7":"#9cbdb4","Laag_8":"#59261f","Laag_9":"#843345","Laag_10":"#843345","Laag_11":"#843345","Laag_12":"#843345",
+      "Laag_13":"#000000","Laag_14":"#9cbdb4","Laag_15":"#000000","Laag_16":"#59261f","Laag_17":"#9cbdb4","Laag_18":"#7d90b2",
+      "Laag_19":"#9cbdb4","Laag_21":"#843345","Laag_22":"#000000","Laag_23":"#59261f","Laag_24":"#9cbdb4","Laag_25":"#7d90b2",
+      "Laag_26":"#9cbdb4","Laag_27":"#000000","Laag_28":"#9cbdb4","leftcuff":"#000000","rightcuff":"#000000"
+    },
+    tooltipTitle: "Ken Price.",
+    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
+    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2024-09-30_at_12.05.02_430x.png?v=1758355327"
+  }
+};
 
   // Helper functions for enabled designers
   function getEnabledDesigners() {
@@ -4370,7 +4354,17 @@ function closeInfoOverlay() {
 }
 // Wool Grid Data Structure
 const woolGridData = {
-  0: { // hockney60
+  0: { // jones
+    images: [
+      {% if section.settings.jones_wool_1 %}"{{ section.settings.jones_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_wool_2 %}"{{ section.settings.jones_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_wool_3 %}"{{ section.settings.jones_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_wool_4 %}"{{ section.settings.jones_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_wool_5 %}"{{ section.settings.jones_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_wool_6 %}"{{ section.settings.jones_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
+    ]
+  },
+  1: { // hockney60
     images: [
       {% if section.settings.hockney60_wool_1 %}"{{ section.settings.hockney60_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
       {% if section.settings.hockney60_wool_2 %}"{{ section.settings.hockney60_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
@@ -4380,7 +4374,7 @@ const woolGridData = {
       {% if section.settings.hockney60_wool_6 %}"{{ section.settings.hockney60_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
     ]
   },
-  1: { // bacon
+  2: { // bacon
     images: [
       {% if section.settings.bacon_wool_1 %}"{{ section.settings.bacon_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
       {% if section.settings.bacon_wool_2 %}"{{ section.settings.bacon_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
@@ -4388,16 +4382,6 @@ const woolGridData = {
       {% if section.settings.bacon_wool_4 %}"{{ section.settings.bacon_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
       {% if section.settings.bacon_wool_5 %}"{{ section.settings.bacon_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
       {% if section.settings.bacon_wool_6 %}"{{ section.settings.bacon_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
-    ]
-  },
-  2: { // jones
-    images: [
-      {% if section.settings.jones_wool_1 %}"{{ section.settings.jones_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_wool_2 %}"{{ section.settings.jones_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_wool_3 %}"{{ section.settings.jones_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_wool_4 %}"{{ section.settings.jones_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_wool_5 %}"{{ section.settings.jones_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_wool_6 %}"{{ section.settings.jones_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
     ]
   },
   3: { // hockney13
@@ -4534,20 +4518,98 @@ function setupDragAndDrop() {
     });
   });
   
-  // Touch support for mobile
-  items.forEach(item => {
-    let touchStartX, touchStartY;
+  // Enhanced touch support for mobile
+let touchedItem = null;
+let touchStartPos = { x: 0, y: 0 };
+let isDragging = false;
+
+items.forEach(item => {
+  item.addEventListener('touchstart', function(e) {
+    touchedItem = this;
+    const touch = e.touches[0];
+    touchStartPos = { x: touch.clientX, y: touch.clientY };
+    isDragging = false;
     
-    item.addEventListener('touchstart', function(e) {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-      this.classList.add('dragging');
-    });
+    // Prevent default to allow dragging
+    e.preventDefault();
     
-    item.addEventListener('touchend', function() {
+    this.classList.add('dragging');
+  }, { passive: false });
+  
+  item.addEventListener('touchmove', function(e) {
+    if (!touchedItem) return;
+    
+    const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - touchStartPos.x);
+    const deltaY = Math.abs(touch.clientY - touchStartPos.y);
+    
+    // Start dragging if moved more than 10px
+    if (deltaX > 10 || deltaY > 10) {
+      isDragging = true;
+    }
+    
+    if (isDragging) {
+      e.preventDefault();
+      
+      // Find element under touch point
+      const touchX = touch.clientX;
+      const touchY = touch.clientY;
+      const elementUnder = document.elementFromPoint(touchX, touchY);
+      const targetItem = elementUnder?.closest('.wool-grid-item');
+      
+      // Remove drag-over from all items
+      items.forEach(i => i.classList.remove('drag-over'));
+      
+      // Add drag-over to target
+      if (targetItem && targetItem !== touchedItem) {
+        targetItem.classList.add('drag-over');
+      }
+    }
+  }, { passive: false });
+  
+  item.addEventListener('touchend', function(e) {
+    if (!touchedItem || !isDragging) {
       this.classList.remove('dragging');
-    });
+      items.forEach(i => i.classList.remove('drag-over'));
+      touchedItem = null;
+      return;
+    }
+    
+    e.preventDefault();
+    
+    const touch = e.changedTouches[0];
+    const touchX = touch.clientX;
+    const touchY = touch.clientY;
+    const elementUnder = document.elementFromPoint(touchX, touchY);
+    const targetItem = elementUnder?.closest('.wool-grid-item');
+    
+    if (targetItem && targetItem !== touchedItem) {
+      const fromIndex = parseInt(touchedItem.dataset.index);
+      const toIndex = parseInt(targetItem.dataset.index);
+      
+      // Swap items in array
+      const temp = currentWoolOrder[fromIndex];
+      currentWoolOrder[fromIndex] = currentWoolOrder[toIndex];
+      currentWoolOrder[toIndex] = temp;
+      
+      // Re-render grid
+      renderWoolGrid();
+      setupDragAndDrop();
+    }
+    
+    this.classList.remove('dragging');
+    items.forEach(i => i.classList.remove('drag-over'));
+    touchedItem = null;
+    isDragging = false;
+  }, { passive: false });
+  
+  item.addEventListener('touchcancel', function() {
+    this.classList.remove('dragging');
+    items.forEach(i => i.classList.remove('drag-over'));
+    touchedItem = null;
+    isDragging = false;
   });
+});
 }
 
 // Reset button functionality
