@@ -1573,7 +1573,7 @@
     </button>
 
     <!-- Wool Colors Interactive Grid -->
-<div id='wool-grid-container' style='flex: 0 0 60vh; position: relative; width: 100%; background: #fff; padding: 20px; box-sizing: border-box; display: flex; align-items: center; justify-content: center;'>
+<div id='wool-grid-container' style='flex: 0 0 auto; position: relative; width: 100%; background: #fff; padding: 20px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; max-height: calc(100vh - 200px); min-height: 50vh;'>
       <div id='wool-grid' class='wool-grid'>
         <!-- Grid items will be populated by JavaScript -->
       </div>
@@ -3048,7 +3048,12 @@
   background: #4c5ab3;
 }
 {% endif %}
-/* Wool Grid Styles */
+#wool-grid-container {
+  flex: 0 0 auto !important;
+  max-height: calc(100vh - 200px) !important; /* Leaves 200px for garment info peek */
+  min-height: 50vh !important;
+  overflow: visible !important;
+}
 .wool-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -3056,7 +3061,8 @@
   gap: 0px;
   width: 100%;
   max-width: 900px;
-  height: 100%; /* ← Makes it fill the container */
+  aspect-ratio: 3 / 2; /* Maintains grid proportions */
+  max-height: calc(100vh - 250px); /* Ensures it fits in viewport */
   margin: 0 auto;
 }
 
@@ -3064,10 +3070,13 @@
   .wool-grid {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 0px;
+    aspect-ratio: 2 / 3;
+    max-height: calc(100vh - 300px); /* More space for mobile controls */
+  }
+ #wool-grid-container {
+    max-height: calc(100vh - 250px) !important;
   }
 }
-
 .wool-grid-item {
   aspect-ratio: 1;
   border-radius: 0px; /* ← Changed from 12px */
