@@ -3052,19 +3052,22 @@
 {% endif %}
 /* Wool Grid Styles */
 .wool-grid {
+  dwool-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0px; /* ← Changed from 16px */
-  max-width: 800px;
+  grid-template-rows: repeat(2, 1fr); /* ← Add this */
+  gap: 0px;
+  width: 100%; /* ← Add this */
+  aspect-ratio: 3 / 2; /* ← Add this - creates perfect 3:2 ratio */
   margin: 0 auto;
-  height: 100%; /* ← Changed from calc(100% - 60px) */
-  align-content: center;
 }
 
 @media (max-width: 768px) {
   .wool-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0px; /* ← Changed from 12px */
+    grid-template-rows: repeat(3, 1fr); /* ← 2 columns = 3 rows for 6 items */
+    aspect-ratio: 2 / 3; /* ← Adjust for mobile */
+    gap: 0px;
   }
 }
 
