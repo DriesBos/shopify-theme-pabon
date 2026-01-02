@@ -4385,7 +4385,9 @@ function openInfoOverlay() {
   const designer = DESIGNERS[currentDesigner];
   
   if (infoDesignerName) infoDesignerName.textContent = designer.name;
-  if (infoCarouselImg) infoCarouselImg.src = designer.tooltipImage;
+  
+  // Initialize wool grid
+  initWoolGrid(currentDesigner);
   
   if (infoOverlay) infoOverlay.style.display = 'block';
   document.body.style.overflow = 'hidden';
@@ -4394,6 +4396,204 @@ function openInfoOverlay() {
 function closeInfoOverlay() {
   if (infoOverlay) infoOverlay.style.display = 'none';
   document.body.style.overflow = '';
+}
+// Wool Grid Data Structure
+const woolGridData = {
+  0: { // hockney60
+    images: [
+      {% if section.settings.hockney60_wool_1 %}"{{ section.settings.hockney60_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney60_wool_2 %}"{{ section.settings.hockney60_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney60_wool_3 %}"{{ section.settings.hockney60_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney60_wool_4 %}"{{ section.settings.hockney60_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney60_wool_5 %}"{{ section.settings.hockney60_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney60_wool_6 %}"{{ section.settings.hockney60_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
+    ]
+  },
+  1: { // bacon
+    images: [
+      {% if section.settings.bacon_wool_1 %}"{{ section.settings.bacon_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.bacon_wool_2 %}"{{ section.settings.bacon_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.bacon_wool_3 %}"{{ section.settings.bacon_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.bacon_wool_4 %}"{{ section.settings.bacon_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.bacon_wool_5 %}"{{ section.settings.bacon_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.bacon_wool_6 %}"{{ section.settings.bacon_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
+    ]
+  },
+  2: { // jones
+    images: [
+      {% if section.settings.jones_wool_1 %}"{{ section.settings.jones_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_wool_2 %}"{{ section.settings.jones_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_wool_3 %}"{{ section.settings.jones_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_wool_4 %}"{{ section.settings.jones_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_wool_5 %}"{{ section.settings.jones_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.jones_wool_6 %}"{{ section.settings.jones_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
+    ]
+  },
+  3: { // hockney13
+    images: [
+      {% if section.settings.hockney13_wool_1 %}"{{ section.settings.hockney13_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney13_wool_2 %}"{{ section.settings.hockney13_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney13_wool_3 %}"{{ section.settings.hockney13_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney13_wool_4 %}"{{ section.settings.hockney13_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney13_wool_5 %}"{{ section.settings.hockney13_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.hockney13_wool_6 %}"{{ section.settings.hockney13_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
+    ]
+  },
+  4: { // price
+    images: [
+      {% if section.settings.price_wool_1 %}"{{ section.settings.price_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.price_wool_2 %}"{{ section.settings.price_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.price_wool_3 %}"{{ section.settings.price_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.price_wool_4 %}"{{ section.settings.price_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.price_wool_5 %}"{{ section.settings.price_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
+      {% if section.settings.price_wool_6 %}"{{ section.settings.price_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
+    ]
+  }
+};
+
+let currentWoolOrder = [];
+let originalWoolOrder = [];
+
+function initWoolGrid(designerIndex) {
+  const grid = document.getElementById('wool-grid');
+  if (!grid) return;
+  
+  const designer = DESIGNERS[designerIndex];
+  const colors = getSwatchColors(designerIndex);
+  const images = woolGridData[designerIndex]?.images || [];
+  
+  // Store original order
+  originalWoolOrder = colors.map((color, i) => ({
+    color: color,
+    image: images[i] || '',
+    originalIndex: i
+  }));
+  
+  currentWoolOrder = [...originalWoolOrder];
+  
+  renderWoolGrid();
+  setupDragAndDrop();
+  
+  // Hide hint after 3 seconds
+  setTimeout(() => {
+    const hint = document.querySelector('.wool-grid-hint');
+    if (hint) hint.classList.add('hidden');
+  }, 3000);
+}
+
+function renderWoolGrid() {
+  const grid = document.getElementById('wool-grid');
+  if (!grid) return;
+  
+  grid.innerHTML = '';
+  
+  currentWoolOrder.forEach((item, index) => {
+    const gridItem = document.createElement('div');
+    gridItem.className = 'wool-grid-item';
+    gridItem.draggable = true;
+    gridItem.dataset.index = index;
+    
+    // Use color swatch if no image
+    if (item.image && item.image !== '') {
+      gridItem.innerHTML = `
+        <img src="${item.image}" alt="${item.color.name}" draggable="false">
+        <div class="wool-label">${item.color.name}</div>
+      `;
+    } else {
+      gridItem.innerHTML = `
+        <div style="width: 100%; height: 100%; background: ${item.color.hex}; display: flex; align-items: center; justify-content: center;">
+          <div class="wool-label">${item.color.name}</div>
+        </div>
+      `;
+    }
+    
+    grid.appendChild(gridItem);
+  });
+}
+
+function setupDragAndDrop() {
+  const items = document.querySelectorAll('.wool-grid-item');
+  let draggedItem = null;
+  
+  items.forEach(item => {
+    item.addEventListener('dragstart', function(e) {
+      draggedItem = this;
+      this.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', this.innerHTML);
+    });
+    
+    item.addEventListener('dragend', function() {
+      this.classList.remove('dragging');
+      items.forEach(i => i.classList.remove('drag-over'));
+    });
+    
+    item.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      
+      if (this !== draggedItem) {
+        this.classList.add('drag-over');
+      }
+    });
+    
+    item.addEventListener('dragleave', function() {
+      this.classList.remove('drag-over');
+    });
+    
+    item.addEventListener('drop', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      this.classList.remove('drag-over');
+      
+      if (this !== draggedItem) {
+        const fromIndex = parseInt(draggedItem.dataset.index);
+        const toIndex = parseInt(this.dataset.index);
+        
+        // Swap items in array
+        const temp = currentWoolOrder[fromIndex];
+        currentWoolOrder[fromIndex] = currentWoolOrder[toIndex];
+        currentWoolOrder[toIndex] = temp;
+        
+        // Re-render grid
+        renderWoolGrid();
+        setupDragAndDrop();
+      }
+    });
+  });
+  
+  // Touch support for mobile
+  items.forEach(item => {
+    let touchStartX, touchStartY;
+    
+    item.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      this.classList.add('dragging');
+    });
+    
+    item.addEventListener('touchend', function() {
+      this.classList.remove('dragging');
+    });
+  });
+}
+
+// Reset button functionality
+const resetWoolBtn = document.getElementById('reset-wool-order');
+if (resetWoolBtn) {
+  resetWoolBtn.addEventListener('click', function() {
+    currentWoolOrder = [...originalWoolOrder];
+    renderWoolGrid();
+    setupDragAndDrop();
+    
+    // Show hint briefly
+    const hint = document.querySelector('.wool-grid-hint');
+    if (hint) {
+      hint.classList.remove('hidden');
+      setTimeout(() => hint.classList.add('hidden'), 2000);
+    }
+  });
 }
 
 if (infoBtn) {
