@@ -3152,9 +3152,13 @@
 }
 
 @media (max-width: 768px) {
+  #wool-grid-container {
+    padding: 10px !important;
+  }
+  
   .wool-grid-wrapper {
     aspect-ratio: 2 / 3;
-    max-height: calc(100vh - 320px);
+    max-height: calc(100vh - 200px); /* Reduced from 320px to 200px - shows less text */
   }
   
   .wool-grid {
