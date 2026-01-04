@@ -5574,9 +5574,19 @@ setTimeout(function() {
     const designer = DESIGNERS[currentDesigner];
     
     const currentDefaults = {};
-    const allLayerIds = [...bodyLayers, ...sleeveLayers, ...hemLayers, 'hem', 'neck', 'leftcuff', 'rightcuff'];
-    
-    allLayerIds.forEach(layerId => {
+
+// Get ALL layer IDs from the actual DESIGNERS defaults (this ensures we don't miss any)
+const allKnownLayerIds = Object.keys(DESIGNERS[currentDesigner].defaults);
+
+// Also add the standard layer arrays
+const additionalLayers = [...bodyLayers, ...sleeveLayers, ...hemLayers, 'hem', 'neck', 'leftcuff', 'rightcuff', 'leftcuff-2'];
+
+// Combine and deduplicate
+const allLayerIds = [...new Set([...allKnownLayerIds, ...additionalLayers])];
+
+console.log('Checking layers:', allLayerIds); // Debug
+
+allLayerIds.forEach(layerId => {
   const g = document.getElementById(layerId);
   if (!g) return;
   
