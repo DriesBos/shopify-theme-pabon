@@ -5585,11 +5585,36 @@ setTimeout(function() {
     const allLayerIds = [...bodyLayers, ...sleeveLayers, ...hemLayers, 'hem', 'neck', 'leftcuff', 'rightcuff'];
     
     allLayerIds.forEach(layerId => {
-      const color = getFill(layerId);
-      if (color) {
-        currentDefaults[layerId] = normalizeColor(color);
-      }
-    });
+  const g = document.getElementById(layerId);
+  if (!g) return;
+  
+  // Get ALL shapes in this layer
+  const shapes = g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse');
+  
+  // Count colors used in this layer
+  const colorCounts = {};
+  shapes.forEach(shape => {
+    const fill = (shape.style && shape.style.fill) ? shape.style.fill : shape.getAttribute('fill');
+    if (fill) {
+      const normalized = normalizeColor(fill);
+      colorCounts[normalized] = (colorCounts[normalized] || 0) + 1;
+    }
+  });
+  
+  // Use the most common color in this layer
+  let mostCommonColor = null;
+  let maxCount = 0;
+  Object.keys(colorCounts).forEach(color => {
+    if (colorCounts[color] > maxCount) {
+      maxCount = colorCounts[color];
+      mostCommonColor = color;
+    }
+  });
+  
+  if (mostCommonColor) {
+    currentDefaults[layerId] = mostCommonColor;
+  }
+});
     
     document.getElementById('admin-current-designer').textContent = designer.name;
     document.getElementById('admin-designer-name').textContent = designer.name;
