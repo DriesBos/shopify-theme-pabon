@@ -5625,10 +5625,13 @@ allLayerIds.forEach(layerId => {
   }
 });
     
-    document.getElementById('admin-current-designer').textContent = designer.name;
+     document.getElementById('admin-current-designer').textContent = designer.name;
     document.getElementById('admin-designer-name').textContent = designer.name;
     
-    let output = `// Paste this into DESIGNERS[${currentDesigner}].defaults:\n\n`;
+    // Debug info at the top
+    let output = `// CAPTURED ${Object.keys(currentDefaults).length} LAYERS:\n`;
+    output += `// ${Object.keys(currentDefaults).sort().join(', ')}\n\n`;
+    output += `// Paste this into DESIGNERS[${currentDesigner}].defaults:\n\n`;
     output += `defaults: {\n`;
     
     const sortedKeys = Object.keys(currentDefaults).sort();
