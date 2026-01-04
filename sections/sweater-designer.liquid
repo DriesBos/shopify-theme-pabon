@@ -1600,6 +1600,36 @@
         Reset Order
       </button>
     </div>
+    <!-- Combined Carousel with Wool Grid as First Slide -->
+<div id='info-carousel-container' style='flex: 0 0 60vh; position: relative; width: 100%; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden;'>
+  
+  <button id='carousel-prev' class='info-modal-nav-btn info-modal-nav-prev'>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  
+  <div id='carousel-content' style='width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;'>
+    <!-- Wool grid or images/videos will be loaded here -->
+  </div>
+  
+  <button id='carousel-next' class='info-modal-nav-btn info-modal-nav-next'>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+  
+  <div class='wool-grid-hint' style='position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 12px; display: none; align-items: center; gap: 8px; pointer-events: none; z-index: 10;'>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+    </svg>
+    Drag & drop to rearrange wool colors
+  </div>
+  
+  <div id='carousel-indicators' style='position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;'>
+    <!-- Dots will be added here -->
+  </div>
+</div>
 
     <!-- Garment Info Section -->
     <div id='garment-info-section' style='background:#fff; padding:24px; margin-top:0; flex-shrink:0;'>
@@ -4371,6 +4401,15 @@ function openInfoOverlay() {
   
   if (infoDesignerName) infoDesignerName.textContent = designer.name;
   
+  // Initialize carousel (wool grid is first slide)
+  initCarousel(currentDesigner);
+  
+  if (infoOverlay) infoOverlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+  
+  if (infoDesignerName) infoDesignerName.textContent = designer.name;
+  
   // Initialize wool grid
   initWoolGrid(currentDesigner);
   
@@ -4547,6 +4586,95 @@ function setupDragAndDrop() {
       }
     });
   });
+}
+
+  / ADD CAROUSEL FUNCTIONS HERE ↓
+let currentCarouselIndex = 0;
+let carouselItems = [];
+
+function initCarousel(designerIndex) {
+  const data = galleryData[designerIndex];
+  if (!data) return;
+  
+  carouselItems = [];
+  
+  // FIRST SLIDE: Wool grid
+  carouselItems.push({ type: 'wool-grid', designerIndex: designerIndex });
+  
+  // Add images
+  data.images.forEach(img => {
+    if (img && img.trim()) carouselItems.push({ type: 'image', src: img });
+  });
+  
+  // Add video if exists
+  if (data.video && data.video.trim()) {
+    carouselItems.push({ type: 'video', src: data.video });
+  }
+  
+  currentCarouselIndex = 0;
+  renderCarousel();
+  renderCarouselIndicators();
+}
+
+function renderCarousel() {
+  const container = document.getElementById('carousel-content');
+  const hint = document.querySelector('.wool-grid-hint');
+  if (!container || carouselItems.length === 0) return;
+  
+  const item = carouselItems[currentCarouselIndex];
+  
+  if (item.type === 'wool-grid') {
+    // Show wool grid
+    container.innerHTML = `
+      <div class='wool-grid-wrapper' style='width: 100%; max-width: 90vw; max-height: calc(60vh - 80px); aspect-ratio: 3 / 2; margin: 0 auto; position: relative;'>
+        <div id='wool-grid' class='wool-grid' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0px;'></div>
+      </div>
+    `;
+    initWoolGrid(item.designerIndex);
+    if (hint) hint.style.display = 'flex';
+    container.parentElement.style.background = '#fff';
+  } else if (item.type === 'image') {
+    container.innerHTML = `<img src="${item.src}" alt="Gallery image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />`;
+    if (hint) hint.style.display = 'none';
+    container.parentElement.style.background = '#000';
+  } else if (item.type === 'video') {
+    container.innerHTML = `<video src="${item.src}" controls autoplay loop style="max-width: 100%; max-height: 100%; object-fit: contain;"></video>`;
+    if (hint) hint.style.display = 'none';
+    container.parentElement.style.background = '#000';
+  }
+}
+
+function renderCarouselIndicators() {
+  const container = document.getElementById('carousel-indicators');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  carouselItems.forEach((item, index) => {
+    const dot = document.createElement('div');
+    dot.className = 'carousel-indicator' + (index === currentCarouselIndex ? ' active' : '');
+    dot.onclick = () => {
+      currentCarouselIndex = index;
+      renderCarousel();
+      renderCarouselIndicators();
+    };
+    container.appendChild(dot);
+  });
+}
+
+// Carousel navigation event listeners
+setTimeout(() => {
+  document.getElementById('carousel-prev')?.addEventListener('click', () => {
+    currentCarouselIndex = (currentCarouselIndex - 1 + carouselItems.length) % carouselItems.length;
+    renderCarousel();
+    renderCarouselIndicators();
+  });
+
+  document.getElementById('carousel-next')?.addEventListener('click', () => {
+    currentCarouselIndex = (currentCarouselIndex + 1) % carouselItems.length;
+    renderCarousel();
+    renderCarouselIndicators();
+  });
+}, 100);
   
   // Enhanced touch support for mobile
 let touchedItem = null;
