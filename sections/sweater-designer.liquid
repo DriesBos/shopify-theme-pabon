@@ -5588,10 +5588,14 @@ console.log('Checking layers:', allLayerIds); // Debug
 
 allLayerIds.forEach(layerId => {
   const g = document.getElementById(layerId);
-  if (!g) return;
+  if (!g) {
+    console.log('❌ Layer not found:', layerId); // ← ADD THIS DEBUG
+    return;
+  }
   
   // Get ALL shapes in this layer
   const shapes = g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse');
+  console.log(`✓ Layer ${layerId}: found ${shapes.length} shapes`); // ← ADD THIS DEBUG
   
   // Count colors used in this layer
   const colorCounts = {};
@@ -5614,7 +5618,10 @@ allLayerIds.forEach(layerId => {
   });
   
   if (mostCommonColor) {
+    console.log(`  → Saving ${layerId}: ${mostCommonColor}`); // ← ADD THIS DEBUG
     currentDefaults[layerId] = mostCommonColor;
+  } else {
+    console.log(`  ⚠️ No color found for ${layerId}`); // ← ADD THIS DEBUG
   }
 });
     
