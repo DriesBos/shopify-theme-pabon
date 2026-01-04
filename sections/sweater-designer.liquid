@@ -1600,28 +1600,6 @@
         Reset Order
       </button>
     </div>
-    <div id='info-carousel-container' style='flex: 0 0 60vh; position: relative; width: 100%; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden;'>
-  
-  <button id='carousel-prev' class='info-modal-nav-btn info-modal-nav-prev'>
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg>
-  </button>
-  
-  <div id='carousel-content' style='width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;'>
-    <!-- Images/videos will be loaded here -->
-  </div>
-  
-  <button id='carousel-next' class='info-modal-nav-btn info-modal-nav-next'>
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-      <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-  </button>
-  
-  <div id='carousel-indicators' style='position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;'>
-    <!-- Dots will be added here -->
-  </div>
-</div>
 
     <!-- Garment Info Section -->
     <div id='garment-info-section' style='background:#fff; padding:24px; margin-top:0; flex-shrink:0;'>
@@ -3191,83 +3169,6 @@
   .wool-grid-hint {
     font-size: 11px;
     padding: 6px 12px;
-  }
-}
-
-/* Carousel Navigation Buttons - Match Sizing Modal Style */
-.info-modal-nav-btn {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 60px;
-  background: rgba(0, 123, 255, 0.9);
-  border: none;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  transition: background 0.2s ease;
-}
-
-.info-modal-nav-btn:hover {
-  background: rgba(0, 123, 255, 1);
-}
-
-.info-modal-nav-btn:active {
-  background: rgba(0, 100, 200, 1);
-}
-
-.info-modal-nav-prev {
-  left: 0;
-}
-
-.info-modal-nav-next {
-  right: 0;
-}
-
-.info-modal-nav-btn svg {
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
-}
-
-/* Carousel Content */
-#info-carousel-container {
-  flex: 0 0 60vh;
-  position: relative;
-  width: 100%;
-  background: #000;
-}
-
-#carousel-content img,
-#carousel-content video {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.carousel-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.carousel-indicator.active {
-  background: rgba(255,255,255,1);
-  transform: scale(1.3);
-}
-
-@media (max-width: 768px) {
-  .info-modal-nav-btn {
-    width: 50px;
-  }
-  
-  .info-modal-nav-btn svg {
-    width: 20px;
-    height: 20px;
   }
 }
 </style>
