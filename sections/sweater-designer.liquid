@@ -4380,15 +4380,6 @@ function openInfoOverlay() {
   if (infoOverlay) infoOverlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
-  
-  if (infoDesignerName) infoDesignerName.textContent = designer.name;
-  
-  // Initialize wool grid
-  initWoolGrid(currentDesigner);
-  
-  if (infoOverlay) infoOverlay.style.display = 'block';
-  document.body.style.overflow = 'hidden';
-}
 
 function closeInfoOverlay() {
   if (infoOverlay) infoOverlay.style.display = 'none';
