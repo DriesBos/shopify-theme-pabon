@@ -3064,11 +3064,31 @@
   background: #fff !important;
 }
 
-/* Aspect ratio wrapper - this is the "invisible box" */
+#info-carousel-container {
+  flex: 0 0 60vh;
+  position: relative;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#carousel-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
 .wool-grid-wrapper {
   width: 100%;
   max-width: 90vw;
-  max-height: calc(100vh - 280px);
+  max-height: calc(60vh - 80px);
   aspect-ratio: 3 / 2;
   margin: 0 auto;
   position: relative;
@@ -3150,18 +3170,39 @@
   opacity: 0;
 }
 
-.reset-wool-btn {
-  display: none;
+.info-modal-nav-btn {
+  position: absolute;
+  z-index: 10001;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgb(0, 144, 193);
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.info-modal-nav-btn:hover {
+  background: rgb(0, 120, 160);
+}
+
+.info-modal-nav-prev {
+  left: 20px;
+}
+
+.info-modal-nav-next {
+  right: 20px;
 }
 
 @media (max-width: 768px) {
-  #wool-grid-container {
-    padding: 10px !important;
-  }
-  
   .wool-grid-wrapper {
     aspect-ratio: 2 / 3;
-    max-height: calc(100vh - 200px); /* Reduced from 320px to 200px - shows less text */
+    max-height: calc(60vh - 100px);
   }
   
   .wool-grid {
@@ -3172,6 +3213,19 @@
   .wool-grid-hint {
     font-size: 11px;
     padding: 6px 12px;
+  }
+  
+  .info-modal-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .info-modal-nav-prev {
+    left: 10px;
+  }
+  
+  .info-modal-nav-next {
+    right: 10px;
   }
 }
 </style>
@@ -4385,7 +4439,10 @@ function closeInfoOverlay() {
   if (infoOverlay) infoOverlay.style.display = 'none';
   document.body.style.overflow = '';
 }
-// Wool Grid Data Structure
+// ============================================
+// WOOL GRID DATA & FUNCTIONALITY
+// ============================================
+
 const woolGridData = {
   0: { // jones
     images: [
@@ -4443,9 +4500,6 @@ let currentWoolOrder = [];
 let originalWoolOrder = [];
 
 function initWoolGrid(designerIndex) {
-  const grid = document.getElementById('wool-grid');
-  if (!grid) return;
-  
   const designer = DESIGNERS[designerIndex];
   const colors = getSwatchColors(designerIndex);
   const images = woolGridData[designerIndex]?.images || [];
@@ -4634,13 +4688,36 @@ function setupDragAndDrop() {
 // GARMENT INFO OVERLAY FUNCTIONALITY
 // ============================================
 
+const infoOverlay = document.getElementById('info-overlay');
+const closeInfoBtn = document.getElementById('close-info-btn');
+const infoDesignerName = document.getElementById('info-designer-name');
+
 function openInfoOverlay() {
   const designer = DESIGNERS[currentDesigner];
   
   if (infoDesignerName) infoDesignerName.textContent = designer.name;
   
-  // Initialize wool grid
-  initWoolGrid(currentDesigner);
+  // Get the carousel content container
+  const carouselContent = document.getElementById('carousel-content');
+  if (carouselContent) {
+    // Insert wool grid HTML directly
+    carouselContent.innerHTML = `
+      <div class='wool-grid-wrapper' style='width: 100%; max-width: 90vw; max-height: calc(60vh - 80px); aspect-ratio: 3 / 2; margin: 0 auto; position: relative;'>
+        <div id='wool-grid' class='wool-grid' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0px;'></div>
+      </div>
+    `;
+    
+    // Show hint
+    const hint = document.querySelector('.wool-grid-hint');
+    if (hint) hint.style.display = 'flex';
+    
+    // Hide indicators (only one slide for now)
+    const indicators = document.getElementById('carousel-indicators');
+    if (indicators) indicators.style.display = 'none';
+    
+    // Initialize the wool grid
+    initWoolGrid(currentDesigner);
+  }
   
   if (infoOverlay) infoOverlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -4650,6 +4727,7 @@ function closeInfoOverlay() {
   if (infoOverlay) infoOverlay.style.display = 'none';
   document.body.style.overflow = '';
 }
+
 // Reset button functionality
 const resetWoolBtn = document.getElementById('reset-wool-order');
 if (resetWoolBtn) {
@@ -4667,6 +4745,7 @@ if (resetWoolBtn) {
   });
 }
 
+// Event listeners for info overlay
 if (infoBtn) {
   infoBtn.addEventListener('click', openInfoOverlay);
 }
@@ -4693,7 +4772,7 @@ document.getElementById('info-content')?.addEventListener('click', (e) => {
 
 // Keyboard escape for info overlay
 document.addEventListener('keydown', (e) => {
-  if (infoOverlay?.style.display === 'block' && e.key === 'Escape') {
+  if (infoOverlay?.style.display === 'flex' && e.key === 'Escape') {
     closeInfoOverlay();
   }
 });
