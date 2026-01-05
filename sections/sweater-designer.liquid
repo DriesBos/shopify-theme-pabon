@@ -4762,19 +4762,9 @@ function openInfoOverlay() {
       if (hint) hint.style.display = 'none';
     }
     
-    // Update indicators
+    // // Hide indicators (we only use arrows)
     const indicators = document.getElementById('carousel-indicators');
-    if (indicators) {
-      indicators.innerHTML = '';
-      slides.forEach((s, i) => {
-        const dot = document.createElement('div');
-        dot.className = 'carousel-indicator' + (i === currentSlide ? ' active' : '');
-        dot.style.cssText = 'width: 10px; height: 10px; border-radius: 50%; background: ' + (i === currentSlide ? '#fff' : 'rgba(255,255,255,0.5)') + '; cursor: pointer; transition: all 0.3s;';
-        dot.onclick = () => showSlide(i);
-        indicators.appendChild(dot);
-      });
-      indicators.style.display = slides.length > 1 ? 'flex' : 'none';
-    }
+    if (indicators) indicators.style.display = 'none';
     
     // Hide/show nav buttons
     const prevBtn = document.getElementById('carousel-prev');
