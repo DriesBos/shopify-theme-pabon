@@ -4768,6 +4768,59 @@ function openInfoOverlay() {
   }, 100);
 }
 
+function showGarmentSlide(index) {
+  if (garmentSlides.length === 0) return;
+  if (index < 0) index = garmentSlides.length - 1;
+  if (index >= garmentSlides.length) index = 0;
+  garmentCurrentSlide = index;
+  
+  const carouselContent = document.getElementById('carousel-content');
+  if (!carouselContent) return;
+  
+  const slide = garmentSlides[garmentCurrentSlide];
+  const hint = document.querySelector('.wool-grid-hint');
+  
+  if (slide.type === 'wool-grid') {
+    carouselContent.innerHTML = `
+      <div class='wool-grid-wrapper'>
+        <div id='wool-grid' class='wool-grid'></div>
+      </div>
+    `;
+    if (hint) hint.style.display = 'flex';
+    initWoolGrid(currentDesigner);
+  } else if (slide.type === 'image') {
+    carouselContent.innerHTML = `<img src="${slide.src}" style="max-width: 100%; max-height: 100%; object-fit: contain;">`;
+    if (hint) hint.style.display = 'none';
+  } else if (slide.type === 'video') {
+    carouselContent.innerHTML = `<video src="${slide.src}" controls autoplay loop style="max-width: 100%; max-height: 100%; object-fit: contain;"></video>`;
+    if (hint) hint.style.display = 'none';
+  }
+  
+  // Hide indicators
+  const indicators = document.getElementById('carousel-indicators');
+  if (indicators) indicators.style.display = 'none';
+  
+  // Show/hide nav buttons
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  if (garmentSlides.length <= 1) {
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+  } else {
+    if (prevBtn) prevBtn.style.display = 'flex';
+    if (nextBtn) nextBtn.style.display = 'flex';
+  }
+}
+
+function closeInfoOverlay() {
+  if (infoOverlay) infoOverlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function closeInfoOverlay() {
+  if (infoOverlay) infoOverlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
 // Reset button functionality
 const resetWoolBtn = document.getElementById('reset-wool-order');
 if (resetWoolBtn) {
