@@ -1617,9 +1617,9 @@
   style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; cursor:pointer; overflow-y:auto; background:rgba(0,0,0,0.66);'
 >
   <div
-    id='info-content'
-    style='position:relative; width:calc(100vw - 4vw); min-height:calc(100vh - 4vh); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
-  >
+  id='info-content'
+  style='position:relative; width:calc(100vw - 4vw); min-height:calc(100vh - 4vh); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
+>
     <button
       id='close-info-btn'
       type='button'
@@ -1661,8 +1661,8 @@
 </div>
 
    <!-- Garment Info Section -->
-<div id='garment-info-section' style='background:#fff; padding:16px 24px; margin-top:0; flex: 1; overflow-y:auto; max-height: 16vh;'>
-  <h2 id='info-designer-name' style='margin:0 0 8px 0; font-size:24px; font-weight:700; color:#000;'>
+<div id='garment-info-section' style='background:#fff; padding:16px 24px; margin-top:0; flex: 1; overflow-y:auto; min-height: 0;'>
+    <h2 id='info-designer-name' style='margin:0 0 8px 0; font-size:24px; font-weight:700; color:#000;'>
     Relaxed Striped Knit
   </h2>
   <p style='margin:0 0 16px 0; font-size:16px; color:#666; font-style:italic;'>Garment Information</p>
@@ -3116,7 +3116,8 @@
 }
 
 #info-carousel-container {
-  flex: 0 0 80vh; /* 80% of modal */
+  flex: 3; /* Takes 75% of space */
+  min-height: 0;
   position: relative;
   width: 100%;
   background: #fff;
