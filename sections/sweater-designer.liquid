@@ -4722,30 +4722,96 @@ const infoDesignerName = document.getElementById('info-designer-name');
 
 function openInfoOverlay() {
   const designer = DESIGNERS[currentDesigner];
+  const garmentData = galleryData.garment || {};
   
   if (infoDesignerName) infoDesignerName.textContent = designer.name;
   
-  // Get the carousel content container
   const carouselContent = document.getElementById('carousel-content');
-  if (carouselContent) {
-    // Insert wool grid HTML directly
-    carouselContent.innerHTML = `
-      <div class='wool-grid-wrapper' style='width: 100%; max-width: 90vw; max-height: calc(60vh - 80px); aspect-ratio: 3 / 2; margin: 0 auto; position: relative;'>
-        <div id='wool-grid' class='wool-grid' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0px;'></div>
-      </div>
-    `;
-    
-    // Show hint
-    const hint = document.querySelector('.wool-grid-hint');
-    if (hint) hint.style.display = 'flex';
-    
-    // Hide indicators (only one slide for now)
-    const indicators = document.getElementById('carousel-indicators');
-    if (indicators) indicators.style.display = 'none';
-    
-    // Initialize the wool grid
-    initWoolGrid(currentDesigner);
+  if (!carouselContent) return;
+  
+  // Build slides array: wool grid + images + video
+  const slides = [];
+  
+  // Slide 0: Wool grid (always first)
+  slides.push({ type: 'wool-grid' });
+  
+  // Add images
+  const images = (garmentData.images || []).filter(img => img && img !== '');
+  images.forEach(img => slides.push({ type: 'image', src: img }));
+  
+  // Add video
+  if (garmentData.video && garmentData.video !== '') {
+    slides.push({ type: 'video', src: garmentData.video });
   }
+  
+  let currentSlide = 0;
+  
+  function showSlide(index) {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    currentSlide = index;
+    
+    const slide = slides[currentSlide];
+    const hint = document.querySelector('.wool-grid-hint');
+    
+    if (slide.type === 'wool-grid') {
+      carouselContent.innerHTML = `
+        <div class='wool-grid-wrapper'>
+          <div id='wool-grid' class='wool-grid'></div>
+        </div>
+      `;
+      if (hint) hint.style.display = 'flex';
+      initWoolGrid(currentDesigner);
+    } else if (slide.type === 'image') {
+      carouselContent.innerHTML = `<img src="${slide.src}" style="max-width: 100%; max-height: 100%; object-fit: contain;">`;
+      if (hint) hint.style.display = 'none';
+    } else if (slide.type === 'video') {
+      carouselContent.innerHTML = `<video src="${slide.src}" controls autoplay loop style="max-width: 100%; max-height: 100%; object-fit: contain;"></video>`;
+      if (hint) hint.style.display = 'none';
+    }
+    
+    // Update indicators
+    const indicators = document.getElementById('carousel-indicators');
+    if (indicators) {
+      indicators.innerHTML = '';
+      slides.forEach((s, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'carousel-indicator' + (i === currentSlide ? ' active' : '');
+        dot.style.cssText = 'width: 10px; height: 10px; border-radius: 50%; background: ' + (i === currentSlide ? '#fff' : 'rgba(255,255,255,0.5)') + '; cursor: pointer; transition: all 0.3s;';
+        dot.onclick = () => showSlide(i);
+        indicators.appendChild(dot);
+      });
+      indicators.style.display = slides.length > 1 ? 'flex' : 'none';
+    }
+    
+    // Hide/show nav buttons
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    if (slides.length <= 1) {
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+    } else {
+      if (prevBtn) prevBtn.style.display = 'flex';
+      if (nextBtn) nextBtn.style.display = 'flex';
+    }
+  }
+  
+  // Setup navigation
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  
+  if (prevBtn) {
+    prevBtn.replaceWith(prevBtn.cloneNode(true)); // Remove old listeners
+    document.getElementById('carousel-prev').onclick = () => showSlide(currentSlide - 1);
+  }
+  
+  if (nextBtn) {
+    nextBtn.replaceWith(nextBtn.cloneNode(true));
+    document.getElementById('carousel-next').onclick = () => showSlide(currentSlide + 1);
+  }
+  
+  // Show first slide
+  showSlide(0);
   
   if (infoOverlay) infoOverlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
