@@ -1556,18 +1556,48 @@
   </div>
 </div>
 
-<!-- Wool Grid Container -->
-<div id='wool-grid-container' style='flex: 0 0 60vh; position: relative; width: 100%; background: #fff; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;'>
-  <div class='wool-grid-wrapper'>
-    <div id='wool-grid' class='wool-grid'></div>
+<div
+  id='info-overlay'
+  style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; cursor:pointer; overflow-y:auto; background:rgba(0,0,0,0.66);'
+>
+  <div
+    id='info-content'
+    style='position:relative; width:calc(100vw - 4vw); min-height:calc(100vh - 4vh); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column;'
+  >
+    <button
+      id='close-info-btn'
+      type='button'
+      style='z-index:10001; position:absolute !important; right:20px; top:20px; background:rgb(0, 144, 193); border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s;'
+    >
+      <span style='color:#fff; font-size:32px; line-height:1;'>×</span>
+    </button>
+
+    
+    <!-- Combined Carousel with Wool Grid as First Slide -->
+<div id='info-carousel-container' style='flex: 0 0 60vh; position: relative; width: 100%; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden;'>
+  
+  <button id='carousel-prev' class='info-modal-nav-btn info-modal-nav-prev'>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  
+  <div id='carousel-content' style='width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;'>
+    <!-- Wool grid or images/videos will be loaded here -->
   </div>
-  <div class='wool-grid-hint' style='position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 8px; pointer-events: none; z-index: 10;'>
+  
+  <button id='carousel-next' class='info-modal-nav-btn info-modal-nav-next'>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+  
+  <div class='wool-grid-hint' style='position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 12px; display: none; align-items: center; gap: 8px; pointer-events: none; z-index: 10;'>
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
     </svg>
     Drag & drop to rearrange wool colors
   </div>
-</div>
   
   <div id='carousel-indicators' style='position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;'>
     <!-- Dots will be added here -->
