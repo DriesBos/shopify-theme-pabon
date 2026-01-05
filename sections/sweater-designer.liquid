@@ -4788,22 +4788,28 @@ function openInfoOverlay() {
     }
   }
   
-  // Setup navigation
-  const prevBtn = document.getElementById('carousel-prev');
-  const nextBtn = document.getElementById('carousel-next');
-  
-  if (prevBtn) {
-    prevBtn.replaceWith(prevBtn.cloneNode(true)); // Remove old listeners
-    document.getElementById('carousel-prev').onclick = () => showSlide(currentSlide - 1);
-  }
-  
-  if (nextBtn) {
-    nextBtn.replaceWith(nextBtn.cloneNode(true));
-    document.getElementById('carousel-next').onclick = () => showSlide(currentSlide + 1);
-  }
-  
   // Show first slide
   showSlide(0);
+  
+  // Setup navigation AFTER showing first slide
+  setTimeout(() => {
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    
+    if (prevBtn) {
+      prevBtn.onclick = (e) => {
+        e.stopPropagation();
+        showSlide(currentSlide - 1);
+      };
+    }
+    
+    if (nextBtn) {
+      nextBtn.onclick = (e) => {
+        e.stopPropagation();
+        showSlide(currentSlide + 1);
+      };
+    }
+  }, 100);
   
   if (infoOverlay) infoOverlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
