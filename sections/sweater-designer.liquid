@@ -4562,30 +4562,32 @@ function setupDragAndDrop() {
 } // ← ADD THIS CLOSING BRACE FOR setupDragAndDrop
 
 
- // ADD CAROUSEL FUNCTIONS HERE ↓
-let currentCarouselIndex = 0;
-let carouselItems = [];
+ } // ← Closing brace for setupDragAndDrop
+
+// INFO MODAL CAROUSEL FUNCTIONS
+let infoCarouselIndex = 0;
+let infoCarouselItems = [];
 
 function initCarousel(designerIndex) {
   const data = galleryData[designerIndex];
   if (!data) return;
   
-  carouselItems = [];
+  infoCarouselItems = [];
   
   // FIRST SLIDE: Wool grid
-  carouselItems.push({ type: 'wool-grid', designerIndex: designerIndex });
+  infoCarouselItems.push({ type: 'wool-grid', designerIndex: designerIndex });
   
   // Add images
   data.images.forEach(img => {
-    if (img && img.trim()) carouselItems.push({ type: 'image', src: img });
+    if (img && img.trim()) infoCarouselItems.push({ type: 'image', src: img });
   });
   
   // Add video if exists
   if (data.video && data.video.trim()) {
-    carouselItems.push({ type: 'video', src: data.video });
+    infoCarouselItems.push({ type: 'video', src: data.video });
   }
   
-  currentCarouselIndex = 0;
+  infoCarouselIndex = 0;
   renderCarousel();
   renderCarouselIndicators();
 }
@@ -4593,9 +4595,9 @@ function initCarousel(designerIndex) {
 function renderCarousel() {
   const container = document.getElementById('carousel-content');
   const hint = document.querySelector('.wool-grid-hint');
-  if (!container || carouselItems.length === 0) return;
+  if (!container || infoCarouselItems.length === 0) return;
   
-  const item = carouselItems[currentCarouselIndex];
+  const item = infoCarouselItems[infoCarouselIndex];
   
   if (item.type === 'wool-grid') {
     // Show wool grid
@@ -4623,11 +4625,11 @@ function renderCarouselIndicators() {
   if (!container) return;
   
   container.innerHTML = '';
-  carouselItems.forEach((item, index) => {
+  infoCarouselItems.forEach((item, index) => {
     const dot = document.createElement('div');
-    dot.className = 'carousel-indicator' + (index === currentCarouselIndex ? ' active' : '');
+    dot.className = 'carousel-indicator' + (index === infoCarouselIndex ? ' active' : '');
     dot.onclick = () => {
-      currentCarouselIndex = index;
+      infoCarouselIndex = index;
       renderCarousel();
       renderCarouselIndicators();
     };
@@ -4638,17 +4640,18 @@ function renderCarouselIndicators() {
 // Carousel navigation event listeners
 setTimeout(() => {
   document.getElementById('carousel-prev')?.addEventListener('click', () => {
-    currentCarouselIndex = (currentCarouselIndex - 1 + carouselItems.length) % carouselItems.length;
+    infoCarouselIndex = (infoCarouselIndex - 1 + infoCarouselItems.length) % infoCarouselItems.length;
     renderCarousel();
     renderCarouselIndicators();
   });
 
   document.getElementById('carousel-next')?.addEventListener('click', () => {
-    currentCarouselIndex = (currentCarouselIndex + 1) % carouselItems.length;
+    infoCarouselIndex = (infoCarouselIndex + 1) % infoCarouselItems.length;
     renderCarousel();
     renderCarouselIndicators();
   });
 }, 100);
+
   
   // Enhanced touch support for mobile
 let touchedItem = null;
