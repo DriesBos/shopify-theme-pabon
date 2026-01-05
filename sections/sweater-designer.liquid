@@ -4630,6 +4630,26 @@ function setupDragAndDrop() {
   });
 }
 
+// ============================================
+// GARMENT INFO OVERLAY FUNCTIONALITY
+// ============================================
+
+function openInfoOverlay() {
+  const designer = DESIGNERS[currentDesigner];
+  
+  if (infoDesignerName) infoDesignerName.textContent = designer.name;
+  
+  // Initialize wool grid
+  initWoolGrid(currentDesigner);
+  
+  if (infoOverlay) infoOverlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeInfoOverlay() {
+  if (infoOverlay) infoOverlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
 // Reset button functionality
 const resetWoolBtn = document.getElementById('reset-wool-order');
 if (resetWoolBtn) {
