@@ -4502,8 +4502,12 @@ function renderWoolGrid() {
 function setupDragAndDrop() {
   const items = document.querySelectorAll('.wool-grid-item');
   let draggedItem = null;
+  let touchedItem = null;
+  let touchStartPos = { x: 0, y: 0 };
+  let isDragging = false;
   
   items.forEach(item => {
+    // Desktop drag events
     item.addEventListener('dragstart', function(e) {
       draggedItem = this;
       this.classList.add('dragging');
@@ -4539,18 +4543,92 @@ function setupDragAndDrop() {
         const fromIndex = parseInt(draggedItem.dataset.index);
         const toIndex = parseInt(this.dataset.index);
         
-        // Swap items in array
         const temp = currentWoolOrder[fromIndex];
         currentWoolOrder[fromIndex] = currentWoolOrder[toIndex];
         currentWoolOrder[toIndex] = temp;
         
-        // Re-render grid
         renderWoolGrid();
         setupDragAndDrop();
       }
     });
+    
+    // Mobile touch events
+    item.addEventListener('touchstart', function(e) {
+      touchedItem = this;
+      const touch = e.touches[0];
+      touchStartPos = { x: touch.clientX, y: touch.clientY };
+      isDragging = false;
+      e.preventDefault();
+      this.classList.add('dragging');
+    }, { passive: false });
+    
+    item.addEventListener('touchmove', function(e) {
+      if (!touchedItem) return;
+      
+      const touch = e.touches[0];
+      const deltaX = Math.abs(touch.clientX - touchStartPos.x);
+      const deltaY = Math.abs(touch.clientY - touchStartPos.y);
+      
+      if (deltaX > 10 || deltaY > 10) {
+        isDragging = true;
+      }
+      
+      if (isDragging) {
+        e.preventDefault();
+        const touchX = touch.clientX;
+        const touchY = touch.clientY;
+        const elementUnder = document.elementFromPoint(touchX, touchY);
+        const targetItem = elementUnder?.closest('.wool-grid-item');
+        
+        items.forEach(i => i.classList.remove('drag-over'));
+        
+        if (targetItem && targetItem !== touchedItem) {
+          targetItem.classList.add('drag-over');
+        }
+      }
+    }, { passive: false });
+    
+    item.addEventListener('touchend', function(e) {
+      if (!touchedItem || !isDragging) {
+        this.classList.remove('dragging');
+        items.forEach(i => i.classList.remove('drag-over'));
+        touchedItem = null;
+        return;
+      }
+      
+      e.preventDefault();
+      const touch = e.changedTouches[0];
+      const touchX = touch.clientX;
+      const touchY = touch.clientY;
+      const elementUnder = document.elementFromPoint(touchX, touchY);
+      const targetItem = elementUnder?.closest('.wool-grid-item');
+      
+      if (targetItem && targetItem !== touchedItem) {
+        const fromIndex = parseInt(touchedItem.dataset.index);
+        const toIndex = parseInt(targetItem.dataset.index);
+        
+        const temp = currentWoolOrder[fromIndex];
+        currentWoolOrder[fromIndex] = currentWoolOrder[toIndex];
+        currentWoolOrder[toIndex] = temp;
+        
+        renderWoolGrid();
+        setupDragAndDrop();
+      }
+      
+      this.classList.remove('dragging');
+      items.forEach(i => i.classList.remove('drag-over'));
+      touchedItem = null;
+      isDragging = false;
+    }, { passive: false });
+    
+    item.addEventListener('touchcancel', function() {
+      this.classList.remove('dragging');
+      items.forEach(i => i.classList.remove('drag-over'));
+      touchedItem = null;
+      isDragging = false;
+    });
   });
-} // ← ADD THIS CLOSING BRACE FOR setupDragAndDrop
+}
 
 
 // INFO MODAL CAROUSEL FUNCTIONS
