@@ -4609,27 +4609,8 @@ function openInfoOverlay() {
   
   if (infoDesignerName) infoDesignerName.textContent = designer.name;
   
-  // Get the carousel content container
-  const carouselContent = document.getElementById('carousel-content');
-  if (carouselContent) {
-    // Insert wool grid HTML directly
-    carouselContent.innerHTML = `
-      <div class='wool-grid-wrapper' style='width: 100%; max-width: 90vw; max-height: calc(60vh - 80px); aspect-ratio: 3 / 2; margin: 0 auto; position: relative;'>
-        <div id='wool-grid' class='wool-grid' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0px;'></div>
-      </div>
-    `;
-    
-    // Show hint
-    const hint = document.querySelector('.wool-grid-hint');
-    if (hint) hint.style.display = 'flex';
-    
-    // Hide indicators for now (only one slide)
-    const indicators = document.getElementById('carousel-indicators');
-    if (indicators) indicators.style.display = 'none';
-    
-    // Initialize the wool grid
-    initWoolGrid(currentDesigner);
-  }
+  // Initialize wool grid
+  initWoolGrid(currentDesigner);
   
   if (infoOverlay) infoOverlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
