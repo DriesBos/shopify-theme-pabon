@@ -4415,30 +4415,7 @@ defaults: {
   if(defaultBtn) defaultBtn.addEventListener('click', applyDefaults);
   if(randomBtn) randomBtn.addEventListener('click', randomizeWithinConstraints);
 
-  // ============================================
-// GARMENT INFO OVERLAY FUNCTIONALITY
-// ============================================
-const infoOverlay = document.getElementById('info-overlay');
-const closeInfoBtn = document.getElementById('close-info-btn');
-const infoDesignerName = document.getElementById('info-designer-name');
-const infoCarouselImg = document.getElementById('info-carousel-img');
-
-function openInfoOverlay() {
-  const designer = DESIGNERS[currentDesigner];
   
-  if (infoDesignerName) infoDesignerName.textContent = designer.name;
-  
-  // Initialize carousel (wool grid is first slide)
-  initCarousel(currentDesigner);
-  
-  if (infoOverlay) infoOverlay.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-
-function closeInfoOverlay() {
-  if (infoOverlay) infoOverlay.style.display = 'none';
-  document.body.style.overflow = '';
-}
 // ============================================
 // WOOL GRID DATA & FUNCTIONALITY
 // ============================================
@@ -4775,20 +4752,6 @@ document.addEventListener('keydown', (e) => {
   if (infoOverlay?.style.display === 'flex' && e.key === 'Escape') {
     closeInfoOverlay();
   }
-});
-
-
-if (infoOverlay) {
-  infoOverlay.addEventListener('click', (e) => {
-    if (e.target === infoOverlay) {
-      closeInfoOverlay();
-    }
-  });
-}
-
-
-document.getElementById('info-content')?.addEventListener('click', (e) => {
-  e.stopPropagation();
 });
 
 // Keyboard escape for info overlay
