@@ -4795,17 +4795,6 @@ function closeInfoOverlay() {
   document.body.style.overflow = '';
 }
 
-// Garment carousel navigation
-document.getElementById('carousel-prev')?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  showGarmentSlide(garmentCurrentSlide - 1);
-});
-
-document.getElementById('carousel-next')?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  showGarmentSlide(garmentCurrentSlide + 1);
-});
-
 // Reset button functionality
 const resetWoolBtn = document.getElementById('reset-wool-order');
 if (resetWoolBtn) {
