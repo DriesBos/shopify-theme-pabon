@@ -373,50 +373,6 @@
       "label": "Start popup with video",
       "default": false
     },
-{
-  "type": "header",
-  "content": "── Wool Color Photos ──"
-},
-{
-  "type": "paragraph",
-  "content": "Upload close-up photos of each wool color for the interactive wool grid."
-},
-{
-  "type": "image_picker",
-  "id": "jones_wool_1",
-  "label": "Deep Red Wool Photo",
-  "info": "Color 1: Deep Red (#6b191f)"
-},
-{
-  "type": "image_picker",
-  "id": "jones_wool_2",
-  "label": "Bright Red Wool Photo",
-  "info": "Color 2: Bright Red (#c32728)"
-},
-{
-  "type": "image_picker",
-  "id": "jones_wool_3",
-  "label": "Crimson Wool Photo",
-  "info": "Color 3: Crimson (#930918)"
-},
-{
-  "type": "image_picker",
-  "id": "jones_wool_4",
-  "label": "Peach Wool Photo",
-  "info": "Color 4: Peach (#f1dbd0)"
-},
-{
-  "type": "image_picker",
-  "id": "jones_wool_5",
-  "label": "Black Wool Photo",
-  "info": "Color 5: Black (#000000)"
-},
-{
-  "type": "image_picker",
-  "id": "jones_wool_6",
-  "label": "Cream Wool Photo",
-  "info": "Color 6: Cream (#f3f2de)"
-},
     {
       "type": "text",
       "id": "jones_painting_name",
@@ -1101,7 +1057,7 @@
               <polyline points="15,18 9,12 15,6"></polyline>
             </svg>
           </button>
-          <h3 id='designer-name' style='margin:0; font-size:20px; color:currentColor;'>Natisa Jones</h3>
+          <h3 id='designer-name' style='margin:0; font-size:20px; color:currentColor;'>David Hockney (60s)</h3>
           <button
             id='next-designer'
             style='background:transparent !important; border:none !important; cursor:pointer; padding:4px; display:flex; align-items:center; justify-content:center; outline:none !important; box-shadow:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;'
@@ -1555,7 +1511,7 @@
     </div>
   </div>
 </div>
-
+<!-- Garment Info Overlay (matches Artist Palette style) -->
 <div
   id='info-overlay'
   style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; cursor:pointer; overflow-y:auto; background:rgba(0,0,0,0.66);'
@@ -1571,38 +1527,19 @@
     >
       <span style='color:#fff; font-size:32px; line-height:1;'>×</span>
     </button>
-
-    
-    <!-- Combined Carousel with Wool Grid as First Slide -->
-<div id='info-carousel-container' style='flex: 0 0 60vh; position: relative; width: 100%; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden;'>
-  
-  <button id='carousel-prev' class='info-modal-nav-btn info-modal-nav-prev'>
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg>
-  </button>
-  
-  <div id='carousel-content' style='width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;'>
-    <!-- Wool grid or images/videos will be loaded here -->
-  </div>
-  
-  <button id='carousel-next' class='info-modal-nav-btn info-modal-nav-next'>
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-      <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-  </button>
-  
-  <div class='wool-grid-hint' style='position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 12px; display: none; align-items: center; gap: 8px; pointer-events: none; z-index: 10;'>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-    </svg>
-    Drag & drop to rearrange wool colors
-  </div>
-  
-  <div id='carousel-indicators' style='position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;'>
-    <!-- Dots will be added here -->
-  </div>
-</div>
+    <!-- Carousel Container -->
+    <div id='info-carousel-container' style='flex:0 0 70vh; position:relative; width:100%; background:#000;'>
+      <!-- Carousel Track -->
+      <div id='info-carousel-track' style='height:100%; width:100%; position:relative;'>
+        <div class='info-carousel-slide active' data-index='0'>
+          <img
+            id='info-carousel-img'
+            src=''
+            style='position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain;'
+          >
+        </div>
+      </div>
+    </div>
 
     <!-- Garment Info Section -->
     <div id='garment-info-section' style='background:#fff; padding:24px; margin-top:0; flex-shrink:0;'>
@@ -1683,123 +1620,125 @@
     ×
   </button>
 </div>
+
+<!-- Hidden data from Shopify settings -->
 <script type='application/json' id='designer-gallery-data'>
-{
-  "0": {
-    "thumbnail": {% if section.settings.jones_thumbnail %}"{{ section.settings.jones_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-    "images": [
-      {% if section.settings.jones_image_1 %}"{{ section.settings.jones_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_image_2 %}"{{ section.settings.jones_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_image_3 %}"{{ section.settings.jones_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-    ],
-    "video": {% if section.settings.jones_video %}"{{ section.settings.jones_video.sources[0].url }}"{% else %}""{% endif %},
-    "videoAsThumbnail": {{ section.settings.jones_video_as_thumbnail | json }},
-    "videoPreview": {{ section.settings.jones_video_preview | json }},
-    "startWithVideo": {{ section.settings.jones_start_with_video | json }},
-    "paintingName": {{ section.settings.jones_painting_name | json }},
-    "bio": {{ section.settings.jones_bio | json }},
-    "wikipedia": {{ section.settings.jones_wikipedia | json }},
-    "colors": [
-      { "name": {{ section.settings.jones_color_1_name | json }}, "hex": "{{ section.settings.jones_color_1 }}" },
-      { "name": {{ section.settings.jones_color_2_name | json }}, "hex": "{{ section.settings.jones_color_2 }}" },
-      { "name": {{ section.settings.jones_color_3_name | json }}, "hex": "{{ section.settings.jones_color_3 }}" },
-      { "name": {{ section.settings.jones_color_4_name | json }}, "hex": "{{ section.settings.jones_color_4 }}" },
-      { "name": {{ section.settings.jones_color_5_name | json }}, "hex": "{{ section.settings.jones_color_5 }}" },
-      { "name": {{ section.settings.jones_color_6_name | json }}, "hex": "{{ section.settings.jones_color_6 }}" }
-    ]
-  },
-  "1": {
-    "thumbnail": {% if section.settings.hockney60_thumbnail %}"{{ section.settings.hockney60_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-    "images": [
-      {% if section.settings.hockney60_image_1 %}"{{ section.settings.hockney60_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney60_image_2 %}"{{ section.settings.hockney60_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney60_image_3 %}"{{ section.settings.hockney60_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-    ],
-    "video": {% if section.settings.hockney60_video %}"{{ section.settings.hockney60_video.sources[0].url }}"{% else %}""{% endif %},
-    "videoAsThumbnail": {{ section.settings.hockney60_video_as_thumbnail | json }},
-    "videoPreview": {{ section.settings.hockney60_video_preview | json }},
-    "startWithVideo": {{ section.settings.hockney60_start_with_video | json }},
-    "paintingName": {{ section.settings.hockney60_painting_name | json }},
-    "bio": {{ section.settings.hockney60_bio | json }},
-    "wikipedia": {{ section.settings.hockney60_wikipedia | json }},
-    "colors": [
-      { "name": {{ section.settings.hockney60_color_1_name | json }}, "hex": "{{ section.settings.hockney60_color_1 }}" },
-      { "name": {{ section.settings.hockney60_color_2_name | json }}, "hex": "{{ section.settings.hockney60_color_2 }}" },
-      { "name": {{ section.settings.hockney60_color_3_name | json }}, "hex": "{{ section.settings.hockney60_color_3 }}" },
-      { "name": {{ section.settings.hockney60_color_4_name | json }}, "hex": "{{ section.settings.hockney60_color_4 }}" },
-      { "name": {{ section.settings.hockney60_color_5_name | json }}, "hex": "{{ section.settings.hockney60_color_5 }}" },
-      { "name": {{ section.settings.hockney60_color_6_name | json }}, "hex": "{{ section.settings.hockney60_color_6 }}" }
-    ]
-  },
-  "2": {
-    "thumbnail": {% if section.settings.bacon_thumbnail %}"{{ section.settings.bacon_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-    "images": [
-      {% if section.settings.bacon_image_1 %}"{{ section.settings.bacon_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.bacon_image_2 %}"{{ section.settings.bacon_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.bacon_image_3 %}"{{ section.settings.bacon_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-    ],
-    "video": {% if section.settings.bacon_video %}"{{ section.settings.bacon_video.sources[0].url }}"{% else %}""{% endif %},
-    "videoAsThumbnail": {{ section.settings.bacon_video_as_thumbnail | json }},
-    "videoPreview": {{ section.settings.bacon_video_preview | json }},
-    "startWithVideo": {{ section.settings.bacon_start_with_video | json }},
-    "paintingName": {{ section.settings.bacon_painting_name | json }},
-    "bio": {{ section.settings.bacon_bio | json }},
-    "wikipedia": {{ section.settings.bacon_wikipedia | json }},
-    "colors": [
-      { "name": {{ section.settings.bacon_color_1_name | json }}, "hex": "{{ section.settings.bacon_color_1 }}" },
-      { "name": {{ section.settings.bacon_color_2_name | json }}, "hex": "{{ section.settings.bacon_color_2 }}" },
-      { "name": {{ section.settings.bacon_color_3_name | json }}, "hex": "{{ section.settings.bacon_color_3 }}" },
-      { "name": {{ section.settings.bacon_color_4_name | json }}, "hex": "{{ section.settings.bacon_color_4 }}" },
-      { "name": {{ section.settings.bacon_color_5_name | json }}, "hex": "{{ section.settings.bacon_color_5 }}" },
-      { "name": {{ section.settings.bacon_color_6_name | json }}, "hex": "{{ section.settings.bacon_color_6 }}" }
-    ]
-  },
-  "3": {
-    "thumbnail": {% if section.settings.hockney13_thumbnail %}"{{ section.settings.hockney13_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-    "images": [
-      {% if section.settings.hockney13_image_1 %}"{{ section.settings.hockney13_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney13_image_2 %}"{{ section.settings.hockney13_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney13_image_3 %}"{{ section.settings.hockney13_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-    ],
-    "video": {% if section.settings.hockney13_video %}"{{ section.settings.hockney13_video.sources[0].url }}"{% else %}""{% endif %},
-    "videoAsThumbnail": {{ section.settings.hockney13_video_as_thumbnail | json }},
-    "videoPreview": {{ section.settings.hockney13_video_preview | json }},
-    "startWithVideo": {{ section.settings.hockney13_start_with_video | json }},
-    "paintingName": {{ section.settings.hockney13_painting_name | json }},
-    "bio": {{ section.settings.hockney13_bio | json }},
-    "wikipedia": {{ section.settings.hockney13_wikipedia | json }},
-    "colors": [
-      { "name": {{ section.settings.hockney13_color_1_name | json }}, "hex": "{{ section.settings.hockney13_color_1 }}" },
-      { "name": {{ section.settings.hockney13_color_2_name | json }}, "hex": "{{ section.settings.hockney13_color_2 }}" },
-      { "name": {{ section.settings.hockney13_color_3_name | json }}, "hex": "{{ section.settings.hockney13_color_3 }}" },
-      { "name": {{ section.settings.hockney13_color_4_name | json }}, "hex": "{{ section.settings.hockney13_color_4 }}" },
-      { "name": {{ section.settings.hockney13_color_5_name | json }}, "hex": "{{ section.settings.hockney13_color_5 }}" },
-      { "name": {{ section.settings.hockney13_color_6_name | json }}, "hex": "{{ section.settings.hockney13_color_6 }}" }
-    ]
-  },
-  "4": {
-    "thumbnail": {% if section.settings.price_thumbnail %}"{{ section.settings.price_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
-    "images": [
-      {% if section.settings.price_image_1 %}"{{ section.settings.price_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.price_image_2 %}"{{ section.settings.price_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
-      {% if section.settings.price_image_3 %}"{{ section.settings.price_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
-    ],
-    "video": {% if section.settings.price_video %}"{{ section.settings.price_video.sources[0].url }}"{% else %}""{% endif %},
-    "videoAsThumbnail": {{ section.settings.price_video_as_thumbnail | json }},
-    "videoPreview": {{ section.settings.price_video_preview | json }},
-    "startWithVideo": {{ section.settings.price_start_with_video | json }},
-    "paintingName": {{ section.settings.price_painting_name | json }},
-    "bio": {{ section.settings.price_bio | json }},
-    "wikipedia": {{ section.settings.price_wikipedia | json }},
-    "colors": [
-      { "name": {{ section.settings.price_color_1_name | json }}, "hex": "{{ section.settings.price_color_1 }}" },
-      { "name": {{ section.settings.price_color_2_name | json }}, "hex": "{{ section.settings.price_color_2 }}" },
-      { "name": {{ section.settings.price_color_3_name | json }}, "hex": "{{ section.settings.price_color_3 }}" },
-      { "name": {{ section.settings.price_color_4_name | json }}, "hex": "{{ section.settings.price_color_4 }}" },
-      { "name": {{ section.settings.price_color_5_name | json }}, "hex": "{{ section.settings.price_color_5 }}" },
-      { "name": {{ section.settings.price_color_6_name | json }}, "hex": "{{ section.settings.price_color_6 }}" }
-    ]
-  },
+    {
+      "0": {
+        "thumbnail": {% if section.settings.hockney60_thumbnail %}"{{ section.settings.hockney60_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+        "images": [
+          {% if section.settings.hockney60_image_1 %}"{{ section.settings.hockney60_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+          {% if section.settings.hockney60_image_2 %}"{{ section.settings.hockney60_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+          {% if section.settings.hockney60_image_3 %}"{{ section.settings.hockney60_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+        ],
+        "video": {% if section.settings.hockney60_video %}"{{ section.settings.hockney60_video.sources[0].url }}"{% else %}""{% endif %},
+        "videoAsThumbnail": {{ section.settings.hockney60_video_as_thumbnail | json }},
+        "videoPreview": {{ section.settings.hockney60_video_preview | json }},
+        "startWithVideo": {{ section.settings.hockney60_start_with_video | json }},
+        "paintingName": {{ section.settings.hockney60_painting_name | json }},
+        "bio": {{ section.settings.hockney60_bio | json }},
+        "wikipedia": {{ section.settings.hockney60_wikipedia | json }},
+        "colors": [
+          { "name": {{ section.settings.hockney60_color_1_name | json }}, "hex": "{{ section.settings.hockney60_color_1 }}" },
+          { "name": {{ section.settings.hockney60_color_2_name | json }}, "hex": "{{ section.settings.hockney60_color_2 }}" },
+          { "name": {{ section.settings.hockney60_color_3_name | json }}, "hex": "{{ section.settings.hockney60_color_3 }}" },
+          { "name": {{ section.settings.hockney60_color_4_name | json }}, "hex": "{{ section.settings.hockney60_color_4 }}" },
+          { "name": {{ section.settings.hockney60_color_5_name | json }}, "hex": "{{ section.settings.hockney60_color_5 }}" },
+          { "name": {{ section.settings.hockney60_color_6_name | json }}, "hex": "{{ section.settings.hockney60_color_6 }}" }
+        ]
+      },
+      "1": {
+        "thumbnail": {% if section.settings.bacon_thumbnail %}"{{ section.settings.bacon_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+        "images": [
+          {% if section.settings.bacon_image_1 %}"{{ section.settings.bacon_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+          {% if section.settings.bacon_image_2 %}"{{ section.settings.bacon_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+          {% if section.settings.bacon_image_3 %}"{{ section.settings.bacon_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+        ],
+        "video": {% if section.settings.bacon_video %}"{{ section.settings.bacon_video.sources[0].url }}"{% else %}""{% endif %},
+        "videoAsThumbnail": {{ section.settings.bacon_video_as_thumbnail | json }},
+        "videoPreview": {{ section.settings.bacon_video_preview | json }},
+        "startWithVideo": {{ section.settings.bacon_start_with_video | json }},
+        "paintingName": {{ section.settings.bacon_painting_name | json }},
+        "bio": {{ section.settings.bacon_bio | json }},
+        "wikipedia": {{ section.settings.bacon_wikipedia | json }},
+        "colors": [
+          { "name": {{ section.settings.bacon_color_1_name | json }}, "hex": "{{ section.settings.bacon_color_1 }}" },
+          { "name": {{ section.settings.bacon_color_2_name | json }}, "hex": "{{ section.settings.bacon_color_2 }}" },
+          { "name": {{ section.settings.bacon_color_3_name | json }}, "hex": "{{ section.settings.bacon_color_3 }}" },
+          { "name": {{ section.settings.bacon_color_4_name | json }}, "hex": "{{ section.settings.bacon_color_4 }}" },
+          { "name": {{ section.settings.bacon_color_5_name | json }}, "hex": "{{ section.settings.bacon_color_5 }}" },
+          { "name": {{ section.settings.bacon_color_6_name | json }}, "hex": "{{ section.settings.bacon_color_6 }}" }
+        ]
+      },
+      "4": {
+        "thumbnail": {% if section.settings.price_thumbnail %}"{{ section.settings.price_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+        "images": [
+          {% if section.settings.price_image_1 %}"{{ section.settings.price_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+          {% if section.settings.price_image_2 %}"{{ section.settings.price_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+          {% if section.settings.price_image_3 %}"{{ section.settings.price_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+        ],
+        "video": {% if section.settings.price_video %}"{{ section.settings.price_video.sources[0].url }}"{% else %}""{% endif %},
+        "videoAsThumbnail": {{ section.settings.price_video_as_thumbnail | json }},
+        "videoPreview": {{ section.settings.price_video_preview | json }},
+        "startWithVideo": {{ section.settings.price_start_with_video | json }},
+        "paintingName": {{ section.settings.price_painting_name | json }},
+        "bio": {{ section.settings.price_bio | json }},
+        "wikipedia": {{ section.settings.price_wikipedia | json }},
+        "colors": [
+          { "name": {{ section.settings.price_color_1_name | json }}, "hex": "{{ section.settings.price_color_1 }}" },
+          { "name": {{ section.settings.price_color_2_name | json }}, "hex": "{{ section.settings.price_color_2 }}" },
+          { "name": {{ section.settings.price_color_3_name | json }}, "hex": "{{ section.settings.price_color_3 }}" },
+          { "name": {{ section.settings.price_color_4_name | json }}, "hex": "{{ section.settings.price_color_4 }}" },
+          { "name": {{ section.settings.price_color_5_name | json }}, "hex": "{{ section.settings.price_color_5 }}" },
+          { "name": {{ section.settings.price_color_6_name | json }}, "hex": "{{ section.settings.price_color_6 }}" }
+        ]
+      },
+      "3": {
+        "thumbnail": {% if section.settings.hockney13_thumbnail %}"{{ section.settings.hockney13_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+        "images": [
+          {% if section.settings.hockney13_image_1 %}"{{ section.settings.hockney13_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+          {% if section.settings.hockney13_image_2 %}"{{ section.settings.hockney13_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+          {% if section.settings.hockney13_image_3 %}"{{ section.settings.hockney13_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+        ],
+        "video": {% if section.settings.hockney13_video %}"{{ section.settings.hockney13_video.sources[0].url }}"{% else %}""{% endif %},
+        "videoAsThumbnail": {{ section.settings.hockney13_video_as_thumbnail | json }},
+        "videoPreview": {{ section.settings.hockney13_video_preview | json }},
+        "startWithVideo": {{ section.settings.hockney13_start_with_video | json }},
+        "paintingName": {{ section.settings.hockney13_painting_name | json }},
+        "bio": {{ section.settings.hockney13_bio | json }},
+        "wikipedia": {{ section.settings.hockney13_wikipedia | json }},
+        "colors": [
+          { "name": {{ section.settings.hockney13_color_1_name | json }}, "hex": "{{ section.settings.hockney13_color_1 }}" },
+          { "name": {{ section.settings.hockney13_color_2_name | json }}, "hex": "{{ section.settings.hockney13_color_2 }}" },
+          { "name": {{ section.settings.hockney13_color_3_name | json }}, "hex": "{{ section.settings.hockney13_color_3 }}" },
+          { "name": {{ section.settings.hockney13_color_4_name | json }}, "hex": "{{ section.settings.hockney13_color_4 }}" },
+          { "name": {{ section.settings.hockney13_color_5_name | json }}, "hex": "{{ section.settings.hockney13_color_5 }}" },
+          { "name": {{ section.settings.hockney13_color_6_name | json }}, "hex": "{{ section.settings.hockney13_color_6 }}" }
+        ]
+      },
+      "2": {
+        "thumbnail": {% if section.settings.jones_thumbnail %}"{{ section.settings.jones_thumbnail | image_url: width: 400 }}"{% else %}""{% endif %},
+        "images": [
+          {% if section.settings.jones_image_1 %}"{{ section.settings.jones_image_1 | image_url: width: 1200 }}"{% else %}""{% endif %},
+          {% if section.settings.jones_image_2 %}"{{ section.settings.jones_image_2 | image_url: width: 1200 }}"{% else %}""{% endif %},
+          {% if section.settings.jones_image_3 %}"{{ section.settings.jones_image_3 | image_url: width: 1200 }}"{% else %}""{% endif %}
+        ],
+        "video": {% if section.settings.jones_video %}"{{ section.settings.jones_video.sources[0].url }}"{% else %}""{% endif %},
+        "videoAsThumbnail": {{ section.settings.jones_video_as_thumbnail | json }},
+        "videoPreview": {{ section.settings.jones_video_preview | json }},
+        "startWithVideo": {{ section.settings.jones_start_with_video | json }},
+        "paintingName": {{ section.settings.jones_painting_name | json }},
+        "bio": {{ section.settings.jones_bio | json }},
+        "wikipedia": {{ section.settings.jones_wikipedia | json }},
+        "colors": [
+          { "name": {{ section.settings.jones_color_1_name | json }}, "hex": "{{ section.settings.jones_color_1 }}" },
+          { "name": {{ section.settings.jones_color_2_name | json }}, "hex": "{{ section.settings.jones_color_2 }}" },
+          { "name": {{ section.settings.jones_color_3_name | json }}, "hex": "{{ section.settings.jones_color_3 }}" },
+          { "name": {{ section.settings.jones_color_4_name | json }}, "hex": "{{ section.settings.jones_color_4 }}" },
+          { "name": {{ section.settings.jones_color_5_name | json }}, "hex": "{{ section.settings.jones_color_5 }}" },
+          { "name": {{ section.settings.jones_color_6_name | json }}, "hex": "{{ section.settings.jones_color_6 }}" }
+        ]
+          },
   "sizing": {
     "slides": [
       {% if section.settings.sizing_slot_1_type == "image" and section.settings.sizing_slot_1_image %}
@@ -1846,7 +1785,7 @@
     ],
     "description": {{ section.settings.sizing_description | json }}
   }
-}
+    }
 </script>
 
 <style>
@@ -3052,128 +2991,7 @@
   background: #4c5ab3;
 }
 {% endif %}
-/* Wool Grid Styles */
-#wool-grid-container {
-  flex: 0 0 auto !important;
-  width: 100% !important;
-  padding: 20px !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: #fff !important;
-}
 
-/* Aspect ratio wrapper - this is the "invisible box" */
-.wool-grid-wrapper {
-  width: 100%;
-  max-width: 90vw;
-  max-height: calc(100vh - 280px);
-  aspect-ratio: 3 / 2;
-  margin: 0 auto;
-  position: relative;
-}
-
-.wool-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 0px;
-}
-
-.wool-grid-item {
-  width: 100%;
-  height: 100%;
-  border-radius: 0px;
-  overflow: hidden;
-  cursor: grab;
-  transition: all 0.3s ease;
-  background: #fff;
-  box-shadow: none;
-  border: none;
-  position: relative;
-}
-
-.wool-grid-item:active {
-  cursor: grabbing;
-}
-
-.wool-grid-item.dragging {
-  opacity: 0.5;
-  transform: scale(0.95);
-  cursor: grabbing;
-}
-
-.wool-grid-item.drag-over {
-  transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-}
-
-.wool-grid-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-  user-select: none;
-  display: block;
-}
-
-.wool-grid-item .wool-label {
-  display: none;
-}
-
-.wool-grid-hint {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.7);
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.wool-grid-hint.hidden {
-  opacity: 0;
-}
-
-.reset-wool-btn {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  #wool-grid-container {
-    padding: 10px !important;
-  }
-  
-  .wool-grid-wrapper {
-    aspect-ratio: 2 / 3;
-    max-height: calc(100vh - 200px); /* Reduced from 320px to 200px - shows less text */
-  }
-  
-  .wool-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-  }
-  
-  .wool-grid-hint {
-    font-size: 11px;
-    padding: 6px 12px;
-  }
-}
 </style>
 {% if customer.tags contains 'staff' or request.design_mode %}
 <!-- Admin Save as Default Button -->
@@ -3325,13 +3143,41 @@ function initSweaterDesigner(){
   }
   
   const DESIGNERS = {
-  0: {
-    name: "Natisa Jones",
-    available: true,
-    enabled: {{ section.settings.jones_enabled | default: false }},
-    // Paste this into DESIGNERS[0].defaults:
-
-defaults: {
+    0: {
+      name: "David Hockney (60s)",
+      available: true,
+      enabled: {{ section.settings.hockney60_enabled | default: false }},
+      defaults: {
+        "hem":"#313539","neck":"#313539","Laag_2":"#313539","Laag_3":"#284354","Laag_4":"#b4a697","Laag_5":"#284354","Laag_6":"#313539",
+        "Laag_7":"#284354","Laag_8":"#313539","Laag_9":"#6b5d93","Laag_10":"#9a6c2c","Laag_11":"#284354","Laag_12":"#313539",
+        "Laag_13":"#313539","Laag_14":"#b4a697","Laag_15":"#313539","Laag_16":"#b3502e","Laag_17":"#313539","Laag_18":"#b4a697",
+        "Laag_19":"#6b5d93","Laag_21":"#b3502e","Laag_22":"#313539","Laag_23":"#284354","Laag_24":"#b4a697","Laag_25":"#9a6c2c",
+        "Laag_26":"#284354","Laag_27":"#313539","Laag_28":"#9a6c2c","leftcuff":"#313539","rightcuff":"#313539"
+      },
+      tooltipTitle: "David Hockney (60s)",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#"
+    },
+    1: {
+      name: "Francis Bacon",
+      available: true,
+      enabled: {{ section.settings.bacon_enabled | default: false }},
+      defaults: {
+        "hem":"#8c6f64","neck":"#000000","Laag_2":"#8c6f64","Laag_3":"#1a352c","Laag_4":"#d8d5d2","Laag_5":"#d35968","Laag_6":"#1a352c",
+        "Laag_7":"#d8d5d2","Laag_8":"#ff83a1","Laag_9":"#d35968","Laag_10":"#ff83a1","Laag_11":"#1a352c","Laag_12":"#d8d5d2",
+        "Laag_13":"#000000","Laag_14":"#000000","Laag_15":"#1a352c","Laag_16":"#d35968","Laag_17":"#1a352c","Laag_18":"#d8d5d2",
+        "Laag_19":"#1a352c","Laag_21":"#d35968","Laag_22":"#000000","Laag_23":"#000000","Laag_24":"#d8d5d2","Laag_25":"#000000",
+        "Laag_26":"#ff83a1","Laag_27":"#8c6f64","Laag_28":"#ff83a1","leftcuff":"#8c6f64","rightcuff":"#8c6f64"
+      },
+      tooltipTitle: "Francis Bacon.",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/bacon1_430x.jpg?v=1762164487",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/francisbacon_430x.jpg?v=1757588774#"
+    },
+    2: {
+  name: "Natisa Jones",
+  available: true,
+  enabled: {{ section.settings.jones_enabled | default: false }},
+  defaults: {
   "Laag_10":"#930918",
   "Laag_11":"#930918",
   "Laag_12":"#930918",
@@ -3344,8 +3190,8 @@ defaults: {
   "Laag_21":"#c32728",
   "Laag_23":"#6b191f",
   "Laag_24":"#6b191f",
-  "Laag_25":"#f3f2de",
-  "Laag_26":"#f1dbd0",
+  "Laag_25":"#f1dbd0",
+  "Laag_26":"#f3f2de",
   "Laag_28":"#930918",
   "Laag_3":"#f3f2de",
   "Laag_4":"#f1dbd0",
@@ -3358,73 +3204,42 @@ defaults: {
   "leftcuff":"#c32728",
   "leftcuff-2":"#000000",
   "neck":"#6b191f"
+  },
+  tooltipTitle: "Natisa Jones.",
+  tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
+  fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
 },
-
-    tooltipTitle: "Natisa Jones.",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisa1_430x.jpg?v=1762161907",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/natisagrowthspurt_430x.jpg?v=1762164815"
-  },
-  1: {
-    name: "David Hockney (60s)",
-    available: true,
-    enabled: {{ section.settings.hockney60_enabled | default: false }},
-    defaults: {
-      "hem":"#313539","neck":"#313539","Laag_2":"#313539","Laag_3":"#284354","Laag_4":"#b4a697","Laag_5":"#284354","Laag_6":"#313539",
-      "Laag_7":"#284354","Laag_8":"#313539","Laag_9":"#6b5d93","Laag_10":"#9a6c2c","Laag_11":"#284354","Laag_12":"#313539",
-      "Laag_13":"#313539","Laag_14":"#b4a697","Laag_15":"#313539","Laag_16":"#b3502e","Laag_17":"#313539","Laag_18":"#b4a697",
-      "Laag_19":"#6b5d93","Laag_21":"#b3502e","Laag_22":"#313539","Laag_23":"#284354","Laag_24":"#b4a697","Laag_25":"#9a6c2c",
-      "Laag_26":"#284354","Laag_27":"#313539","Laag_28":"#9a6c2c","leftcuff":"#313539","rightcuff":"#313539"
+    3: {
+      name: "David Hockney (2013)",
+      available: true,
+      enabled: {{ section.settings.hockney13_enabled | default: false }},
+      defaults: {
+        "hem":"#14352a","neck":"#14352a","Laag_2":"#14352a","Laag_3":"#036433","Laag_4":"#f2d075","Laag_5":"#14352a","Laag_6":"#036433",
+        "Laag_7":"#7baa5e","Laag_8":"#036433","Laag_9":"#036433","Laag_10":"#14352a","Laag_11":"#036433","Laag_12":"#036433",
+        "Laag_13":"#14352a","Laag_14":"#7baa5e","Laag_15":"#14352a","Laag_16":"#a40556","Laag_17":"#7baa5e","Laag_18":"#f2d075",
+        "Laag_19":"#14352a","Laag_21":"#890222","Laag_22":"#14352a","Laag_23":"#a40556","Laag_24":"#f2d075","Laag_25":"#a40556",
+        "Laag_26":"#036433","Laag_27":"#14352a","Laag_28":"#7baa5e","leftcuff":"#14352a","rightcuff":"#14352a"
+      },
+      tooltipTitle: "David Hockney (2013)",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/2246_430x.webp?v=1758361067"
     },
-    tooltipTitle: "David Hockney (60s)",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney60_430x.jpg?v=1762161908",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2025-09-20_at_14.20.52_430x.png?v=1758370873#"
-  },
-  2: {
-    name: "Francis Bacon",
-    available: true,
-    enabled: {{ section.settings.bacon_enabled | default: false }},
-    defaults: {
-      "hem":"#8c6f64","neck":"#000000","Laag_2":"#8c6f64","Laag_3":"#1a352c","Laag_4":"#d8d5d2","Laag_5":"#d35968","Laag_6":"#1a352c",
-      "Laag_7":"#d8d5d2","Laag_8":"#ff83a1","Laag_9":"#d35968","Laag_10":"#ff83a1","Laag_11":"#1a352c","Laag_12":"#d8d5d2",
-      "Laag_13":"#000000","Laag_14":"#000000","Laag_15":"#1a352c","Laag_16":"#d35968","Laag_17":"#1a352c","Laag_18":"#d8d5d2",
-      "Laag_19":"#1a352c","Laag_21":"#d35968","Laag_22":"#000000","Laag_23":"#000000","Laag_24":"#d8d5d2","Laag_25":"#000000",
-      "Laag_26":"#ff83a1","Laag_27":"#8c6f64","Laag_28":"#ff83a1","leftcuff":"#8c6f64","rightcuff":"#8c6f64"
-    },
-    tooltipTitle: "Francis Bacon.",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/bacon1_430x.jpg?v=1762164487",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/francisbacon_430x.jpg?v=1757588774#"
-  },
-  3: {
-    name: "David Hockney (2013)",
-    available: true,
-    enabled: {{ section.settings.hockney13_enabled | default: false }},
-    defaults: {
-      "hem":"#14352a","neck":"#14352a","Laag_2":"#14352a","Laag_3":"#036433","Laag_4":"#f2d075","Laag_5":"#14352a","Laag_6":"#036433",
-      "Laag_7":"#7baa5e","Laag_8":"#036433","Laag_9":"#036433","Laag_10":"#14352a","Laag_11":"#036433","Laag_12":"#036433",
-      "Laag_13":"#14352a","Laag_14":"#7baa5e","Laag_15":"#14352a","Laag_16":"#a40556","Laag_17":"#7baa5e","Laag_18":"#f2d075",
-      "Laag_19":"#14352a","Laag_21":"#890222","Laag_22":"#14352a","Laag_23":"#a40556","Laag_24":"#f2d075","Laag_25":"#a40556",
-      "Laag_26":"#036433","Laag_27":"#14352a","Laag_28":"#7baa5e","leftcuff":"#14352a","rightcuff":"#14352a"
-    },
-    tooltipTitle: "David Hockney (2013)",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/hockney13_430x.jpg?v=1762161907",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/2246_430x.webp?v=1758361067"
-  },
-  4: {
-    name: "Ken Price",
-    available: false,
-    enabled: {{ section.settings.price_enabled | default: false }},
-    defaults: {
-      "hem":"#000000","neck":"#be4b2e","Laag_2":"#000000","Laag_3":"#843345","Laag_4":"#59261f","Laag_5":"#843345","Laag_6":"#59261f",
-      "Laag_7":"#9cbdb4","Laag_8":"#59261f","Laag_9":"#843345","Laag_10":"#843345","Laag_11":"#843345","Laag_12":"#843345",
-      "Laag_13":"#000000","Laag_14":"#9cbdb4","Laag_15":"#000000","Laag_16":"#59261f","Laag_17":"#9cbdb4","Laag_18":"#7d90b2",
-      "Laag_19":"#9cbdb4","Laag_21":"#843345","Laag_22":"#000000","Laag_23":"#59261f","Laag_24":"#9cbdb4","Laag_25":"#7d90b2",
-      "Laag_26":"#9cbdb4","Laag_27":"#000000","Laag_28":"#9cbdb4","leftcuff":"#000000","rightcuff":"#000000"
-    },
-    tooltipTitle: "Ken Price.",
-    tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
-    fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2024-09-30_at_12.05.02_430x.png?v=1758355327"
-  }
-};
+    4: {
+      name: "Ken Price",
+      available: false,
+      enabled: {{ section.settings.price_enabled | default: false }},
+      defaults: {
+        "hem":"#000000","neck":"#be4b2e","Laag_2":"#000000","Laag_3":"#843345","Laag_4":"#59261f","Laag_5":"#843345","Laag_6":"#59261f",
+        "Laag_7":"#9cbdb4","Laag_8":"#59261f","Laag_9":"#843345","Laag_10":"#843345","Laag_11":"#843345","Laag_12":"#843345",
+        "Laag_13":"#000000","Laag_14":"#9cbdb4","Laag_15":"#000000","Laag_16":"#59261f","Laag_17":"#9cbdb4","Laag_18":"#7d90b2",
+        "Laag_19":"#9cbdb4","Laag_21":"#843345","Laag_22":"#000000","Laag_23":"#59261f","Laag_24":"#9cbdb4","Laag_25":"#7d90b2",
+        "Laag_26":"#9cbdb4","Laag_27":"#000000","Laag_28":"#9cbdb4","leftcuff":"#000000","rightcuff":"#000000"
+      },
+      tooltipTitle: "Ken Price.",
+      tooltipImage: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/kenprice1_430x.jpg?v=1762161907",
+      fallbackThumbnail: "https://cdn.shopify.com/s/files/1/0965/8233/6843/files/Screenshot_2024-09-30_at_12.05.02_430x.png?v=1758355327"
+    }
+  };
 
   // Helper functions for enabled designers
   function getEnabledDesigners() {
@@ -3461,7 +3276,7 @@ defaults: {
       return data.colors;
     }
     const fallbackColors = {
-      2: [
+      0: [
         { name: "Purple", hex: "#6b5d93" },
         { name: "Dark Blue", hex: "#284354" },
         { name: "Charcoal", hex: "#313539" },
@@ -3477,7 +3292,7 @@ defaults: {
         { name: "Cream", hex: "#d8d5d2" },
         { name: "Black", hex: "#000000" }
       ],
-      0: [
+      2: [
         { name: "Deep Red", hex: "#6b191f" },
         { name: "Bright Red", hex: "#c32728" },
         { name: "Crimson", hex: "#930918" },
@@ -4373,18 +4188,7 @@ function openInfoOverlay() {
   const designer = DESIGNERS[currentDesigner];
   
   if (infoDesignerName) infoDesignerName.textContent = designer.name;
-  
-  // Initialize carousel (wool grid is first slide)
-  initCarousel(currentDesigner);
-  
-  if (infoOverlay) infoOverlay.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-  
-  if (infoDesignerName) infoDesignerName.textContent = designer.name;
-  
-  // Initialize wool grid
-  initWoolGrid(currentDesigner);
+  if (infoCarouselImg) infoCarouselImg.src = designer.tooltipImage;
   
   if (infoOverlay) infoOverlay.style.display = 'block';
   document.body.style.overflow = 'hidden';
@@ -4393,375 +4197,6 @@ function openInfoOverlay() {
 function closeInfoOverlay() {
   if (infoOverlay) infoOverlay.style.display = 'none';
   document.body.style.overflow = '';
-}
-// Wool Grid Data Structure
-const woolGridData = {
-  0: { // jones
-    images: [
-      {% if section.settings.jones_wool_1 %}"{{ section.settings.jones_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_wool_2 %}"{{ section.settings.jones_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_wool_3 %}"{{ section.settings.jones_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_wool_4 %}"{{ section.settings.jones_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_wool_5 %}"{{ section.settings.jones_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.jones_wool_6 %}"{{ section.settings.jones_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
-    ]
-  },
-  1: { // hockney60
-    images: [
-      {% if section.settings.hockney60_wool_1 %}"{{ section.settings.hockney60_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney60_wool_2 %}"{{ section.settings.hockney60_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney60_wool_3 %}"{{ section.settings.hockney60_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney60_wool_4 %}"{{ section.settings.hockney60_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney60_wool_5 %}"{{ section.settings.hockney60_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney60_wool_6 %}"{{ section.settings.hockney60_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
-    ]
-  },
-  2: { // bacon
-    images: [
-      {% if section.settings.bacon_wool_1 %}"{{ section.settings.bacon_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.bacon_wool_2 %}"{{ section.settings.bacon_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.bacon_wool_3 %}"{{ section.settings.bacon_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.bacon_wool_4 %}"{{ section.settings.bacon_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.bacon_wool_5 %}"{{ section.settings.bacon_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.bacon_wool_6 %}"{{ section.settings.bacon_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
-    ]
-  },
-  3: { // hockney13
-    images: [
-      {% if section.settings.hockney13_wool_1 %}"{{ section.settings.hockney13_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney13_wool_2 %}"{{ section.settings.hockney13_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney13_wool_3 %}"{{ section.settings.hockney13_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney13_wool_4 %}"{{ section.settings.hockney13_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney13_wool_5 %}"{{ section.settings.hockney13_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.hockney13_wool_6 %}"{{ section.settings.hockney13_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
-    ]
-  },
-  4: { // price
-    images: [
-      {% if section.settings.price_wool_1 %}"{{ section.settings.price_wool_1 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.price_wool_2 %}"{{ section.settings.price_wool_2 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.price_wool_3 %}"{{ section.settings.price_wool_3 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.price_wool_4 %}"{{ section.settings.price_wool_4 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.price_wool_5 %}"{{ section.settings.price_wool_5 | image_url: width: 600 }}"{% else %}""{% endif %},
-      {% if section.settings.price_wool_6 %}"{{ section.settings.price_wool_6 | image_url: width: 600 }}"{% else %}""{% endif %}
-    ]
-  }
-};
-
-let currentWoolOrder = [];
-let originalWoolOrder = [];
-
-function initWoolGrid(designerIndex) {
-  const grid = document.getElementById('wool-grid');
-  if (!grid) return;
-  
-  const designer = DESIGNERS[designerIndex];
-  const colors = getSwatchColors(designerIndex);
-  const images = woolGridData[designerIndex]?.images || [];
-  
-  // Store original order
-  originalWoolOrder = colors.map((color, i) => ({
-    color: color,
-    image: images[i] || '',
-    originalIndex: i
-  }));
-  
-  currentWoolOrder = [...originalWoolOrder];
-  
-  renderWoolGrid();
-  setupDragAndDrop();
-  
-  // Hide hint after 3 seconds
-  setTimeout(() => {
-    const hint = document.querySelector('.wool-grid-hint');
-    if (hint) hint.classList.add('hidden');
-  }, 3000);
-}
-
-function renderWoolGrid() {
-  const grid = document.getElementById('wool-grid');
-  if (!grid) return;
-  
-  grid.innerHTML = '';
-  
-  currentWoolOrder.forEach((item, index) => {
-    const gridItem = document.createElement('div');
-    gridItem.className = 'wool-grid-item';
-    gridItem.draggable = true;
-    gridItem.dataset.index = index;
-    
-    // Use color swatch if no image
-    if (item.image && item.image !== '') {
-      gridItem.innerHTML = `
-        <img src="${item.image}" alt="${item.color.name}" draggable="false">
-        <div class="wool-label">${item.color.name}</div>
-      `;
-    } else {
-      gridItem.innerHTML = `
-        <div style="width: 100%; height: 100%; background: ${item.color.hex}; display: flex; align-items: center; justify-content: center;">
-          <div class="wool-label">${item.color.name}</div>
-        </div>
-      `;
-    }
-    
-    grid.appendChild(gridItem);
-  });
-}
-
-function setupDragAndDrop() {
-  const items = document.querySelectorAll('.wool-grid-item');
-  let draggedItem = null;
-  
-  items.forEach(item => {
-    item.addEventListener('dragstart', function(e) {
-      draggedItem = this;
-      this.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/html', this.innerHTML);
-    });
-    
-    item.addEventListener('dragend', function() {
-      this.classList.remove('dragging');
-      items.forEach(i => i.classList.remove('drag-over'));
-    });
-    
-    item.addEventListener('dragover', function(e) {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-      
-      if (this !== draggedItem) {
-        this.classList.add('drag-over');
-      }
-    });
-    
-    item.addEventListener('dragleave', function() {
-      this.classList.remove('drag-over');
-    });
-    
-    item.addEventListener('drop', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      this.classList.remove('drag-over');
-      
-      if (this !== draggedItem) {
-        const fromIndex = parseInt(draggedItem.dataset.index);
-        const toIndex = parseInt(this.dataset.index);
-        
-        // Swap items in array
-        const temp = currentWoolOrder[fromIndex];
-        currentWoolOrder[fromIndex] = currentWoolOrder[toIndex];
-        currentWoolOrder[toIndex] = temp;
-        
-        // Re-render grid
-        renderWoolGrid();
-        setupDragAndDrop();
-      }
-    });
-  });
-} // ← ADD THIS CLOSING BRACE FOR setupDragAndDrop
-
-
- } // ← Closing brace for setupDragAndDrop
-
-// INFO MODAL CAROUSEL FUNCTIONS
-let infoCarouselIndex = 0;
-let infoCarouselItems = [];
-
-function initCarousel(designerIndex) {
-  const data = galleryData[designerIndex];
-  if (!data) return;
-  
-  infoCarouselItems = [];
-  
-  // FIRST SLIDE: Wool grid
-  infoCarouselItems.push({ type: 'wool-grid', designerIndex: designerIndex });
-  
-  // Add images
-  data.images.forEach(img => {
-    if (img && img.trim()) infoCarouselItems.push({ type: 'image', src: img });
-  });
-  
-  // Add video if exists
-  if (data.video && data.video.trim()) {
-    infoCarouselItems.push({ type: 'video', src: data.video });
-  }
-  
-  infoCarouselIndex = 0;
-  renderCarousel();
-  renderCarouselIndicators();
-}
-
-function renderCarousel() {
-  const container = document.getElementById('carousel-content');
-  const hint = document.querySelector('.wool-grid-hint');
-  if (!container || infoCarouselItems.length === 0) return;
-  
-  const item = infoCarouselItems[infoCarouselIndex];
-  
-  if (item.type === 'wool-grid') {
-    // Show wool grid
-    container.innerHTML = `
-      <div class='wool-grid-wrapper' style='width: 100%; max-width: 90vw; max-height: calc(60vh - 80px); aspect-ratio: 3 / 2; margin: 0 auto; position: relative;'>
-        <div id='wool-grid' class='wool-grid' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0px;'></div>
-      </div>
-    `;
-    initWoolGrid(item.designerIndex);
-    if (hint) hint.style.display = 'flex';
-    container.parentElement.style.background = '#fff';
-  } else if (item.type === 'image') {
-    container.innerHTML = `<img src="${item.src}" alt="Gallery image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />`;
-    if (hint) hint.style.display = 'none';
-    container.parentElement.style.background = '#000';
-  } else if (item.type === 'video') {
-    container.innerHTML = `<video src="${item.src}" controls autoplay loop style="max-width: 100%; max-height: 100%; object-fit: contain;"></video>`;
-    if (hint) hint.style.display = 'none';
-    container.parentElement.style.background = '#000';
-  }
-}
-
-function renderCarouselIndicators() {
-  const container = document.getElementById('carousel-indicators');
-  if (!container) return;
-  
-  container.innerHTML = '';
-  infoCarouselItems.forEach((item, index) => {
-    const dot = document.createElement('div');
-    dot.className = 'carousel-indicator' + (index === infoCarouselIndex ? ' active' : '');
-    dot.onclick = () => {
-      infoCarouselIndex = index;
-      renderCarousel();
-      renderCarouselIndicators();
-    };
-    container.appendChild(dot);
-  });
-}
-
-// Carousel navigation event listeners
-setTimeout(() => {
-  document.getElementById('carousel-prev')?.addEventListener('click', () => {
-    infoCarouselIndex = (infoCarouselIndex - 1 + infoCarouselItems.length) % infoCarouselItems.length;
-    renderCarousel();
-    renderCarouselIndicators();
-  });
-
-  document.getElementById('carousel-next')?.addEventListener('click', () => {
-    infoCarouselIndex = (infoCarouselIndex + 1) % infoCarouselItems.length;
-    renderCarousel();
-    renderCarouselIndicators();
-  });
-}, 100);
-
-  
-  // Enhanced touch support for mobile
-let touchedItem = null;
-let touchStartPos = { x: 0, y: 0 };
-let isDragging = false;
-
-items.forEach(item => {
-  item.addEventListener('touchstart', function(e) {
-    touchedItem = this;
-    const touch = e.touches[0];
-    touchStartPos = { x: touch.clientX, y: touch.clientY };
-    isDragging = false;
-    
-    // Prevent default to allow dragging
-    e.preventDefault();
-    
-    this.classList.add('dragging');
-  }, { passive: false });
-  
-  item.addEventListener('touchmove', function(e) {
-    if (!touchedItem) return;
-    
-    const touch = e.touches[0];
-    const deltaX = Math.abs(touch.clientX - touchStartPos.x);
-    const deltaY = Math.abs(touch.clientY - touchStartPos.y);
-    
-    // Start dragging if moved more than 10px
-    if (deltaX > 10 || deltaY > 10) {
-      isDragging = true;
-    }
-    
-    if (isDragging) {
-      e.preventDefault();
-      
-      // Find element under touch point
-      const touchX = touch.clientX;
-      const touchY = touch.clientY;
-      const elementUnder = document.elementFromPoint(touchX, touchY);
-      const targetItem = elementUnder?.closest('.wool-grid-item');
-      
-      // Remove drag-over from all items
-      items.forEach(i => i.classList.remove('drag-over'));
-      
-      // Add drag-over to target
-      if (targetItem && targetItem !== touchedItem) {
-        targetItem.classList.add('drag-over');
-      }
-    }
-  }, { passive: false });
-  
-  item.addEventListener('touchend', function(e) {
-    if (!touchedItem || !isDragging) {
-      this.classList.remove('dragging');
-      items.forEach(i => i.classList.remove('drag-over'));
-      touchedItem = null;
-      return;
-    }
-    
-    e.preventDefault();
-    
-    const touch = e.changedTouches[0];
-    const touchX = touch.clientX;
-    const touchY = touch.clientY;
-    const elementUnder = document.elementFromPoint(touchX, touchY);
-    const targetItem = elementUnder?.closest('.wool-grid-item');
-    
-    if (targetItem && targetItem !== touchedItem) {
-      const fromIndex = parseInt(touchedItem.dataset.index);
-      const toIndex = parseInt(targetItem.dataset.index);
-      
-      // Swap items in array
-      const temp = currentWoolOrder[fromIndex];
-      currentWoolOrder[fromIndex] = currentWoolOrder[toIndex];
-      currentWoolOrder[toIndex] = temp;
-      
-      // Re-render grid
-      renderWoolGrid();
-      setupDragAndDrop();
-    }
-    
-    this.classList.remove('dragging');
-    items.forEach(i => i.classList.remove('drag-over'));
-    touchedItem = null;
-    isDragging = false;
-  }, { passive: false });
-  
-  item.addEventListener('touchcancel', function() {
-    this.classList.remove('dragging');
-    items.forEach(i => i.classList.remove('drag-over'));
-    touchedItem = null;
-    isDragging = false;
-  });
-});
-}
-
-// Reset button functionality
-const resetWoolBtn = document.getElementById('reset-wool-order');
-if (resetWoolBtn) {
-  resetWoolBtn.addEventListener('click', function() {
-    currentWoolOrder = [...originalWoolOrder];
-    renderWoolGrid();
-    setupDragAndDrop();
-    
-    // Show hint briefly
-    const hint = document.querySelector('.wool-grid-hint');
-    if (hint) {
-      hint.classList.remove('hidden');
-      setTimeout(() => hint.classList.add('hidden'), 2000);
-    }
-  });
 }
 
 if (infoBtn) {
@@ -5203,8 +4638,16 @@ document.addEventListener('keydown', (e) => {
   });
 
   // Initialize with first enabled designer
-makeShapesClickable();
-switchDesigner(getFirstEnabledDesigner());
+  const firstEnabledDesigner = getFirstEnabledDesigner();
+  currentDesigner = firstEnabledDesigner;
+
+  makeShapesClickable();
+  buildSwatches();
+  applyDefaults();
+  refreshConstraints();
+  updateAddToCartButton();
+  updateMiniThumbnail(getFirstEnabledDesigner());
+  syncMobileButtons();
 
   // Update navigation button states
   const enabledDesigners = getEnabledDesigners();
@@ -5679,64 +5122,19 @@ setTimeout(function() {
     const designer = DESIGNERS[currentDesigner];
     
     const currentDefaults = {};
-
-// Get ALL layer IDs from the actual DESIGNERS defaults (this ensures we don't miss any)
-const allKnownLayerIds = Object.keys(DESIGNERS[currentDesigner].defaults);
-
-// Also add the standard layer arrays
-const additionalLayers = [...bodyLayers, ...sleeveLayers, ...hemLayers, 'hem', 'neck', 'leftcuff', 'rightcuff', 'leftcuff-2'];
-
-// Combine and deduplicate
-const allLayerIds = [...new Set([...allKnownLayerIds, ...additionalLayers])];
-
-console.log('Checking layers:', allLayerIds); // Debug
-
-allLayerIds.forEach(layerId => {
-  const g = document.getElementById(layerId);
-  if (!g) {
-    console.log('❌ Layer not found:', layerId); // ← ADD THIS DEBUG
-    return;
-  }
-  
-  // Get ALL shapes in this layer
-  const shapes = g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse');
-  console.log(`✓ Layer ${layerId}: found ${shapes.length} shapes`); // ← ADD THIS DEBUG
-  
-  // Count colors used in this layer
-  const colorCounts = {};
-  shapes.forEach(shape => {
-    const fill = (shape.style && shape.style.fill) ? shape.style.fill : shape.getAttribute('fill');
-    if (fill) {
-      const normalized = normalizeColor(fill);
-      colorCounts[normalized] = (colorCounts[normalized] || 0) + 1;
-    }
-  });
-  
-  // Use the most common color in this layer
-  let mostCommonColor = null;
-  let maxCount = 0;
-  Object.keys(colorCounts).forEach(color => {
-    if (colorCounts[color] > maxCount) {
-      maxCount = colorCounts[color];
-      mostCommonColor = color;
-    }
-  });
-  
-  if (mostCommonColor) {
-    console.log(`  → Saving ${layerId}: ${mostCommonColor}`); // ← ADD THIS DEBUG
-    currentDefaults[layerId] = mostCommonColor;
-  } else {
-    console.log(`  ⚠️ No color found for ${layerId}`); // ← ADD THIS DEBUG
-  }
-});
+    const allLayerIds = [...bodyLayers, ...sleeveLayers, ...hemLayers, 'hem', 'neck', 'leftcuff', 'rightcuff'];
     
-     document.getElementById('admin-current-designer').textContent = designer.name;
+    allLayerIds.forEach(layerId => {
+      const color = getFill(layerId);
+      if (color) {
+        currentDefaults[layerId] = normalizeColor(color);
+      }
+    });
+    
+    document.getElementById('admin-current-designer').textContent = designer.name;
     document.getElementById('admin-designer-name').textContent = designer.name;
     
-    // Debug info at the top
-    let output = `// CAPTURED ${Object.keys(currentDefaults).length} LAYERS:\n`;
-    output += `// ${Object.keys(currentDefaults).sort().join(', ')}\n\n`;
-    output += `// Paste this into DESIGNERS[${currentDesigner}].defaults:\n\n`;
+    let output = `// Paste this into DESIGNERS[${currentDesigner}].defaults:\n\n`;
     output += `defaults: {\n`;
     
     const sortedKeys = Object.keys(currentDefaults).sort();
