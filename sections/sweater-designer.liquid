@@ -4721,9 +4721,6 @@ function openInfoOverlay() {
   
   if (infoDesignerName) infoDesignerName.textContent = designer.name;
   
-  const carouselContent = document.getElementById('carousel-content');
-  if (!carouselContent) return;
-  
   // Build slides array
   garmentSlides = [];
   garmentSlides.push({ type: 'wool-grid' });
@@ -4736,63 +4733,39 @@ function openInfoOverlay() {
   }
   
   garmentCurrentSlide = 0;
-  showGarmentSlide(0);
   
+  // Show overlay FIRST
   if (infoOverlay) infoOverlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-}
-
-function showGarmentSlide(index) {
-  if (garmentSlides.length === 0) return;
-  if (index < 0) index = garmentSlides.length - 1;
-  if (index >= garmentSlides.length) index = 0;
-  garmentCurrentSlide = index;
   
-  const carouselContent = document.getElementById('carousel-content');
-  if (!carouselContent) return;
+  // Then show first slide
+  showGarmentSlide(0);
   
-  const slide = garmentSlides[garmentCurrentSlide];
-  const hint = document.querySelector('.wool-grid-hint');
-  
-  if (slide.type === 'wool-grid') {
-    carouselContent.innerHTML = `
-      <div class='wool-grid-wrapper'>
-        <div id='wool-grid' class='wool-grid'></div>
-      </div>
-    `;
-    if (hint) hint.style.display = 'flex';
-    initWoolGrid(currentDesigner);
-  } else if (slide.type === 'image') {
-    carouselContent.innerHTML = `<img src="${slide.src}" style="max-width: 100%; max-height: 100%; object-fit: contain;">`;
-    if (hint) hint.style.display = 'none';
-  } else if (slide.type === 'video') {
-    carouselContent.innerHTML = `<video src="${slide.src}" controls autoplay loop style="max-width: 100%; max-height: 100%; object-fit: contain;"></video>`;
-    if (hint) hint.style.display = 'none';
-  }
-  
-  // Hide indicators
-  const indicators = document.getElementById('carousel-indicators');
-  if (indicators) indicators.style.display = 'none';
-  
-  // Show/hide nav buttons
-  const prevBtn = document.getElementById('carousel-prev');
-  const nextBtn = document.getElementById('carousel-next');
-  if (garmentSlides.length <= 1) {
-    if (prevBtn) prevBtn.style.display = 'none';
-    if (nextBtn) nextBtn.style.display = 'none';
-  } else {
-    if (prevBtn) prevBtn.style.display = 'flex';
-    if (nextBtn) nextBtn.style.display = 'flex';
-  }
-}
-
-function closeInfoOverlay() {
-  if (infoOverlay) infoOverlay.style.display = 'none';
-  document.body.style.overflow = '';
-}
-function closeInfoOverlay() {
-  if (infoOverlay) infoOverlay.style.display = 'none';
-  document.body.style.overflow = '';
+  // THEN attach button listeners (after modal is visible)
+  setTimeout(() => {
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    
+    console.log('Attaching listeners. Prev button:', prevBtn, 'Next button:', nextBtn);
+    
+    if (prevBtn) {
+      prevBtn.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('PREV CLICKED! Current:', garmentCurrentSlide);
+        showGarmentSlide(garmentCurrentSlide - 1);
+      };
+    }
+    
+    if (nextBtn) {
+      nextBtn.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('NEXT CLICKED! Current:', garmentCurrentSlide);
+        showGarmentSlide(garmentCurrentSlide + 1);
+      };
+    }
+  }, 100);
 }
 
 // Reset button functionality
