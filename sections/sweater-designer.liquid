@@ -4823,7 +4823,7 @@ if (resetWoolBtn) {
   });
 }
 
-// Event listeners for info overlay
+// // Event listeners for info overlay
 if (infoBtn) {
   infoBtn.addEventListener('click', openInfoOverlay);
 }
@@ -4847,6 +4847,28 @@ if (infoOverlay) {
 document.getElementById('info-content')?.addEventListener('click', (e) => {
   e.stopPropagation();
 });
+
+// Garment carousel navigation buttons
+const garmentPrevBtn = document.getElementById('carousel-prev');
+const garmentNextBtn = document.getElementById('carousel-next');
+
+if (garmentPrevBtn) {
+  garmentPrevBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Prev clicked, current:', garmentCurrentSlide);
+    showGarmentSlide(garmentCurrentSlide - 1);
+  });
+}
+
+if (garmentNextBtn) {
+  garmentNextBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Next clicked, current:', garmentCurrentSlide);
+    showGarmentSlide(garmentCurrentSlide + 1);
+  });
+}
 
 // Keyboard escape for info overlay
 document.addEventListener('keydown', (e) => {
