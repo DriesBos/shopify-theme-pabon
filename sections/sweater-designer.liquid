@@ -4686,23 +4686,20 @@ const infoDesignerName = document.getElementById('info-designer-name');
 const carouselContent = document.getElementById('garment-carousel-content');
 const prevBtn = document.getElementById('garment-prev');
 const nextBtn = document.getElementById('garment-next');
-const woolHint = document.querySelector('.wool-grid-hint');
+const woolHint = carouselContent.querySelector('.wool-grid-hint');
 
-// State
 let garmentSlides = [];
 let garmentCurrentSlide = 0;
 
-// -------------------------------
-// OPEN OVERLAY
-// -------------------------------
+// OPEN
 function openInfoOverlay() {
   const designer = DESIGNERS[currentDesigner];
   const garmentData = galleryData?.garment || {};
 
   if (infoDesignerName) infoDesignerName.textContent = designer?.name || '';
 
-  // Build slides: wool-grid first
-  garmentSlides = [{ type: 'wool-grid' }];
+  // Build slides
+  garmentSlides = [{ type:'wool-grid' }];
   (garmentData.images || []).filter(Boolean).forEach(src => garmentSlides.push({ type:'image', src }));
   if (garmentData.video) garmentSlides.push({ type:'video', src:garmentData.video });
 
@@ -4714,9 +4711,7 @@ function openInfoOverlay() {
   showGarmentSlide(0);
 }
 
-// -------------------------------
 // SHOW SLIDE
-// -------------------------------
 function showGarmentSlide(index) {
   if (!garmentSlides.length) return;
 
@@ -4726,18 +4721,20 @@ function showGarmentSlide(index) {
 
   const slide = garmentSlides[index];
 
-  // Always query wool grid dynamically
-  const woolContainer = document.getElementById('wool-grid');
-
-  // Hide everything first
-  if (woolContainer) woolContainer.style.display = 'none';
-  if (woolHint) woolHint.style.display = 'none';
+  // Clear previous content
   carouselContent.querySelectorAll('.carousel-media').forEach(el => el.remove());
+  const woolContainer = document.getElementById('wool-grid');
+  if (woolContainer) woolContainer.remove(); // remove old grid
+  if (woolHint) woolHint.style.display = 'none';
 
   if (slide.type === 'wool-grid') {
-    if (woolContainer) woolContainer.style.display = 'flex';
+    const wrapper = document.createElement('div');
+    wrapper.className = 'wool-grid-wrapper carousel-media';
+    wrapper.innerHTML = `<div id="wool-grid" class="wool-grid"></div>`;
+    carouselContent.appendChild(wrapper);
+
     if (woolHint) woolHint.style.display = 'flex';
-    initWoolGrid(currentDesigner); // now will always find the element
+    initWoolGrid(currentDesigner); // ✅ now always works
   }
 
   if (slide.type === 'image') {
@@ -4748,19 +4745,6 @@ function showGarmentSlide(index) {
     img.style.maxHeight = '100%';
     img.style.objectFit = 'contain';
     img.style.position = 'relative';
-
-    // Optional zoom icon
-    const zoomIcon = document.createElement('span');
-    zoomIcon.innerHTML = '&#x1F50D;'; // magnifying glass
-    zoomIcon.style.position = 'absolute';
-    zoomIcon.style.bottom = '10px';
-    zoomIcon.style.right = '10px';
-    zoomIcon.style.fontSize = '18px';
-    zoomIcon.style.color = '#000';
-    zoomIcon.style.cursor = 'pointer';
-    zoomIcon.title = 'Zoom';
-    img.parentElement?.appendChild(zoomIcon);
-
     carouselContent.appendChild(img);
   }
 
@@ -4780,9 +4764,7 @@ function showGarmentSlide(index) {
   updateNavVisibility();
 }
 
-// -------------------------------
 // NAV BUTTONS
-// -------------------------------
 function updateNavVisibility() {
   if (!prevBtn || !nextBtn) return;
   if (garmentSlides.length <= 1) {
@@ -4796,21 +4778,15 @@ function updateNavVisibility() {
   }
 }
 
-function navigateGarment(direction) {
-  showGarmentSlide(garmentCurrentSlide + direction);
-}
+function navigateGarment(dir) { showGarmentSlide(garmentCurrentSlide + dir); }
 
-// -------------------------------
-// CLOSE OVERLAY
-// -------------------------------
+// CLOSE
 function closeInfoOverlay() {
   if (infoOverlay) infoOverlay.style.display = 'none';
   document.body.style.overflow = '';
 }
 
-// -------------------------------
 // EVENT LISTENERS
-// -------------------------------
 infoBtn?.addEventListener('click', openInfoOverlay);
 closeInfoBtn?.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); closeInfoOverlay(); });
 infoOverlay?.addEventListener('click', e => { if (e.target === infoOverlay) closeInfoOverlay(); });
@@ -4825,6 +4801,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') navigateGarment(1);
   if (e.key === 'Escape') closeInfoOverlay();
 });
+
 
   function showConfirmation() {
     if(!confirmPanel) return;
