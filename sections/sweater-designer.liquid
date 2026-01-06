@@ -1632,8 +1632,17 @@
     <!-- Combined Carousel with Wool Grid as First Slide -->
 <div id='info-carousel-container' style='flex: 0 0 60vh; position: relative; width: 100%; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden;'>
   
-<button id='carousel-prev' class='info-modal-nav-btn info-modal-nav-prev' onclick="showGarmentSlide(garmentCurrentSlide - 1); event.stopPropagation();">
+<button id='carousel-prev' class='info-modal-nav-btn info-modal-nav-prev'>
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+</button>
+
+<button id='carousel-next' class='info-modal-nav-btn info-modal-nav-next'>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</button>  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
     <polyline points="15 18 9 12 15 6"></polyline>
   </svg>
 </button>
@@ -4751,32 +4760,6 @@ function openInfoOverlay() {
   
   // Then show first slide
   showGarmentSlide(0);
-  
-  // THEN attach button listeners (after modal is visible)
-  setTimeout(() => {
-    const prevBtn = document.getElementById('carousel-prev');
-    const nextBtn = document.getElementById('carousel-next');
-    
-    console.log('Attaching listeners. Prev button:', prevBtn, 'Next button:', nextBtn);
-    
-    if (prevBtn) {
-      prevBtn.onclick = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('PREV CLICKED! Current:', garmentCurrentSlide);
-        showGarmentSlide(garmentCurrentSlide - 1);
-      };
-    }
-    
-    if (nextBtn) {
-      nextBtn.onclick = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('NEXT CLICKED! Current:', garmentCurrentSlide);
-        showGarmentSlide(garmentCurrentSlide + 1);
-      };
-    }
-  }, 100);
 }
 
 function showGarmentSlide(index) {
@@ -4874,27 +4857,23 @@ document.getElementById('info-content')?.addEventListener('click', (e) => {
   e.stopPropagation();
 });
 
-// Garment carousel navigation buttons
+// Garment carousel navigation - same pattern as sizing
+function navigateGarment(direction) {
+  showGarmentSlide(garmentCurrentSlide + direction);
+}
+
 const garmentPrevBtn = document.getElementById('carousel-prev');
 const garmentNextBtn = document.getElementById('carousel-next');
 
-if (garmentPrevBtn) {
-  garmentPrevBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Prev clicked, current:', garmentCurrentSlide);
-    showGarmentSlide(garmentCurrentSlide - 1);
-  });
-}
+garmentPrevBtn?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  navigateGarment(-1);
+});
 
-if (garmentNextBtn) {
-  garmentNextBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Next clicked, current:', garmentCurrentSlide);
-    showGarmentSlide(garmentCurrentSlide + 1);
-  });
-}
+garmentNextBtn?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  navigateGarment(1);
+});
 
 // Keyboard escape for info overlay
 document.addEventListener('keydown', (e) => {
