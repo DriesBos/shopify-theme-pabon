@@ -5311,11 +5311,23 @@ switchDesigner(getFirstEnabledDesigner());
     colorPickerTooltip.addEventListener('mouseenter', hideColorPickerTooltip);
   }
 
-  document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('color-swatch')) {
-      hideColorPickerTooltip();
-    }
-  });
+ document.addEventListener('click', (e) => {
+  const prev = e.target.closest('#sizing-carousel-prev');
+  const next = e.target.closest('#sizing-carousel-next');
+
+  if (prev) {
+    e.preventDefault();
+    e.stopPropagation();
+    navigateSizing(-1);
+  }
+
+  if (next) {
+    e.preventDefault();
+    e.stopPropagation();
+    navigateSizing(1);
+  }
+});
+
 
   // ========== TUTORIAL ANIMATION ==========
   const tutorialBtn = document.getElementById('tutorial-btn');
@@ -5451,7 +5463,6 @@ switchDesigner(getFirstEnabledDesigner());
   const sizingCarouselPrev = document.getElementById('sizing-carousel-prev');
   const sizingCarouselNext = document.getElementById('sizing-carousel-next');
   const sizingCarouselDots = document.getElementById('sizing-carousel-dots');
-  const sizingCarouselVideo = document.getElementById('sizing-carousel-video');
   const sizingSoundToggle = document.getElementById('sizing-sound-toggle');
   const sizingSoundOn = document.getElementById('sizing-sound-on');
   const sizingSoundOff = document.getElementById('sizing-sound-off');
