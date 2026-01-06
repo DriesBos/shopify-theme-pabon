@@ -4756,168 +4756,190 @@ function setupDragAndDrop() {
 }
 
 // ============================================
-// GARMENT INFO OVERLAY FUNCTIONALITY
+// GARMENT INFO OVERLAY FUNCTIONALITY (CLEAN)
 // ============================================
 
+// Elements (queried safely when needed)
 const infoOverlay = document.getElementById('info-overlay');
+const infoContent = document.getElementById('info-content');
 const closeInfoBtn = document.getElementById('close-info-btn');
 const infoDesignerName = document.getElementById('info-designer-name');
 
+// State
 let garmentSlides = [];
 let garmentCurrentSlide = 0;
 
+// --------------------------------------------
+// OPEN OVERLAY
+// --------------------------------------------
 function openInfoOverlay() {
   const designer = DESIGNERS[currentDesigner];
-  const garmentData = galleryData.garment || {};
-  
-  if (infoDesignerName) infoDesignerName.textContent = designer.name;
-  
-  // Build slides array
+  const garmentData = galleryData?.garment || {};
+
+  if (infoDesignerName) {
+    infoDesignerName.textContent = designer?.name || '';
+  }
+
+  // Build slides
   garmentSlides = [];
   garmentSlides.push({ type: 'wool-grid' });
-  
-  const images = (garmentData.images || []).filter(img => img && img !== '');
-  images.forEach(img => garmentSlides.push({ type: 'image', src: img }));
-  
-  if (garmentData.video && garmentData.video !== '') {
+
+  (garmentData.images || [])
+    .filter(Boolean)
+    .forEach(src => garmentSlides.push({ type: 'image', src }));
+
+  if (garmentData.video) {
     garmentSlides.push({ type: 'video', src: garmentData.video });
   }
-  
+
   garmentCurrentSlide = 0;
-  
-  // Show overlay FIRST
+
+  // Show overlay
   if (infoOverlay) infoOverlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  
-  // Then show first slide
+
   showGarmentSlide(0);
 }
 
+// --------------------------------------------
+// RENDER SLIDE
+// --------------------------------------------
 function showGarmentSlide(index) {
-  if (garmentSlides.length === 0) return;
+  if (!garmentSlides.length) return;
+
   if (index < 0) index = garmentSlides.length - 1;
   if (index >= garmentSlides.length) index = 0;
   garmentCurrentSlide = index;
-  
+
   const carouselContent = document.getElementById('carousel-content');
   if (!carouselContent) return;
-  
-  const slide = garmentSlides[garmentCurrentSlide];
+
+  const slide = garmentSlides[index];
   const hint = document.querySelector('.wool-grid-hint');
-  
+
+  // Clear existing media safely
+  carouselContent.innerHTML = '';
+
   if (slide.type === 'wool-grid') {
     carouselContent.innerHTML = `
-      <div class='wool-grid-wrapper'>
-        <div id='wool-grid' class='wool-grid'></div>
+      <div class="wool-grid-wrapper">
+        <div id="wool-grid" class="wool-grid"></div>
       </div>
     `;
-    if (hint) hint.style.display = 'flex';
+    hint && (hint.style.display = 'flex');
     initWoolGrid(currentDesigner);
-  } else if (slide.type === 'image') {
-    carouselContent.innerHTML = `<img src="${slide.src}" style="max-width: 100%; max-height: 100%; object-fit: contain;">`;
-    if (hint) hint.style.display = 'none';
-  } else if (slide.type === 'video') {
-    carouselContent.innerHTML = `<video src="${slide.src}" controls autoplay loop style="max-width: 100%; max-height: 100%; object-fit: contain;"></video>`;
-    if (hint) hint.style.display = 'none';
   }
-  
-  // Hide indicators
-  const indicators = document.getElementById('carousel-indicators');
-  if (indicators) indicators.style.display = 'none';
-  
-  // Show/hide nav buttons
+
+  if (slide.type === 'image') {
+    carouselContent.innerHTML = `
+      <img
+        src="${slide.src}"
+        style="max-width:100%; max-height:100%; object-fit:contain;"
+      >
+    `;
+    hint && (hint.style.display = 'none');
+  }
+
+  if (slide.type === 'video') {
+    carouselContent.innerHTML = `
+      <video
+        src="${slide.src}"
+        controls
+        playsinline
+        autoplay
+        loop
+        style="max-width:100%; max-height:100%; object-fit:contain;"
+      ></video>
+    `;
+    hint && (hint.style.display = 'none');
+  }
+
+  updateGarmentNavVisibility();
+}
+
+// --------------------------------------------
+// NAV VISIBILITY
+// --------------------------------------------
+function updateGarmentNavVisibility() {
   const prevBtn = document.getElementById('carousel-prev');
   const nextBtn = document.getElementById('carousel-next');
+
+  if (!prevBtn || !nextBtn) return;
+
   if (garmentSlides.length <= 1) {
-    if (prevBtn) prevBtn.style.display = 'none';
-    if (nextBtn) nextBtn.style.display = 'none';
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
   } else {
-    if (prevBtn) prevBtn.style.display = 'flex';
-    if (nextBtn) nextBtn.style.display = 'flex';
+    prevBtn.style.display = 'flex';
+    nextBtn.style.display = 'flex';
   }
 }
 
-function closeInfoOverlay() {
-  if (infoOverlay) infoOverlay.style.display = 'none';
-  document.body.style.overflow = '';
-}
-function closeInfoOverlay() {
-  if (infoOverlay) infoOverlay.style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-// Reset button functionality
-const resetWoolBtn = document.getElementById('reset-wool-order');
-if (resetWoolBtn) {
-  resetWoolBtn.addEventListener('click', function() {
-    currentWoolOrder = [...originalWoolOrder];
-    renderWoolGrid();
-    setupDragAndDrop();
-    
-    // Show hint briefly
-    const hint = document.querySelector('.wool-grid-hint');
-    if (hint) {
-      hint.classList.remove('hidden');
-      setTimeout(() => hint.classList.add('hidden'), 2000);
-    }
-  });
-}
-
-// // Event listeners for info overlay
-if (infoBtn) {
-  infoBtn.addEventListener('click', openInfoOverlay);
-}
-
-if (closeInfoBtn) {
-  closeInfoBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    closeInfoOverlay();
-  });
-}
-
-if (infoOverlay) {
-  infoOverlay.addEventListener('click', (e) => {
-    if (e.target === infoOverlay) {
-      closeInfoOverlay();
-    }
-  });
-}
-
-document.getElementById('info-content')?.addEventListener('click', (e) => {
-  e.stopPropagation();
-});
-
-// Garment carousel navigation - same pattern as sizing
+// --------------------------------------------
+// NAVIGATION
+// --------------------------------------------
 function navigateGarment(direction) {
   showGarmentSlide(garmentCurrentSlide + direction);
 }
 
-const garmentPrevBtn = document.getElementById('carousel-prev');
-const garmentNextBtn = document.getElementById('carousel-next');
+// --------------------------------------------
+// CLOSE OVERLAY
+// --------------------------------------------
+function closeInfoOverlay() {
+  if (infoOverlay) infoOverlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
 
-garmentPrevBtn?.addEventListener('click', (e) => {
+// ============================================
+// EVENT LISTENERS (SHOPIFY-SAFE)
+// ============================================
+
+// Open
+infoBtn?.addEventListener('click', openInfoOverlay);
+
+// Close button
+closeInfoBtn?.addEventListener('click', (e) => {
+  e.preventDefault();
   e.stopPropagation();
-  navigateGarment(-1);
+  closeInfoOverlay();
 });
 
-garmentNextBtn?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  navigateGarment(1);
+// Backdrop click
+infoOverlay?.addEventListener('click', (e) => {
+  if (e.target === infoOverlay) closeInfoOverlay();
 });
 
-// Keyboard escape for info overlay
-document.addEventListener('keydown', (e) => {
-  if (infoOverlay?.style.display === 'flex' && e.key === 'Escape') {
-    closeInfoOverlay();
+// Prevent content clicks from closing
+infoContent?.addEventListener('click', (e) => {
+  e.stopPropagation();
+});
+
+// --------------------------------------------
+// 🔑 NAV BUTTONS (EVENT DELEGATION – IMPORTANT)
+// --------------------------------------------
+document.addEventListener('click', (e) => {
+  if (e.target.closest('#carousel-prev')) {
+    e.preventDefault();
+    e.stopPropagation();
+    navigateGarment(-1);
+  }
+
+  if (e.target.closest('#carousel-next')) {
+    e.preventDefault();
+    e.stopPropagation();
+    navigateGarment(1);
   }
 });
 
-// Keyboard escape for info overlay
+// --------------------------------------------
+// KEYBOARD NAVIGATION
+// --------------------------------------------
 document.addEventListener('keydown', (e) => {
-  if (infoOverlay?.style.display === 'block' && e.key === 'Escape') {
-    closeInfoOverlay();
-  }
+  if (infoOverlay?.style.display !== 'flex') return;
+
+  if (e.key === 'ArrowLeft') navigateGarment(-1);
+  if (e.key === 'ArrowRight') navigateGarment(1);
+  if (e.key === 'Escape') closeInfoOverlay();
 });
 
   if(nameInput) {
