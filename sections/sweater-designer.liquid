@@ -4691,7 +4691,6 @@ const infoDesignerName = document.getElementById('info-designer-name');
 const carouselContent = document.getElementById('garment-carousel-content');
 const prevBtn = document.getElementById('garment-prev');
 const nextBtn = document.getElementById('garment-next');
-const woolContainer = document.getElementById('wool-grid'); // <- keep existing node
 const woolHint = document.querySelector('.wool-grid-hint');
 
 // State
@@ -4707,7 +4706,7 @@ function openInfoOverlay() {
 
   if (infoDesignerName) infoDesignerName.textContent = designer?.name || '';
 
-  // Build slides: wool-grid always first
+  // Build slides: wool-grid first
   garmentSlides = [{ type: 'wool-grid' }];
   (garmentData.images || []).filter(Boolean).forEach(src => garmentSlides.push({ type:'image', src }));
   if (garmentData.video) garmentSlides.push({ type:'video', src:garmentData.video });
@@ -4726,26 +4725,26 @@ function openInfoOverlay() {
 function showGarmentSlide(index) {
   if (!garmentSlides.length) return;
 
-  // Wrap index
   if (index < 0) index = garmentSlides.length - 1;
   if (index >= garmentSlides.length) index = 0;
   garmentCurrentSlide = index;
 
   const slide = garmentSlides[index];
 
-  // First, hide everything
+  // Always query wool grid dynamically
+  const woolContainer = document.getElementById('wool-grid');
+
+  // Hide everything first
   if (woolContainer) woolContainer.style.display = 'none';
   if (woolHint) woolHint.style.display = 'none';
   carouselContent.querySelectorAll('.carousel-media').forEach(el => el.remove());
 
-  // Show wool grid
   if (slide.type === 'wool-grid') {
     if (woolContainer) woolContainer.style.display = 'flex';
     if (woolHint) woolHint.style.display = 'flex';
-    initWoolGrid(currentDesigner);
+    initWoolGrid(currentDesigner); // now will always find the element
   }
 
-  // Show image
   if (slide.type === 'image') {
     const img = document.createElement('img');
     img.src = slide.src;
@@ -4765,13 +4764,11 @@ function showGarmentSlide(index) {
     zoomIcon.style.color = '#000';
     zoomIcon.style.cursor = 'pointer';
     zoomIcon.title = 'Zoom';
-    img.style.position = 'relative';
     img.parentElement?.appendChild(zoomIcon);
 
     carouselContent.appendChild(img);
   }
 
-  // Show video
   if (slide.type === 'video') {
     const video = document.createElement('video');
     video.src = slide.src;
@@ -4833,8 +4830,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') navigateGarment(1);
   if (e.key === 'Escape') closeInfoOverlay();
 });
-
-
 
   function showConfirmation() {
     if(!confirmPanel) return;
