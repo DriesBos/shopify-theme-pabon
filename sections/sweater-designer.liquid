@@ -4679,7 +4679,7 @@ function setupDragAndDrop() {
 }
 
 // ============================================
-// GARMENT INFO OVERLAY (CLEAN & WORKING)
+// GARMENT INFO OVERLAY (WORKING WOOL GRID)
 // ============================================
 
 // Elements
@@ -4691,6 +4691,7 @@ const infoDesignerName = document.getElementById('info-designer-name');
 const carouselContent = document.getElementById('garment-carousel-content');
 const prevBtn = document.getElementById('garment-prev');
 const nextBtn = document.getElementById('garment-next');
+const woolContainer = document.getElementById('wool-grid'); // <- keep existing node
 const woolHint = document.querySelector('.wool-grid-hint');
 
 // State
@@ -4706,7 +4707,7 @@ function openInfoOverlay() {
 
   if (infoDesignerName) infoDesignerName.textContent = designer?.name || '';
 
-  // Build slides
+  // Build slides: wool-grid always first
   garmentSlides = [{ type: 'wool-grid' }];
   (garmentData.images || []).filter(Boolean).forEach(src => garmentSlides.push({ type:'image', src }));
   if (garmentData.video) garmentSlides.push({ type:'video', src:garmentData.video });
@@ -4730,24 +4731,21 @@ function showGarmentSlide(index) {
   if (index >= garmentSlides.length) index = 0;
   garmentCurrentSlide = index;
 
-  if (!carouselContent) return;
-
-  // Hide all special elements
-  const woolContainer = document.getElementById('wool-grid-container');
-  if (woolContainer) woolContainer.style.display = 'none';
-  if (woolHint) woolHint.style.display = 'none';
-
-  // Clear carousel content
-  carouselContent.querySelectorAll('.carousel-media').forEach(el => el.remove());
-
   const slide = garmentSlides[index];
 
+  // First, hide everything
+  if (woolContainer) woolContainer.style.display = 'none';
+  if (woolHint) woolHint.style.display = 'none';
+  carouselContent.querySelectorAll('.carousel-media').forEach(el => el.remove());
+
+  // Show wool grid
   if (slide.type === 'wool-grid') {
     if (woolContainer) woolContainer.style.display = 'flex';
     if (woolHint) woolHint.style.display = 'flex';
     initWoolGrid(currentDesigner);
   }
 
+  // Show image
   if (slide.type === 'image') {
     const img = document.createElement('img');
     img.src = slide.src;
@@ -4767,11 +4765,13 @@ function showGarmentSlide(index) {
     zoomIcon.style.color = '#000';
     zoomIcon.style.cursor = 'pointer';
     zoomIcon.title = 'Zoom';
+    img.style.position = 'relative';
     img.parentElement?.appendChild(zoomIcon);
 
     carouselContent.appendChild(img);
   }
 
+  // Show video
   if (slide.type === 'video') {
     const video = document.createElement('video');
     video.src = slide.src;
@@ -4789,7 +4789,7 @@ function showGarmentSlide(index) {
 }
 
 // -------------------------------
-// UPDATE NAV BUTTONS
+// NAV BUTTONS
 // -------------------------------
 function updateNavVisibility() {
   if (!prevBtn || !nextBtn) return;
@@ -4799,14 +4799,11 @@ function updateNavVisibility() {
   } else {
     prevBtn.style.display = 'flex';
     nextBtn.style.display = 'flex';
-    prevBtn.style.background = 'rgb(0,144,193)'; // blue button
+    prevBtn.style.background = 'rgb(0,144,193)';
     nextBtn.style.background = 'rgb(0,144,193)';
   }
 }
 
-// -------------------------------
-// NAVIGATION
-// -------------------------------
 function navigateGarment(direction) {
   showGarmentSlide(garmentCurrentSlide + direction);
 }
@@ -4822,30 +4819,21 @@ function closeInfoOverlay() {
 // -------------------------------
 // EVENT LISTENERS
 // -------------------------------
-
-// Open button
 infoBtn?.addEventListener('click', openInfoOverlay);
-
-// Close button
-closeInfoBtn?.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); closeInfoOverlay(); });
-
-// Click backdrop
+closeInfoBtn?.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); closeInfoOverlay(); });
 infoOverlay?.addEventListener('click', e => { if (e.target === infoOverlay) closeInfoOverlay(); });
-
-// Prevent clicks inside content
 infoContent?.addEventListener('click', e => e.stopPropagation());
 
-// Nav buttons
 prevBtn?.addEventListener('click', e => { e.stopPropagation(); navigateGarment(-1); });
 nextBtn?.addEventListener('click', e => { e.stopPropagation(); navigateGarment(1); });
 
-// Keyboard navigation
 document.addEventListener('keydown', e => {
   if (infoOverlay?.style.display !== 'flex') return;
   if (e.key === 'ArrowLeft') navigateGarment(-1);
   if (e.key === 'ArrowRight') navigateGarment(1);
   if (e.key === 'Escape') closeInfoOverlay();
 });
+
 
 
   function showConfirmation() {
