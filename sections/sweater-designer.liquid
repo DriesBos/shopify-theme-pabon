@@ -1612,127 +1612,82 @@
   </div>
 </div>
 
+<!-- ============================================
+     GARMENT INFO OVERLAY
+     Fully isolated & clean
+============================================ -->
 <div
-  id='info-overlay'
-  style='display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; cursor:pointer; overflow-y:auto; background:rgba(0,0,0,0.66);'
+  id="info-overlay"
+  style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; cursor:pointer; overflow-y:auto; background:rgba(0,0,0,0.66);"
 >
- <div
-  id='info-content'
-  style='position:relative; width:calc(100vw - 4vw); min-height:calc(100vh - 4vh); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column; overflow-y:auto;'
->
+  <div
+    id="info-content"
+    style="position:relative; width:calc(100vw - 4vw); min-height:calc(100vh - 4vh); max-height:calc(100vh - 4vh); margin:2vh auto; display:flex; flex-direction:column; overflow-y:auto; background:#fff; border-radius:8px;"
+  >
+    <!-- Close Button -->
     <button
-      id='close-info-btn'
-      type='button'
-      style='z-index:10001; position:absolute !important; right:20px; top:20px; background:rgb(0, 144, 193); border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s;'
+      id="close-info-btn"
+      type="button"
+      style="z-index:10001; position:absolute; right:20px; top:20px; background:rgb(0,144,193); border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s;"
     >
-      <span style='color:#fff; font-size:32px; line-height:1;'>×</span>
+      <span style="color:#fff; font-size:32px; line-height:1;">×</span>
     </button>
 
-    
-    <!-- Combined Carousel with Wool Grid as First Slide -->
-<div
-  id="info-carousel-container"
-  style="
-    flex: 0 0 60vh;
-    position: relative;
-    width: 100%;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  "
->
-  <!-- PREV -->
-  <<button class="info-modal-nav-btn info-modal-nav-prev" type="button">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-    <polyline points="15 18 9 12 15 6"></polyline>
-  </svg>
-</button>
+    <!-- ---------------------------
+         Garment Carousel (Isolated)
+    --------------------------- -->
+    <div id="garment-carousel" style="flex:0 0 60vh; position:relative; width:100%; background:#000; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-top:40px; border-radius:8px;">
+      
+      <button id="garment-prev" type="button" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); z-index:10; background:rgba(255,255,255,0.9); border:none; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
 
-  <!-- CONTENT -->
-  <div
-    id="garment-carousel-content"
-    style="
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      box-sizing: border-box;
-    "
-  >
-    <!-- Slides injected by JS -->
-  </div>
+      <button id="garment-next" type="button" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); z-index:10; background:rgba(255,255,255,0.9); border:none; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
 
-  <!-- NEXT -->
-  <button
-    id="carousel-next"
-    class="info-modal-nav-btn info-modal-nav-next"
-    type="button"
-  >
-    <button class="info-modal-nav-btn info-modal-nav-next" type="button">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-    <polyline points="9 18 15 12 9 6"></polyline>
-  </svg>
-</button>
+      <div id="garment-carousel-content" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
+        <!-- Wool grid / images / videos injected here -->
+      </div>
 
-  <!-- WOOL GRID HINT -->
-  <div
-    class="wool-grid-hint"
-    style="
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.7);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 12px;
-      display: none;
-      align-items: center;
-      gap: 8px;
-      pointer-events: none;
-      z-index: 10;
-    "
-  >
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-    </svg>
-    Drag & drop to rearrange wool colors
-  </div>
-</div>
+      <div class="wool-grid-hint" style="position:absolute; top:20px; left:50%; transform:translateX(-50%); background: rgba(0,0,0,0.7); color:#fff; padding:8px 16px; border-radius:20px; font-size:12px; display:none; align-items:center; gap:8px; pointer-events:none; z-index:10;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        Drag & drop to rearrange wool colors
+      </div>
+    </div>
 
-   <!-- Garment Info Section -->
-<div id='garment-info-section' style='background:#fff; padding:16px 24px; margin-top:0; flex-shrink:0;'>
-    <h2 id='info-designer-name' style='margin:0 0 8px 0; font-size:24px; font-weight:700; color:#000;'>
-    Relaxed Striped Knit
-  </h2>
-  <p style='margin:0 0 16px 0; font-size:16px; color:#666; font-style:italic;'>Garment Information</p>
+    <!-- ---------------------------
+         Garment Info Section
+    --------------------------- -->
+    <div id="garment-info-section" style="background:#fff; padding:16px 24px; margin-top:16px; flex-shrink:0;">
+      <h2 id="info-designer-name" style="margin:0 0 8px 0; font-size:24px; font-weight:700; color:#000;">
+        Relaxed Striped Knit
+      </h2>
+      <p style="margin:0 0 16px 0; font-size:16px; color:#666; font-style:italic;">Garment Information</p>
 
-  <div style='margin-bottom:20px;'>
-    <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;'>
-      Fit 
-    </h4>
-    <div style='margin:0; font-size:14px; line-height:1.6; color:#333; white-space:pre-line;'>{{ section.settings.garment_fit_style }}</div>
-  </div>
+      <div style="margin-bottom:20px;">
+        <h4 style="margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;">
+          Fit 
+        </h4>
+        <div style="margin:0; font-size:14px; line-height:1.6; color:#333; white-space:pre-line;">{{ section.settings.garment_fit_style }}</div>
+      </div>
 
-  <div style='margin-bottom:20px;'>
-    <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;'>
-      Design Details
-    </h4>
-    <div style='margin:0; font-size:14px; line-height:1.6; color:#333; white-space:pre-line;'>{{ section.settings.garment_design_details }}</div>
-  </div>
+      <div style="margin-bottom:20px;">
+        <h4 style="margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;">
+          Design Details
+        </h4>
+        <div style="margin:0; font-size:14px; line-height:1.6; color:#333; white-space:pre-line;">{{ section.settings.garment_design_details }}</div>
+      </div>
 
-  <div>
-    <h4 style='margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;'>
-      Materials 
-    </h4>
-    <div style='margin:0; font-size:14px; line-height:1.6; color:#333; white-space:pre-line;'>{{ section.settings.garment_materials }}</div>
-  </div>
-</div>
+      <div>
+        <h4 style="margin:0 0 10px 0; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#000;">
+          Materials 
+        </h4>
+        <div style="margin:0; font-size:14px; line-height:1.6; color:#333; white-space:pre-line;">{{ section.settings.garment_materials }}</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -4753,116 +4708,83 @@ function setupDragAndDrop() {
 }
 
 // ============================================
-// GARMENT INFO OVERLAY FUNCTIONALITY (CLEAN)
+// GARMENT INFO OVERLAY FUNCTIONALITY (ISOLATED)
 // ============================================
 
-// Elements (queried safely when needed)
+// Elements
 const infoOverlay = document.getElementById('info-overlay');
 const infoContent = document.getElementById('info-content');
 const closeInfoBtn = document.getElementById('close-info-btn');
 const infoDesignerName = document.getElementById('info-designer-name');
 
+// Unique carousel elements
+const carouselContent = document.getElementById('garment-carousel-content');
+const prevBtn = document.getElementById('garment-prev');
+const nextBtn = document.getElementById('garment-next');
+const woolHint = document.querySelector('.wool-grid-hint');
+
 // State
 let garmentSlides = [];
 let garmentCurrentSlide = 0;
 
-// --------------------------------------------
+// -------------------------------
 // OPEN OVERLAY
-// --------------------------------------------
+// -------------------------------
 function openInfoOverlay() {
   const designer = DESIGNERS[currentDesigner];
   const garmentData = galleryData?.garment || {};
 
-  if (infoDesignerName) {
-    infoDesignerName.textContent = designer?.name || '';
-  }
+  if (infoDesignerName) infoDesignerName.textContent = designer?.name || '';
 
   // Build slides
-  garmentSlides = [];
-  garmentSlides.push({ type: 'wool-grid' });
-
-  (garmentData.images || [])
-    .filter(Boolean)
-    .forEach(src => garmentSlides.push({ type: 'image', src }));
-
-  if (garmentData.video) {
-    garmentSlides.push({ type: 'video', src: garmentData.video });
-  }
+  garmentSlides = [{ type: 'wool-grid' }];
+  (garmentData.images || []).filter(Boolean).forEach(src => garmentSlides.push({ type:'image', src }));
+  if (garmentData.video) garmentSlides.push({ type:'video', src:garmentData.video });
 
   garmentCurrentSlide = 0;
 
-  // Show overlay
   if (infoOverlay) infoOverlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 
   showGarmentSlide(0);
 }
 
-// --------------------------------------------
-// RENDER SLIDE
-// --------------------------------------------
+// -------------------------------
+// SHOW SLIDE
+// -------------------------------
 function showGarmentSlide(index) {
   if (!garmentSlides.length) return;
-
   if (index < 0) index = garmentSlides.length - 1;
   if (index >= garmentSlides.length) index = 0;
   garmentCurrentSlide = index;
 
-  const carouselContent = document.getElementById('garment-carousel-content');
   if (!carouselContent) return;
+  carouselContent.innerHTML = '';
+  if (woolHint) woolHint.style.display = 'none';
 
   const slide = garmentSlides[index];
-  const hint = document.querySelector('.wool-grid-hint');
-
-  // Clear existing media safely
-  carouselContent.innerHTML = '';
 
   if (slide.type === 'wool-grid') {
-    carouselContent.innerHTML = `
-      <div class="wool-grid-wrapper">
-        <div id="wool-grid" class="wool-grid"></div>
-      </div>
-    `;
-    hint && (hint.style.display = 'flex');
+    carouselContent.innerHTML = `<div class="wool-grid-wrapper"><div id="wool-grid" class="wool-grid"></div></div>`;
+    woolHint && (woolHint.style.display = 'flex');
     initWoolGrid(currentDesigner);
   }
 
   if (slide.type === 'image') {
-    carouselContent.innerHTML = `
-      <img
-        src="${slide.src}"
-        style="max-width:100%; max-height:100%; object-fit:contain;"
-      >
-    `;
-    hint && (hint.style.display = 'none');
+    carouselContent.innerHTML = `<img src="${slide.src}" style="max-width:100%; max-height:100%; object-fit:contain;">`;
   }
 
   if (slide.type === 'video') {
-    carouselContent.innerHTML = `
-      <video
-        src="${slide.src}"
-        controls
-        playsinline
-        autoplay
-        loop
-        style="max-width:100%; max-height:100%; object-fit:contain;"
-      ></video>
-    `;
-    hint && (hint.style.display = 'none');
+    carouselContent.innerHTML = `<video src="${slide.src}" controls autoplay loop style="max-width:100%; max-height:100%; object-fit:contain;"></video>`;
   }
 
-  updateGarmentNavVisibility();
+  updateNavVisibility();
 }
 
-// --------------------------------------------
-// NAV VISIBILITY
-// --------------------------------------------
-function updateGarmentNavVisibility() {
-  const prevBtn = document.getElementById('carousel-prev');
-  const nextBtn = document.getElementById('carousel-next');
-
-  if (!prevBtn || !nextBtn) return;
-
+// -------------------------------
+// UPDATE NAV BUTTONS
+// -------------------------------
+function updateNavVisibility() {
   if (garmentSlides.length <= 1) {
     prevBtn.style.display = 'none';
     nextBtn.style.display = 'none';
@@ -4872,81 +4794,52 @@ function updateGarmentNavVisibility() {
   }
 }
 
-// --------------------------------------------
+// -------------------------------
 // NAVIGATION
-// --------------------------------------------
+// -------------------------------
 function navigateGarment(direction) {
   showGarmentSlide(garmentCurrentSlide + direction);
 }
 
-// --------------------------------------------
+// -------------------------------
 // CLOSE OVERLAY
-// --------------------------------------------
+// -------------------------------
 function closeInfoOverlay() {
   if (infoOverlay) infoOverlay.style.display = 'none';
   document.body.style.overflow = '';
 }
 
-// ============================================
-// EVENT LISTENERS (SHOPIFY-SAFE)
-// ============================================
+// -------------------------------
+// EVENT LISTENERS
+// -------------------------------
 
-// Open
+// Open button
 infoBtn?.addEventListener('click', openInfoOverlay);
 
 // Close button
 closeInfoBtn?.addEventListener('click', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  closeInfoOverlay();
+  e.preventDefault(); e.stopPropagation(); closeInfoOverlay();
 });
 
-// Backdrop click
-infoOverlay?.addEventListener('click', (e) => {
+// Click backdrop to close
+infoOverlay?.addEventListener('click', e => {
   if (e.target === infoOverlay) closeInfoOverlay();
 });
 
-// Prevent content clicks from closing
-infoContent?.addEventListener('click', (e) => {
-  e.stopPropagation();
-});
+// Prevent clicks on content from closing overlay
+infoContent?.addEventListener('click', e => e.stopPropagation());
 
-// --------------------------------------------
-// 🔑 NAV BUTTONS (EVENT DELEGATION – IMPORTANT)
-// --------------------------------------------
-document.addEventListener('click', (e) => {
-  if (e.target.closest('#carousel-prev')) {
-    e.preventDefault();
-    e.stopPropagation();
-    navigateGarment(-1);
-  }
+// Buttons
+prevBtn?.addEventListener('click', e => { e.stopPropagation(); navigateGarment(-1); });
+nextBtn?.addEventListener('click', e => { e.stopPropagation(); navigateGarment(1); });
 
-  if (e.target.closest('#carousel-next')) {
-    e.preventDefault();
-    e.stopPropagation();
-    navigateGarment(1);
-  }
-});
-
-// --------------------------------------------
-// KEYBOARD NAVIGATION
-// --------------------------------------------
-document.addEventListener('keydown', (e) => {
+// Keyboard
+document.addEventListener('keydown', e => {
   if (infoOverlay?.style.display !== 'flex') return;
-
   if (e.key === 'ArrowLeft') navigateGarment(-1);
   if (e.key === 'ArrowRight') navigateGarment(1);
   if (e.key === 'Escape') closeInfoOverlay();
 });
-
-  if(nameInput) {
-    nameInput.addEventListener('keypress', function(e){
-      if(e.key === 'Enter') {
-        nameLabel.textContent = nameInput.value || '';
-        nameInput.blur();
-      }
-    });
-  }
 
   function showConfirmation() {
     if(!confirmPanel) return;
