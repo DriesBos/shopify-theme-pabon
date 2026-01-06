@@ -3159,7 +3159,8 @@
 .wool-grid-wrapper {
   width: 100%;
   max-width: 90vw;
-  max-height: calc(80vh - 80px); /* Match 80vh container */
+  height: 70vh; /* Bigger vertical space */
+  max-height: 70vh;
   position: relative;
   display: flex;
   align-items: center;
@@ -3171,8 +3172,9 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 0px;
-  width: 100%;
-  max-width: 1000px; /* Much bigger! */
+  width: auto; /* Let it size naturally */
+  height: 100%; /* Fill the wrapper height */
+  max-width: none; /* Remove width constraint */
 }
 
 .wool-grid-item {
