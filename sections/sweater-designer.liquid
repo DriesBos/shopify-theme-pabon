@@ -4720,6 +4720,98 @@ function openInfoOverlay() {
   showGarmentSlide(0);
 }
 
+// -------------------------------
+// SHOW SLIDE
+// -------------------------------
+function showGarmentSlide(index) {
+  if (!garmentSlides.length) return;
+  if (index < 0) index = garmentSlides.length - 1;
+  if (index >= garmentSlides.length) index = 0;
+  garmentCurrentSlide = index;
+
+  if (!carouselContent) return;
+  carouselContent.innerHTML = '';
+  if (woolHint) woolHint.style.display = 'none';
+
+  const slide = garmentSlides[index];
+
+  if (slide.type === 'wool-grid') {
+    carouselContent.innerHTML = `<div class="wool-grid-wrapper"><div id="wool-grid" class="wool-grid"></div></div>`;
+    woolHint && (woolHint.style.display = 'flex');
+    initWoolGrid(currentDesigner);
+  }
+
+  if (slide.type === 'image') {
+    carouselContent.innerHTML = `<img src="${slide.src}" style="max-width:100%; max-height:100%; object-fit:contain;">`;
+  }
+
+  if (slide.type === 'video') {
+    carouselContent.innerHTML = `<video src="${slide.src}" controls autoplay loop style="max-width:100%; max-height:100%; object-fit:contain;"></video>`;
+  }
+
+  updateNavVisibility();
+}
+
+// -------------------------------
+// UPDATE NAV BUTTONS
+// -------------------------------
+function updateNavVisibility() {
+  if (garmentSlides.length <= 1) {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+  } else {
+    prevBtn.style.display = 'flex';
+    nextBtn.style.display = 'flex';
+  }
+}
+
+// -------------------------------
+// NAVIGATION
+// -------------------------------
+function navigateGarment(direction) {
+  showGarmentSlide(garmentCurrentSlide + direction);
+}
+
+// -------------------------------
+// CLOSE OVERLAY
+// -------------------------------
+function closeInfoOverlay() {
+  if (infoOverlay) infoOverlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+// -------------------------------
+// EVENT LISTENERS
+// -------------------------------
+
+// Open button
+infoBtn?.addEventListener('click', openInfoOverlay);
+
+// Close button
+closeInfoBtn?.addEventListener('click', (e) => {
+  e.preventDefault(); e.stopPropagation(); closeInfoOverlay();
+});
+
+// Click backdrop to close
+infoOverlay?.addEventListener('click', e => {
+  if (e.target === infoOverlay) closeInfoOverlay();
+});
+
+// Prevent clicks on content from closing overlay
+infoContent?.addEventListener('click', e => e.stopPropagation());
+
+// Buttons
+prevBtn?.addEventListener('click', e => { e.stopPropagation(); navigateGarment(-1); });
+nextBtn?.addEventListener('click', e => { e.stopPropagation(); navigateGarment(1); });
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (infoOverlay?.style.display !== 'flex') return;
+  if (e.key === 'ArrowLeft') navigateGarment(-1);
+  if (e.key === 'ArrowRight') navigateGarment(1);
+  if (e.key === 'Escape') closeInfoOverlay();
+});
+
   function showConfirmation() {
     if(!confirmPanel) return;
     confirmPanel.style.display = 'block';
