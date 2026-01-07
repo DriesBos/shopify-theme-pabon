@@ -3470,6 +3470,24 @@
 .garment-lightbox-close:hover {
   background: rgb(0, 120, 160);
 }
+/* ============================================
+   Garment info modal – remove grid seams only
+============================================ */
+
+/* Remove padding INSIDE the grid area */
+#info-overlay #carousel-content > .wool-grid-wrapper {
+  padding: 0 !important;
+}
+
+/* Remove spacing between wool squares */
+#info-overlay .wool-grid {
+  gap: 0 !important;
+}
+
+/* Ensure items touch perfectly */
+#info-overlay .wool-grid-item {
+  margin: 0 !important;
+}
 
 </style>
 {% if customer.tags contains 'staff' or request.design_mode %}
