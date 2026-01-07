@@ -667,37 +667,37 @@
 },
 {
   "type": "image_picker",
-  "id": "Hockney13_wool_1",
+  "id": "hockney13_wool_1",
   "label": "Purple Wool Photo",
   "info": "Color 1: Purple (#6b5d93)"
 },
 {
   "type": "image_picker",
-  "id": "Hockney13_wool_2",
+  "id": "hockney13_wool_2",
   "label": "Dark Blue Wool Photo",
   "info": "Color 2: Dark Blue (#284354)"
 },
 {
   "type": "image_picker",
-  "id": "Hockney13_wool_3",
+  "id": "hockney13_wool_3",
   "label": "Charcoal Wool Photo",
   "info": "Color 3: Charcoal (#313539)"
 },
 {
   "type": "image_picker",
-  "id": "Hockney13_wool_4",
+  "id": "hockney13_wool_4",
   "label": "Beige Wool Photo",
   "info": "Color 4: Beige (#b4a697)"
 },
 {
   "type": "image_picker",
-  "id": "Hockney13_wool_5",
+  "id": "hockney13_wool_5",
   "label": "Rust Red Wool Photo",
   "info": "Color 5: Rust Red (#b3502e)"
 },
 {
   "type": "image_picker",
-  "id": "Hockney13_wool_6",
+  "id": "hockney13_wool_6",
   "label": "Bronze Wool Photo",
   "info": "Color 6: Bronze (#9a6c2c)"
 },
@@ -3406,6 +3406,52 @@
     right: 10px;
   }
 }
+/* Lightbox styles */
+.garment-lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+}
+
+.garment-lightbox.active {
+  display: flex;
+}
+
+.garment-lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.garment-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  background: rgb(0, 144, 193);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
+}
+
+.garment-lightbox-close:hover {
+  background: rgb(0, 120, 160);
+}
+
 </style>
 {% if customer.tags contains 'staff' or request.design_mode %}
 <!-- Admin Save as Default Button -->
