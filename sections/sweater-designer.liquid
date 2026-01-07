@@ -5079,62 +5079,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeInfoOverlay();
 });
 
-// ============================================
-// GARMENT IMAGE LIGHTBOX
-// ============================================
 
-function openGarmentLightbox(imageSrc) {
-  console.log('Opening lightbox with:', imageSrc); // Debug
-  const lightbox = document.getElementById('garment-lightbox');
-  const lightboxImg = document.getElementById('garment-lightbox-img');
-  
-  if (lightbox && lightboxImg) {
-    lightboxImg.src = imageSrc;
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    console.log('Lightbox opened'); // Debug
-  } else {
-    console.error('Lightbox elements not found'); // Debug
-  }
-}
-
-function closeGarmentLightbox() {
-  const lightbox = document.getElementById('garment-lightbox');
-  
-  if (lightbox) {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-}
-
-// Setup lightbox event listeners
-const garmentLightbox = document.getElementById('garment-lightbox');
-const garmentLightboxClose = document.getElementById('garment-lightbox-close');
-
-if (garmentLightboxClose) {
-  garmentLightboxClose.addEventListener('click', function(e) {
-    e.stopPropagation();
-    console.log('Close button clicked'); // Debug
-    closeGarmentLightbox();
-  });
-}
-
-if (garmentLightbox) {
-  garmentLightbox.addEventListener('click', function(e) {
-    if (e.target === garmentLightbox || e.target.id === 'garment-lightbox-img') {
-      console.log('Lightbox background clicked'); // Debug
-      closeGarmentLightbox();
-    }
-  });
-}
-
-// Keyboard support for lightbox
-document.addEventListener('keydown', function(e) {
-  if (garmentLightbox?.classList.contains('active') && e.key === 'Escape') {
-    console.log('Escape pressed'); // Debug
-    closeGarmentLightbox();
-  }
-});
 
   function showConfirmation() {
     if(!confirmPanel) return;
