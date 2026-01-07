@@ -4954,7 +4954,11 @@ function showGarmentSlide(index) {
   }
 
   if (slide.type === 'image') {
-    carouselContent.innerHTML = `<img src="${slide.src}" style="max-width:100%; max-height:100%; object-fit:contain;">`;
+    const img = document.createElement('img');
+    img.src = slide.src;
+    img.style.cssText = 'max-width:100%; max-height:100%; object-fit:contain; cursor:zoom-in;';
+    img.addEventListener('click', () => openGarmentLightbox(slide.src));
+    carouselContent.appendChild(img);
   }
 
   if (slide.type === 'video') {
@@ -4963,6 +4967,53 @@ function showGarmentSlide(index) {
 
   updateNavVisibility();
 }
+
+// Lightbox functionality
+function openGarmentLightbox(imageSrc) {
+  const lightbox = document.getElementById('garment-lightbox');
+  const lightboxImg = document.getElementById('garment-lightbox-img');
+  
+  if (lightbox && lightboxImg) {
+    lightboxImg.src = imageSrc;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeGarmentLightbox() {
+  const lightbox = document.getElementById('garment-lightbox');
+  
+  if (lightbox) {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+// Lightbox event listeners
+const garmentLightbox = document.getElementById('garment-lightbox');
+const garmentLightboxClose = document.getElementById('garment-lightbox-close');
+
+if (garmentLightboxClose) {
+  garmentLightboxClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeGarmentLightbox();
+  });
+}
+
+if (garmentLightbox) {
+  garmentLightbox.addEventListener('click', (e) => {
+    if (e.target === garmentLightbox || e.target.id === 'garment-lightbox-img') {
+      closeGarmentLightbox();
+    }
+  });
+}
+
+// Keyboard support for lightbox
+document.addEventListener('keydown', (e) => {
+  if (garmentLightbox?.classList.contains('active') && e.key === 'Escape') {
+    closeGarmentLightbox();
+  }
+});
 
 // -------------------------------
 // UPDATE NAV BUTTONS
