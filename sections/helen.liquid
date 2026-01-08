@@ -4618,7 +4618,11 @@ defaults: {
     refreshConstraints();
   }
 
-  function makeShapesClickable() {
+ function makeShapesClickable(targetSvg) {
+  // Use the active SVG if no specific one is provided
+  const svgToUse = targetSvg || svg;
+  if (!svgToUse) return;
+  
   const allIds = new Set(Object.keys(DESIGNERS[0].defaults));
   bodyLayers.forEach(x=>allIds.add(x));
   sleeveLayers.forEach(x=>allIds.add(x));
@@ -4626,7 +4630,8 @@ defaults: {
   ['hem','neck','leftcuff','rightcuff','leftcuff-2'].forEach(x=>allIds.add(x));
 
   allIds.forEach(layerId=>{
-    const g = document.getElementById(layerId);
+    // Find the layer ONLY in the target SVG
+    const g = svgToUse.querySelector(`#${layerId}`);
     if(!g) return;
     const shapes = g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse');
     shapes.forEach(s=>{
@@ -4643,13 +4648,19 @@ defaults: {
         s.setAttribute('fill', normalized);
       }
       
-      s.addEventListener('click', function(){
+      // Remove old listener if exists
+      s.removeEventListener('click', s._clickHandler);
+      
+      // Create and store the click handler
+      s._clickHandler = function(){
         if(!activeColor) return;
         const normalizedColor = normalizeColor(activeColor);
         s.style.fill = normalizedColor;
         s.setAttribute('fill', normalizedColor);
         refreshConstraints();
-      });
+      };
+      
+      s.addEventListener('click', s._clickHandler);
     });
   });
 }
