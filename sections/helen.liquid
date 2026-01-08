@@ -1242,19 +1242,48 @@
     >
       <button id='tutorial-btn' title='Show tutorial'>?</button>
 
+      <!-- NEW: View Toggle Button -->
+<button 
+  id='view-toggle-btn' 
+  title='Toggle between flat and worn view'
+  style='position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; background: #000; color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 100; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.2);'
+>
+  <svg id='view-icon-flat' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+    <rect x='3' y='3' width='18' height='18' rx='2'/>
+    <path d='M3 9h18M9 21V9'/>
+  </svg>
+  <svg id='view-icon-body' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' style='display:none;'>
+    <path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/>
+    <circle cx='12' cy='7' r='4'/>
+  </svg>
+</button>
+
       <div
-        id='sweater-svg-wrapper'
-        style='width:100%; margin:0 auto; overflow:visible; transition: transform 0.3s ease;'
-      >
-        <svg
-          id='sweater-svg'
-          xmlns='http://www.w3.org/2000/svg'
-          viewBox='0 0 1920 1080'
-          style='width:100%; height:auto; display:block; max-height:900px;'
-        >
-          {% include 'sweater-svg-content' %}
-        </svg>
-      </div>
+  id='sweater-svg-wrapper'
+  style='width:100%; margin:0 auto; overflow:visible; transition: transform 0.3s ease;'
+>
+  <!-- Flat lay view (default) -->
+  <svg
+    id='sweater-svg-flat'
+    class='sweater-svg-view active-view'
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 1920 1080'
+    style='width:100%; height:auto; display:block; max-height:900px;'
+  >
+    {% include 'sweater-svg-content' %}
+  </svg>
+  
+  <!-- On-body view (hidden by default) -->
+  <svg
+    id='sweater-svg-body'
+    class='sweater-svg-view'
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 1920 1080'
+    style='width:100%; height:auto; display:none; max-height:900px;'
+  >
+    {% include 'sweater-svg-on-body' %}
+  </svg>
+</div>
 
       <div class='sweater-designer_bottom'>
         <!-- SWEATER SWATCHES -->
@@ -2908,6 +2937,29 @@
       height: auto;
     }
   }
+  #view-toggle-btn:hover {
+  background: #333;
+  transform: scale(1.1);
+}
+
+.sweater-svg-view {
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  #view-toggle-btn {
+    width: 24px;
+    height: 24px;
+    top: 8px;
+    right: 8px;
+  }
+  
+  #view-icon-flat,
+  #view-icon-body {
+    width: 14px;
+    height: 14px;
+  }
+}
 
     /* Intermediate sizes - keep panel next to sweater with gap */
     @media (min-width: 769px) and (max-width: 1099px) {
@@ -4241,7 +4293,7 @@ defaults: {
   const randomBtn = document.getElementById('random-btn');
   const nameInput = document.getElementById('custom-name');
   const nameLabel = document.getElementById('name-label-preview');
-  const svg = document.getElementById('sweater-svg');
+  let svg = null;
   const sizeSelect = document.getElementById('sweater-size');
   const confirmPanel = document.getElementById('sweater-confirm');
   const confirmGo = document.getElementById('sweater-confirm-go');
@@ -5541,6 +5593,105 @@ document.addEventListener('keydown', e => {
       addBtn.textContent = origText;
     }
   });
+// ============================================
+// VIEW TOGGLE FUNCTIONALITY
+// ============================================
+
+const viewToggleBtn = document.getElementById('view-toggle-btn');
+const svgFlat = document.getElementById('sweater-svg-flat');
+const svgBody = document.getElementById('sweater-svg-body');
+const viewIconFlat = document.getElementById('view-icon-flat');
+const viewIconBody = document.getElementById('view-icon-body');
+
+// Detect mobile and set initial view
+const isMobile = window.innerWidth <= 768;
+let currentView = isMobile ? 'body' : 'flat';
+
+// Set initial display based on device
+if (isMobile) {
+  svgFlat.style.display = 'none';
+  svgBody.style.display = 'block';
+  viewIconFlat.style.display = 'none';
+  viewIconBody.style.display = 'block';
+  svg = svgBody;
+} else {
+  svgFlat.style.display = 'block';
+  svgBody.style.display = 'none';
+  viewIconFlat.style.display = 'block';
+  viewIconBody.style.display = 'none';
+  svg = svgFlat;
+}
+
+function toggleView() {
+  // Store current colors from active SVG
+  const currentColors = {};
+  const activeSvg = currentView === 'flat' ? svgFlat : svgBody;
+  
+  // Get all layer colors
+  const allLayerIds = [...new Set([
+    ...Object.keys(DESIGNERS[currentDesigner].defaults),
+    ...bodyLayers,
+    ...sleeveLayers,
+    ...hemLayers,
+    'hem', 'neck', 'leftcuff', 'rightcuff', 'leftcuff-2'
+  ])];
+  
+  allLayerIds.forEach(layerId => {
+    const g = activeSvg.querySelector(`#${layerId}`);
+    if (!g) return;
+    const shape = g.querySelector('path, rect, polygon, polyline, circle, ellipse');
+    if (shape) {
+      const fill = (shape.style && shape.style.fill) ? shape.style.fill : shape.getAttribute('fill');
+      if (fill) currentColors[layerId] = normalizeColor(fill);
+    }
+  });
+  
+  // Switch view
+  if (currentView === 'flat') {
+    svgFlat.style.display = 'none';
+    svgBody.style.display = 'block';
+    viewIconFlat.style.display = 'none';
+    viewIconBody.style.display = 'block';
+    currentView = 'body';
+    svg = svgBody;
+  } else {
+    svgBody.style.display = 'none';
+    svgFlat.style.display = 'block';
+    viewIconBody.style.display = 'none';
+    viewIconFlat.style.display = 'block';
+    currentView = 'flat';
+    svg = svgFlat;
+  }
+  
+  // Apply stored colors to new view
+  Object.keys(currentColors).forEach(layerId => {
+    const g = svg.querySelector(`#${layerId}`);
+    if (!g) return;
+    g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(shape => {
+      shape.style.fill = currentColors[layerId];
+      shape.setAttribute('fill', currentColors[layerId]);
+    });
+  });
+  
+  // Re-apply clickable functionality to new SVG
+  makeShapesClickable();
+  refreshConstraints();
+}
+
+if (viewToggleBtn) {
+  viewToggleBtn.addEventListener('click', toggleView);
+}
+
+// Keyboard shortcut: V for View toggle
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'v' || e.key === 'V') {
+    if (!document.querySelector('#expanded-designer-overlay[style*="display: block"]') &&
+        !document.querySelector('#sizing-overlay[style*="display: block"]') &&
+        !document.querySelector('#info-overlay[style*="display: flex"]')) {
+      toggleView();
+    }
+  }
+});
 
   // Initialize with first enabled designer
 makeShapesClickable();
