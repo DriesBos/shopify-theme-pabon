@@ -3294,6 +3294,15 @@
   height: 100%; /* Fill the wrapper height */
   max-width: none; /* Remove width constraint */
 }
+/* 🔑 FIX: prevent grid from distributing extra vertical space */
+.wool-grid {
+  align-content: stretch;
+}
+
+/* 🔑 ensure items fully occupy their grid cells */
+.wool-grid-item {
+  height: 100%;
+}
 
 .wool-grid-item {
   aspect-ratio: 1 / 1; /* Force squares */
@@ -3470,24 +3479,7 @@
 .garment-lightbox-close:hover {
   background: rgb(0, 120, 160);
 }
-/* ============================================
-   Garment info modal – remove grid seams only
-============================================ */
 
-/* Remove padding INSIDE the grid area */
-#info-overlay #carousel-content > .wool-grid-wrapper {
-  padding: 0 !important;
-}
-
-/* Remove spacing between wool squares */
-#info-overlay .wool-grid {
-  gap: 0 !important;
-}
-
-/* Ensure items touch perfectly */
-#info-overlay .wool-grid-item {
-  margin: 0 !important;
-}
 
 </style>
 {% if customer.tags contains 'staff' or request.design_mode %}
