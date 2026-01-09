@@ -4593,30 +4593,45 @@ defaults: {
     });
   }
 
-  function getFirstShapeById(id) {
-    const g = document.getElementById(id);
-    if(!g) return null;
-    return g.querySelector('path, rect, polygon, polyline, circle, ellipse');
-  }
+  function getFirstShapeById(id, targetSvg) {
+  const svgToUse = targetSvg || svg;
+  if (!svgToUse) return null;
+  const g = svgToUse.querySelector(`#${id}`);
+  if(!g) return null;
+  return g.querySelector('path, rect, polygon, polyline, circle, ellipse');
+}
 
   function applyDefaults() {
-    const designer = DESIGNERS[currentDesigner];
+  const designer = DESIGNERS[currentDesigner];
+  
+  // Apply to BOTH SVGs so they stay in sync
+  [svgFlat, svgBody].forEach(targetSvg => {
+    if (!targetSvg) return;
     
     Object.keys(designer.defaults).forEach(layerId=>{
-      const g = document.getElementById(layerId);
+      const g = targetSvg.querySelector(`#${layerId}`);
       if(!g) return;
       g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=>{
-        s.style.fill = designer.defaults[layerId];
+        const normalizedColor = normalizeColor(designer.defaults[layerId]);
+        s.style.fill = normalizedColor;
+        s.setAttribute('fill', normalizedColor);
       });
     });
+    
     ['hem','neck','leftcuff','rightcuff','leftcuff-2'].forEach(id=>{
-      const g = document.getElementById(id);
+      const g = targetSvg.querySelector(`#${id}`);
       if(!g) return;
       const def = designer.defaults[id] || designer.defaults['hem'] || '#8c6f64';
-      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.style.fill = def);
+      const normalizedDef = normalizeColor(def);
+      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> {
+        s.style.fill = normalizedDef;
+        s.setAttribute('fill', normalizedDef);
+      });
     });
-    refreshConstraints();
-  }
+  });
+  
+  refreshConstraints();
+}
 
  function makeShapesClickable(targetSvg) {
   // Use the active SVG if no specific one is provided
@@ -4666,7 +4681,7 @@ defaults: {
 }
 
   function getFill(layerId) {
-  const s = getFirstShapeById(layerId);
+  const s = getFirstShapeById(layerId, svg); // Pass active SVG
   if(!s) return null;
   let f = (s.style && s.style.fill) ? s.style.fill : s.getAttribute('fill');
   return normalizeColor(f);
@@ -4752,42 +4767,59 @@ defaults: {
 }
 
   function randomizeWithinConstraints() {
-    const swatchColors = getSwatchColors(currentDesigner);
-    const availableColors = swatchColors.map(c => c.hex);
+  const swatchColors = getSwatchColors(currentDesigner);
+  const availableColors = swatchColors.map(c => c.hex);
+  
+  // Apply to BOTH SVGs
+  [svgFlat, svgBody].forEach(targetSvg => {
+    if (!targetSvg) return;
     
     const bodyPalette = availableColors.slice(0, Math.min(maxBodyColors, availableColors.length));
     bodyLayers.forEach(l=>{
-      const g = document.getElementById(l);
+      const g = targetSvg.querySelector(`#${l}`);
       if(!g) return;
       const col = bodyPalette[Math.floor(Math.random()*bodyPalette.length)];
-      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.style.fill = col);
+      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> {
+        s.style.fill = col;
+        s.setAttribute('fill', col);
+      });
     });
 
     const leftSleevePalette = availableColors.slice(0, Math.min(maxSleeveColors, availableColors.length));
     leftSleeveLayers.forEach(l=>{
-      const g = document.getElementById(l);
+      const g = targetSvg.querySelector(`#${l}`);
       if(!g) return;
       const col = leftSleevePalette[Math.floor(Math.random()*leftSleevePalette.length)];
-      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.style.fill = col);
+      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> {
+        s.style.fill = col;
+        s.setAttribute('fill', col);
+      });
     });
 
     const rightSleevePalette = availableColors.slice(0, Math.min(maxSleeveColors, availableColors.length));
     rightSleeveLayers.forEach(l=>{
-      const g = document.getElementById(l);
+      const g = targetSvg.querySelector(`#${l}`);
       if(!g) return;
       const col = rightSleevePalette[Math.floor(Math.random()*rightSleevePalette.length)];
-      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.style.fill = col);
+      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> {
+        s.style.fill = col;
+        s.setAttribute('fill', col);
+      });
     });
 
     hemLayers.forEach(l=>{
-      const g = document.getElementById(l);
+      const g = targetSvg.querySelector(`#${l}`);
       if(!g) return;
       const col = availableColors[Math.floor(Math.random()*availableColors.length)];
-      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> s.style.fill = col);
+      g.querySelectorAll('path, rect, polygon, polyline, circle, ellipse').forEach(s=> {
+        s.style.fill = col;
+        s.setAttribute('fill', col);
+      });
     });
+  });
 
-    refreshConstraints();
-  }
+  refreshConstraints();
+}
 
   if(defaultBtn) defaultBtn.addEventListener('click', applyDefaults);
   if(randomBtn) randomBtn.addEventListener('click', randomizeWithinConstraints);
