@@ -2766,8 +2766,9 @@
     padding: 0 !important;
     transform-origin: center;
     max-height: none !important;
-    min-height: 85vh !important;
-    height: 85vh !important;
+    min-height: auto !important;
+    height: auto !important;
+    aspect-ratio: 3 / 4;
     overflow: visible !important;
     box-sizing: border-box;
     display: flex;
@@ -2775,16 +2776,14 @@
     justify-content: center;
   }
   
-  @media (max-width: 768px) {
   #sweater-svg-flat,
-  #sweater-svg-body {
-    transform: scale(2.8) translateX(-2.5%) !important; /* Adjust x position */
-    transform-origin: center center !important;
-  }
-  
-  #sweater-svg-wrapper {
-    overflow: hidden !important;
-  }
+#sweater-svg-body {
+  transform: scale(2.8) translateX(-2.5%) !important;
+  transform-origin: center center !important;
+}
+
+#sweater-svg-wrapper {
+  overflow: hidden !important;
 }
   
   #sweater-and-swatches-container {
@@ -2874,7 +2873,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 4rem !important;
+    gap: 0.75rem !important;
     align-items: center;
   }
 
