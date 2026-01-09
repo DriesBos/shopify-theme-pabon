@@ -2747,68 +2747,72 @@
   #sweater-area {
     width: 100%;
     max-width: 100%;
-    padding: 0;
+    padding: 0; /* Keep this */
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; /* Reduced from 1rem */
+    gap: 0; /* Change from 0.5rem to 0 */
     position: relative;
     box-sizing: border-box;
   }
 
-  /* BIGGER SVG - Maximum screen space */
+  /* MUCH BIGGER SVG */
   #sweater-svg-wrapper {
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
     transform-origin: center;
     max-height: none !important;
-    min-height: 75vh; /* Increased from 70vh */
+    min-height: 85vh !important; /* Increased from 75vh */
+    height: 85vh !important; /* Add explicit height */
     overflow: visible;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 !important; /* Remove any padding */
   }
   
   #sweater-svg-flat,
   #sweater-svg-body {
     max-height: none !important;
     height: auto !important;
+    width: 100% !important; /* Ensure full width */
   }
   
   #sweater-and-swatches-container {
     border-width: 4px !important;
+    margin: 0 !important; /* Remove margin */
+    padding: 0 !important; /* Remove padding */
   }
 
-  /* Navigation - closer to swatches */
+  /* Remove top margin from tutorial button */
+  #tutorial-btn {
+    top: 8px !important;
+  }
+  
+  /* Remove top margin from view toggle */
+  #view-toggle-btn {
+    top: 8px !important;
+    right: 8px !important;
+  }
+
+  /* Navigation - minimal spacing */
   #sweater-navigation {
     position: relative;
     max-width: 100%;
     box-sizing: border-box;
-    margin-top: 0.5rem; /* Reduced from 1rem */
+    margin-top: 0 !important; /* Remove top margin */
+    margin-bottom: 0.25rem; /* Minimal bottom margin */
   }
 
-  #mobile-zoom-out {
-    display: none !important;
-  }
-
-  #mobile-zoom-in {
-    display: none !important;
-  }
-
-  #sweater-navigation #mobile-zoom-out,
-  #sweater-navigation #mobile-zoom-in {
-    display: flex !important;
-  }
-
-  /* Swatches - reduced spacing */
+  /* Swatches - minimal spacing */
   #swatch-container {
     display: flex !important;
     flex-direction: row !important;
     justify-content: center !important;
     gap: 8px !important;
-    margin: 8px 0 !important; /* Reduced from 16px */
+    margin: 4px 0 !important; /* Reduced from 8px */
     padding: 0 !important;
     background: none !important;
     border: none !important;
@@ -2817,6 +2821,25 @@
     overflow-y: hidden;
     box-sizing: border-box;
   }
+  
+  /* Make sweater designer take full available height */
+  .sweater-designer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Bottom section minimal spacing */
+  .sweater-designer_bottom {
+    gap: 0.25rem !important; /* Reduced from 0.5rem */
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Reduce color picker tooltip positioning if it appears */
+  #color-picker-tooltip {
+    bottom: calc(100% + 5px) !important;
+  }
+}
 
   .color-swatch {
     width: 32px !important;
