@@ -91,28 +91,167 @@ to choose from, with the risk you might have to wait a little longer.<br><br>If 
 </cart-items-component>
 
 <script>
-  function downloadDesign(imageSrc, designName) {
-    fetch(imageSrc)
-      .then(res => res.blob())
-      .then(blob => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = (designName || 'custom_sweater_design').replace(/\s+/g, '_').toLowerCase() + '.png';
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      })
-      .catch(error => {
-        console.error('Download failed:', error);
-        window.open(imageSrc, '_blank');
-      });
+/**
+ * CART REFRESH & DESIGN PRESERVATION SCRIPT
+ * For test-main-cart.liquid / /pages/cart-test
+ * 
+ * Features:
+ * 1. Fetches live Shopify cart on page load
+ * 2. Preserves custom PNG designs stored in localStorage
+ * 3. Updates cart DOM safely
+ * 4. Fixes stale inventory / cart errors without losing designs
+ */
+
+// Constants
+const CART_DESIGNS_KEY = 'custom_designs';
+const CART_VERSION = 'v1'; // bump if you update cart logic
+
+// ---- Cart versioning: clear stale inventory flags, preserve designs ----
+if (localStorage.getItem('cart_version') !== CART_VERSION) {
+  Object.keys(localStorage).forEach(key => {
+    if (key.startsWith('inventory_') || key.startsWith('cart_flag_')) {
+      localStorage.removeItem(key);
+    }
+  });
+  localStorage.setItem('cart_version', CART_VERSION);
+}
+
+// ---- Fetch live Shopify cart ----
+function fetchCart() {
+  return fetch('/cart.js')
+    .then(res => res.json())
+    .catch(err => {
+      console.error('Failed to fetch cart:', err);
+      return null;
+    });
+}
+
+// ---- Restore designs from localStorage ----
+function restoreDesigns(cartItems) {
+  const designs = JSON.parse(localStorage.getItem(CART_DESIGNS_KEY) || '{}');
+  cartItems.forEach(item => {
+    const design = designs[item.key]; // item.key is unique Shopify cart item key
+    if (design) item.customDesign = design;
+  });
+  return cartItems;
+}
+
+// ---- Render cart DOM ----
+function renderCart(cart) {
+  if (!cart) return;
+
+  const cartContainer = document.querySelector('.cart-page__items');
+  if (!cartContainer) return;
+
+  cartContainer.innerHTML = ''; // clear existing items
+
+  if (cart.items.length === 0) {
+    cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+    return;
   }
+
+  const designs = JSON.parse(localStorage.getItem(CART_DESIGNS_KEY) || '{}');
+
+  cart.items.forEach(item => {
+    const design = designs[item.key];
+
+    // Create item container
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'cart-item';
+    itemDiv.dataset.cartKey = item.key;
+
+    // Minimal custom sweater display if design exists
+    if (design) {
+      itemDiv.innerHTML = `
+        <div class="custom-sweater-display-minimal">
+          <div class="pabon-logo-container">
+            <img src="https://cdn.shopify.com/s/files/1/0965/8233/6843/files/pabonlogo_e02d0b61-1102-427d-8e4c-7e1a190aa810_430x.png?v=1758809453" 
+                 alt="PABON" 
+                 class="pabon-logo" />
+          </div>
+          <div class="sweater-image-container">
+            <img src="${design.png}" alt="Your Customized Sweater" class="sweater-design-image"/>
+          </div>
+          <h3 class="custom-sweater-title">YOUR CUSTOMIZED SWEATER</h3>
+          ${design.size ? `<p style="font-size: 16px; color: #666; margin: -20px 0 20px 0;">Size: <strong style="color: #000;">${design.size}</strong></p>` : ''}
+          <button 
+            onclick="downloadDesign('${design.png}', 'Order_${design.designer.replace(/\s+/g,'_')}_${item.variant_title.replace(/\s+/g,'_')}')"
+            class="download-sweater-button">
+            DOWNLOAD SWEATER
+          </button>
+          <button class="remove-item-button" data-cart-key="${item.key}">REMOVE ITEM</button>
+        </div>
+      `;
+    } else {
+      // fallback for normal items without designs
+      itemDiv.innerHTML = `
+        <div class="cart-item-default">
+          <p>${item.product_title} - ${item.variant_title}</p>
+          <button class="remove-item-button" data-cart-key="${item.key}">REMOVE ITEM</button>
+        </div>
+      `;
+    }
+
+    cartContainer.appendChild(itemDiv);
+  });
+
+  // Attach remove buttons
+  document.querySelectorAll('.remove-item-button').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const key = e.currentTarget.dataset.cartKey;
+      removeCartItem(key);
+    });
+  });
+}
+
+// ---- Remove cart item via Shopify AJAX ----
+function removeCartItem(itemKey) {
+  fetch(`/cart/change.js`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ quantity: 0, id: itemKey })
+  })
+  .then(res => res.json())
+  .then(cart => {
+    // Keep the design stored so user can re-add if needed
+    renderCart(restoreDesigns(cart.items));
+  })
+  .catch(err => console.error('Failed to remove item:', err));
+}
+
+// ---- Download function (already in your theme) ----
+function downloadDesign(imageSrc, designName) {
+  fetch(imageSrc)
+    .then(res => res.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = (designName || 'custom_sweater_design').replace(/\s+/g, '_').toLowerCase() + '.png';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    })
+    .catch(error => {
+      console.error('Download failed:', error);
+      window.open(imageSrc, '_blank');
+    });
+}
+
+// ---- Initialize test cart ----
+fetchCart().then(cart => {
+  if (!cart) return;
+
+  // Restore designs from localStorage
+  cart.items = restoreDesigns(cart.items);
+
+  // Render the cart
+  renderCart(cart);
+});
 </script>
+
 
 {% stylesheet %}
   .cart-page {
