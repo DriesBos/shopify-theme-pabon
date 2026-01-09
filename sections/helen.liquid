@@ -2735,66 +2735,80 @@
       }
     }
 
-    /* Enhanced responsive design */
+  /* Enhanced responsive design */
 @media (max-width: 768px) {
-  @media (max-width: 768px) {
   /* Prevent horizontal scroll on mobile */
   html, body {
     overflow-x: hidden !important;
     width: 100% !important;
   }
 
+  /* Force override inline styles */
+  .sweater-area,
   #sweater-area {
-    width: 100%;
-    max-width: 100%;
-    padding: 0; /* Keep this */
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0; /* Change from 0.5rem to 0 */
+    gap: 0 !important;
     position: relative;
     box-sizing: border-box;
   }
 
-  /* MUCH BIGGER SVG */
+  /* MUCH BIGGER SVG - force override */
   #sweater-svg-wrapper {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
     transform-origin: center;
     max-height: none !important;
-    min-height: 85vh !important; /* Increased from 75vh */
-    height: 85vh !important; /* Add explicit height */
-    overflow: visible;
+    min-height: 85vh !important;
+    height: 85vh !important;
+    overflow: visible !important;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 !important; /* Remove any padding */
   }
   
   #sweater-svg-flat,
   #sweater-svg-body {
     max-height: none !important;
     height: auto !important;
-    width: 100% !important; /* Ensure full width */
+    width: 100% !important;
   }
   
   #sweater-and-swatches-container {
     border-width: 4px !important;
-    margin: 0 !important; /* Remove margin */
-    padding: 0 !important; /* Remove padding */
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  /* Remove top margin from tutorial button */
+  /* Remove top margin from buttons */
   #tutorial-btn {
     top: 8px !important;
+    left: 8px !important;
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 14px !important;
   }
   
-  /* Remove top margin from view toggle */
   #view-toggle-btn {
     top: 8px !important;
     right: 8px !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  #view-icon-flat,
+  #view-icon-body {
+    width: 14px !important;
+    height: 14px !important;
   }
 
   /* Navigation - minimal spacing */
@@ -2802,8 +2816,21 @@
     position: relative;
     max-width: 100%;
     box-sizing: border-box;
-    margin-top: 0 !important; /* Remove top margin */
-    margin-bottom: 0.25rem; /* Minimal bottom margin */
+    margin-top: 0 !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  #mobile-zoom-out {
+    display: none !important;
+  }
+
+  #mobile-zoom-in {
+    display: none !important;
+  }
+
+  #sweater-navigation #mobile-zoom-out,
+  #sweater-navigation #mobile-zoom-in {
+    display: flex !important;
   }
 
   /* Swatches - minimal spacing */
@@ -2812,7 +2839,7 @@
     flex-direction: row !important;
     justify-content: center !important;
     gap: 8px !important;
-    margin: 4px 0 !important; /* Reduced from 8px */
+    margin: 4px 0 !important;
     padding: 0 !important;
     background: none !important;
     border: none !important;
@@ -2821,25 +2848,6 @@
     overflow-y: hidden;
     box-sizing: border-box;
   }
-  
-  /* Make sweater designer take full available height */
-  .sweater-designer {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Bottom section minimal spacing */
-  .sweater-designer_bottom {
-    gap: 0.25rem !important; /* Reduced from 0.5rem */
-    margin-bottom: 0.25rem !important;
-  }
-  
-  /* Reduce color picker tooltip positioning if it appears */
-  #color-picker-tooltip {
-    bottom: calc(100% + 5px) !important;
-  }
-}
 
   .color-swatch {
     width: 32px !important;
@@ -2849,10 +2857,20 @@
     flex-shrink: 0;
   }
 
-  /* Bottom section - tighter spacing */
+  /* Bottom section - minimal spacing */
   .sweater-designer_bottom {
-    gap: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
+    gap: 0.25rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Make sweater designer take full available height */
+  .sweater-designer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem !important;
+    align-items: center;
   }
 
   /* MOBILE CONTROLS - tighter layout */
@@ -2861,7 +2879,7 @@
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 16px 16px 16px !important;
-    gap: 8px !important; /* Reduced from 12px */
+    gap: 8px !important;
   }
   
   .controls-panel_price {
@@ -2870,13 +2888,13 @@
   }
   
   .controls-panel_price > p {
-    display: none !important; /* Hide duplicate price */
+    display: none !important;
   }
   
   /* Grid layout - tighter */
   .mobile-controls-grid {
     display: grid !important;
-    grid-template-columns: 2fr 1fr 1fr; /* Size selector takes more space */
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 8px;
     width: 100%;
   }
@@ -2927,7 +2945,7 @@
     font-size: 14px !important;
     margin-top: 0 !important;
     grid-column: 1 / -1;
-    border-radius: 0 !important; /* No rounded edges */
+    border-radius: 0 !important;
   }
   
   #deadline-timer-container {
@@ -2940,7 +2958,7 @@
   .sweater-designer_controls {
     display: flex !important;
     justify-content: center !important;
-    gap: 1.5rem !important; /* Reduced from 2rem */
+    gap: 1.5rem !important;
     margin-top: 8px !important;
     order: 6;
   }
