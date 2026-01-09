@@ -2775,12 +2775,17 @@
     justify-content: center;
   }
   
+  @media (max-width: 768px) {
   #sweater-svg-flat,
   #sweater-svg-body {
-    max-height: none !important;
-    height: auto !important;
-    width: 100% !important;
+    transform: scale(1.5) !important;
+    transform-origin: center !important;
   }
+  
+  #sweater-svg-wrapper {
+    overflow: hidden !important;
+  }
+}
   
   #sweater-and-swatches-container {
     border-width: 4px !important;
