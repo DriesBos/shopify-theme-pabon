@@ -3099,6 +3099,27 @@
   pointer-events: auto;
 }
 
+/* Sizing carousel base styles */
+#sizing-carousel-container {
+  flex: 1;
+  min-height: 0;
+  height: 60vh;
+  position: relative;
+  width: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Desktop: taller carousel */
+@media (min-width: 769px) {
+  #sizing-carousel-container {
+    height: 70vh;
+  }
+}
+
 /* MOBILE: Full screen sizing modal */
 @media (max-width: 768px) {
   #sizing-overlay {
@@ -3116,7 +3137,7 @@
   
   #sizing-carousel-container {
     flex: 1 !important;
-    height: auto !important;
+    height: 60vh !important;
     min-height: 60vh !important;
   }
   
