@@ -13,8 +13,7 @@
       <!-- Shipping Info Notice -->
       {%- unless cart.empty? -%}
         <div class="shipping-info-notice">
-          <p>Your sweater is made to order. With this beta test, there is a chance the  wool  partners run out of certain colors. I thought it would be worth the risk so at least  you have the most colors
-to choose from, with the risk you might have to wait a little longer.<br><br>If all goes well, production starts in january.<br><br> Thank you for your support and patience!</p><br<br></br>
+          <p>Your sweater is made to order. With this beta test, there is a chance the wool partners run out of certain colors. I thought it would be worth the risk so at least you have the most colors to choose from, with the risk you might have to wait a little longer.<br><br>If all goes well, production starts in january.<br><br> Thank you for your support and patience!</p>
         </div>
       {%- endunless -%}
 
@@ -31,17 +30,18 @@ to choose from, with the risk you might have to wait a little longer.<br><br>If 
             {%- assign has_custom_design = false -%}
             {%- assign design_png = '' -%}
             {%- assign designer_name = '' -%}
+            {%- assign sweater_size = '' -%}
             
-          {%- for property in item.properties -%}
-  {%- if property.first == '_Design_PNG' and property.last != blank -%}
-    {%- assign has_custom_design = true -%}
-    {%- assign design_png = property.last -%}
-  {%- elsif property.first == '_Designer' -%}
-    {%- assign designer_name = property.last -%}
-  {%- elsif property.first == 'Size' -%}
-    {%- assign sweater_size = property.last -%}
-  {%- endif -%}
-{%- endfor -%}
+            {%- for property in item.properties -%}
+              {%- if property.first == '_Design_PNG' and property.last != blank -%}
+                {%- assign has_custom_design = true -%}
+                {%- assign design_png = property.last -%}
+              {%- elsif property.first == '_Designer' -%}
+                {%- assign designer_name = property.last -%}
+              {%- elsif property.first == 'Size' -%}
+                {%- assign sweater_size = property.last -%}
+              {%- endif -%}
+            {%- endfor -%}
 
             {%- if has_custom_design -%}
               <div class="custom-sweater-display-minimal">
@@ -61,9 +61,12 @@ to choose from, with the risk you might have to wait a little longer.<br><br>If 
                 
                 <!-- Title -->
                 <h3 class="custom-sweater-title">YOUR CUSTOMIZED SWEATER</h3>
-{%- if sweater_size != blank -%}
-  <p style="font-size: 16px; color: #666; margin: -20px 0 20px 0;">Size: <strong style="color: #000;">{{ sweater_size }}</strong></p>
-{%- endif -%}
+                
+                {%- if sweater_size != blank -%}
+                  <p style="font-size: 16px; color: #666; margin: -20px 0 20px 0;">
+                    Size: <strong style="color: #000;">{{ sweater_size }}</strong>
+                  </p>
+                {%- endif -%}
                 
                 <!-- Download Button -->
                 <button 
@@ -91,30 +94,72 @@ to choose from, with the risk you might have to wait a little longer.<br><br>If 
 </cart-items-component>
 
 <script>
-  function downloadDesign(imageSrc, designName) {
-    fetch(imageSrc)
-      .then(res => res.blob())
-      .then(blob => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = (designName || 'custom_sweater_design').replace(/\s+/g, '_').toLowerCase() + '.png';
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      })
-      .catch(error => {
-        console.error('Download failed:', error);
-        window.open(imageSrc, '_blank');
-      });
+/**
+ * CART PAGE CACHE MANAGEMENT
+ * Automatically clears stale cart cache when version updates
+ */
+
+// ========================================
+// CART VERSION CONTROL
+// ========================================
+(function() {
+  const CART_VERSION = 'v2.0'; // ← Bump this when you change cart logic
+  const storedVersion = localStorage.getItem('cart_version');
+  
+  if (storedVersion !== CART_VERSION) {
+    console.log('🛒 Cart version updated to:', CART_VERSION);
+    
+    // Clear cart-related cache (but preserve designs!)
+    const customDesigns = localStorage.getItem('custom_designs');
+    
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith('inventory_') || 
+          key.startsWith('cart_flag_') || 
+          key.startsWith('shopify_cart')) {
+        localStorage.removeItem(key);
+      }
+    });
+    
+    // Restore critical data
+    if (customDesigns) {
+      localStorage.setItem('custom_designs', customDesigns);
+    }
+    
+    // Set new version
+    localStorage.setItem('cart_version', CART_VERSION);
+    console.log('✅ Cart cache cleared, designs preserved');
   }
+})();
+
+// ========================================
+// DOWNLOAD FUNCTION
+// ========================================
+function downloadDesign(imageSrc, designName) {
+  fetch(imageSrc)
+    .then(res => res.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = (designName || 'custom_sweater_design').replace(/\s+/g, '_').toLowerCase() + '.png';
+      
+      document.body.appendChild(a);
+      a.click();
+      
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    })
+    .catch(error => {
+      console.error('Download failed:', error);
+      window.open(imageSrc, '_blank');
+    });
+}
 </script>
 
 {% stylesheet %}
+  /* ... (all your existing styles - keep them the same) ... */
+  
   .cart-page {
     --cart-font-size--2xs: var(--font-size--2xs);
     --cart-font-size--xs: var(--font-size--xs);
@@ -155,7 +200,6 @@ to choose from, with the risk you might have to wait a little longer.<br><br>If 
     padding-top: var(--padding-xl);
   }
 
-  * Shipping Info Notice */
   .shipping-info-notice {
     grid-column: 1 / -1;
     margin-bottom: 50px;
@@ -175,7 +219,7 @@ to choose from, with the risk you might have to wait a little longer.<br><br>If 
 
   @media screen and (max-width: 749px) {
     .shipping-info-notice {
-      margin-bottom: px;
+      margin-bottom: 20px;
       padding: 14px 16px;
     }
     
@@ -292,8 +336,6 @@ to choose from, with the risk you might have to wait a little longer.<br><br>If 
       align-self: stretch;
       grid-template-rows: subgrid;
       padding-top: 0;
-
-      /* needed to support blurred effect from hero section */
       position: relative;
     }
 
